@@ -1,0 +1,7 @@
+seg_server=192.168.110.186
+seg_port=8092
+use_seg_server=true
+swa_dict_ip=192.168.110.182
+swa_dict_port=6379
+swa_dict_db=2
+port=7000
