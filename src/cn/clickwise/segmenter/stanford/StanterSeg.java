@@ -12,87 +12,79 @@ import cn.clickwise.liqi.str.basic.SSO;
 import cn.clickwise.liqi.str.edcode.Base64Code;
 
 /**
- * 提供stanford crf segmenter 的简单调用接口
- * 输入普通文本，输出分词结果
- * 实例化对象时加载新模型或调用后台server可选 
+ * 提供stanford crf segmenter 的简单调用接口 输入普通文本，输出分词结果 实例化对象时加载新模型或调用后台server可选
+ * 
  * @author lq
- *
+ * 
  */
-public class StanterSeg extends SegmenterSeg{
-   
-	private boolean use_seg_server=false;
-	
-	private int seg_port=8092;
-	
-	private String seg_server="";
-	
+public class StanterSeg extends SegmenterSeg {
+
+	private boolean use_seg_server = false;
+
+	private int seg_port = 8092;
+
+	private String seg_server = "";
+
 	public Jedis swa_dict_redis;
 	public String swa_dict_ip;
 	public int swa_dict_port;
 	public int swa_dict_db;
-	
+
 	/**
 	 * 读取配置信息
+	 * 
 	 * @param prop
 	 */
-	public void load_config(Properties prop) 
-	{
-		use_seg_server=Boolean.parseBoolean(prop.getProperty("use_seg_server"));
-		//System.out.println("use_seg_server:"+use_seg_server);
-		if(use_seg_server==true)
-		{
-		   seg_port=Integer.parseInt(prop.getProperty("seg_port"));
-		  // System.out.println("seg_port:"+seg_port);
-		   seg_server=prop.getProperty("seg_server");
-		  // System.out.println("seg_server:"+seg_server);
+	public void load_config(Properties prop) {
+		use_seg_server = Boolean.parseBoolean(prop
+				.getProperty("use_seg_server"));
+		// System.out.println("use_seg_server:"+use_seg_server);
+		if (use_seg_server == true) {
+			seg_port = Integer.parseInt(prop.getProperty("seg_port"));
+			// System.out.println("seg_port:"+seg_port);
+			seg_server = prop.getProperty("seg_server");
+			// System.out.println("seg_server:"+seg_server);
+		} else {
+
 		}
-		else
-		{
-			
-		}
-		
+
 		swa_dict_ip = prop.getProperty("swa_dict_ip");
 		swa_dict_port = Integer.parseInt(prop.getProperty("swa_dict_port"));
 		swa_dict_db = Integer.parseInt(prop.getProperty("swa_dict_db"));
 
 		swa_dict_redis = new Jedis(swa_dict_ip, swa_dict_port, 100000);// redis服务器地址
 		swa_dict_redis.ping();
-		swa_dict_redis.select(swa_dict_db);		
+		swa_dict_redis.select(swa_dict_db);
 	}
-	
+
 	/**
 	 * 输入普通文本，输出分词结果
+	 * 
 	 * @return
 	 */
-	public String seg(){
-		String seg_s="";
-	
-			
+	public String seg() {
+		String seg_s = "";
+
 		return seg_s;
 	}
 
-	
-
 	@Override
-	public void seg(String plainFile, String seg_file) throws Exception{
+	public void seg(String plainFile, String seg_file) throws Exception {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-
 	@Override
-	public String seg(String text) throws Exception{
+	public String seg(String text) throws Exception {
 		// TODO Auto-generated method stub
-		if(!(SSO.tnoe(text)))
-		{
+		if (!(SSO.tnoe(text))) {
 			return "";
 		}
-		String s=text.trim();
+		String s = text.trim();
 		String seg_s = "";
-		if(use_seg_server==true)
-		{
+		if (use_seg_server == true) {
 			s = s + "\n";
-			
+
 			String server = seg_server;
 			int port = seg_port;
 			try {
@@ -111,31 +103,27 @@ public class StanterSeg extends SegmenterSeg{
 			} catch (Exception e) {
 				Thread.sleep(1000);
 			}
+		} else {
+
 		}
-		else
-		{
-			
-		}
-		
+
 		return seg_s;
 	}
-	
-	public String seg_inte(String text) throws Exception
-	{
-		String stanf_seg=seg(text);
-		//String inte_seg=merge_sen_limit(stanf_seg,4);
+
+	public String seg_inte(String text) throws Exception {
+		String stanf_seg = seg(text);
+		// String inte_seg=merge_sen_limit(stanf_seg,4);
 		return stanf_seg;
 	}
-	
+
 	/**
 	 * 启动分词服务
 	 */
-	public void start_seg_server()
-	{
-		
+	public void start_seg_server() {
+
 	}
-	
-	public String merge_sen_limit(String stanf_seg_text,int limit) {
+
+	public String merge_sen_limit(String stanf_seg_text, int limit) {
 		String m_s = "";
 		String[] stanf_seg_arr = stanf_seg_text.split("\\s+");
 		String[] one_step_words = new String[stanf_seg_arr.length];
@@ -169,17 +157,16 @@ public class StanterSeg extends SegmenterSeg{
 		String temp_six_words = "";
 		for (int i = 0; i < (stanf_seg_arr.length); i++) {
 			temp_words = "";
-			if(i<(stanf_seg_arr.length-1))
-			{
-			  temp_words = stanf_seg_arr[i] + stanf_seg_arr[i + 1];
-			  temp_words = temp_words.trim();
+			if (i < (stanf_seg_arr.length - 1)) {
+				temp_words = stanf_seg_arr[i] + stanf_seg_arr[i + 1];
+				temp_words = temp_words.trim();
 			}
 			temp_three_words = "";
 			if (i < (stanf_seg_arr.length - 2)) {
 				temp_three_words = stanf_seg_arr[i] + stanf_seg_arr[i + 1]
 						+ stanf_seg_arr[i + 2];
 				temp_three_words = temp_three_words.trim();
-				//System.out.println("temp_three_words:"+temp_three_words);
+				// System.out.println("temp_three_words:"+temp_three_words);
 			}
 
 			temp_four_words = "";
@@ -187,7 +174,7 @@ public class StanterSeg extends SegmenterSeg{
 				temp_four_words = stanf_seg_arr[i] + stanf_seg_arr[i + 1]
 						+ stanf_seg_arr[i + 2] + stanf_seg_arr[i + 3];
 				temp_four_words = temp_four_words.trim();
-				//System.out.println("temp_four_words:"+temp_three_words);
+				// System.out.println("temp_four_words:"+temp_three_words);
 			}
 
 			temp_five_words = "";
@@ -196,7 +183,7 @@ public class StanterSeg extends SegmenterSeg{
 						+ stanf_seg_arr[i + 2] + stanf_seg_arr[i + 3]
 						+ stanf_seg_arr[i + 4];
 				temp_five_words = temp_five_words.trim();
-				//System.out.println("temp_five_words:"+temp_three_words);
+				// System.out.println("temp_five_words:"+temp_three_words);
 			}
 
 			temp_six_words = "";
@@ -205,48 +192,57 @@ public class StanterSeg extends SegmenterSeg{
 						+ stanf_seg_arr[i + 2] + stanf_seg_arr[i + 3]
 						+ stanf_seg_arr[i + 4] + stanf_seg_arr[i + 5];
 				temp_six_words = temp_six_words.trim();
-				//System.out.println("temp_six_words:"+temp_three_words);
+				// System.out.println("temp_six_words:"+temp_three_words);
 			}
 
 			if ((temp_words.length() > 0)
-					&&(temp_words.length()<limit)&& (swa_dict_redis.exists(Base64Code.getEncodeStr(temp_words)))) {
+					&& (temp_words.length() < limit)
+					&& (swa_dict_redis.exists(Base64Code
+							.getEncodeStr(temp_words)))) {
 				one_step_words[one_step_i++] = temp_words;
-				//System.out.println("two_temp_words:"+temp_words);
+				// System.out.println("two_temp_words:"+temp_words);
 				i++;
 			} else if ((temp_three_words.length() > 0)
-					&&(temp_three_words.length()<limit)&& (swa_dict_redis.exists(Base64Code.getEncodeStr(temp_three_words)))) {
+					&& (temp_three_words.length() < limit)
+					&& (swa_dict_redis.exists(Base64Code
+							.getEncodeStr(temp_three_words)))) {
 				one_step_words[one_step_i++] = temp_three_words;
-				//System.out.println("three_temp_words:"+temp_words);
+				// System.out.println("three_temp_words:"+temp_words);
 				i = i + 2;
 			} else if ((temp_four_words.length() > 0)
-					&&(temp_four_words.length()<limit)&& (swa_dict_redis.exists(Base64Code.getEncodeStr(temp_four_words)))) {
+					&& (temp_four_words.length() < limit)
+					&& (swa_dict_redis.exists(Base64Code
+							.getEncodeStr(temp_four_words)))) {
 				one_step_words[one_step_i++] = temp_four_words;
-				//System.out.println("four_temp_words:"+temp_words);
+				// System.out.println("four_temp_words:"+temp_words);
 				i = i + 3;
 			} else if ((temp_five_words.length() > 0)
-					&&(temp_five_words.length()<limit)&& (swa_dict_redis.exists(Base64Code.getEncodeStr(temp_five_words)))) {
+					&& (temp_five_words.length() < limit)
+					&& (swa_dict_redis.exists(Base64Code
+							.getEncodeStr(temp_five_words)))) {
 				one_step_words[one_step_i++] = temp_five_words;
-				//System.out.println("five_temp_words:"+temp_words);
+				// System.out.println("five_temp_words:"+temp_words);
 				i = i + 4;
 			} else if ((temp_six_words.length() > 0)
-					&&(temp_six_words.length()<limit)&& (swa_dict_redis.exists(Base64Code.getEncodeStr(temp_six_words)))) {
+					&& (temp_six_words.length() < limit)
+					&& (swa_dict_redis.exists(Base64Code
+							.getEncodeStr(temp_six_words)))) {
 				one_step_words[one_step_i++] = temp_six_words;
-				//System.out.println("six_temp_words:"+temp_words);
+				// System.out.println("six_temp_words:"+temp_words);
 				i = i + 5;
 			} else {
 				if (i < (stanf_seg_arr.length - 2)) {
 					one_step_words[one_step_i++] = stanf_seg_arr[i];
-					//System.out.println("in else stanf seg :"+(one_step_i-1)+"  "+stanf_seg_arr[i]);
+					// System.out.println("in else stanf seg :"+(one_step_i-1)+"  "+stanf_seg_arr[i]);
 				} else if (i == (stanf_seg_arr.length - 2)) {
 					one_step_words[one_step_i++] = stanf_seg_arr[i];
-					//System.out.println("in else if stanf seg :"+(one_step_i-1)+"  "+stanf_seg_arr[i]);
+					// System.out.println("in else if stanf seg :"+(one_step_i-1)+"  "+stanf_seg_arr[i]);
 					one_step_words[one_step_i++] = stanf_seg_arr[i + 1];
-					//System.out.println("stanf seg :"+(one_step_i-1)+"  "+stanf_seg_arr[i+1]);
+					// System.out.println("stanf seg :"+(one_step_i-1)+"  "+stanf_seg_arr[i+1]);
 					break;
-				}
-				else if (i == (stanf_seg_arr.length - 1)) {
+				} else if (i == (stanf_seg_arr.length - 1)) {
 					one_step_words[one_step_i++] = stanf_seg_arr[i];
-					//System.out.println("stanf seg :"+(one_step_i-1)+"  "+stanf_seg_arr[i]);
+					// System.out.println("stanf seg :"+(one_step_i-1)+"  "+stanf_seg_arr[i]);
 					break;
 				}
 			}
@@ -303,28 +299,38 @@ public class StanterSeg extends SegmenterSeg{
 			}
 
 			if ((temp_words.length() > 0)
-					&&(temp_words.length()<limit)&& (swa_dict_redis.exists(Base64Code.getEncodeStr(temp_words)))) {
+					&& (temp_words.length() < limit)
+					&& (swa_dict_redis.exists(Base64Code
+							.getEncodeStr(temp_words)))) {
 				two_step_words[two_step_i++] = temp_words;
 				i++;
 			}
 
 			else if ((temp_three_words.length() > 0)
-					&&(temp_three_words.length()<limit)&& (swa_dict_redis.exists(Base64Code.getEncodeStr(temp_three_words)))) {
+					&& (temp_three_words.length() < limit)
+					&& (swa_dict_redis.exists(Base64Code
+							.getEncodeStr(temp_three_words)))) {
 				two_step_words[two_step_i++] = temp_three_words;
 				// System.out.println("temp_three_words:"+temp_three_words);
 				i = i + 2;
 			} else if ((temp_four_words.length() > 0)
-					&&(temp_four_words.length()<limit)&& (swa_dict_redis.exists(Base64Code.getEncodeStr(temp_four_words)))) {
+					&& (temp_four_words.length() < limit)
+					&& (swa_dict_redis.exists(Base64Code
+							.getEncodeStr(temp_four_words)))) {
 				two_step_words[two_step_i++] = temp_four_words;
 				// System.out.println("temp_four_words:"+temp_four_words);
 				i = i + 3;
 			} else if ((temp_five_words.length() > 0)
-					&&(temp_five_words.length()<limit)&& (swa_dict_redis.exists(Base64Code.getEncodeStr(temp_five_words)))) {
+					&& (temp_five_words.length() < limit)
+					&& (swa_dict_redis.exists(Base64Code
+							.getEncodeStr(temp_five_words)))) {
 				two_step_words[two_step_i++] = temp_five_words;
 				// System.out.println("temp_five_words:"+temp_five_words);
 				i = i + 4;
 			} else if ((temp_six_words.length() > 0)
-					&&(temp_six_words.length()<limit)&& (swa_dict_redis.exists(Base64Code.getEncodeStr(temp_six_words)))) {
+					&& (temp_six_words.length() < limit)
+					&& (swa_dict_redis.exists(Base64Code
+							.getEncodeStr(temp_six_words)))) {
 				two_step_words[two_step_i++] = temp_six_words;
 				// System.out.println("temp_six_words:"+temp_six_words);
 				i = i + 5;
@@ -337,14 +343,14 @@ public class StanterSeg extends SegmenterSeg{
 					two_step_words[two_step_i++] = one_step_words[i];
 					two_step_words[two_step_i++] = one_step_words[i + 1];
 					break;
-				}else if (i == (one_step_i - 1)) {
+				} else if (i == (one_step_i - 1)) {
 					two_step_words[two_step_i++] = one_step_words[i];
 					break;
 				}
 			}
 		}
 
-		 //for (int i = 0; i < two_step_words.length; i++) {
+		// for (int i = 0; i < two_step_words.length; i++) {
 		// System.out.println(i + " " + two_step_words[i]);
 		// }
 		// System.out.println("==============");
@@ -377,7 +383,9 @@ public class StanterSeg extends SegmenterSeg{
 			 * two_step_words[i + 5]; temp_six_words = temp_six_words.trim(); }
 			 */
 			if ((temp_words.length() > 0)
-					&&(temp_words.length()<limit)&& (swa_dict_redis.exists(Base64Code.getEncodeStr(temp_words)))) {
+					&& (temp_words.length() < limit)
+					&& (swa_dict_redis.exists(Base64Code
+							.getEncodeStr(temp_words)))) {
 				three_step_words[three_step_i++] = temp_words;
 				i++;
 			}
@@ -402,11 +410,11 @@ public class StanterSeg extends SegmenterSeg{
 					three_step_words[three_step_i++] = two_step_words[i];
 					three_step_words[three_step_i++] = two_step_words[i + 1];
 					break;
-				}else if (i == (two_step_words.length - 1)) {
+				} else if (i == (two_step_words.length - 1)) {
 					three_step_words[three_step_i++] = two_step_words[i];
 					break;
 				}
-				
+
 			}
 
 		}
@@ -438,7 +446,9 @@ public class StanterSeg extends SegmenterSeg{
 			 */
 
 			if ((temp_words.length() > 0)
-					&&(temp_words.length()<limit)&& (swa_dict_redis.exists(Base64Code.getEncodeStr(temp_words)))) {
+					&& (temp_words.length() < limit)
+					&& (swa_dict_redis.exists(Base64Code
+							.getEncodeStr(temp_words)))) {
 				four_step_words[four_step_i++] = temp_words;
 				i++;
 			}
@@ -480,7 +490,9 @@ public class StanterSeg extends SegmenterSeg{
 			temp_words = "";
 			temp_words = four_step_words[i] + four_step_words[i + 1];
 			if ((temp_words.length() > 0)
-					&&(temp_words.length()<limit)&& (swa_dict_redis.exists((Base64Code.getEncodeStr(temp_words))))) {
+					&& (temp_words.length() < limit)
+					&& (swa_dict_redis.exists((Base64Code
+							.getEncodeStr(temp_words))))) {
 				five_step_words[five_step_i++] = temp_words;
 				i++;
 			} else {
@@ -490,7 +502,7 @@ public class StanterSeg extends SegmenterSeg{
 					five_step_words[five_step_i++] = four_step_words[i];
 					five_step_words[five_step_i++] = four_step_words[i + 1];
 					break;
-				}else if (i == (four_step_words.length - 1)) {
+				} else if (i == (four_step_words.length - 1)) {
 					five_step_words[five_step_i++] = four_step_words[i];
 					break;
 				}
@@ -507,7 +519,9 @@ public class StanterSeg extends SegmenterSeg{
 			temp_words = "";
 			temp_words = five_step_words[i] + five_step_words[i + 1];
 			if ((temp_words.length() > 0)
-					&&(temp_words.length()<limit)&& (swa_dict_redis.exists(Base64Code.getEncodeStr(temp_words)))) {
+					&& (temp_words.length() < limit)
+					&& (swa_dict_redis.exists(Base64Code
+							.getEncodeStr(temp_words)))) {
 				six_step_words[six_step_i++] = temp_words;
 				i++;
 			} else {
@@ -517,7 +531,7 @@ public class StanterSeg extends SegmenterSeg{
 					six_step_words[six_step_i++] = five_step_words[i];
 					six_step_words[six_step_i++] = five_step_words[i + 1];
 					break;
-				}else if (i == (five_step_words.length - 1)) {
+				} else if (i == (five_step_words.length - 1)) {
 					six_step_words[six_step_i++] = five_step_words[i];
 					break;
 				}
@@ -533,7 +547,9 @@ public class StanterSeg extends SegmenterSeg{
 			temp_words = "";
 			temp_words = six_step_words[i] + six_step_words[i + 1];
 			if ((temp_words.length() > 0)
-					&&(temp_words.length()<limit)&& (swa_dict_redis.exists(Base64Code.getEncodeStr(temp_words)))) {
+					&& (temp_words.length() < limit)
+					&& (swa_dict_redis.exists(Base64Code
+							.getEncodeStr(temp_words)))) {
 				seven_step_words[seven_step_i++] = temp_words;
 				i++;
 			} else {
@@ -543,7 +559,7 @@ public class StanterSeg extends SegmenterSeg{
 					seven_step_words[seven_step_i++] = six_step_words[i];
 					seven_step_words[seven_step_i++] = six_step_words[i + 1];
 					break;
-				}else if (i == (six_step_words.length - 1)) {
+				} else if (i == (six_step_words.length - 1)) {
 					seven_step_words[seven_step_i++] = six_step_words[i];
 					seven_step_words[seven_step_i++] = six_step_words[i + 1];
 					break;
@@ -571,7 +587,7 @@ public class StanterSeg extends SegmenterSeg{
 
 		return m_s;
 	}
-	
+
 	public String clean_one_word(String word) {
 		String new_word = word;
 		// new_word=new_word.replaceAll("``", "");
@@ -605,17 +621,16 @@ public class StanterSeg extends SegmenterSeg{
 
 		return new_word;
 	}
-	
-	public static void main(String[] args) throws Exception
-	{
+
+	public static void main(String[] args) throws Exception {
 		/***
-		swa_dict_ip = prop.getProperty("swa_dict_ip");
-		swa_dict_port = Integer.parseInt(prop.getProperty("swa_dict_port"));
-		swa_dict_db = Integer.parseInt(prop.getProperty("swa_dict_db"));
-		*/
-		
-		StanterSeg ss=new StanterSeg();
-		Properties prop=new Properties();
+		 * swa_dict_ip = prop.getProperty("swa_dict_ip"); swa_dict_port =
+		 * Integer.parseInt(prop.getProperty("swa_dict_port")); swa_dict_db =
+		 * Integer.parseInt(prop.getProperty("swa_dict_db"));
+		 */
+
+		StanterSeg ss = new StanterSeg();
+		Properties prop = new Properties();
 		prop.setProperty("seg_server", "192.168.110.186");
 		prop.setProperty("seg_port", "8092");
 		prop.setProperty("use_seg_server", "true");
@@ -623,9 +638,9 @@ public class StanterSeg extends SegmenterSeg{
 		prop.setProperty("swa_dict_port", "6379");
 		prop.setProperty("swa_dict_db", "2");
 		ss.load_config(prop);
-		String text="荷兰好声音冠军叫什么 荷兰好声音冠军歌曲";
+		String text = "荷兰好声音冠军叫什么 荷兰好声音冠军歌曲";
 		System.out.println(ss.seg_inte(text));
-		
+
 	}
-	
+
 }
