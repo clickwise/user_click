@@ -45,6 +45,7 @@ public class AnsjSeg {
 
 	public String merge_sen_limit(String stanf_seg_text, int limit) {
 		String m_s = "";
+		
 		String[] stanf_seg_arr = stanf_seg_text.split("\\s+");
 		String[] one_step_words = new String[stanf_seg_arr.length];
 		int one_step_i = 0;
