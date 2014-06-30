@@ -48,8 +48,8 @@ public class SegMR {
 			HashMap<String,String> stop_dict=jfr.jarFile2Hash(stop_dict_file);
 			ansjseg.setSeg_dict(seg_dict);
 			ansjseg.setStop_dict(stop_dict);
-			loc_text_index=text_index;
-			loc_field_num=field_num;
+			loc_text_index=3;
+			loc_field_num=4;
 		}
 		
 		public void map(Object key, Text value, Context context)
