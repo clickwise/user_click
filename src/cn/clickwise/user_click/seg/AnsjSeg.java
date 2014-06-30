@@ -10,7 +10,7 @@ import org.ansj.splitWord.analysis.ToAnalysis;
 import cn.clickwise.liqi.file.uitls.FileReaderUtil;
 import cn.clickwise.liqi.str.basic.DS2STR;
 import cn.clickwise.liqi.str.edcode.Base64Code;
-
+import cn.clickwise.liqi.str.basic.SSO;
 /**
  * 分词的封装，模型较小可放在jar包中，
  * 加入切分词典、停用词典
@@ -45,7 +45,17 @@ public class AnsjSeg {
 
 	public String merge_sen_limit(String stanf_seg_text, int limit) {
 		String m_s = "";
+                System.out.println("stanf_seg_text:"+stanf_seg_text);
+                if(SSO.tioe(stanf_seg_text))
+                {
+                    return "";
+                }
+                stanf_seg_text=stanf_seg_text.trim();
 		String[] stanf_seg_arr = stanf_seg_text.split("\\s+");
+                if(stanf_seg_arr.length<2)
+                {
+                  return stanf_seg_text; 
+                }
 		String[] one_step_words = new String[stanf_seg_arr.length];
 		int one_step_i = 0;
 
@@ -86,7 +96,7 @@ public class AnsjSeg {
 				temp_three_words = stanf_seg_arr[i] + stanf_seg_arr[i + 1]
 						+ stanf_seg_arr[i + 2];
 				temp_three_words = temp_three_words.trim();
-				// System.out.println("temp_three_words:"+temp_three_words);
+				 System.out.println("temp_three_words:"+temp_three_words);
 			}
 
 			temp_four_words = "";
@@ -94,7 +104,7 @@ public class AnsjSeg {
 				temp_four_words = stanf_seg_arr[i] + stanf_seg_arr[i + 1]
 						+ stanf_seg_arr[i + 2] + stanf_seg_arr[i + 3];
 				temp_four_words = temp_four_words.trim();
-				// System.out.println("temp_four_words:"+temp_three_words);
+				 System.out.println("temp_four_words:"+temp_three_words);
 			}
 
 			temp_five_words = "";
@@ -103,7 +113,7 @@ public class AnsjSeg {
 						+ stanf_seg_arr[i + 2] + stanf_seg_arr[i + 3]
 						+ stanf_seg_arr[i + 4];
 				temp_five_words = temp_five_words.trim();
-				// System.out.println("temp_five_words:"+temp_three_words);
+				 System.out.println("temp_five_words:"+temp_three_words);
 			}
 
 			temp_six_words = "";
@@ -112,52 +122,52 @@ public class AnsjSeg {
 						+ stanf_seg_arr[i + 2] + stanf_seg_arr[i + 3]
 						+ stanf_seg_arr[i + 4] + stanf_seg_arr[i + 5];
 				temp_six_words = temp_six_words.trim();
-				// System.out.println("temp_six_words:"+temp_three_words);
+				 System.out.println("temp_six_words:"+temp_three_words);
 			}
 
 			if ((temp_words.length() > 0)
 					&& (temp_words.length() < limit)
 					&& (seg_dict.containsKey(temp_words))) {
 				one_step_words[one_step_i++] = temp_words;
-				// System.out.println("two_temp_words:"+temp_words);
+				 System.out.println("two_temp_words:"+temp_words);
 				i++;
 			} else if ((temp_three_words.length() > 0)
 					&& (temp_three_words.length() < limit)
 					&& (seg_dict.containsKey(temp_three_words))) {
 				one_step_words[one_step_i++] = temp_three_words;
-				// System.out.println("three_temp_words:"+temp_words);
+				 System.out.println("three_temp_words:"+temp_words);
 				i = i + 2;
 			} else if ((temp_four_words.length() > 0)
 					&& (temp_four_words.length() < limit)
 					&& (seg_dict.containsKey(temp_four_words))) {
 				one_step_words[one_step_i++] = temp_four_words;
-				// System.out.println("four_temp_words:"+temp_words);
+				 System.out.println("four_temp_words:"+temp_words);
 				i = i + 3;
 			} else if ((temp_five_words.length() > 0)
 					&& (temp_five_words.length() < limit)
 					&& (seg_dict.containsKey(temp_five_words))) {
 				one_step_words[one_step_i++] = temp_five_words;
-				// System.out.println("five_temp_words:"+temp_words);
+				 System.out.println("five_temp_words:"+temp_words);
 				i = i + 4;
 			} else if ((temp_six_words.length() > 0)
 					&& (temp_six_words.length() < limit)
 					&& (seg_dict.containsKey(temp_six_words))) {
 				one_step_words[one_step_i++] = temp_six_words;
-				// System.out.println("six_temp_words:"+temp_words);
+				 System.out.println("six_temp_words:"+temp_words);
 				i = i + 5;
 			} else {
 				if (i < (stanf_seg_arr.length - 2)) {
 					one_step_words[one_step_i++] = stanf_seg_arr[i];
-					// System.out.println("in else stanf seg :"+(one_step_i-1)+"  "+stanf_seg_arr[i]);
+					 System.out.println("in else stanf seg :"+(one_step_i-1)+"  "+stanf_seg_arr[i]);
 				} else if (i == (stanf_seg_arr.length - 2)) {
 					one_step_words[one_step_i++] = stanf_seg_arr[i];
-					// System.out.println("in else if stanf seg :"+(one_step_i-1)+"  "+stanf_seg_arr[i]);
+				         System.out.println("in else if stanf seg :"+(one_step_i-1)+"  "+stanf_seg_arr[i]);
 					one_step_words[one_step_i++] = stanf_seg_arr[i + 1];
-					// System.out.println("stanf seg :"+(one_step_i-1)+"  "+stanf_seg_arr[i+1]);
+					 System.out.println("stanf seg :"+(one_step_i-1)+"  "+stanf_seg_arr[i+1]);
 					break;
 				} else if (i == (stanf_seg_arr.length - 1)) {
 					one_step_words[one_step_i++] = stanf_seg_arr[i];
-					// System.out.println("stanf seg :"+(one_step_i-1)+"  "+stanf_seg_arr[i]);
+					 System.out.println("stanf seg :"+(one_step_i-1)+"  "+stanf_seg_arr[i]);
 					break;
 				}
 			}
@@ -180,7 +190,7 @@ public class AnsjSeg {
 				temp_three_words = one_step_words[i] + one_step_words[i + 1]
 						+ one_step_words[i + 2];
 				temp_three_words = temp_three_words.trim();
-				// System.out.println("temp_three_words:"+temp_three_words);
+				 System.out.println("temp_three_words:"+temp_three_words);
 			}
 
 			temp_four_words = "";
@@ -188,7 +198,7 @@ public class AnsjSeg {
 				temp_four_words = one_step_words[i] + one_step_words[i + 1]
 						+ one_step_words[i + 2] + one_step_words[i + 3];
 				temp_four_words = temp_four_words.trim();
-				// System.out.println("temp_four_words:"+temp_four_words);
+				 System.out.println("temp_four_words:"+temp_four_words);
 			}
 
 			temp_five_words = "";
@@ -197,7 +207,7 @@ public class AnsjSeg {
 						+ one_step_words[i + 2] + one_step_words[i + 3]
 						+ one_step_words[i + 4];
 				temp_five_words = temp_five_words.trim();
-				// System.out.println("temp_five_words:"+temp_five_words);
+				 System.out.println("temp_five_words:"+temp_five_words);
 			}
 
 			temp_six_words = "";
@@ -206,7 +216,7 @@ public class AnsjSeg {
 						+ one_step_words[i + 2] + one_step_words[i + 3]
 						+ one_step_words[i + 4] + one_step_words[i + 5];
 				temp_six_words = temp_six_words.trim();
-				// System.out.println("temp_six_words:"+temp_six_words);
+			        System.out.println("temp_six_words:"+temp_six_words);
 			}
 
 			if ((temp_words.length() > 0)
@@ -220,25 +230,25 @@ public class AnsjSeg {
 					&& (temp_three_words.length() < limit)
 					&& (seg_dict.containsKey(temp_three_words))) {
 				two_step_words[two_step_i++] = temp_three_words;
-				// System.out.println("temp_three_words:"+temp_three_words);
+			        System.out.println("temp_three_words:"+temp_three_words);
 				i = i + 2;
 			} else if ((temp_four_words.length() > 0)
 					&& (temp_four_words.length() < limit)
 					&& (seg_dict.containsKey(temp_four_words))) {
 				two_step_words[two_step_i++] = temp_four_words;
-				// System.out.println("temp_four_words:"+temp_four_words);
+				 System.out.println("temp_four_words:"+temp_four_words);
 				i = i + 3;
 			} else if ((temp_five_words.length() > 0)
 					&& (temp_five_words.length() < limit)
 					&& (seg_dict.containsKey(temp_five_words))) {
 				two_step_words[two_step_i++] = temp_five_words;
-				// System.out.println("temp_five_words:"+temp_five_words);
+				 System.out.println("temp_five_words:"+temp_five_words);
 				i = i + 4;
 			} else if ((temp_six_words.length() > 0)
 					&& (temp_six_words.length() < limit)
 					&& (seg_dict.containsKey(temp_six_words))) {
 				two_step_words[two_step_i++] = temp_six_words;
-				// System.out.println("temp_six_words:"+temp_six_words);
+				System.out.println("temp_six_words:"+temp_six_words);
 				i = i + 5;
 			}
 
