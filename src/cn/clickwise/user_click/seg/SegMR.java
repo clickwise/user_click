@@ -57,7 +57,8 @@ public class SegMR {
 			String seg_text="";
 			
 			String segline="";
-			
+			String keyVir="";
+			System.out.println("field_num:"+field_num+"  seg_arr.length:"+seg_arr.length);
 			if (seg_arr.length==field_num) {    		
 				text=seg_arr[text_index];
 				if(SSO.tnoe(text))
@@ -67,7 +68,8 @@ public class SegMR {
 				  	if(SSO.tnoe(seg_text))
 				  	{
 				  		seg_text=seg_text.trim();
-			            for(int j=0;j<text_index;j++)
+				  		keyVir=seg_arr[0]+"\001";
+			            for(int j=1;j<text_index;j++)
 			            {
 			            	segline+=(seg_arr[j]+"\001");
 			            }
@@ -77,8 +79,8 @@ public class SegMR {
 				  			segline+=(seg_arr[j]+"\001");
 				  		}
 				  		segline=segline.trim();
-				  		word.set(segline);
-				  		word1.set("");
+				  		word.set(keyVir);
+				  		word1.set(segline);
 				  		context.write(word, word1);
 				  	}
 				}
