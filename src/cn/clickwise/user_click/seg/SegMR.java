@@ -31,8 +31,10 @@ public class SegMR {
 
 		private Text word = new Text();
 		private Text word1 = new Text();
-		public static int text_index = 0;
-		public static int field_num = 0;
+		public  static int text_index = 0;
+		public  static int field_num = 0;
+		public  int loc_text_index = 0;
+		public  int loc_field_num = 0;
 		public AnsjSeg ansjseg;
 		@Override
 		protected void setup(Context context) throws IOException,
@@ -45,7 +47,9 @@ public class SegMR {
 			HashMap<String,String> seg_dict=jfr.jarFile2Hash(seg_dict_file);
 			HashMap<String,String> stop_dict=jfr.jarFile2Hash(stop_dict_file);
 			ansjseg.setSeg_dict(seg_dict);
-			ansjseg.setStop_dict(stop_dict);		
+			ansjseg.setStop_dict(stop_dict);
+			loc_text_index=text_index;
+			loc_field_num=field_num;
 		}
 		
 		public void map(Object key, Text value, Context context)
@@ -58,9 +62,9 @@ public class SegMR {
 			
 			String segline="";
 			String keyVir="";
-			System.out.println("field_num:"+field_num+"  seg_arr.length:"+seg_arr.length);
-			if (seg_arr.length==field_num) {    		
-				text=seg_arr[text_index];
+			System.out.println("field_num:"+loc_field_num+"  seg_arr.length:"+seg_arr.length);
+			if (seg_arr.length==loc_field_num) {    		
+				text=seg_arr[loc_text_index];
 				if(SSO.tnoe(text))
 				{
 					text=text.trim();
@@ -69,12 +73,12 @@ public class SegMR {
 				  	{
 				  		seg_text=seg_text.trim();
 				  		keyVir=seg_arr[0]+"\001";
-			            for(int j=1;j<text_index;j++)
+			            for(int j=1;j<loc_text_index;j++)
 			            {
 			            	segline+=(seg_arr[j]+"\001");
 			            }
 			 	  		segline+=seg_text+"\001";
-				  		for(int j=text_index+1;j<field_num;j++)
+				  		for(int j=loc_text_index+1;j<loc_field_num;j++)
 				  		{
 				  			segline+=(seg_arr[j]+"\001");
 				  		}
