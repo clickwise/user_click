@@ -77,6 +77,9 @@ public class SegMR {
 				  			segline+=(seg_arr[j]+"\001");
 				  		}
 				  		segline=segline.trim();
+				  		word.set(segline);
+				  		word1.set("");
+				  		context.write(word, word1);
 				  	}
 				}
 			}
@@ -100,10 +103,10 @@ public class SegMR {
 				while (it.hasNext()) {
 					info = it.next().toString();
 					info = info.trim();
-					if (SSO.tnoe(info)) {
-						result_key.set(key_str + "\001" + info);
+					//if (SSO.tnoe(info)) {
+						result_key.set((key_str + "\001" + info).trim());
 						context.write(result_key, NullWritable.get());
-					}
+					//}
 				}
 			}
 		}
@@ -131,12 +134,12 @@ public class SegMR {
 		PrepareMapper.text_index = index;
 		
 		job.setMapperClass(PrepareMapper.class);
-		//job.setReducerClass(PrepareReducer.class);
-		//job.setNumReduceTasks(1);
+		job.setReducerClass(PrepareReducer.class);
+		job.setNumReduceTasks(5);
 		job.setMapOutputKeyClass(Text.class);
 		job.setMapOutputValueClass(Text.class);
-		//job.setOutputKeyClass(Text.class);
-		//job.setOutputValueClass(NullOutputFormat.class);
+		job.setOutputKeyClass(Text.class);
+		job.setOutputValueClass(NullOutputFormat.class);
 		FileInputFormat.addInputPath(job, new Path(otherArgs[2]));
 		FileOutputFormat.setOutputPath(job, new Path(otherArgs[3]));
 		System.exit(job.waitForCompletion(true) ? 0 : 1);
