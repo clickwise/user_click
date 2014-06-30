@@ -31,8 +31,6 @@ public class SegMR {
 
 		private Text word = new Text();
 		private Text word1 = new Text();
-		public  static int text_index = 0;
-		public  static int field_num = 0;
 		public  int loc_text_index = 0;
 		public  int loc_field_num = 0;
 		public AnsjSeg ansjseg;
@@ -48,8 +46,9 @@ public class SegMR {
 			HashMap<String,String> stop_dict=jfr.jarFile2Hash(stop_dict_file);
 			ansjseg.setSeg_dict(seg_dict);
 			ansjseg.setStop_dict(stop_dict);
-			loc_text_index=3;
-			loc_field_num=4;
+			
+			loc_text_index=Integer.parseInt(conf.get("loc_text_index"));
+			loc_field_num=Integer.parseInt(conf.get("loc_field_num"));
 		}
 		
 		public void map(Object key, Text value, Context context)
@@ -134,11 +133,10 @@ public class SegMR {
 			System.err.println("index must be smaller than field_num");
 			System.exit(1);
 		}
+		conf.set("loc_text_index", index+"");
+		conf.set("loc_field_num", field_num+"");
 		Job job = new Job(conf, "SegMR" );
 		job.setJarByClass(SegMR.class);
-		PrepareMapper.field_num=field_num;
-		PrepareMapper.text_index = index;
-		
 		job.setMapperClass(PrepareMapper.class);
 		job.setReducerClass(PrepareReducer.class);
 		job.setNumReduceTasks(5);
