@@ -3,7 +3,6 @@ package cn.clickwise.user_click.seg;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Properties;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
@@ -12,20 +11,18 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
+import org.apache.hadoop.mapreduce.Reducer.Context;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.NullOutputFormat;
 import org.apache.hadoop.util.GenericOptionsParser;
 
-import cn.clickwise.liqi.file.uitls.FileReaderUtil;
 import cn.clickwise.liqi.file.uitls.JarFileReader;
 import cn.clickwise.liqi.str.basic.SSO;
+import cn.clickwise.liqi.str.basic.WordStatis;
 
-/**
- * 分词的mapreduce
- * @author zkyz
- */
-public class SegMR {
+
+public class LineWordCountMR {
 
 	private static class PrepareMapper extends Mapper<Object, Text, Text, Text> {
 
@@ -33,20 +30,11 @@ public class SegMR {
 		private Text word1 = new Text();
 		public  int loc_text_index = 0;
 		public  int loc_field_num = 0;
-		public AnsjSeg ansjseg;
+
 		@Override
 		protected void setup(Context context) throws IOException,
 				InterruptedException {
-			Configuration conf = context.getConfiguration();	
-			JarFileReader jfr=new JarFileReader();
-			String seg_dict_file="five_dict_uniq.txt";
-			String stop_dict_file="cn_stop_words_utf8.txt";
-			ansjseg=new AnsjSeg();
-			HashMap<String,String> seg_dict=jfr.jarFile2Hash(seg_dict_file);
-			HashMap<String,String> stop_dict=jfr.jarFile2Hash(stop_dict_file);
-			ansjseg.setSeg_dict(seg_dict);
-			ansjseg.setStop_dict(stop_dict);
-			
+			Configuration conf = context.getConfiguration();				
 			loc_text_index=Integer.parseInt(conf.get("loc_text_index"));
 			loc_field_num=Integer.parseInt(conf.get("loc_field_num"));
 		}
@@ -56,34 +44,34 @@ public class SegMR {
 
 			String recline = value.toString().trim();
 			String[] seg_arr=recline.split("\001");
-			String text="";
 			String seg_text="";
+			String word_statis="";
 			
-			String segline="";
+			String wsline="";
 			String keyVir="";
 			System.out.println("field_num:"+loc_field_num+"  seg_arr.length:"+seg_arr.length);
 			if (seg_arr.length==loc_field_num) {    		
-				text=seg_arr[loc_text_index];
-				if(SSO.tnoe(text))
+				seg_text=seg_arr[loc_text_index];
+				if(SSO.tnoe(seg_text))
 				{
-					text=text.trim();
-				  	seg_text=ansjseg.seg(text);
-				  	if(SSO.tnoe(seg_text))
+					seg_text=seg_text.trim();
+					word_statis=WordStatis.wordStatis(seg_text);
+				  	if(SSO.tnoe(word_statis))
 				  	{
-				  		seg_text=seg_text.trim();
+				  		word_statis=word_statis.trim();
 				  		keyVir=seg_arr[0]+"\001";
 			            for(int j=1;j<loc_text_index;j++)
 			            {
-			            	segline+=(seg_arr[j]+"\001");
+			            	wsline+=(seg_arr[j]+"\001");
 			            }
-			 	  		segline+=seg_text+"\001";
+			            wsline+=word_statis+"\001";
 				  		for(int j=loc_text_index+1;j<loc_field_num;j++)
 				  		{
-				  			segline+=(seg_arr[j]+"\001");
+				  			wsline+=(seg_arr[j]+"\001");
 				  		}
-				  		segline=segline.trim();
+				  		wsline=wsline.trim();
 				  		word.set(keyVir);
-				  		word1.set(segline);
+				  		word1.set(wsline);
 				  		context.write(word, word1);
 				  	}
 				}
@@ -123,7 +111,7 @@ public class SegMR {
 		String[] otherArgs = new GenericOptionsParser(conf, args)
 				.getRemainingArgs();
 		if (otherArgs.length != 4) {
-			System.err.println("Usage: SegMR  <filed_num> <text_index> <input> <output>");
+			System.err.println("Usage: LineWordCountMR  <filed_num> <text_index> <input> <output>");
 			System.exit(1);
 		}
 		int field_num=Integer.parseInt(otherArgs[0]);
@@ -135,8 +123,8 @@ public class SegMR {
 		}
 		conf.set("loc_text_index", index+"");
 		conf.set("loc_field_num", field_num+"");
-		Job job = new Job(conf, "SegMR" );
-		job.setJarByClass(SegMR.class);
+		Job job = new Job(conf, "LineWordCountMR");
+		job.setJarByClass(LineWordCountMR.class);
 		job.setMapperClass(PrepareMapper.class);
 		job.setReducerClass(PrepareReducer.class);
 		job.setNumReduceTasks(5);
@@ -148,5 +136,5 @@ public class SegMR {
 		FileOutputFormat.setOutputPath(job, new Path(otherArgs[3]));
 		System.exit(job.waitForCompletion(true) ? 0 : 1);
 	}
-		
+	
 }
