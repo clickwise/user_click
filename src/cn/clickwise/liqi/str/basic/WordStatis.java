@@ -15,7 +15,7 @@ public class WordStatis {
 		seg_line=seg_line.trim();
 		
 		String[] seg_arr=seg_line.split("\\s+");
-		MapCount<String> mc=new MapCount<>();
+		MapCount<String> mc=new MapCount<String>();
 		
 		for(int i=0;i<seg_arr.length;i++)
 		{
