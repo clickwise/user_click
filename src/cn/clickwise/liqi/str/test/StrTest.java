@@ -1,5 +1,6 @@
 package cn.clickwise.liqi.str.test;
 
+import java.lang.reflect.Method;
 import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -70,9 +71,23 @@ public class StrTest {
 	
 	public static void main(String[] args)
 	{
+		/*
 		String s="/2/1005.js?vt=0.6778577605714211&area=%7Bcountry%3A%22%E4%B8%AD%E5%9B%BD%22%2Cprovince%3A%22%E5%A4%A9%E6%B4%A5%22%2Ccity%3A%22%E5%A4%A9%E6%B4%A5%22%7D&default=";
 	    StrTest st=new StrTest();
 		String[] words=st.wordFromLink(s);
 		System.out.println("words:"+st.arrToStr(words));
+		*/
+		try{
+			Class myClass = Class.forName("cn.clickwise.user_click.field.STR2LONGTIME");
+			Method myMethod=myClass.getMethod("fieldFunc", new Class[]{String.class,String.class});
+			Object returnValue = myMethod.invoke(myClass.newInstance(),"2014-02-08 15:29:05", ""); 
+			
+		    System.out.println(returnValue+"");
+		}
+		catch(Exception e)
+		{
+			
+		}
+		
 	}
 }
