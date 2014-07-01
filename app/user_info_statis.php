@@ -27,8 +27,12 @@ class user_info_statis extends app_base{
 	function prepare(){
           
            $user_se_keywords_day="/user/nstat/$this->day/user_se_keywords_day";
-           $user_se_keywords_day_seg="/user/nstat/$this->day/user_se_keywords_day_seg";
+           $user_se_keywords_day_seg="/user/nstat/$this->day/user_admatch/user_se_keywords_day_seg";
            $this->seg_keywords($user_se_keywords_day,$user_se_keywords_day_seg);   
+          
+           $user_se_keywords_day_wordstatis="/user/nstat/$this->day/user_admatch/user_se_keywords_day_wordstatis";
+           $this->seg_word_statis($user_se_keywords_day_seg,$user_se_keywords_day_wordstatis);           
+
             
 	}
 
@@ -49,19 +53,31 @@ class user_info_statis extends app_base{
           
            $ret = $this->ha_utils->run_raw($cmd);
            if($ret == false){
-                   $this->error("Can not finish seg keywords log file:".$this->day);
+                   $this->error("Can not finish seg keywords:".$this->day);
                    return false;
            }
 
-           
-      
            return $ret;
         }   
+ 
 
+        function seg_word_statis($user_se_keywords_day_seg,$user_se_keywords_day_wordstatis)
+        {
+           $this->ha_utils->remove_hdfs($user_se_keywords_day_wordstatis);
+
+           $cmd = " jar smart_hadoop.jar cn.clickwise.user_click.seg.LineWordCountMR 4 3 $user_se_keywords_day_seg $user_se_keywords_day_wordstatis";
+
+           $ret = $this->ha_utils->run_raw($cmd);
+           if($ret == false){
+                   $this->error("Can not finish word_statis:".$this->day);
+                   return false;
+           }
+
+           return $ret;
+
+        }       
         
 
-
-      
 
 };
 
