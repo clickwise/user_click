@@ -98,6 +98,7 @@ public class TimeOpera {
 	
 	public static void main(String[] args)
 	{
+		/*
 		String[] dstr={"2014-02-08 15:29:05","2014-02-08 19:29:20","2014-02-08 02:22:36","2014-02-08 15:04:25","2014-02-08 14:22:40","2014-02-08 16:17:22","2014-02-08 09:28:47"};
 		for(int i=0;i<dstr.length;i++)
 		{
@@ -105,8 +106,9 @@ public class TimeOpera {
 			
 			System.out.println(i+":"+str2long(dstr[i])+"    "+long2str(str2long(dstr[i])-999));
 		}
-		
-		getCurrentTime();
+		*/
+		for(int i=0;i<10;i++)
+		System.out.println(getCurrentTimeLong());
 		
 	}
 	
