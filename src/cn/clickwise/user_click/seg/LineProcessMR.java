@@ -65,11 +65,15 @@ public class LineProcessMR {
 			{
 				
 			}
+                        if(SSO.tioe( processedLine))
+                        {
+                          return;
+                        }
 			String[] seg_arr= processedLine.split("\001");
-            if(seg_arr.length<1)
-            {
-            	return;
-            }
+                        if(seg_arr.length<1)
+                        {
+            	          return;
+                        }
             
 			String psline="";
 			String keyVir="";
@@ -122,16 +126,16 @@ public class LineProcessMR {
 		Configuration conf = new Configuration();
 		String[] otherArgs = new GenericOptionsParser(conf, args)
 				.getRemainingArgs();
-		if (otherArgs.length < 1) {
-			System.err.println("Usage: LineProcessMR  <Line Process ClassName> <params>*");
+		if (otherArgs.length < 3) {
+			System.err.println("Usage: LineProcessMR <input_hdfs> <output_hdfs> <Line_Process_ClassName> <params>*");
 			System.exit(1);
 		}
 
-		String line_class_name=otherArgs[0];
+		String line_class_name=otherArgs[2];
 		
 		String local_params="";
 		
-		for(int i=1;i<otherArgs.length;i++)
+		for(int i=3;i<otherArgs.length;i++)
 		{
 			local_params+=(otherArgs+" ");
 		}
@@ -147,8 +151,8 @@ public class LineProcessMR {
 		job.setMapOutputValueClass(Text.class);
 		job.setOutputKeyClass(Text.class);
 		job.setOutputValueClass(NullOutputFormat.class);
-		FileInputFormat.addInputPath(job, new Path(otherArgs[2]));
-		FileOutputFormat.setOutputPath(job, new Path(otherArgs[3]));
+		FileInputFormat.addInputPath(job, new Path(otherArgs[0]));
+		FileOutputFormat.setOutputPath(job, new Path(otherArgs[1]));
 		System.exit(job.waitForCompletion(true) ? 0 : 1);
 	}
 }
