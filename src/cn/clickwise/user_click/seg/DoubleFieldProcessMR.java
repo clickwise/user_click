@@ -121,7 +121,7 @@ public class DoubleFieldProcessMR {
 				  		keyVir=seg_arr_kv[0]+"\001";
 			            for(int j=1;j<loc_field_num;j++)
 			            {
-			            	wsline+=(seg_arr[j]+"\001");
+			            	wsline+=(seg_arr_kv[j]+"\001");
 			            }
 				  		wsline=wsline.trim();
 				  					  		
