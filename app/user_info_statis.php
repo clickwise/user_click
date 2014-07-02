@@ -37,7 +37,12 @@ class user_info_statis extends app_base{
 		//$this->seg_word_tl($user_se_keywords_day_wordstatis,$user_se_keywords_day_wordstatis_tl);
 
 		$user_se_keywords_day_wordstatis_keys="/user/nstat/$this->day/user_admatch/user_se_keywords_day_wordstatis_keys";
-		$this->seg_word_keys($user_se_keywords_day_wordstatis_tl,$user_se_keywords_day_wordstatis_keys);       
+		//$this->seg_word_keys($user_se_keywords_day_wordstatis_tl,$user_se_keywords_day_wordstatis_keys);       
+
+                $user_se_keywords_day_wordstatis_swap="/user/nstat/$this->day/user_admatch/user_se_keywords_day_wordstatis_swap";
+                $this->seg_word_swap($user_se_keywords_day_wordstatis_keys,$user_se_keywords_day_wordstatis_swap);
+
+
 
 
 	}
@@ -117,7 +122,22 @@ class user_info_statis extends app_base{
 
 	}
 
+        function seg_word_swap($user_se_keywords_day_wordstatis_keys,$user_se_keywords_day_wordstatis_swap)
+        {
+                $this->ha_utils->remove_hdfs($user_se_keywords_day_wordstatis_swap);
 
+                $cmd = " jar smart_hadoop.jar cn.clickwise.user_click.seg.DoubleFieldProcessMR 4 1 2 $user_se_keywords_day_wordstatis_keys $user_se_keywords_day_wordstatis_swap FIELDSWAP";
+
+                $ret = $this->ha_utils->run_raw($cmd);
+                if($ret == false){
+                        $this->error("Can not finish word_statis_swap:".$this->day);
+                        return false;
+                }
+
+                return $ret;
+
+
+        }
 
 
 };
