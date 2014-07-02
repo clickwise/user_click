@@ -26,22 +26,28 @@ class user_info_statis extends app_base{
 
 	function prepare(){
 
+                /*
 		$user_se_keywords_day="/user/nstat/$this->day/user_se_keywords_day";
 		$user_se_keywords_day_seg="/user/nstat/$this->day/user_admatch/user_se_keywords_day_seg";
-		//$this->seg_keywords($user_se_keywords_day,$user_se_keywords_day_seg);   
+		$this->seg_keywords($user_se_keywords_day,$user_se_keywords_day_seg);   
 
 		$user_se_keywords_day_wordstatis="/user/nstat/$this->day/user_admatch/user_se_keywords_day_wordstatis";
-		//$this->seg_word_statis($user_se_keywords_day_seg,$user_se_keywords_day_wordstatis);           
+		$this->seg_word_statis($user_se_keywords_day_seg,$user_se_keywords_day_wordstatis);           
 
 		$user_se_keywords_day_wordstatis_tl="/user/nstat/$this->day/user_admatch/user_se_keywords_day_wordstatis_tl";
-		//$this->seg_word_tl($user_se_keywords_day_wordstatis,$user_se_keywords_day_wordstatis_tl);
+		$this->seg_word_tl($user_se_keywords_day_wordstatis,$user_se_keywords_day_wordstatis_tl);
 
 		$user_se_keywords_day_wordstatis_keys="/user/nstat/$this->day/user_admatch/user_se_keywords_day_wordstatis_keys";
-		//$this->seg_word_keys($user_se_keywords_day_wordstatis_tl,$user_se_keywords_day_wordstatis_keys);       
+		$this->seg_word_keys($user_se_keywords_day_wordstatis_tl,$user_se_keywords_day_wordstatis_keys);       
 
                 $user_se_keywords_day_wordstatis_swap="/user/nstat/$this->day/user_admatch/user_se_keywords_day_wordstatis_swap";
                 $this->seg_word_swap($user_se_keywords_day_wordstatis_keys,$user_se_keywords_day_wordstatis_swap);
+                */
 
+                $user_host_day="/user/nstat/$this->day/user_host_day";
+                $user_host_day_wordstatis="/user/nstat/$this->day/user_admatch/user_host_day_wordstatis";
+
+                $this->hostStatis($user_host_day,$user_host_day_wordstatis);
 
 
 
@@ -135,10 +141,23 @@ class user_info_statis extends app_base{
                 }
 
                 return $ret;
-
-
         }
 
+        function hostStatis($user_host_day,$user_host_day_wordstatis)
+        {
+                $this->ha_utils->remove_hdfs($user_host_day_wordstatis);
+
+                $cmd = " jar smart_hadoop.jar cn.clickwise.user_click.seg.LineProcessMR $user_host_day $user_host_day_wordstatis MERGE";
+
+                $ret = $this->ha_utils->run_raw($cmd);
+                if($ret == false){
+                        $this->error("Can not finish host word statis:".$this->day);
+                        return false;
+                }
+
+                return $ret;
+
+        }
 
 };
 
