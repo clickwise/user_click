@@ -57,7 +57,15 @@ public class LineProcessMR {
 			}
 			
 			String processedLine="";
-			
+                          
+                        /*
+			double ran=Math.random();
+                        if(ran>0.99)
+                        {
+                           System.out.println("recLine:"+recline);
+                        }
+                        */
+
 			try{
 			  processedLine=lineFunc.invoke(lineClass.newInstance(),recline, local_params)+"";
 			}
