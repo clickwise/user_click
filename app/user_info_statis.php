@@ -44,11 +44,27 @@ class user_info_statis extends app_base{
                 $this->seg_word_swap($user_se_keywords_day_wordstatis_keys,$user_se_keywords_day_wordstatis_swap);
                 */
 
+
+                /*
                 $user_host_day="/user/nstat/$this->day/user_host_day";
                 $user_host_day_wordstatis="/user/nstat/$this->day/user_admatch/user_host_day_wordstatis";
 
                 $this->hostStatis($user_host_day,$user_host_day_wordstatis);
+                */
+              
+                /*
+                $user_cate_day_raw="/user/nstat/$this->day/user_cate_day_raw";
+                $user_cate_day_word_statis="/user/nstat/$this->day/user_admatch/user_cate_day_word_statis";
 
+                $this->userCateStatis($user_cate_day_raw,$user_cate_day_word_statis);  
+                */
+
+                $user_attrloc_day="/user/nstat/$this->day/user_attrloc_day";  
+                $user_attrloc_day_wordstatis="/user/nstat/$this->day/user_admatch/user_attrloc_day_wordstatis";
+
+                $this->attrlocStatis($user_attrloc_day,$user_attrloc_day_wordstatis);
+                
+                
 
 
 	}
@@ -147,7 +163,7 @@ class user_info_statis extends app_base{
         {
                 $this->ha_utils->remove_hdfs($user_host_day_wordstatis);
 
-                $cmd = " jar smart_hadoop.jar cn.clickwise.user_click.seg.LineProcessMR $user_host_day $user_host_day_wordstatis MERGE";
+                $cmd = " jar smart_hadoop.jar cn.clickwise.user_click.seg.LineProcessMR 20 $user_host_day $user_host_day_wordstatis MERGE";
 
                 $ret = $this->ha_utils->run_raw($cmd);
                 if($ret == false){
@@ -156,6 +172,56 @@ class user_info_statis extends app_base{
                 }
 
                 return $ret;
+
+        }
+
+        function userCateStatis($user_cate_day_raw,$user_cate_day_word_statis)
+        {
+                $this->ha_utils->remove_hdfs($user_cate_day_word_statis);
+
+              
+                $cmd = " jar smart_hadoop.jar cn.clickwise.user_click.seg.LineProcessMR 20 $user_cate_day_raw $user_cate_day_word_statis USERCATEMERGE";
+
+                $ret = $this->ha_utils->run_raw($cmd);
+                if($ret == false){
+                        $this->error("Can not finish user cate statis:".$this->day);
+                        return false;
+                }
+
+                return $ret;
+
+        }
+
+        function attrlocStatis($user_attrloc_day,$user_attrloc_day_wordstatis)
+        {
+               $user_attrloc_day_mid="/user/nstat/$this->day/user_admatch/user_attrloc_day_mid"; 
+               /*
+               $this->ha_utils->remove_hdfs($user_attrloc_day_mid);
+               $cmd = " jar smart_hadoop.jar cn.clickwise.user_click.seg.LineWordCountMR 5 4 $user_attrloc_day  $user_attrloc_day_mid";
+                
+               $ret = $this->ha_utils->run_raw($cmd);
+               if($ret == false){
+                        $this->error("Can not finish word statis:".$this->day);
+                        return false;
+               }
+               */
+          
+
+               $this->ha_utils->remove_hdfs($user_attrloc_day_wordstatis);
+               $cmd = " jar smart_hadoop.jar cn.clickwise.user_click.seg.LineProcessMR 20 $user_attrloc_day_mid $user_attrloc_day_wordstatis USERATTRMERGE";
+                
+               $ret = $this->ha_utils->run_raw($cmd);
+               if($ret == false){
+                        $this->error("Can not finish user attr statis:".$this->day);
+                        return false;
+               }
+
+               return $ret;
+
+
+
+
+
 
         }
 
