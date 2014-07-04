@@ -5,10 +5,47 @@ import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import cn.clickwise.liqi.str.basic.SSO;
 import cn.clickwise.liqi.str.edcode.UrlCode;
 
 public class StrTest {
+	
+	public static String jsonTest() throws JSONException{  
+	    JSONObject json=new JSONObject();  
+	    JSONArray jsonMembers = new JSONArray();  
+	    JSONObject member1 = new JSONObject();  
+	    member1.put("loginname", "zhangfan");  
+	    member1.put("password", "userpass");  
+	    member1.put("email","10371443@qq.com");  
+	    member1.put("sign_date", "2007-06-12");  
+	    jsonMembers.put(member1);  
+	  
+	    JSONObject member2 = new JSONObject();  
+	    member2.put("loginname", "zf");  
+	    member2.put("password", "userpass");  
+	    member2.put("email","8223939@qq.com");  
+	    member2.put("sign_date", "2008-07-16");  
+	    jsonMembers.put(member2);  
+	    json.put("users", jsonMembers);  
+	  
+	    return json.toString();  
+	}  
+	
+	public static String jsonTest1() throws JSONException{  
+	    JSONObject json=new JSONObject();  
+	    json.put("cookie", "000020e3405f68163fae7570f4fab06c");  
+	    json.put("datatype", "HOST_CATE"); 
+	    json.put("addtime", "1404005327000"); 
+	    json.put("word", "纪录片");
+	    json.put("value", 1);
+	  
+	    return json.toString();  
+	}  
+	
 	
 	public String[] wordFromLink(String link)
 	{
@@ -69,7 +106,7 @@ public class StrTest {
 		return arr_str;
 	}
 	
-	public static void main(String[] args)
+	public static void main(String[] args) throws Exception
 	{
 		/*
 		String s="/2/1005.js?vt=0.6778577605714211&area=%7Bcountry%3A%22%E4%B8%AD%E5%9B%BD%22%2Cprovince%3A%22%E5%A4%A9%E6%B4%A5%22%2Ccity%3A%22%E5%A4%A9%E6%B4%A5%22%7D&default=";
@@ -77,6 +114,8 @@ public class StrTest {
 		String[] words=st.wordFromLink(s);
 		System.out.println("words:"+st.arrToStr(words));
 		*/
+		
+		/*
 		try{
 			Class myClass = Class.forName("cn.clickwise.user_click.field.STR2LONGTIME");
 			Method myMethod=myClass.getMethod("fieldFunc", new Class[]{String.class,String.class});
@@ -88,6 +127,10 @@ public class StrTest {
 		{
 			
 		}
-		
+		*/
+		double ran=Math.random();
+		String a="d|adb";
+		System.out.println(a);
+		System.out.println(jsonTest1());
 	}
 }
