@@ -30,14 +30,18 @@ public class Base64Code {
 	      byte[] da=Base64.decodeBase64(ea);
 	      if(da!=null)
 	      {
+	    	  /*
 	    	  if(charset.equals("GB2312"))
 	    	  {
 		        decode_str=new String(da,"GB2312");
 	    	  }
 	    	  else
 	    	  {
-	    		  decode_str=new String(da,"GB2312");  
+	    		  decode_str=new String(da,"utf-8");  
 	    	  }
+	    	  */
+	    	  decode_str=new String(da); 
+	    	  
 	      }
 	      else
 	      {

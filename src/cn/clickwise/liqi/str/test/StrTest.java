@@ -37,11 +37,11 @@ public class StrTest {
 	
 	public static String jsonTest1() throws JSONException{  
 	    JSONObject json=new JSONObject();  
-	    json.put("cookie", "000020e3405f68163fae7570f4fab06c");  
+	    json.put("uid", "0000e184f710bb30629e7fc166d05ca2");  
 	    json.put("datatype", "HOST_CATE"); 
 	    json.put("addtime", "1404005327000"); 
-	    json.put("word", "纪录片");
-	    json.put("value", 1);
+	    json.put("info", "文化娱乐|综艺:1 高清:1 爱奇:1 综艺:1 录片:1 纪录片:1 爱奇艺:1 奇艺:1 观看:1 视频:1 纪录:1");
+	    
 	  
 	    return json.toString();  
 	}  
