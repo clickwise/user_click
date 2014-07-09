@@ -1,0 +1,13 @@
+package cn.clickwise.net.http.admatchtest;
+
+import org.apache.http.client.HttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+import cn.clickwise.net.http.HttpClientTool;
+
+public class AdMatchTestBase{
+	
+	public HttpClientTool hct=new HttpClientTool();
+	public String url_prefix="";
+	
+}
