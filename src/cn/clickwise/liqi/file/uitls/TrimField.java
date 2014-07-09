@@ -33,9 +33,9 @@ public class TrimField {
 
 				trimline = "";
 				for (int j = 0; j < seg_arr.length; j++) {
-					trimline += seg_arr[j].trim();
+					trimline += seg_arr[j].trim()+"\001";
 				}
-
+                trimline=trimline.trim();
 				pw.println(trimline);
 
 			}
