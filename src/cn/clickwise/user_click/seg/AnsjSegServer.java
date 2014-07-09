@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import cn.clickwise.liqi.file.uitls.FileReaderUtil;
+import cn.clickwise.liqi.file.uitls.JarFileReader;
 import cn.clickwise.liqi.str.configutil.ConfigFileReader;
 import cn.clickwise.liqi.str.edcode.UrlCode;
 
@@ -88,11 +89,12 @@ public class AnsjSegServer implements Runnable {
 		
         serverInstance = new AnsjSegServer();
         serverInstance.ansjseg = new AnsjSeg();
-		String seg_dict_file="temp/seg_test/five_dict_uniq.txt";
-		String stop_dict_file="temp/seg_test/cn_stop_words_utf8.txt";
+		JarFileReader jfr=new JarFileReader();
+		String seg_dict_file="five_dict_uniq.txt";
+		String stop_dict_file="cn_stop_words_utf8.txt";
+		HashMap<String,String> seg_dict=jfr.jarFile2Hash(seg_dict_file);
+		HashMap<String,String> stop_dict=jfr.jarFile2Hash(stop_dict_file);
 	
-		HashMap<String,String> seg_dict=FileReaderUtil.file2Hash(seg_dict_file);
-		HashMap<String,String> stop_dict=FileReaderUtil.file2Hash(stop_dict_file);
 		serverInstance.ansjseg.setSeg_dict(seg_dict);
 		serverInstance.ansjseg.setStop_dict(stop_dict);
         serverInstance.setPort(port);
