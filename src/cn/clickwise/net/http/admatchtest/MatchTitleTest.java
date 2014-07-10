@@ -2,6 +2,8 @@ package cn.clickwise.net.http.admatchtest;
 
 import java.net.URLEncoder;
 
+import cn.clickwise.liqi.time.utils.TimeOpera;
+
 public class MatchTitleTest extends AdMatchTestBase{
 
 	  public String method="/matchtitle.json?title=";
@@ -19,11 +21,14 @@ public class MatchTitleTest extends AdMatchTestBase{
 	  public static void main(String[] args)
 	  {
 		    MatchTitleTest mtt=new MatchTitleTest();
-		    for(int i=0;i<1000;i++)
+		    long starttime=TimeOpera.getCurrentTimeLong();
+		    for(int i=0;i<100;i++)
 		    {
 		    String title="护肤彩妆美发护发弹力素啫喱啫喱水";
 		    mtt.testMatchTitle(title);
 		    }
+		    long endtime=TimeOpera.getCurrentTimeLong();
+		    System.out.println("usertime:"+(endtime-starttime));
 	  }
 	  
 }
