@@ -19,8 +19,11 @@ public class MatchTitleTest extends AdMatchTestBase{
 	  public static void main(String[] args)
 	  {
 		    MatchTitleTest mtt=new MatchTitleTest();
+		    for(int i=0;i<1000;i++)
+		    {
 		    String title="护肤彩妆美发护发弹力素啫喱啫喱水";
 		    mtt.testMatchTitle(title);
+		    }
 	  }
 	  
 }
