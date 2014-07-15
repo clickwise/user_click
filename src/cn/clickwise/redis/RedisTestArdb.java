@@ -16,7 +16,7 @@ public class RedisTestArdb {
 		Jedis jedis = new Jedis("192.168.110.186", 16379, 1000);// redis服务器地址
 		jedis.select(14);
 	    /////jedis.flushDB();
-		String one_item="host_www.sina.com.cn";
+		String one_item="host_0419.weizhangwang.com";
 		//String one_item="user:045f0af0387026ac421b9dc873634853";
 		System.out.println("dbsize:"+jedis.dbSize());
 		//////jedis.zrem(key, members);
