@@ -25,9 +25,9 @@ public class AnsjSeg {
 	public String seg(String text)
 	{
 		String ansi_seg=segAnsi(text);
-		//String mseg=merge_sen_limit(ansi_seg,6);
+		String mseg=merge_sen_limit(ansi_seg,6);
 		//String rseg=removeStopWords(mseg);
-		return ansi_seg;
+		return mseg;
 	}
 	
 	public String segAnsi(String text) {
