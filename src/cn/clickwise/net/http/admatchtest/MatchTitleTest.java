@@ -24,7 +24,7 @@ public class MatchTitleTest extends AdMatchTestBase{
 		    long starttime=TimeOpera.getCurrentTimeLong();
 		    for(int i=0;i<100;i++)
 		    {
-		    String title="护肤彩妆美发护发弹力素啫喱啫喱水";
+		    String title="护肤彩妆美发";
 		    mtt.testMatchTitle(title);
 		    }
 		    long endtime=TimeOpera.getCurrentTimeLong();

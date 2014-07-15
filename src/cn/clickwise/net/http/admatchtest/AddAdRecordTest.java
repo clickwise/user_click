@@ -20,9 +20,12 @@ public class AddAdRecordTest extends AdMatchTestBase {
 	public static void main(String[] args)
 	{
 		AddAdRecordTest aart=new AddAdRecordTest();
-		String text="{\"keywords\":[\"啫喱\",\"啫喱水\"],\"adid\":\"001\"}";
-		aart.testAddAdRecord(text);
+		//String text="{\"keywords\":[\"啫喱\",\"啫喱水\"],\"adid\":\"001\"}";
+		//aart.testAddAdRecord(text);
 		
+		
+		String text="{\"keywords\":[\"护肤彩妆\",\"美发护发\",\"弹力素\"],\"adid\":\"001\"}";
+		aart.testAddAdRecord(text);
 	}
 	
 }
