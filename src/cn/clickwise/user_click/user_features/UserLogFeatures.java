@@ -37,7 +37,7 @@ public class UserLogFeatures extends AdMatchTestBase{
 		String stop_dict_file="cn_stop_words_utf8.txt";
 		HashMap<String,String> seg_dict=jfr.jarFile2Hash(seg_dict_file);
 		HashMap<String,String> stop_dict=jfr.jarFile2Hash(stop_dict_file);
-	
+		ansjseg=new AnsjSeg();
 		ansjseg.setSeg_dict(seg_dict);
 		ansjseg.setStop_dict(stop_dict);
 	}
