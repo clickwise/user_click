@@ -54,6 +54,10 @@ public class UserLogFeatures extends AdMatchTestBase{
         refer=param_map.get("refer");
         title=param_map.get("title");
 		
+        if(SSO.tioe(uid)&&SSO.tioe(refer)&&SSO.tioe(title))
+        {
+        	return "";
+        }
 		return user_host(uid,hurl,refer,title);
 	}
 
@@ -119,7 +123,7 @@ public class UserLogFeatures extends AdMatchTestBase{
 
 		BufferedReader br = null;
 		String record="";
-		
+	    String json_record="";	
 		try {
 			// fr=new FileReader(input_file);
 			fis = new FileInputStream(log.getAbsolutePath());
@@ -127,7 +131,12 @@ public class UserLogFeatures extends AdMatchTestBase{
 			br = new BufferedReader(isr);
 			while((record=br.readLine())!=null)
 			{
-				addUserRecord(record2features(record,"/AddUserRec?"));				
+				json_record=record2features(record,"/AddUserRec?");
+				if(SSO.tioe(json_record))
+				{
+					continue;
+				}
+				addUserRecord(json_record);				
 			}
 		} catch (Exception e) {
 		}

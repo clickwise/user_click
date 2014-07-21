@@ -41,8 +41,7 @@ public class StrTest {
 	    json.put("datatype", "HOST_CATE"); 
 	    json.put("addtime", "1404005327000"); 
 	    json.put("info", "文化娱乐|综艺:1 高清:1 爱奇:1 综艺:1 录片:1 纪录片:1 爱奇艺:1 奇艺:1 观看:1 视频:1 纪录:1");
-	    
-	  
+	    	  
 	    return json.toString();  
 	}  
 	
