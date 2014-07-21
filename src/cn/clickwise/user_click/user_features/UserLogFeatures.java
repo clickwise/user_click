@@ -54,7 +54,7 @@ public class UserLogFeatures extends AdMatchTestBase{
         refer=param_map.get("refer");
         title=param_map.get("title");
 		
-        if(SSO.tioe(uid)&&SSO.tioe(refer)&&SSO.tioe(title))
+        if((SSO.tioe(hurl))&&(SSO.tioe(refer))&&(SSO.tioe(title)))
         {
         	return "";
         }
