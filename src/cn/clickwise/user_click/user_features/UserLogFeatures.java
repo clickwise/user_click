@@ -83,16 +83,17 @@ public class UserLogFeatures extends AdMatchTestBase{
 			json.put("datatype", "HOSTTITLE");
 			json.put("time", (TimeOpera.getCurrentTimeLong()/1000)+"");
 			
-			String seg_title=ansjseg.seg(title);
+			
 		    JSONArray jsontitle = new JSONArray();
 		    
-		    if(SSO.tioe(seg_title))
+		    if(SSO.tioe(title))
 		    {
 		    	jsontitle.put("NA");
 		    }
 		    else{
+		    	String seg_title=ansjseg.seg(title);
 		        String[] seg_arr=seg_title.split("\\s+");
-			    if(seg_arr.length<1)
+			    if((seg_arr==null)||(seg_arr.length<1))
 			    {
 			    	jsontitle.put("NA");
 			    }
@@ -100,6 +101,10 @@ public class UserLogFeatures extends AdMatchTestBase{
 			    {
 			    	for(int j=0;j<seg_arr.length;j++)
 			    	{
+			    		if(SSO.tioe(seg_arr[j]))
+			    		{
+			    			continue;
+			    		}
 			    		jsontitle.put(seg_arr[j]);
 			    	}
 			    }
@@ -167,6 +172,7 @@ public class UserLogFeatures extends AdMatchTestBase{
 		}
 		
 		UserLogFeatures ulf=new UserLogFeatures();
+		ulf.init();
 		ulf.traverse_log(new File(args[0]));
 	}
 	

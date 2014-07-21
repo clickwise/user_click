@@ -40,7 +40,17 @@ public class StrTest {
 	    json.put("uid", "0000e184f710bb30629e7fc166d05ca2");  
 	    json.put("datatype", "HOST_CATE"); 
 	    json.put("addtime", "1404005327000"); 
-	    json.put("info", "文化娱乐|综艺:1 高清:1 爱奇:1 综艺:1 录片:1 纪录片:1 爱奇艺:1 奇艺:1 观看:1 视频:1 纪录:1");
+	    String seg_text="高清 爱奇 综艺 录片 纪录片 爱奇艺 奇艺 观看 视频 纪录";
+	    JSONArray jsonMembers = new JSONArray();  
+	    String[] seg_arr=seg_text.split("\\s+");
+	    String item="";
+	    for(int i=0;i<seg_arr.length;i++)
+	    {
+	    	item=seg_arr[i];
+	    	jsonMembers.put(item);
+	    }
+	    
+	    json.put("info", jsonMembers);
 	    	  
 	    return json.toString();  
 	}  
