@@ -20,9 +20,8 @@ public class QueryInfoTest extends AdMatchTestBase{
 	public static void main(String[] args)
 	{
 		QueryInfoTest qit=new QueryInfoTest();
-		String cookie="d6a540a9770e4fec0a375b11d9f370a3";
-		qit.testQueryInfo(cookie);
-		
+		String cookie="d6a540a9770e4fec0a75b11d9f370a3";
+		qit.testQueryInfo(cookie);	
 	}
 		
 }

@@ -8,7 +8,7 @@ import cn.clickwise.liqi.str.basic.SSO;
 public class AddHostCateTest extends AdMatchTestBase{
 
 	public String method="/addhostrecord?s=";
-	public String suffix="&platform=test";
+	public String suffix="&platform=adshow";
 	
 	public void testAddHostCate(String text)
 	{
