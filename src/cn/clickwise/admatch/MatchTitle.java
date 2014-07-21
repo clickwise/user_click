@@ -51,20 +51,8 @@ public class MatchTitle {
             }
         	md5word=MD5Code.Md5(word);
         	md5word=ad_invert_prefix+md5word;
-            
-        	
-        	
-        	
-        	
-        	       	
-        }
-        
-        
-        
-        
-        
-		
-		
+                            		       	
+        }	
 	}
 	
 	public void title_flat_scoremap(HashMap<String,Double> ad_score_map,HashMap<String,Double> mapped_ad_score_map,double mulfactor)

@@ -8,13 +8,11 @@ public class DSPAddUserRecTest  extends AdMatchTestBase{
 	public String suffix="&platform=adshow";
 	
 	public void testDSPAddUserRec(String uid,String hurl,String refer,String title,String hostCate){
-		String encode_title=URLEncoder.encode(title);
-		//System.out.println("encode_seg_s:"+encode_seg_s);
+		String encode_title=URLEncoder.encode(title);	
 		encode_title=encode_title.replaceAll("\\s+", "");
 		String url=url_prefix+method+"uid="+uid+"&hurl="+hurl+"&refer="+refer+"&title="+encode_title+"&hostcate="+hostCate;
 		String response=hct.postUrl(url);
-		System.out.println("response:"+response);
-		
+		System.out.println("response:"+response);		
 	}
 	
 	public static void main(String[] args)
@@ -26,7 +24,6 @@ public class DSPAddUserRecTest  extends AdMatchTestBase{
 		String hostCate="美妆";
 		
 		DSPAddUserRecTest daur=new DSPAddUserRecTest();
-		daur.testDSPAddUserRec(uid, hurl, refer, title, hostCate);
-		
+		daur.testDSPAddUserRec(uid, hurl, refer, title, hostCate);	
 	}
 }

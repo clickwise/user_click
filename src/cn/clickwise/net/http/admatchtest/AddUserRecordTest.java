@@ -19,7 +19,7 @@ public class AddUserRecordTest extends AdMatchTestBase{
 	public static void main(String[] args)
 	{
 		AddUserRecordTest aurt=new AddUserRecordTest();
-		String s="{\"attrs\":[\"定型\"],\"cates\":[\"护肤彩妆\",\"美发护发\",\"弹力素\"],\"items\":[\"啫喱\",\"啫喱水\"],\"time\":\"1399564830\",\"uid\":\"d6a540a9770e4fec0a375b11d9f370a3\",\"datatype\":\"TBSEARCH\"}";
+		String s="{\"attrs\":[\"定型\"],\"cates\":[\"护肤彩妆\",\"美发护发\",\"洗发水\"],\"items\":[\"啫喱\",\"啫喱水\"],\"time\":\"1399564830\",\"uid\":\"d6a540a9770e4fec0a375b11d9f370a3\",\"datatype\":\"TBSEARCH\"}";
 		aurt.testAddUserRecord(s);	
 	}
 	

@@ -15,7 +15,6 @@ import cn.clickwise.liqi.str.basic.SSO;
  * 分词的封装，模型较小可放在jar包中，
  * 加入切分词典、停用词典
  * @author zkyz
- *
  */
 public class AnsjSeg {
 
