@@ -108,7 +108,7 @@ public class UserLogFeatures extends AdMatchTestBase{
 		    json.put("title", jsontitle);
 		    	
 		} catch (Exception e) {
-
+                   System.out.println(e.getMessage());
 		}
 
 		return json.toString();
