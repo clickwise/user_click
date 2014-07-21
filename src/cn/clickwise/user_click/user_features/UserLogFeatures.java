@@ -81,7 +81,7 @@ public class UserLogFeatures extends AdMatchTestBase{
 
 			json.put("uid", uid);
 			json.put("datatype", "HOSTTITLE");
-			json.put("time", TimeOpera.getCurrentTimeLong()/1000);
+			json.put("time", (TimeOpera.getCurrentTimeLong()/1000)+"");
 			
 			String seg_title=ansjseg.seg(title);
 		    JSONArray jsontitle = new JSONArray();
