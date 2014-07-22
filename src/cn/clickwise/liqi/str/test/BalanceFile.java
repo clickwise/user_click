@@ -34,6 +34,7 @@ public class BalanceFile {
 		int oldc=0;
 		String text="";
 		String ntext="";
+		String label="";
 		try {
 			// fr=new FileReader(input_file);
 			fis = new FileInputStream(input_file.getAbsolutePath());
@@ -80,21 +81,20 @@ public class BalanceFile {
 			  if(!(mm.containsKey(field)))
 			  {
 				  mm.put(field, 1);
-				  pw.println(record);
+				  pw.println(field+"\001"+ntext);
 			  }
 			  else
 			  {
 				  oldc=mm.get(field);
 				  if(oldc<1000)
 				  {
-					  pw.println(record);
+					  pw.println(field+"\001"+ntext);
 				  }
 				  mm.remove(field);
 				  mm.put(field, oldc+1);
 				  
 			  }
-			  
-			
+			  	
 			}
 			
 			br.close();
