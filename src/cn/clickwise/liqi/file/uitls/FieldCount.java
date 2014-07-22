@@ -36,6 +36,7 @@ public class FieldCount {
 				  continue;
 			  }
 			  record=record.trim();
+			  System.out.println("record:"+record);
 			  seg_arr=record.split("\001");
 			  if(seg_arr.length!=field_num)
 			  {
@@ -43,6 +44,7 @@ public class FieldCount {
 			  }
 			  
 			  field=seg_arr[index];
+			  System.out.println("field:"+field);
 			  if(SSO.tioe(field))
 			  {
 				  continue;
