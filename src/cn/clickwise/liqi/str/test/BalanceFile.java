@@ -120,15 +120,17 @@ public class BalanceFile {
 		String[] seg_arr=text.split("\\s+");
 		String item="";
 		int nc=0;
+		int mc=0;
 		for(int i=0;i<seg_arr.length;i++)
 		{
 			item=seg_arr[i];
+			mc++;
 			if(!(item.equals("NA")))
 			{
 				nc++;
 			}
 		}
-		if(nc<3)
+		if(nc<=3||mc<=7)
 		{
 			return false;
 		}
