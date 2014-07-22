@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.InputStreamReader;
+import java.util.HashMap;
 import java.util.Map.Entry;
 
 import love.cq.util.MapCount;
@@ -24,6 +25,8 @@ public class FieldCount {
 		String[] seg_arr=null;
 		String field="";
 		MapCount<String> mc=new MapCount<String>();
+		HashMap<String,Integer> mm=new HashMap<String,Integer>();
+		int oldc=0;
 		try {
 			// fr=new FileReader(input_file);
 			fis = new FileInputStream(input_file.getAbsolutePath());
@@ -50,14 +53,30 @@ public class FieldCount {
 				  continue;
 			  }
 			  field=field.trim();
+			  
+			  if(!(mm.containsKey(field)))
+			  {
+				  mm.put(field, 1);
+			  }
+			  else
+			  {
+				  oldc=mm.get(field);
+				  mm.remove(field);
+				  mm.put(field, oldc+1);
+			  }
 			  mc.add(field);
 			}
 			
 			br.close();
 			fr.close();
-			for(Entry<String,Integer> c:mc.get().entrySet())
+			for(Entry<String,Integer> c : mc.get().entrySet())
 			{
 				System.out.println(c.getKey()+":"+c.getValue());
+			}
+			
+			for(Entry<String,Integer> element : mm.entrySet())
+			{
+				System.out.println(element.getKey()+":"+element.getValue());
 			}
 			
 		} catch (Exception e) {
