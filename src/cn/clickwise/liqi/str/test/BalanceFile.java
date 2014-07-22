@@ -145,7 +145,7 @@ public class BalanceFile {
 		for(int i=0;i<seg_arr.length;i++)
 		{
 			item=seg_arr[i];
-			if((item.equals("天猫"))||(item.equals("淘宝"))||(item.equals("包邮"))||(item.equals("正品"))||(item.equals("\\/")))
+			if((item.equals("天猫"))||(item.equals("淘宝"))||(item.equals("包邮"))||(item.equals("正品"))||(item.equals("\\\\/")))
 			{
 				item="NA";
 			}
