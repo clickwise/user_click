@@ -28,6 +28,7 @@ public class FieldCount {
 		String[] seg_arr=null;
 		String field="";
 		MapCount<String> mc=new MapCount<String>();
+		
 		//HashMap<String,Integer> mm=new HashMap<String,Integer>();
 		int oldc=0;
 		try {
@@ -106,8 +107,7 @@ public class FieldCount {
 		File input=new File(args[0]);
 		FieldCount fc=new FieldCount();
 		fc.fieldCount(input, Integer.parseInt(args[1]),Integer.parseInt(args[2]));
-		
-		
+	
 	}
 	
 }
