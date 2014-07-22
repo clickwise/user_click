@@ -6,7 +6,10 @@ import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map.Entry;
+import java.util.Set;
+
 
 import love.cq.util.MapCount;
 
@@ -74,10 +77,14 @@ public class FieldCount {
 				System.out.println(c.getKey()+":"+c.getValue());
 			}
 			
-			for(Entry<String,Integer> element : mm.entrySet())
-			{
-				System.out.println(element.getKey()+":"+element.getValue());
-			}
+		    Set s=mm.keySet();
+		    Iterator<String> it=s.iterator();
+		    String key="";
+		    while(it.hasNext())
+		    {
+		    	key=it.next();
+		    	System.out.println(key+":"+mm.get(key));
+		    }
 			
 		} catch (Exception e) {
 		}
