@@ -3,7 +3,7 @@ package cn.clickwise.net.http.admatchtest;
 public class MatchUserAdSimilarityTest extends AdMatchTestBase{
 
 	  public String method="/matchuseradsimilarity.json?";
-	  public String suffix="&platform=test";
+	  public String suffix="&platform=adshow";
 	  
 	  public void testMatchUser(String cookie,String adids)
 	  {
