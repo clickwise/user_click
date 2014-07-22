@@ -85,7 +85,7 @@ public class BalanceFile {
 			  else
 			  {
 				  oldc=mm.get(field);
-				  if(oldc<3000)
+				  if(oldc<1000)
 				  {
 					  pw.println(record);
 				  }
