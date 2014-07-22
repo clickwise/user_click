@@ -19,7 +19,7 @@ public class FieldCount {
 
 	public void fieldCount(File input_file,int field_num,int index)
 	{
-		FileReader fr = null;
+		
 		FileInputStream fis = null;
 		InputStreamReader isr = null;
 
@@ -28,7 +28,7 @@ public class FieldCount {
 		String[] seg_arr=null;
 		String field="";
 		MapCount<String> mc=new MapCount<String>();
-		HashMap<String,Integer> mm=new HashMap<String,Integer>();
+		//HashMap<String,Integer> mm=new HashMap<String,Integer>();
 		int oldc=0;
 		try {
 			// fr=new FileReader(input_file);
@@ -44,6 +44,10 @@ public class FieldCount {
 			  record=record.trim();
 			  //System.out.println("record:"+record);
 			  seg_arr=record.split("\001");
+			  if(seg_arr==null)
+			  {
+				  continue;
+			  }
 			  if(seg_arr.length!=field_num)
 			  {
 				  continue;
@@ -56,7 +60,7 @@ public class FieldCount {
 				  continue;
 			  }
 			  field=field.trim();
-			  
+			  /*
 			  if(!(mm.containsKey(field)))
 			  {
 				  mm.put(field, 1);
@@ -67,16 +71,16 @@ public class FieldCount {
 				  mm.remove(field);
 				  mm.put(field, oldc+1);
 			  }
+			  */
 			  mc.add(field);
 			}
 			
 			br.close();
-			fr.close();
 			for(Entry<String,Integer> c : mc.get().entrySet())
 			{
 				System.out.println(c.getKey()+":"+c.getValue());
 			}
-			
+			/*
 		    Set s=mm.keySet();
 		    Iterator<String> it=s.iterator();
 		    String key="";
@@ -85,8 +89,9 @@ public class FieldCount {
 		    	key=it.next();
 		    	System.out.println(key+":"+mm.get(key));
 		    }
-			
+			*/
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
 		}
 	}
 	
