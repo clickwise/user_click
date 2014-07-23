@@ -4,19 +4,20 @@ package cn.clickwise.net.http.admatchtest;
 public class MatchAdTest extends AdMatchTestBase{
 	
   public String method="/matchad.json?uid=";
-  public String suffix="&platform=test";
+  public String suffix="&platform=adshow";
 	
-  public void testMatchAd(String cookie)
+  public String testMatchAd(String cookie)
   {
 		String url=url_prefix+method+cookie+suffix;
 		String response=hct.postUrl(url);
-		System.out.println("response:"+response);
+		return response;
+		//System.out.println("response:"+response);
   }
 	
   public static void main(String[] args)
   {
 	  MatchAdTest mat=new MatchAdTest();
-	  String cookie="d6a540a9770e4fec0a375b11d9f370a3";
+	  String cookie="6622c24f3fce5b79e7db05862e56e13f";
 	  mat.testMatchAd(cookie);
   }
   

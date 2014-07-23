@@ -3,7 +3,7 @@ package cn.clickwise.net.http.admatchtest;
 public class MatchUserAdSimilarityTest extends AdMatchTestBase{
 
 	  public String method="/matchuseradsimilarity.json?";
-	  public String suffix="&platform=test";
+	  public String suffix="&platform=adshow";
 	  
 	  public void testMatchUser(String cookie,String adids)
 	  {
@@ -22,10 +22,10 @@ public class MatchUserAdSimilarityTest extends AdMatchTestBase{
 	  public static void main(String[] args)
 	  {
 		  MatchUserAdSimilarityTest muast=new MatchUserAdSimilarityTest();
-		  String cookie="521d0256e1682b6bf5edafd83370b7df";
-		  String host="0558.uc55.com";
-		  String adids="23";
-		  muast.testMatchUser(cookie, adids);
+		  String cookie="6622c24f3fce5b79e7db05862e56e13f";
+		 // String host="0558.uc55.com";
+		  //String adids="27,18,21";
+		 // muast.testMatchUser(cookie, adids);
 	  }
 	  
 }

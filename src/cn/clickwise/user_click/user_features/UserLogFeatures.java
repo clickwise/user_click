@@ -134,7 +134,7 @@ public class UserLogFeatures extends AdMatchTestBase implements UserClickConfig{
 						(long) ((double) TimeOpera
 								.str2long("2014-02-08 15:29:05") / (double) 1000),
 						(long) ((double) (TimeOpera.getCurrentTimeLong() + 100000) / (double) 1000));
-		System.out.println(js.size());
+		//System.out.println(js.size());
 		Iterator js_it = js.iterator();
 		String[] seg_arr = null;
 		String rec = "";

@@ -13,11 +13,11 @@ public class RedisTestArdb {
 		//Httpsqs_client sqs_fetch=new Httpsqs_client("192.168.110.186","1218","utf-8");
 		//Jedis jedis = new Jedis("192.168.110.186", 16379, 1000);// redis服务器地址
 		//Httpsqs_client sqs_fetch=new Httpsqs_client("42.62.29.25","1218","utf-8");
-		Jedis jedis = new Jedis("192.168.110.186", 16379, 1000);// redis服务器地址
+		Jedis jedis = new Jedis("42.62.29.25", 16379, 1000);// redis服务器地址
 		jedis.select(14);
 	    ////jedis.flushDB();
 	    
-		String one_item="521d0256e1682b6bf5edafd83370b7df";
+		String one_item="3382aef275e20063c68815abc333b247";
 		//String one_item="user:045f0af0387026ac421b9dc873634853";
 		System.out.println("dbsize:"+jedis.dbSize());
 		//////jedis.zrem(key, members);
