@@ -85,9 +85,9 @@ public class UserLogFeatures extends AdMatchTestBase implements UserClickConfig{
 			}
 			String cate = "";
 			if (SSO.tnoe(refer_host)) {
-				cate = getCate(refer_host);
+				cate = getCate("host_"+refer_host);
 			} else if (SSO.tnoe(url_host)) {
-				cate = getCate(url_host);
+				cate = getCate("host_"+url_host);
 			}
 			if (SSO.tioe(cate)) {
 				cate = "NA";
