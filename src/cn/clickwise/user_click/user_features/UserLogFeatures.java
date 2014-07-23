@@ -140,10 +140,14 @@ public class UserLogFeatures extends AdMatchTestBase implements UserClickConfig{
 		String rec = "";
 		while (js_it.hasNext()) {
 			rec = js_it.next() + "";
+			if(SSO.tioe(rec))
+			{
+				continue;
+			}
 			seg_arr = rec.split("\001");
 			cate = jedis.get("md5_" + seg_arr[0]);
 		}
-
+        System.out.println("cate:"+cate);
 		return cate;
 	}
 
