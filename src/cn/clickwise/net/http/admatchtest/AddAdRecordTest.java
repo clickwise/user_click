@@ -5,7 +5,7 @@ import java.net.URLEncoder;
 public class AddAdRecordTest extends AdMatchTestBase {
 
 	public String method="/addadrecord?s=";
-	public String suffix="&platform=adshow";
+	public String suffix="&platform=test";
 	
 	public void testAddAdRecord(String text)
 	{
