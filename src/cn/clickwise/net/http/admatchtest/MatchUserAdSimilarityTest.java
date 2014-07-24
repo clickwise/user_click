@@ -22,7 +22,7 @@ public class MatchUserAdSimilarityTest extends AdMatchTestBase{
 	  public static void main(String[] args)
 	  {
 		  MatchUserAdSimilarityTest muast=new MatchUserAdSimilarityTest();
-		  String cookie="012e82ae1ee14238d50cfbd39fe573d6";
+		  String cookie="152fbb4cf9b7f01eb85107c5c417213f";
 		  //String host="0558.uc55.com";
 		  String adids="27,18,21";
 		  muast.testMatchUser(cookie, adids);
