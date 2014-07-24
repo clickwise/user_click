@@ -24,6 +24,7 @@ public class SaveUserHistoryMatch {
 	public String datatype="BAIDU,TBSEARCH,HOSTTITLE";
 	public String infotype="cates,attrs,items,bdcates,bdkeys,refer_host,url_host,url_title,host_cate";
 	public String adinfotype="keywords";
+	public String platform="adshow";
 	
 	public void traverse_log(File log) {
 		FileReader fr = null;
@@ -49,7 +50,7 @@ public class SaveUserHistoryMatch {
               }
               record=record.trim();	
         	  
-              seg_arr=record.split("\\s+");
+              seg_arr=record.split("\001");
         	  if(seg_arr.length!=2)
         	  {
         		  continue;
@@ -79,7 +80,7 @@ public class SaveUserHistoryMatch {
 		String similarity="";
 		for(Entry<String,String> entry: adscore.entrySet())
 		{
-			auhmt.testAddUserHistoryMatch(cookie, entry.getKey(), entry.getValue(), datatype, infotype, adinfotype);
+			auhmt.testAddUserHistoryMatch(cookie, platform+"_"+entry.getKey(), entry.getValue(), datatype, infotype, adinfotype);
 		}	
 	}
 	
