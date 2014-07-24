@@ -19,7 +19,7 @@ public class AddUserHistoryMatchTest extends AdMatchTestBase{
 		String adid="test_23";
 		String similarity="0.5";
 		String datatype="BAIDU,TBSEARCH,HOSTTITLE";
-		String infotype="cates,attrs,items,bdcates,bdkeys,refer_host,url_host,url_title";
+		String infotype="cates,attrs,items,bdcates,bdkeys,refer_host,url_host,url_title,host_cate";
 		String adinfotype="keywords";
 		auhmt.testAddUserHistoryMatch(uid, adid, similarity, datatype, infotype, adinfotype);
 		

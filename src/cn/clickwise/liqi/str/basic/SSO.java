@@ -201,7 +201,7 @@ public class SSO {
 			lastIndex=source.lastIndexOf(str2);
 		}
 		
-		System.out.println("source:"+source+" fi:"+firstIndex+" li:"+lastIndex);
+		//System.out.println("source:"+source+" fi:"+firstIndex+" li:"+lastIndex);
 		ms=source.substring(firstIndex,lastIndex);
 		ms=ms.trim();
 		return ms;
