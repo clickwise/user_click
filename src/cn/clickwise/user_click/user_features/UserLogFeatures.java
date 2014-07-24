@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Properties;
 import java.util.Set;
 
 import org.json.JSONArray;
@@ -18,6 +19,7 @@ import redis.clients.jedis.Jedis;
 import cn.clickwise.admatch.MatchTool;
 import cn.clickwise.liqi.file.uitls.JarFileReader;
 import cn.clickwise.liqi.str.basic.SSO;
+import cn.clickwise.liqi.str.configutil.ConfigFileReader;
 import cn.clickwise.liqi.time.utils.TimeOpera;
 import cn.clickwise.net.http.URIAnalysis;
 import cn.clickwise.net.http.admatchtest.AdMatchTestBase;
@@ -29,12 +31,15 @@ import cn.clickwise.user_click.seg.AnsjSeg;
  * @author zkyz
  */
 
-public class UserLogFeatures extends AdMatchTestBase implements UserClickConfig{
+public class UserLogFeatures extends AdMatchTestBase {
 
 	public AnsjSeg ansjseg = null;
 	public String method = "/adduserrecord?s=";
 	public Jedis jedis = null;
-
+	public String redis_host="42.62.29.25";
+	public int redis_port=16379;
+	public int redis_db=14;
+	  
 	public void init() {
 		JarFileReader jfr = new JarFileReader();
 		String seg_dict_file = "five_dict_uniq.txt";
@@ -44,6 +49,18 @@ public class UserLogFeatures extends AdMatchTestBase implements UserClickConfig{
 		ansjseg = new AnsjSeg();
 		ansjseg.setSeg_dict(seg_dict);
 		ansjseg.setStop_dict(stop_dict);
+		
+		Properties prop = null;
+		try {
+			prop = ConfigFileReader.getPropertiesFromFile("user_click.config");
+		} catch (Exception e) {
+            System.out.println(e.getMessage());
+		}
+		redis_host=prop.getProperty("redis_host");
+		redis_port=Integer.parseInt(prop.getProperty("redis_port"));
+		redis_db=Integer.parseInt(prop.getProperty("redis_db"));
+		System.out.println("url_prefix="+url_prefix);
+		
 		jedis = new Jedis(redis_host, redis_port, 1000);// redis服务器地址
 		jedis.select(redis_db);
 	}
@@ -199,5 +216,6 @@ public class UserLogFeatures extends AdMatchTestBase implements UserClickConfig{
 		ulf.init();
 		ulf.traverse_log(new File(args[0]));
 	}
+
 
 }

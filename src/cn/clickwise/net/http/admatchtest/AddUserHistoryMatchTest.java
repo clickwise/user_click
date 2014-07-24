@@ -1,15 +1,20 @@
 package cn.clickwise.net.http.admatchtest;
 
+import java.util.Properties;
+
+import cn.clickwise.liqi.str.configutil.ConfigFileReader;
+
 public class AddUserHistoryMatchTest extends AdMatchTestBase{
 
 	public String method="/adduserhistorymatch?";
 	public String suffix="";
-	
+
 	public void testAddUserHistoryMatch(String uid,String adid,String similarity,String datatype,String infotype,String adinfotype)
 	{
 		String url=url_prefix+method+"uid="+uid+"&adid="+adid+"&similarity="+similarity+"&datatype="+datatype+"&infotype="+infotype+"&adinfotype="+adinfotype;
 		String response=hct.postUrl(url);
 		System.out.println("response:"+response);
+		
 	}
 	
 	public static void main(String[] args)

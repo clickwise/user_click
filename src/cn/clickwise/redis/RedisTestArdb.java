@@ -13,11 +13,11 @@ public class RedisTestArdb {
 		//Httpsqs_client sqs_fetch=new Httpsqs_client("192.168.110.186","1218","utf-8");
 		//Jedis jedis = new Jedis("192.168.110.186", 16379, 1000);// redis服务器地址
 		//Httpsqs_client sqs_fetch=new Httpsqs_client("42.62.29.25","1218","utf-8");
-		Jedis jedis = new Jedis("192.168.110.181", 16379, 1000);// redis服务器地址
+		Jedis jedis = new Jedis("42.62.29.25", 16379, 1000);// redis服务器地址
 		jedis.select(14);
 	    ////jedis.flushDB();
 	    
-		String one_item="012e82ae1ee14238d50cfbd39fe573d6";
+		String one_item="host_www.taobao.com";
 		//String one_item="user:045f0af0387026ac421b9dc873634853";
 		System.out.println("dbsize:"+jedis.dbSize());
 		//////jedis.zrem(key, members);
