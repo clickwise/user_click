@@ -20,14 +20,15 @@ import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
 public class StanterSegHttpServer implements Runnable {
+	
 	static Logger logger =  LoggerFactory.getLogger(StanterSegHttpServer.class);
     private static StanterSegHttpServer serverInstance;
     private HttpServer        httpServer;
     private ExecutorService   executor;
     public  int port=0;
     public StanterSeg sseg;
-    @Override
     
+    @Override
     public void run() {
         try {
     		try {

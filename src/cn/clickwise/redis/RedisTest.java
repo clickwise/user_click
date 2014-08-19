@@ -9,13 +9,13 @@ public class RedisTest {
 
 	public static void main(String[] args)
 	{
-		Jedis jedis = new Jedis("192.168.110.186", 16379, 10000);// redis服务器地址	
+		Jedis jedis = new Jedis("106.187.35.172", 16379, 10000);// redis服务器地址	
 		//Jedis jedis = new Jedis("192.168.110.186", 6379, 1000);// redis服务器地址
 		jedis.select(14);
 	    
 		jedis.ping();
 		//jedis.set("md5_cb696edca40ed45e4533dc6c12cd5d30", "单肩");
-		System.out.println(jedis.get("md5_1AEAB55016906C82B82F81701E3820C5"));
+		System.out.println(jedis.get("hostmatch_www.dm72.com"));
 		System.out.println("dbsize:"+jedis.dbSize());
 		System.exit(1);
 		Set<String> s=jedis.keys("adshow*");

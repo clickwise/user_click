@@ -1,0 +1,144 @@
+package cn.clickwise.clickad.server;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.InetSocketAddress;
+import java.net.URLEncoder;
+import java.util.Properties;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import cn.clickwise.clickad.seg.Segmenter;
+import cn.clickwise.liqi.str.edcode.UrlCode;
+
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+import com.sun.net.httpserver.HttpServer;
+
+public class AuxiliaryServer implements Runnable {
+
+	static Logger logger = LoggerFactory.getLogger(AuxiliaryServer.class);
+	private Properties properties = new Properties();
+
+	@Override
+	public void run() {
+
+		// TODO Auto-generated method stub
+		// 配置成根据传入请求的前缀不同调用不同的处理程序
+		// 每种请求对应一个handler
+		try {
+			HttpServer hs = HttpServer.create(
+					new InetSocketAddress(Integer.parseInt(properties
+							.getProperty("port"))), 0);
+
+			// 设置分词 hander
+			AnsjSegHandler ansj_handler = new AnsjSegHandler();
+			hs.createContext("/seg", ansj_handler);
+
+			TestHandler test_handler = new TestHandler();
+			hs.createContext("/test", test_handler);
+
+			hs.setExecutor(null);
+			hs.start();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	class AnsjSegHandler implements HttpHandler {
+		
+		Segmenter segmenter;
+		
+		public AnsjSegHandler()
+		{
+			segmenter=new Segmenter();
+			segmenter.loadAnsjDic(new File(properties.getProperty("dict")));
+		}
+
+		@Override
+		public void handle(HttpExchange exchange) throws IOException {
+			// TODO Auto-generated method stub
+			
+			String request = exchange.getRequestURI().toString();
+			request=request.replaceFirst("\\/seg\\?s\\=", "");
+			request=request.trim();
+			
+			String decode=new String(UrlCode.getDecodeUrl(request));
+			decode=decode.trim();
+			
+			String s=segmenter.segAnsi(decode);
+			
+			String encode=URLEncoder.encode(s);
+			encode = encode.replaceAll("\\s+", "");
+			
+			exchange.sendResponseHeaders(200, encode.length());
+			OutputStream os = exchange.getResponseBody();
+			os.write(encode.getBytes());
+			os.close();
+		}
+
+	}
+
+	class TestHandler implements HttpHandler {
+
+		@Override
+		public void handle(HttpExchange arg0) throws IOException {
+			// TODO Auto-generated method stub
+			System.out.println("test");
+		}
+
+	}
+
+	public Properties getProp() {
+		return properties;
+	}
+
+	public void setProp(Properties properties) {
+		this.properties = properties;
+	}
+
+	public void read_input_parameters(String[] args) {
+		int i;
+		for (i = 0; (i < args.length) && ((args[i].charAt(0)) == '-'); i++) {
+			switch ((args[i].charAt(1))) {
+			case 'h':
+				print_help();
+				System.exit(0);
+			case 'p':
+				i++;
+				properties.setProperty("port", args[i]);
+				break;
+			case 'd':
+				i++;
+				properties.setProperty("dict", args[i]);
+				break;
+			default:
+				System.out.println("Unrecognized option " + args[i] + "!");
+				print_help();
+				System.exit(0);
+			}
+		}
+
+		System.out.println(properties.toString());
+	}
+
+	public static void print_help() {
+		System.out.println("usage: AuxiliaryServer [options]");
+		System.out.println("options: -h  -> this help");
+		System.out.println("         -p  auxiliary server port");
+		System.out.println("         -d  ansj dict file");
+	}
+
+	public static void main(String[] args) {
+
+		AuxiliaryServer as = new AuxiliaryServer();
+		as.read_input_parameters(args);
+		Thread serverThread = new Thread(as);
+		serverThread.start();
+
+	}
+
+}

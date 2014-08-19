@@ -16,7 +16,7 @@ public class FileReaderUtil {
 	 * 获取hashmap,第一列为key,第二列为value
 	 * @return
 	 */
-	public static HashMap<String,String> getHashFromPlainFile(String input_file) {
+	public static HashMap<String,String> getHashFromPlainFile(String input_file,String seprator) {
 		// TODO Auto-generated method stub
 	
 		HashMap<String,String> hm=new HashMap<String,String>();
@@ -38,7 +38,7 @@ public class FileReaderUtil {
 			   {
 				   continue;
 			   }
-			   seg_arr=item.split("\\s+");
+			   seg_arr=item.split(seprator);
 			   if(seg_arr.length!=2)
 			   {
 				   continue;

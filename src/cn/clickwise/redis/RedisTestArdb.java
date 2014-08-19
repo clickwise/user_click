@@ -17,7 +17,7 @@ public class RedisTestArdb {
 		jedis.select(14);
 	    ////jedis.flushDB();
 	    
-		String one_item="host_www.taobao.com";
+		String one_item="adshow_28";
 		//String one_item="user:045f0af0387026ac421b9dc873634853";
 		System.out.println("dbsize:"+jedis.dbSize());
 		//////jedis.zrem(key, members);

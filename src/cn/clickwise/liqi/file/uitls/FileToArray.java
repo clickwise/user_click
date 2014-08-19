@@ -169,7 +169,7 @@ public class FileToArray {
 		  {
 			  line=line.trim();
 			  
-			 // System.out.println("line:"+line);
+			// System.out.println("line:"+line);
 			  if(!(SSO.tnoe(line)))
 			  {
 				  continue;

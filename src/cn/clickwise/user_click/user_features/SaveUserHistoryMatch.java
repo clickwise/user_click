@@ -134,8 +134,7 @@ public class SaveUserHistoryMatch {
         	System.err.println("Usage:<input_file>");
         	System.exit(1);
         }
-		
-            
+		       
 		SaveUserHistoryMatch suhm=new SaveUserHistoryMatch();
 		suhm.traverse_log(new File(args[0]));
 	}
