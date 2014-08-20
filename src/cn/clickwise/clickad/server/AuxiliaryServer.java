@@ -112,16 +112,18 @@ public class AuxiliaryServer implements Runnable {
 
            // OutputStreamWriter osw=new OutputStreamWriter(os);
 			//PrintWriter pw=new PrintWriter(osw);
-			String res="response test";
+			String res=zipMulLine(list);
 			/*
 			for(int j=0;j<list.size();j++)
 			{
 				res+=(list.get(j)+"\n");
 			}
 			*/
-			exchange.sendResponseHeaders(200, res.length());
+			String encode = URLEncoder.encode(res);
+			encode = encode.replaceAll("\\s+", "");
+			exchange.sendResponseHeaders(200, encode.length());
 			OutputStream os = exchange.getResponseBody();
-			os.write(res.getBytes());
+			os.write(encode.getBytes());
 			//pw.flush();
 			//pw.close();
 			os.close();
@@ -141,6 +143,20 @@ public class AuxiliaryServer implements Runnable {
 					zip += (segmenter.segAnsi(lines[i]) + "<br>");
 				} else {
 					zip += (segmenter.segAnsi(lines[i]) + "<end>");
+				}
+			}
+
+			return zip;
+		}
+		
+		public String zipMulLine(ArrayList<String> list) {
+			String zip = "<start>";
+
+			for (int i = 0; i < list.size(); i++) {
+				if (i < list.size() - 1) {
+					zip += (segmenter.segAnsi(list.get(i)) + "<br>");
+				} else {
+					zip += (segmenter.segAnsi(list.get(i)) + "<end>");
 				}
 			}
 
