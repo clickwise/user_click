@@ -86,22 +86,25 @@ public class AuxiliaryServer implements Runnable {
 			}
 
 
-           // OutputStreamWriter osw=new OutputStreamWriter(os);
-			//PrintWriter pw=new PrintWriter(osw);
-			String res=zipMulLine(list);
-			/*
+            OutputStream os = exchange.getResponseBody();
+            OutputStreamWriter osw=new OutputStreamWriter(os);
+			PrintWriter pw=new PrintWriter(osw);
+	
+			
 			for(int j=0;j<list.size();j++)
 			{
-				res+=(list.get(j)+"\n");
+                  String encode = URLEncoder.encode(list.get(j));
+                  System.out.println("encode:"+encode);
+		          pw.println(encode);      
 			}
-			*/
-			String encode = URLEncoder.encode(res);
-			encode = encode.replaceAll("\\s+", "");
-			exchange.sendResponseHeaders(200, encode.length());
-			OutputStream os = exchange.getResponseBody();
-			os.write(encode.getBytes());
-			//pw.flush();
-			//pw.close();
+			
+			//String encode = URLEncoder.encode(res);
+			//encode = encode.replaceAll("\\s+", "");
+			//exchange.sendResponseHeaders(200, encode.length());
+			//OutputStream os = exchange.getResponseBody();
+			//os.write(encode.getBytes());
+			pw.flush();
+			pw.close();
 			os.close();
 		}
 
