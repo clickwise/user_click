@@ -56,6 +56,12 @@ public class AnsjClient extends AuxiliaryTestBase {
 
 	}
 
+	@Override
+	public String test(String[] text) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 
 }

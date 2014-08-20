@@ -77,6 +77,7 @@ public class AuxiliaryServer implements Runnable {
 			String body = "";
 			String line = "";
 			while ((line = br.readLine()) != null) {
+				System.out.println("line:"+line);
 				body += (line + "");
 			}
 
@@ -106,17 +107,17 @@ public class AuxiliaryServer implements Runnable {
 		}
 
 		public String seg_bat(String[] lines) {
-			String mul = "<start>";
+			String zip = "<start>";
 
 			for (int i = 0; i < lines.length; i++) {
 				if (i < lines.length - 1) {
-					mul += segmenter.segAnsi(lines[i]) + "<br>";
+					zip += (segmenter.segAnsi(lines[i]) + "<br>");
 				} else {
-					mul += segmenter.segAnsi(lines[i]) + "<end>";
+					zip += (segmenter.segAnsi(lines[i]) + "<end>");
 				}
 			}
 
-			return mul;
+			return zip;
 		}
 
 	}
