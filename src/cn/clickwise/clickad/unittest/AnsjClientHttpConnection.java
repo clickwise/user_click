@@ -25,7 +25,7 @@ public class AnsjClientHttpConnection extends AuxiliaryTestBase {
 		ArrayList<String> response=new ArrayList<String>();
         
 		try {
-			URL url = new URL("http://127.0.0.1:8080/seg?s=");
+			URL url = new URL("http://192.168.110.182:8080/seg?s=");
 			HttpURLConnection urlConn = (HttpURLConnection) url
 					.openConnection();
 			urlConn.setDoOutput(true);
@@ -107,7 +107,7 @@ public class AnsjClientHttpConnection extends AuxiliaryTestBase {
 		AnsjClientHttpConnection achc=new AnsjClientHttpConnection();
 		
 		String[] unsegs = FileToArray
-				.fileToDimArr("temp/seg_test/tb_test5.txt");
+				.fileToDimArr("temp/seg_test/tb_test.txt");
 			
 		PrintWriter pw = FileWriterUtil
 				.getPW("temp/seg_test/tb_test_bat.txt");
