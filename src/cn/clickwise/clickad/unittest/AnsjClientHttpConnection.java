@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -34,30 +35,34 @@ public class AnsjClientHttpConnection extends AuxiliaryTestBase {
 			
 			OutputStream outStrm = urlConn.getOutputStream();
 			// 现在通过输出流对象构建对象输出流对象，以实现输出可序列化的对象。
-			ObjectOutputStream oos = new ObjectOutputStream(outStrm);
-
+			//ObjectOutputStream oos = new ObjectOutputStream(outStrm);
+            OutputStreamWriter osw=new OutputStreamWriter(outStrm);
+			PrintWriter pw=new PrintWriter(osw);
+            
 			// 向对象输出流写出数据，这些数据将存到内存缓冲区中
-			oos.writeObject(new String("<start>"));
+			//oos.writeObject(new String("<start>"));
 			for(int j=0;j<texts.length;j++)
 			{
 				if(j<texts.length-1)
 				{
-					oos.writeObject(texts[j]+" <br>");
+					pw.println(texts[j]);
+					//oos.writeObject(texts[j]+" <br> \n");
 				}
 				else
 				{
-					oos.writeObject(texts[j]+" <end>");
+					//oos.writeObject(texts[j]+" <end>");
 				}
 			}
 
 			// 刷新对象输出流，将任何字节都写入潜在的流中（些处为ObjectOutputStream）
-			oos.flush();		
+			pw.flush();		
 	        BufferedReader reader = new BufferedReader(new InputStreamReader(
 	        		urlConn.getInputStream()));
 	        
 	        
 	        String line;
 	        while ((line = reader.readLine()) != null) {
+	        	System.out.println("res line:"+line);
 	            response+=(line+"");
 	        }
 	        

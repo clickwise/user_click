@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.URLEncoder;
 import java.util.Properties;
@@ -73,13 +75,18 @@ public class AuxiliaryServer implements Runnable {
 
 			InputStreamReader isr = new InputStreamReader(is);
 			BufferedReader br = new BufferedReader(isr);
+			
+			OutputStream os = exchange.getResponseBody();
+            OutputStreamWriter osw=new OutputStreamWriter(os);
+			PrintWriter pw=new PrintWriter(osw);
 
 			//获得请求消息体
 			String body = "";
 			String line = "";
 			while ((line = br.readLine()) != null) {
-				System.out.println("line:"+line);
-				body += (line + "");
+				//System.out.println(line);
+				//body += (line + "");
+				pw.println(segmenter.segAnsi(line));
 			}
 
 			/**
@@ -88,7 +95,7 @@ public class AuxiliaryServer implements Runnable {
 
 			String decode = new String(UrlCode.getDecodeUrl(request));
 			decode = decode.trim();
-                        **/
+                    
 			
 			String s = seg_bat(split_lines(body));
 
@@ -97,8 +104,13 @@ public class AuxiliaryServer implements Runnable {
 
 			exchange.sendResponseHeaders(200, encode.length());
 			OutputStream os = exchange.getResponseBody();
+			
+			
+			
 			os.write(encode.getBytes());
 			os.close();
+			 **/
+			pw.close();
 		}
 
 		public String[] split_lines(String body) {
