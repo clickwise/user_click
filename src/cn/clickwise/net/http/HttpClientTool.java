@@ -39,7 +39,30 @@ public class HttpClientTool {
 	}
 	
 	
-	
+	public String getUrl(String url)
+	{
+		String con="";
+		try{
+			HttpGet httpget=new HttpGet(url);
+			HttpResponse response = httpclient.execute(httpget);
+
+			// 获取响应状态
+			int statusCode = response.getStatusLine().getStatusCode();
+			if (statusCode == HttpStatus.SC_OK) {
+				// 获取响应实体
+				HttpEntity entity = response.getEntity();
+				if (entity != null) {
+					con = EntityUtils.toString(entity);
+					con=con.replaceAll("\\s+", "");
+				}
+			}			
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.getMessage());
+		}	
+		return con;
+	}
 	
 	
 }
