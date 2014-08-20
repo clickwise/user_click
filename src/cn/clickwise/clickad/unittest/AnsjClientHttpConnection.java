@@ -26,6 +26,7 @@ public class AnsjClientHttpConnection extends AuxiliaryTestBase {
 			HttpURLConnection urlConn = (HttpURLConnection) url
 					.openConnection();
 			urlConn.setDoOutput(true);
+			urlConn.setDoInput(true);
 			//urlConn.setRequestProperty("Content-type","application/x-java-serialized-object");
 			urlConn.setRequestProperty("Content-type","text/plain");
 
