@@ -83,10 +83,7 @@ public class AuxiliaryServer implements Runnable {
 				//System.out.println(line);
 				list.add(segmenter.segAnsi(line));
 			}
-
 			
-			//String encode = URLEncoder.encode(zipMulLine(list));
-			//encode = encode.replaceAll("\\s+", "");
 			exchange.sendResponseHeaders(200, 0);
 			OutputStream os = exchange.getResponseBody();
 			
@@ -100,39 +97,6 @@ public class AuxiliaryServer implements Runnable {
 			os.close();
 		}
 
-		public String[] split_lines(String body) {
-			body = SSO.midstrs(body, "<start>", "<end>");
-			String[] lines = body.split("<br>");
-			return lines;
-		}
-
-		public String seg_bat(String[] lines) {
-			String zip = "<start>";
-
-			for (int i = 0; i < lines.length; i++) {
-				if (i < lines.length - 1) {
-					zip += (segmenter.segAnsi(lines[i]) + "<br>");
-				} else {
-					zip += (segmenter.segAnsi(lines[i]) + "<end>");
-				}
-			}
-
-			return zip;
-		}
-		
-		public String zipMulLine(ArrayList<String> list) {
-			String zip = "<start>";
-
-			for (int i = 0; i < list.size(); i++) {
-				if (i < list.size() - 1) {
-					zip += (segmenter.segAnsi(list.get(i)) + "<br>");
-				} else {
-					zip += (segmenter.segAnsi(list.get(i)) + "<end>");
-				}
-			}
-
-			return zip;
-		}
 
 	}
 

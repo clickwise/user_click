@@ -45,18 +45,10 @@ public class AnsjClientHttpConnection extends AuxiliaryTestBase {
 			PrintWriter pw=new PrintWriter(osw);
             
 			// 向对象输出流写出数据，这些数据将存到内存缓冲区中
-			//oos.writeObject(new String("<start>"));
 			for(int j=0;j<texts.length;j++)
 			{
-				if(j<texts.length-1)
-				{
 					pw.println(texts[j]);
-					//oos.writeObject(texts[j]+" <br> \n");
-				}
-				else
-				{
-					//oos.writeObject(texts[j]+" <end>");
-				}
+		
 			}
 
 			// 刷新对象输出流，将任何字节都写入潜在的流中（些处为ObjectOutputStream）
@@ -81,26 +73,6 @@ public class AnsjClientHttpConnection extends AuxiliaryTestBase {
 		return response;
 	}
 	
-	public String zipMulLines(String[] lines)
-	{
-	   String zip="<start>";
-		for (int i = 0; i < lines.length; i++) {
-			if (i < lines.length - 1) {
-				zip += (lines[i] +" <br>");
-			} else {
-				zip += (lines[i] + "<end>");
-			}
-		}
-	   
-	   return zip;
-	}
-	
-	public String[] unzipMulLines(String body)
-	{
-		body = SSO.midstrs(body, "<start>", "<end>");
-		String[] lines = body.split("<br>");
-		return lines;
-	}
 	
 	public static void main(String[] args) throws Exception
 	{
