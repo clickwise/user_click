@@ -63,6 +63,7 @@ public class AuxiliaryServer implements Runnable {
 			// TODO Auto-generated method stub
 			
 			String request = exchange.getRequestURI().toString();
+                        System.out.println("request:"+request);
 			request=request.replaceFirst("\\/seg\\?s\\=", "");
 			request=request.trim();
 			
