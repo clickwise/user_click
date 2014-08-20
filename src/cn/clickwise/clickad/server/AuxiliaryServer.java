@@ -77,10 +77,6 @@ public class AuxiliaryServer implements Runnable {
 			InputStreamReader isr = new InputStreamReader(is);
 			BufferedReader br = new BufferedReader(isr);
 			
-			OutputStream os = exchange.getResponseBody();
-            OutputStreamWriter osw=new OutputStreamWriter(os);
-			PrintWriter pw=new PrintWriter(osw);
-
 			//获得请求消息体
 			String body = "";
 			String line = "";
@@ -113,10 +109,15 @@ public class AuxiliaryServer implements Runnable {
 			os.write(encode.getBytes());
 			os.close();
 			 **/
+			exchange.sendResponseHeaders(200, encode.length());
+			OutputStream os = exchange.getResponseBody();
+            OutputStreamWriter osw=new OutputStreamWriter(os);
+			PrintWriter pw=new PrintWriter(osw);
 			for(int j=0;j<list.size();j++)
 			{
 				pw.println(list.get(j));
 			}
+			pw.flush();
 			pw.close();
 		}
 
