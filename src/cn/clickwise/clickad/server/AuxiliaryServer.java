@@ -10,6 +10,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import org.slf4j.Logger;
@@ -83,10 +84,12 @@ public class AuxiliaryServer implements Runnable {
 			//获得请求消息体
 			String body = "";
 			String line = "";
+			ArrayList<String> list=new ArrayList<String>();
+			
 			while ((line = br.readLine()) != null) {
-				//System.out.println(line);
+				System.out.println(line);
 				//body += (line + "");
-				pw.println(segmenter.segAnsi(line));
+				list.add(segmenter.segAnsi(line));
 			}
 
 			/**
@@ -110,6 +113,10 @@ public class AuxiliaryServer implements Runnable {
 			os.write(encode.getBytes());
 			os.close();
 			 **/
+			for(int j=0;j<list.size();j++)
+			{
+				pw.println(list.get(j));
+			}
 			pw.close();
 		}
 
