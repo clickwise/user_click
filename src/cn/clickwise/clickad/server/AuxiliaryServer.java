@@ -24,6 +24,11 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
+/**
+ * 辅助工具server端
+ * @author zkyz
+ *
+ */
 public class AuxiliaryServer implements Runnable {
 
 	static Logger logger = LoggerFactory.getLogger(AuxiliaryServer.class);
