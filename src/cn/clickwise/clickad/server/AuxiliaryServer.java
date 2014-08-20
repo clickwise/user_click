@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import cn.clickwise.clickad.seg.Segmenter;
+import cn.clickwise.liqi.str.basic.SSO;
 import cn.clickwise.liqi.str.edcode.UrlCode;
 
 import com.sun.net.httpserver.HttpExchange;
@@ -52,47 +53,70 @@ public class AuxiliaryServer implements Runnable {
 	}
 
 	class AnsjSegHandler implements HttpHandler {
-		
+
 		Segmenter segmenter;
-		
-		public AnsjSegHandler()
-		{
-			segmenter=new Segmenter();
+
+		public AnsjSegHandler() {
+			segmenter = new Segmenter();
 			segmenter.loadAnsjDic(new File(properties.getProperty("dict")));
 		}
 
 		@Override
 		public void handle(HttpExchange exchange) throws IOException {
 			// TODO Auto-generated method stub
-			
+
 			String request = exchange.getRequestURI().toString();
-			request=request.replaceFirst("\\/seg\\?s\\=", "");
-			
-			InputStream is=exchange.getRequestBody();
-			InputStreamReader isr=new InputStreamReader(is);
-			BufferedReader br=new BufferedReader(isr);
-			
-			String body="";
-			String line="";
-			while((line=br.readLine())!=null)
-			{
-				body+=(line+"");
+			request = request.replaceFirst("\\/seg\\?s\\=", "");
+
+			InputStream is = exchange.getRequestBody();
+
+			InputStreamReader isr = new InputStreamReader(is);
+			BufferedReader br = new BufferedReader(isr);
+
+			//获得请求消息体
+			String body = "";
+			String line = "";
+			while ((line = br.readLine()) != null) {
+				body += (line + "");
 			}
-			System.out.println("body:"+body);
-			request=request.trim();
+
+			/**
+			System.out.println("body:" + body);
+			request = request.trim();
+
+			String decode = new String(UrlCode.getDecodeUrl(request));
+			decode = decode.trim();
+            **/
 			
-			String decode=new String(UrlCode.getDecodeUrl(request));
-			decode=decode.trim();
-			
-			String s=segmenter.segAnsi(decode);
-			
-			String encode=URLEncoder.encode(s);
+			String s = seg_bat(split_lines(body));
+
+			String encode = URLEncoder.encode(s);
 			encode = encode.replaceAll("\\s+", "");
-			
+
 			exchange.sendResponseHeaders(200, encode.length());
 			OutputStream os = exchange.getResponseBody();
 			os.write(encode.getBytes());
 			os.close();
+		}
+
+		public String[] split_lines(String body) {
+			body = SSO.midstrs(body, "<start>", "<end>");
+			String[] lines = body.split("<br>");
+			return lines;
+		}
+
+		public String seg_bat(String[] lines) {
+			String mul = "<start>";
+
+			for (int i = 0; i < lines.length; i++) {
+				if (i < lines.length - 1) {
+					mul += segmenter.segAnsi(lines[i]) + "<br>";
+				} else {
+					mul += segmenter.segAnsi(lines[i]) + "<end>";
+				}
+			}
+
+			return mul;
 		}
 
 	}
