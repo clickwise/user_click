@@ -25,7 +25,7 @@ public abstract class AuxiliaryTestBase {
 	
 	
 	public abstract String test(String text);
-	
+	public abstract String test(String[] text);
 	
 	
 }

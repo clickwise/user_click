@@ -4,15 +4,22 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import cn.clickwise.liqi.file.uitls.FileToArray;
+import cn.clickwise.liqi.file.uitls.FileWriterUtil;
+import cn.clickwise.liqi.str.basic.SSO;
+import cn.clickwise.liqi.str.edcode.UrlCode;
+import cn.clickwise.liqi.time.utils.TimeOpera;
 
 public class AnsjClientHttpConnection extends AuxiliaryTestBase {
 
 	@Override
-	public String test(String text) {
+	public String test(String[] texts) {
 		// TODO Auto-generated method stub
-
+        String response="";
 		try {
 			URL url = new URL("http://192.168.110.182:8080/seg?s=");
 			HttpURLConnection urlConn = (HttpURLConnection) url
@@ -29,36 +36,94 @@ public class AnsjClientHttpConnection extends AuxiliaryTestBase {
 			// 现在通过输出流对象构建对象输出流对象，以实现输出可序列化的对象。
 			ObjectOutputStream oos = new ObjectOutputStream(outStrm);
 
-			String wcontent="<start> 欧美风格超性感诱惑裸色露背温泉连体比基尼出口外贸游泳衣女泳装 <br> 反季清仓包邮 COO LUXE australia 皮毛一体 两穿马丁雪地靴  <br> 送礼绝佳 世界顶级设计者品牌 华贵典雅 经典标志款 真皮钱包 男 <br> 原装正品OPI指甲油2013年米妮 米老鼠小姐 芭比粉 嫩粉色M55<end>";
 			// 向对象输出流写出数据，这些数据将存到内存缓冲区中
-			oos.writeObject(wcontent.getBytes());
+			oos.writeObject(new String("<start>"));
+			for(int j=0;j<texts.length;j++)
+			{
+				if(j<texts.length-1)
+				{
+					oos.writeObject(texts[j]+" <br>");
+				}
+				else
+				{
+					oos.writeObject(texts[j]+" <end>");
+				}
+			}
 
 			// 刷新对象输出流，将任何字节都写入潜在的流中（些处为ObjectOutputStream）
-			oos.flush();
-			
+			oos.flush();		
 	        BufferedReader reader = new BufferedReader(new InputStreamReader(
 	        		urlConn.getInputStream()));
-	        System.out.println("=============================");
-	        System.out.println("Contents of get request");
-	        System.out.println("=============================");
-	        String lines;
-	        while ((lines = reader.readLine()) != null) {
-	            System.out.println(lines);
+	        
+	        
+	        String line;
+	        while ((line = reader.readLine()) != null) {
+	            response+=(line+"");
 	        }
+	        
+	        response=UrlCode.getDecodeUrl(response);
+	        
 	        reader.close();
 	        urlConn.disconnect();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		return response;
 	}
 	
+	public String zipMulLines(String[] lines)
+	{
+	   String zip="<start>";
+		for (int i = 0; i < lines.length; i++) {
+			if (i < lines.length - 1) {
+				zip += (lines[i] +" <br>");
+			} else {
+				zip += (lines[i] + "<end>");
+			}
+		}
+	   
+	   return zip;
+	}
 	
-	public static void main(String[] args)
+	public String[] unzipMulLines(String body)
+	{
+		body = SSO.midstrs(body, "<start>", "<end>");
+		String[] lines = body.split("<br>");
+		return lines;
+	}
+	
+	public static void main(String[] args) throws Exception
 	{
 		AnsjClientHttpConnection achc=new AnsjClientHttpConnection();
-		achc.test("");
+		
+		String[] unsegs = FileToArray
+				.fileToDimArr("temp/seg_test/tb_test3.txt");
+			
+		PrintWriter pw = FileWriterUtil
+				.getPW("temp/seg_test/tb_test_bat.txt");
+		
+		long start_time = TimeOpera.getCurrentTimeLong();
+		
+		String body=achc.test(unsegs);
+		String[] responses=achc.unzipMulLines(body);
+		for(int i=0;i<responses.length;i++)
+		{
+			pw.println(responses[i]);
+		}
+		
+		long end_time = TimeOpera.getCurrentTimeLong();
+
+		System.out.println( " total doc, use time:"
+				+ ((double) (end_time - start_time) / (double) 1000)
+				+ " seconds");
+		pw.close();
+	}
+
+	@Override
+	public String test(String text) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
