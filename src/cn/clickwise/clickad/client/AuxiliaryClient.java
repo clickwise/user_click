@@ -63,7 +63,7 @@ public class AuxiliaryClient {
 		
 		long end_time = TimeOpera.getCurrentTimeLong();
 
-		System.out.println( " total doc, use time:"
+		System.out.println( unsegs.length+" total doc, use time:"
 				+ ((double) (end_time - start_time) / (double) 1000)
 				+ " seconds");
 		pw.close();
