@@ -60,13 +60,12 @@ public class AnsjClientHttpConnection extends AuxiliaryTestBase {
 			pw.flush();		
 	        BufferedReader reader = new BufferedReader(new InputStreamReader(
 	        		urlConn.getInputStream()));
-	         
+	        
 	        String line;
 	        while ((line = reader.readLine()) != null) {
-	        	System.out.println("res line:"+line);
+	        	//System.out.println("res line:"+line);
 	            response+=(line+"");
-	        }
-	        
+	        }	        
 	        response=UrlCode.getDecodeUrl(response);
 	        
 	        reader.close();
