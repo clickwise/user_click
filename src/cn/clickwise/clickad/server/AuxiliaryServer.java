@@ -111,14 +111,14 @@ public class AuxiliaryServer implements Runnable {
 			 **/
 			//exchange.sendResponseHeaders(200, encode.length());
 			OutputStream os = exchange.getResponseBody();
-            OutputStreamWriter osw=new OutputStreamWriter(os);
-			PrintWriter pw=new PrintWriter(osw);
+           // OutputStreamWriter osw=new OutputStreamWriter(os);
+			//PrintWriter pw=new PrintWriter(osw);
 			for(int j=0;j<list.size();j++)
 			{
-				pw.println(list.get(j));
+				os.write(new String(list.get(j)+" \n").getBytes());
 			}
-			pw.flush();
-			pw.close();
+			//pw.flush();
+			//pw.close();
 			os.close();
 		}
 
