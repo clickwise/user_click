@@ -8,6 +8,8 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLDecoder;
+import java.util.ArrayList;
 
 import cn.clickwise.liqi.file.uitls.FileToArray;
 import cn.clickwise.liqi.file.uitls.FileWriterUtil;
@@ -18,11 +20,12 @@ import cn.clickwise.liqi.time.utils.TimeOpera;
 public class AnsjClientHttpConnection extends AuxiliaryTestBase {
 
 	@Override
-	public String test(String[] texts) {
+	public ArrayList<String> testmul(String[] texts) {
 		// TODO Auto-generated method stub
-        String response="";
+		ArrayList<String> response=new ArrayList<String>();
+        
 		try {
-			URL url = new URL("http://192.168.110.182:8080/seg?s=");
+			URL url = new URL("http://127.0.0.1:8080/seg?s=");
 			HttpURLConnection urlConn = (HttpURLConnection) url
 					.openConnection();
 			urlConn.setDoOutput(true);
@@ -64,12 +67,13 @@ public class AnsjClientHttpConnection extends AuxiliaryTestBase {
 	        String line;
 	        while ((line = reader.readLine()) != null) {
 	        	//System.out.println("res line:"+line);
-	            response+=(line+"");
+	        	response.add(URLDecoder.decode(line));
 	        }	        
-	        response=UrlCode.getDecodeUrl(response);
+	        
 	        
 	        reader.close();
 	        urlConn.disconnect();
+	        
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -103,18 +107,18 @@ public class AnsjClientHttpConnection extends AuxiliaryTestBase {
 		AnsjClientHttpConnection achc=new AnsjClientHttpConnection();
 		
 		String[] unsegs = FileToArray
-				.fileToDimArr("temp/seg_test/tb_test3.txt");
+				.fileToDimArr("temp/seg_test/tb_test5.txt");
 			
 		PrintWriter pw = FileWriterUtil
 				.getPW("temp/seg_test/tb_test_bat.txt");
 		
 		long start_time = TimeOpera.getCurrentTimeLong();
 		
-		String body=achc.test(unsegs);
-		String[] responses=achc.unzipMulLines(body);
-		for(int i=0;i<responses.length;i++)
+		ArrayList<String> bodys=achc.testmul(unsegs);
+		
+		for(int i=0;i<bodys.size();i++)
 		{
-			pw.println(responses[i]);
+			pw.println(bodys.get(i));
 		}
 		
 		long end_time = TimeOpera.getCurrentTimeLong();
@@ -127,6 +131,12 @@ public class AnsjClientHttpConnection extends AuxiliaryTestBase {
 
 	@Override
 	public String test(String text) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String test(String[] text) {
 		// TODO Auto-generated method stub
 		return null;
 	}

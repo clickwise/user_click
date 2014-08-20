@@ -1,6 +1,7 @@
 package cn.clickwise.clickad.unittest;
 
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import cn.clickwise.liqi.str.configutil.ConfigFileReader;
@@ -27,5 +28,6 @@ public abstract class AuxiliaryTestBase {
 	public abstract String test(String text);
 	public abstract String test(String[] text);
 	
+	public abstract ArrayList<String> testmul(String[] text);
 	
 }

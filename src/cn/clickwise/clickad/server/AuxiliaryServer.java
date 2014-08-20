@@ -85,11 +85,18 @@ public class AuxiliaryServer implements Runnable {
 			}
 
 			
-			String encode = URLEncoder.encode(zipMulLine(list));
-			encode = encode.replaceAll("\\s+", "");
-			exchange.sendResponseHeaders(200, encode.length());
+			//String encode = URLEncoder.encode(zipMulLine(list));
+			//encode = encode.replaceAll("\\s+", "");
+			exchange.sendResponseHeaders(200, 0);
 			OutputStream os = exchange.getResponseBody();
-			os.write(encode.getBytes());
+			
+			String encode="";
+			for(int j=0;j<list.size();j++)
+			{
+				encode = URLEncoder.encode(list.get(j));
+				os.write(new String(encode+"\n").getBytes());
+			}
+			
 			os.close();
 		}
 

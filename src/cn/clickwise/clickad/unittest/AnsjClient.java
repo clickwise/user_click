@@ -3,6 +3,7 @@ package cn.clickwise.clickad.unittest;
 import java.io.PrintWriter;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 
 import cn.clickwise.liqi.file.uitls.FileToArray;
 import cn.clickwise.liqi.file.uitls.FileWriterUtil;
@@ -58,6 +59,12 @@ public class AnsjClient extends AuxiliaryTestBase {
 
 	@Override
 	public String test(String[] text) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<String> testmul(String[] text) {
 		// TODO Auto-generated method stub
 		return null;
 	}
