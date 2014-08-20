@@ -102,7 +102,7 @@ public class AnsjClientHttpConnection extends AuxiliaryTestBase {
 		AnsjClientHttpConnection achc=new AnsjClientHttpConnection();
 		
 		String[] unsegs = FileToArray
-				.fileToDimArr("temp/seg_test/tb_test3.txt");
+				.fileToDimArr("temp/seg_test/tb_test5.txt");
 			
 		PrintWriter pw = FileWriterUtil
 				.getPW("temp/seg_test/tb_test_bat.txt");

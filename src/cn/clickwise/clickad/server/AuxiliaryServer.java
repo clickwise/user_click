@@ -119,6 +119,7 @@ public class AuxiliaryServer implements Runnable {
 			}
 			pw.flush();
 			pw.close();
+			os.close();
 		}
 
 		public String[] split_lines(String body) {
