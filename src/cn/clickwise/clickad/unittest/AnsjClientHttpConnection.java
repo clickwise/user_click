@@ -32,6 +32,7 @@ public class AnsjClientHttpConnection extends AuxiliaryTestBase {
 
 			// 设定请求的方法为"POST"，默认是GET
 			urlConn.setRequestMethod("GET");
+			urlConn.setConnectTimeout(1000000);
 			urlConn.connect();
 			
 			OutputStream outStrm = urlConn.getOutputStream();
@@ -103,7 +104,7 @@ public class AnsjClientHttpConnection extends AuxiliaryTestBase {
 		AnsjClientHttpConnection achc=new AnsjClientHttpConnection();
 		
 		String[] unsegs = FileToArray
-				.fileToDimArr("temp/seg_test/tb_test5.txt");
+				.fileToDimArr("temp/seg_test/tb_test3.txt");
 			
 		PrintWriter pw = FileWriterUtil
 				.getPW("temp/seg_test/tb_test_bat.txt");

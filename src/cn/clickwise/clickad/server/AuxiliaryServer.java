@@ -69,46 +69,22 @@ public class AuxiliaryServer implements Runnable {
 			// TODO Auto-generated method stub
 
 			String request = exchange.getRequestURI().toString();
-                        System.out.println("request:"+request);
-			request=request.replaceFirst("\\/seg\\?s\\=", "");
+            System.out.println("request:"+request);
 			
 			InputStream is = exchange.getRequestBody();
-
 			InputStreamReader isr = new InputStreamReader(is);
 			BufferedReader br = new BufferedReader(isr);
 			
 			//获得请求消息体
 			String body = "";
 			String line = "";
-			ArrayList<String> list=new ArrayList<String>();
-			
+			ArrayList<String> list=new ArrayList<String>();			
 			while ((line = br.readLine()) != null) {
 				System.out.println(line);
 				//body += (line + "");
 				list.add(segmenter.segAnsi(line));
 			}
 
-			/**
-			System.out.println("body:" + body);
-			request = request.trim();
-
-			String decode = new String(UrlCode.getDecodeUrl(request));
-			decode = decode.trim();
-                    
-			
-			String s = seg_bat(split_lines(body));
-
-			String encode = URLEncoder.encode(s);
-			encode = encode.replaceAll("\\s+", "");
-
-			exchange.sendResponseHeaders(200, encode.length());
-			OutputStream os = exchange.getResponseBody();
-			
-			
-			
-			os.write(encode.getBytes());
-			os.close();
-			 **/
 
            // OutputStreamWriter osw=new OutputStreamWriter(os);
 			//PrintWriter pw=new PrintWriter(osw);
