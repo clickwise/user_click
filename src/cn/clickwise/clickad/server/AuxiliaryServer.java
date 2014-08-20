@@ -1,7 +1,10 @@
 package cn.clickwise.clickad.server;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.URLEncoder;
@@ -65,6 +68,18 @@ public class AuxiliaryServer implements Runnable {
 			String request = exchange.getRequestURI().toString();
                         System.out.println("request:"+request);
 			request=request.replaceFirst("\\/seg\\?s\\=", "");
+			
+			InputStream is=exchange.getRequestBody();
+			InputStreamReader isr=new InputStreamReader(is);
+			BufferedReader br=new BufferedReader(isr);
+			
+			String body="";
+			String line="";
+			while((line=br.readLine())!=null)
+			{
+				body+=(line+"");
+			}
+			System.out.println("body:"+body);
 			request=request.trim();
 			
 			String decode=new String(UrlCode.getDecodeUrl(request));
