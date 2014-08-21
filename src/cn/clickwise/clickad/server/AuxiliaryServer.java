@@ -107,12 +107,48 @@ public class AuxiliaryServer implements Runnable {
 
 	class TestHandler implements HttpHandler {
 
-		@Override
-		public void handle(HttpExchange arg0) throws IOException {
-			// TODO Auto-generated method stub
-			System.out.println("test");
+		Segmenter segmenter;
+
+		public TestHandler() {
+			segmenter = new Segmenter();
+			segmenter.loadAnsjDic(new File(properties.getProperty("dict")));
 		}
 
+		@Override
+		public void handle(HttpExchange exchange) throws IOException {
+			// TODO Auto-generated method stub
+
+			String request = exchange.getRequestURI().toString();
+            System.out.println("request:"+request);
+			
+			InputStream is = exchange.getRequestBody();
+			InputStreamReader isr = new InputStreamReader(is);
+			BufferedReader br = new BufferedReader(isr);
+			
+			exchange.sendResponseHeaders(200, 0);
+			OutputStream os = exchange.getResponseBody();
+			
+			//获得请求消息体
+			String body = "";
+			String line = "";
+			String encode="";
+			ArrayList<String> list=new ArrayList<String>();			
+			while ((line = br.readLine()) != null) {
+				//System.out.println(line);
+				encode = URLEncoder.encode(segmenter.segAnsi(line));
+				os.write(new String(encode+"\n").getBytes());
+			}
+			
+			/*
+			String encode="";
+			for(int j=0;j<list.size();j++)
+			{
+				encode = URLEncoder.encode(list.get(j));
+				os.write(new String(encode+"\n").getBytes());
+			}
+			*/
+			os.close();
+		}
 	}
 
 	public Properties getProp() {
