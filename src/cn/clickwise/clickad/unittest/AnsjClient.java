@@ -37,12 +37,13 @@ public class AnsjClient extends AuxiliaryTestBase {
 					.fileToDimArr("temp/seg_test/tb_test3.txt");
 			String texts = "";
 			for (int i = 0; i < unsegs.length; i++) {
-				texts += unsegs[i] + "\n";
-				if(i%200==1)
-				{
-					pw.println(UrlCode.getDecodeUrl(ansj.test(texts)));
-					texts="";
-				}
+				
+				long sub_start_time = TimeOpera.getCurrentTimeLong();
+				pw.println(UrlCode.getDecodeUrl(ansj.test(unsegs[i])));
+				long sub_end_time = TimeOpera.getCurrentTimeLong();			
+				System.out.println("rec "+i+" use time:"
+						+ ((double) (sub_end_time - sub_start_time) / (double) 1000)
+						+ " seconds");
 			}
 
 			long end_time = TimeOpera.getCurrentTimeLong();

@@ -83,6 +83,7 @@ public class AuxiliaryClient {
         
 		try {
 			URL url = new URL("http://"+properties.getProperty("server")+":"+properties.getProperty("port")+"/seg?s=");
+			System.out.println(url.toString());
 			HttpURLConnection urlConn = (HttpURLConnection) url
 					.openConnection();
 			urlConn.setDoOutput(true);
