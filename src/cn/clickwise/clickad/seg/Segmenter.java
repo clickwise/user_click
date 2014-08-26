@@ -50,12 +50,12 @@ public class Segmenter {
 	{
 		//String text="凤凰网 凤凰网是中国领先的综合门户网站，提供含文图音视频的全方位综合新闻资讯、深度访谈、观点评论、财经产品、互动应用、分享社区等服务，同时与凤凰无线、凤凰宽频形成动，为全球主流华人提供互联网、无线通信、电视网三网融合无缝衔接的新媒体优质体验。";
 		Segmenter seg=new Segmenter();
-		seg.loadAnsjDic(new File("dict/userWords.txt"));
+		seg.loadAnsjDic(new File("dict/five_dict_uniq.txt"));
 		
-		PrintWriter pw=FileWriterUtil.getPW("temp/seg_test/tb_test_seg.txt");
+		PrintWriter pw=FileWriterUtil.getPW("temp/seg_test/test_seg.txt");
 		long start_time=TimeOpera.getCurrentTimeLong();
 		
-		String[] unsegs=FileToArray.fileToDimArr("temp/seg_test/tb_test.txt");
+		String[] unsegs=FileToArray.fileToDimArr("temp/seg_test/test.txt");
 		for(int i=0;i<unsegs.length;i++)
 		{
 		  pw.println(seg.segAnsi(unsegs[i]));
