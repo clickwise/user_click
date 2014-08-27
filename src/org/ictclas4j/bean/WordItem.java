@@ -18,7 +18,7 @@ public class WordItem {
 		
 	}
 	
-	WordItem(String _word,int _len,int _handle,int _freq) {
+	public WordItem(String _word,int _len,int _handle,int _freq) {
 		word=_word;
 		len=_len;
 		handle=_handle;
