@@ -191,6 +191,7 @@ public class SegTag {
 		String line=null;
 		try {
 			while ((line=reader.readLine())!=null) {
+				System.out.println("line:"+line);
 				try { 
 					SegResult seg_res=segTag.split(line);
 					System.out.println(seg_res.getFinalResult());
