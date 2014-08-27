@@ -65,17 +65,26 @@ public class FileReplace {
 	
 	public static void main(String[] args)
 	{
+		/*
 		if(args.length!=5)
 		{
 			System.err.println("Usage: <sep_index> <sou_sep> <tar_sep> <input_file> <output_file>");
 			System.exit(1);
 		}
 		
+		
 		int sep_index=Integer.parseInt(args[0]);
 		String sou_sep=args[1];
 		String tar_sep=args[2];
 		String input_file=args[3];
 		String output_file=args[4];
+		*/
+		
+		int sep_index=0;
+		String sou_sep="\\s+";
+		String tar_sep="\001";
+		String input_file="temp/seg_test/ec_title_vec.txt";
+		String output_file="temp/seg_test/ec_title_vec_n.txt";
 		
 		FileReplace fr=new FileReplace();
 		fr.replaceSeparator(sep_index, sou_sep, tar_sep, new File(input_file), new File(output_file));
