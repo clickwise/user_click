@@ -397,8 +397,9 @@ public class CRP {
 				pw.flush();
 			}
 			pw.close();
+			
 		} catch (Exception e) {
-
+            e.printStackTrace();
 		}
 		
 	}
