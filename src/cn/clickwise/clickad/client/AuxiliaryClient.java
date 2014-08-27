@@ -119,8 +119,7 @@ public class AuxiliaryClient {
 	        	//System.out.println("res line:"+line);
 	        	response.add(URLDecoder.decode(line));
 	        }	        
-	        
-	        
+	            
 	        reader.close();
 	        urlConn.disconnect();
 	        

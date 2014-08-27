@@ -2,6 +2,7 @@ package cn.clickwise.liqi.file.uitls;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -255,5 +256,25 @@ public class FileReaderUtil {
 		}  
         return ht;  
     }
+	
+	public static BufferedReader getBufRed(File file)
+	{
+		FileInputStream fis = null;
+		InputStreamReader isr = null;
+		BufferedReader br = null;
+		
+		try {
+			// fr=new FileReader(input_file);
+			fis = new FileInputStream(file.getAbsolutePath());
+			isr = new InputStreamReader(fis);
+			br = new BufferedReader(isr);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return br;
+	}
+	
 	
 }

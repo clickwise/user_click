@@ -140,4 +140,20 @@ public class FileWriterUtil {
 		return pw;
 	}
 	
+	public static PrintWriter getPWFile(File output_file)
+	{
+		FileWriter fw=null;
+		PrintWriter pw=null;
+		
+		try{
+			fw=new FileWriter(output_file);
+			pw=new PrintWriter(fw);
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.getMessage());
+		}
+		
+		return pw;
+	}
 }
