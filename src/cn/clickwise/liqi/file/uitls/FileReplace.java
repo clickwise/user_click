@@ -31,11 +31,11 @@ public class FileReplace {
                 {
                 	if(j<sep_index)
                 	{
-                	 pw.println(tokens[j]+sou_sep);
+                	 pw.print(tokens[j]+sou_sep);
                 	}
                 	else
                 	{
-                	 pw.println(tokens[j]);
+                	 pw.print(tokens[j]);
                 	}
                 }
 				pw.print(tar_sep);
@@ -44,13 +44,14 @@ public class FileReplace {
                 {
                 	if(j<tokens.length)
                 	{
-                	 pw.println(tokens[j]+sou_sep);
+                	 pw.print(tokens[j]+sou_sep);
                 	}
                 	else
                 	{
-                	 pw.println(tokens[j]);
+                	 pw.print(tokens[j]);
                 	}
                 }
+                pw.println();
 				
 			}
 
