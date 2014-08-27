@@ -40,7 +40,7 @@ public class FileReplace {
                 }
 				pw.print(tar_sep);
 				
-                for(int j=(sep_index+1);j<=tokens.length;j++)
+                for(int j=(sep_index+1);j<tokens.length;j++)
                 {
                 	if(j<tokens.length)
                 	{
