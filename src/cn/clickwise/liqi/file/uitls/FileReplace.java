@@ -19,8 +19,7 @@ public class FileReplace {
 		PrintWriter pw = FileWriterUtil.getPWFile(output_file);
 		
 		String[] tokens = null;
-		String[] uniq_tokens = null;
-		Map<String,Integer> wc=null;
+
 		try {
 			while ((line = br.readLine()) != null) {
 				
@@ -81,7 +80,7 @@ public class FileReplace {
 		*/
 		
 		int sep_index=0;
-		String sou_sep="\\s+";
+		String sou_sep=" ";
 		String tar_sep="\001";
 		String input_file="temp/seg_test/ec_title_vec.txt";
 		String output_file="temp/seg_test/ec_title_vec_n.txt";
