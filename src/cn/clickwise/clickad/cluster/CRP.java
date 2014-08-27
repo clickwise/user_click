@@ -1,6 +1,7 @@
 package cn.clickwise.clickad.cluster;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,6 +13,7 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 
 import cn.clickwise.clickad.math.ArrayUtil;
+import cn.clickwise.liqi.file.uitls.FileReaderUtil;
 import cn.clickwise.liqi.file.uitls.FileToArray;
 import cn.clickwise.liqi.str.basic.DS2STR;
 import cn.clickwise.liqi.str.basic.DSCONV;
@@ -228,11 +230,11 @@ public class CRP {
 		String word = "";
 		String vstr = "";
 		double[] v;
-
+		BufferedReader br = FileReaderUtil.getBufRed(new File(file));
+		
 		try {
-			samples = FileToArray.fileToDimArr(file);
-			for (int i = 0; i < samples.length; i++) {
-				line = samples[i];
+			
+			while((line=br.readLine())!=null) {
 				if (SSO.tioe(line)) {
 					continue;
 				}
@@ -250,6 +252,7 @@ public class CRP {
 				}
 				wordMap.put(word, v);
 			}
+			
 		} catch (Exception e) {
 
 		}
