@@ -28,6 +28,7 @@ import cn.clickwise.sort.SortStrArray;
 public class CorpusDump {
 
 	public void tf_idf(File input_file, File output_file) {
+		
 		MapCount<String> idfs = new MapCount<String>();
 
 		BufferedReader br = FileReaderUtil.getBufRed(input_file);

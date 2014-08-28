@@ -516,12 +516,12 @@ public class AnsjSeg {
 		
 		String text="凤凰网 凤凰网是中国领先的综合门户网站，提供含文图音视频的全方位综合新闻资讯、深度访谈、观点评论、财经产品、互动应用、分享社区等服务，同时与凤凰无线、凤凰宽频形成动，为全球主流华人提供互联网、无线通信、电视网三网融合无缝衔接的新媒体优质体验。";
 		//System.out.println("text:"+text);
-		//System.out.println("segt:"+ansjseg.seg(text));
+		System.out.println("segt:"+ansjseg.seg(text));
 	
 		
-		text="9111秋装2013新款女韩版包臀短裙弹力蕾丝半身裙职业中裙大码裙子";
-		//System.out.println("text:"+text);
-		//System.out.println("segt:"+ansjseg.seg(text));
+		text="北京时间8月27日晚，2014赛季亚冠联赛1/4决赛第二回合展开争夺，广州恒大[微博]主场2-1战胜西悉尼流浪者，但因客场进球少被淘汰。著名足球评论员黄健翔[微博]在新浪体育对本场比赛进行了解说，黄健翔认为对方布里奇制造的点球不该判，恒大运气不好裁判手太松。";
+		System.out.println("text:"+text);
+		System.out.println("segt:"+ansjseg.seg(text));
 	
 	}
 	

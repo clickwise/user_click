@@ -20,8 +20,11 @@ import cn.clickwise.liqi.time.utils.TimeOpera;
 public class Segmenter {
 
 	public void loadAnsjDic(File dict) {
-		try{
+		
+		try{			
+			
 		List<String> dic = FileToArray.fileToArrayList(dict.getAbsolutePath());
+		
 		for (int i = 0; i < dic.size(); i++) {
 			UserDefineLibrary.insertWord(dic.get(i), "", 1000);
 			}
@@ -68,9 +71,6 @@ public class Segmenter {
 		
 	}
 	
-	
-	
-
 }
 	
 

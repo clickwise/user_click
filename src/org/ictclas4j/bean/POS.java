@@ -10,6 +10,7 @@ import org.apache.commons.lang.builder.ReflectionToStringBuilder;
  * 
  */
 public class POS {
+	
 	private int tag;// 词性标记，如：nr，高8位代表词性的第一个字符，低8位代表词的第二个字符
 
 	private double freq;// 该词性出现的频率
