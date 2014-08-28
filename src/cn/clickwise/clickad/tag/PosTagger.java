@@ -24,7 +24,6 @@ public class PosTagger {
 		return tagger.tagString(text);
 	}
 	
-	
 	public static void main(String[] args) throws Exception
 	{
 		PosTagger posTagger=new PosTagger("models/chinese-distsim.tagger");

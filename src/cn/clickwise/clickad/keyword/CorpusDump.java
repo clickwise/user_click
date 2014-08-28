@@ -51,9 +51,7 @@ public class CorpusDump {
 			}
 
 			br.close();
-
-			br = FileReaderUtil.getBufRed(input_file);
-			
+			br = FileReaderUtil.getBufRed(input_file);			
 			PrintWriter pw = FileWriterUtil.getPWFile(output_file);
 			
 			ArrayList<String> words_list=new ArrayList<String>();

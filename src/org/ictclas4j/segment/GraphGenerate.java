@@ -91,6 +91,7 @@ public class GraphGenerate {
 				for (; j <= atoms.size(); j++) {
 					int totalFreq = 0;
 					wi = dict.getMaxMatch(word);
+					System.out.println("wi:"+wi);
 					if (wi != null) {
 						// find it
 						if (word.equals(wi.getWord())) {

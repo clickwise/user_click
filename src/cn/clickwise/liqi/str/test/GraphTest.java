@@ -35,6 +35,13 @@ public class GraphTest {
 		for(int i=0;i<segNodes.size();i++)
 		{
 		  System.out.println(segNodes.get(i).getWord());	
+		  ArrayList<SegNode>  snodes=segGraph.getNextElements(i);
+		  for(int j=0;j<segNodes.size();j++)
+		  {
+			  System.out.print(segNodes.get(j).getWord()+" ");	  
+		  }
+		  System.out.println();
+		  
 		}
 		
 		
