@@ -192,6 +192,15 @@ public class TextRank {
 		
 		String se_words=args[0];
 		String rank_file=args[1];
+		File se_dir=new File(args[0]);
+		File[] se_files=se_dir.listFiles();
+		for(int i=0;i<se_files.length;i++)
+		{
+		   if(se_files[i].getName().indexOf("00")>-1)
+		   {
+			   se_words=se_files[i].getAbsolutePath();
+		   }
+		}
 		
 		TextRank textRank=new TextRank();
 		textRank.initGraph(new File(se_words));
