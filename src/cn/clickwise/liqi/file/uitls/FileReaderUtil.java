@@ -257,6 +257,38 @@ public class FileReaderUtil {
         return ht;  
     }
 	
+	
+	public  static HashMap<String,String> file2HashSin(String fileName) 
+	{  
+		HashMap<String,String> ht=new HashMap<String,String>();
+		try
+		{
+            FileReader fr=new FileReader(new File(fileName));        
+	        BufferedReader fb = new BufferedReader(fr);  
+	        String line = fb.readLine();
+	        line=line.trim();
+
+	        while((line=fb.readLine())!=null) 
+	        {
+                if(SSO.tioe(line))
+                {
+                	continue;
+                }
+	        	if(!(ht.containsKey(line)))
+	        	{
+	        		ht.put(line, "1");
+	        	}
+		
+	        }
+	        fb.close();
+	        fr.close();
+        }
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}  
+        return ht;  
+    }
 	public static BufferedReader getBufRed(File file)
 	{
 		FileInputStream fis = null;

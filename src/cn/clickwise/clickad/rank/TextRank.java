@@ -35,8 +35,7 @@ public class TextRank {
 				if(!v_set.containsKey(dicts[i]))
 				{
 					v_set.put(dicts[i], new WordNode(dicts[i],Math.random()));
-				}
-				
+				}				
 			}
 			
 		} catch (Exception e) {
@@ -44,11 +43,13 @@ public class TextRank {
 		}
 	}
 
-	public void graphFromFile(File input_file) {
+	public void graphFromFile(File input_file,File dict_file) {
+		SentenceGraph sg = new SentenceGraph(dict_file);
+		System.out.println(input_file);
 		BufferedReader br = FileReaderUtil.getBufRed(input_file);
 		String line = "";
-
-		SentenceGraph sg = new SentenceGraph(new File("temp/seg_test/ecw.txt"));
+		
+	
 		List<List<GraphNode>> startNodes = null;
 		List<List<GraphNode>> endNodes = null;
 
@@ -151,7 +152,7 @@ public class TextRank {
 	public void updateToConvergence()
 	{
 		
-		for(int i=0;i<100;i++)
+		for(int i=0;i<1000;i++)
 		{
 			System.out.println("loop "+i);
 			updateRank();
@@ -184,14 +185,16 @@ public class TextRank {
 	
 	public static void main(String[] args) throws Exception
 	{
-		if(args.length!=2)
+		if(args.length!=3)
 		{
-			System.err.println("Usage:<se_words> <rank_file>");
+			System.err.println("Usage:<se_words> <dict_file> <rank_file>");
 			System.exit(1);
 		}
 		
 		String se_words=args[0];
-		String rank_file=args[1];
+		
+		String dict_file=args[1];
+		String rank_file=args[2];
 		File se_dir=new File(args[0]);
 		File[] se_files=se_dir.listFiles();
 		for(int i=0;i<se_files.length;i++)
@@ -202,9 +205,21 @@ public class TextRank {
 		   }
 		}
 		
+		String dict_words="";
+		File dict_dir=new File(dict_file);
+		File[] dict_files=dict_dir.listFiles();
+		for(int i=0;i<dict_files.length;i++)
+		{
+		   if(dict_files[i].getName().indexOf("00")>-1)
+		   {
+			   dict_words=dict_files[i].getAbsolutePath();
+		   }
+		}
+		
+		
 		TextRank textRank=new TextRank();
 		textRank.initGraph(new File(se_words));
-		textRank.graphFromFile(new File(se_words));
+		textRank.graphFromFile(new File(se_words),new File(dict_words));
 		textRank.shrinkGraph();
 		textRank.updateToConvergence();
 		textRank.printRank(new File(rank_file));

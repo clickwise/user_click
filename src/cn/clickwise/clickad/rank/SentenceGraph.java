@@ -23,7 +23,7 @@ public class SentenceGraph {
 
 	public void loadDict(File dict_file) {
 		try {
-			dict = FileReaderUtil.file2Hash(dict_file.getAbsolutePath());
+			dict = FileReaderUtil.file2HashSin(dict_file.getAbsolutePath());
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -66,8 +66,8 @@ public class SentenceGraph {
 
 	public static void main(String[] args) throws Exception
 	{
-		SentenceGraph sg=new SentenceGraph(new File("temp/seg_test/ecw.txt"));
 		
+		SentenceGraph sg=new SentenceGraph(new File("temp/seg_test/ecw.txt"));	
 		String sentence="2012秋装新款夏装新品韩版女装海魂衫纯棉条纹长袖T恤打底衫上衣";
 		
 		List<List<GraphNode>> graphNodes=sg.sen2graph(sentence);
