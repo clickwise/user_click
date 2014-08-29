@@ -1,29 +1,279 @@
 package cn.clickwise.clickad.keyword;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.util.Vector;
+import java.util.regex.Pattern;
+
+import cn.clickwise.clickad.seg.Segmenter;
+
 /**
- * 输入：分词后的title，
- * 输出 ：tags，names
+ * 输入：分词后的title， 输出 ：tags，names
+ * 
  * @author zkyz
- *
+ * 
  */
 public class KeyExtract {
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	public String keyword_extract(String text) {
+		String k_s = "";
+		String[] seg_arr = text.split("\\s+");
+		Vector new_word_arr = new Vector();
+		String[] history_word_arr = new String[7];
+		for (int i = 0; i < history_word_arr.length; i++) {
+			history_word_arr[i] = "";
+		}
+
+		String key_word = "";
+		String subkey1 = "", subkey2 = "", subkey4 = "", subkey5 = "", subkey6 = "", subkey7 = "", subkey8 = "";
+
+		for (int i = 0; i < seg_arr.length; i++) {
+			// System.out.println(i + ":" + seg_arr[i]);
+			if (((seg_arr[i].indexOf("/NN")) != -1)
+					|| ((seg_arr[i].indexOf("/NR")) != -1)) {
+				key_word = seg_arr[i];
+				if ((seg_arr[i].indexOf("/NN")) != -1) {
+					key_word = key_word.replaceAll("/NN", "");
+				} else if ((seg_arr[i].indexOf("/NR")) != -1) {
+					key_word = key_word.replaceAll("/NR", "");
+				}
+				key_word = key_word.trim();
+				if (key_word.length() > 1) {
+					new_word_arr.add(key_word);
+					if ((key_word.length()) == 3) {
+						subkey1 = key_word.substring(0, 2);
+						subkey2 = key_word.substring(1, 3);
+						new_word_arr.add(subkey1);
+						new_word_arr.add(subkey2);
+					}
+
+					if ((key_word.length()) == 4) {
+						subkey4 = key_word.substring(0, 2);
+						subkey5 = key_word.substring(1, 3);
+						subkey6 = key_word.substring(2, 4);
+						subkey7 = key_word.substring(0, 3);
+						subkey8 = key_word.substring(1, 4);
+						new_word_arr.add(subkey4);
+						new_word_arr.add(subkey5);
+						new_word_arr.add(subkey6);
+						new_word_arr.add(subkey7);
+						new_word_arr.add(subkey8);
+					}
+				}
+
+			} else if (seg_arr[i].length() > 5) {
+				key_word = seg_arr[i];
+				key_word = key_word.replaceAll("/.*", "");
+				key_word = key_word.trim();
+				new_word_arr.add(key_word);
+			}
+
+			if (i > 4) {
+				history_word_arr[0] = seg_arr[i - 5];
+				history_word_arr[1] = seg_arr[i - 4];
+				history_word_arr[2] = seg_arr[i - 3];
+				history_word_arr[3] = seg_arr[i - 2];
+				history_word_arr[4] = seg_arr[i - 1];
+				history_word_arr[5] = seg_arr[i];
+				if (((history_word_arr[0].indexOf("/NN")) != -1)
+						&& ((history_word_arr[1].indexOf("/NN")) != -1)
+						&& ((history_word_arr[2].indexOf("/NN")) != -1)
+						&& ((history_word_arr[3].indexOf("/NN")) != -1)
+						&& ((history_word_arr[4].indexOf("/NN")) != -1)
+						&& ((history_word_arr[5].indexOf("/NN")) != -1)) {
+					history_word_arr[0] = history_word_arr[0].replaceAll("/NN",
+							"").trim();
+					history_word_arr[1] = history_word_arr[1].replaceAll("/NN",
+							"").trim();
+					history_word_arr[2] = history_word_arr[2].replaceAll("/NN",
+							"").trim();
+					history_word_arr[3] = history_word_arr[3].replaceAll("/NN",
+							"").trim();
+					history_word_arr[4] = history_word_arr[4].replaceAll("/NN",
+							"").trim();
+					history_word_arr[5] = history_word_arr[5].replaceAll("/NN",
+							"").trim();
+					new_word_arr.add(history_word_arr[0] + history_word_arr[1]
+							+ history_word_arr[2] + history_word_arr[3]
+							+ history_word_arr[4] + history_word_arr[5]);
+				}
+				history_word_arr[0] = "";
+				history_word_arr[1] = "";
+				history_word_arr[2] = "";
+				history_word_arr[3] = "";
+				history_word_arr[4] = "";
+				history_word_arr[5] = "";
+			}
+
+			if (i > 3) {
+				history_word_arr[0] = seg_arr[i - 4];
+				history_word_arr[1] = seg_arr[i - 3];
+				history_word_arr[2] = seg_arr[i - 2];
+				history_word_arr[3] = seg_arr[i - 1];
+				history_word_arr[4] = seg_arr[i];
+				if (((history_word_arr[0].indexOf("/NN")) != -1)
+						&& ((history_word_arr[1].indexOf("/NN")) != -1)
+						&& ((history_word_arr[2].indexOf("/NN")) != -1)
+						&& ((history_word_arr[3].indexOf("/NN")) != -1)
+						&& ((history_word_arr[4].indexOf("/NN")) != -1)) {
+					history_word_arr[0] = history_word_arr[0].replaceAll("/NN",
+							"").trim();
+					history_word_arr[1] = history_word_arr[1].replaceAll("/NN",
+							"").trim();
+					history_word_arr[2] = history_word_arr[2].replaceAll("/NN",
+							"").trim();
+					history_word_arr[3] = history_word_arr[3].replaceAll("/NN",
+							"").trim();
+					history_word_arr[4] = history_word_arr[4].replaceAll("/NN",
+							"").trim();
+
+					new_word_arr.add(history_word_arr[0] + history_word_arr[1]
+							+ history_word_arr[2] + history_word_arr[3]
+							+ history_word_arr[4]);
+				}
+
+				history_word_arr[0] = "";
+				history_word_arr[1] = "";
+				history_word_arr[2] = "";
+				history_word_arr[3] = "";
+				history_word_arr[4] = "";
+			}
+
+			if (i > 2) {
+				history_word_arr[0] = seg_arr[i - 3];
+				history_word_arr[1] = seg_arr[i - 2];
+				history_word_arr[2] = seg_arr[i - 1];
+				history_word_arr[3] = seg_arr[i];
+				if (((history_word_arr[0].indexOf("/NN")) != -1)
+						&& ((history_word_arr[1].indexOf("/NN")) != -1)
+						&& ((history_word_arr[2].indexOf("/NN")) != -1)
+						&& ((history_word_arr[3].indexOf("/NN")) != -1)) {
+					history_word_arr[0] = history_word_arr[0].replaceAll("/NN",
+							"").trim();
+					history_word_arr[1] = history_word_arr[1].replaceAll("/NN",
+							"").trim();
+					history_word_arr[2] = history_word_arr[2].replaceAll("/NN",
+							"").trim();
+					history_word_arr[3] = history_word_arr[3].replaceAll("/NN",
+							"").trim();
+					new_word_arr.add(history_word_arr[0] + history_word_arr[1]
+							+ history_word_arr[2] + history_word_arr[3]);
+				}
+
+				history_word_arr[0] = "";
+				history_word_arr[1] = "";
+				history_word_arr[2] = "";
+				history_word_arr[3] = "";
+
+			}
+
+			if (i > 1) {
+				history_word_arr[0] = seg_arr[i - 2];
+				history_word_arr[1] = seg_arr[i - 1];
+				history_word_arr[2] = seg_arr[i];
+				if (((history_word_arr[0].indexOf("/NN")) != -1)
+						&& ((history_word_arr[1].indexOf("/NN")) != -1)
+						&& ((history_word_arr[2].indexOf("/NN")) != -1)) {
+					history_word_arr[0] = history_word_arr[0].replaceAll("/NN",
+							"").trim();
+					history_word_arr[1] = history_word_arr[1].replaceAll("/NN",
+							"").trim();
+					history_word_arr[2] = history_word_arr[2].replaceAll("/NN",
+							"").trim();
+					new_word_arr.add(history_word_arr[0] + history_word_arr[1]
+							+ history_word_arr[2]);
+				}
+
+				history_word_arr[0] = "";
+				history_word_arr[1] = "";
+				history_word_arr[2] = "";
+			}
+
+			if (i > 0) {
+				history_word_arr[0] = seg_arr[i - 1];
+				history_word_arr[1] = seg_arr[i];
+				// System.out
+				// .println("history_word_arr[0]:" + history_word_arr[0]);
+				// System.out
+				// .println("history_word_arr[1]:" + history_word_arr[1]);
+				// System.out.println((history_word_arr[0].indexOf("/NN")) +
+				// ":"
+				// + (history_word_arr[1].indexOf("/NN")));
+				if (((history_word_arr[0].indexOf("/NN")) != -1)
+						&& ((history_word_arr[1].indexOf("/NN")) != -1)) {
+					// System.out.println("add the:"
+					// + (history_word_arr[0] + history_word_arr[1]));
+					history_word_arr[0] = history_word_arr[0].replaceAll("/NN",
+							"").trim();
+					history_word_arr[1] = history_word_arr[1].replaceAll("/NN",
+							"").trim();
+					new_word_arr.add(history_word_arr[0] + history_word_arr[1]);
+				}
+
+				history_word_arr[0] = "";
+				history_word_arr[1] = "";
+
+			}
+		}
+
+		String temp_CC = "";
+		for (int i = 0; i < new_word_arr.size(); i++) {
+			temp_CC = new_word_arr.get(i) + "";
+			if (!(Pattern.matches("[a-zA-Z%0-9\\\\\\\\_\\#]*", temp_CC))) {
+				k_s = k_s + temp_CC + " ";
+			}
+		}
+
+		return k_s;
+	}
+
+	public static void main(String[] args) throws Exception {
+		// String
+		// text="凤凰网 凤凰网是中国领先的综合门户网站，提供含文图音视频的全方位综合新闻资讯、深度访谈、观点评论、财经产品、互动应用、分享社区等服务，同时与凤凰无线、凤凰宽频形成动，为全球主流华人提供互联网、无线通信、电视网三网融合无缝衔接的新媒体优质体验。";
+		/*
+		 * Segmenter seg=new Segmenter(); seg.loadAnsjDic(new
+		 * File("dict/five_dict_uniq.txt"));
+		 * 
+		 * PrintWriter pw=FileWriterUtil.getPW("temp/seg_test/test_seg.txt");
+		 * long start_time=TimeOpera.getCurrentTimeLong();
+		 * 
+		 * String[] unsegs=FileToArray.fileToDimArr("temp/seg_test/test.txt");
+		 * for(int i=0;i<unsegs.length;i++) {
+		 * pw.println(seg.segAnsi(unsegs[i])); }
+		 * 
+		 * long end_time=TimeOpera.getCurrentTimeLong();
+		 * 
+		 * System.out.println(unsegs.length+" total doc, use time:"+((double)(
+		 * end_time-start_time)/(double)1000)+" seconds"); pw.close();
+		 */
+
+		if (args.length > 1) {
+			System.err.println("Usage:[dict]");
+			System.exit(1);
+		}
+
+		KeyExtract ke = new KeyExtract();
+
+
+		InputStreamReader isr = new InputStreamReader(System.in);
+		BufferedReader br = new BufferedReader(isr);
+
+		OutputStreamWriter osw = new OutputStreamWriter(System.out);
+		PrintWriter pw = new PrintWriter(osw);
+
+		String line = "";
+		while ((line = br.readLine()) != null) {
+			pw.println(ke.keyword_extract(line));
+		}
+
+		isr.close();
+		osw.close();
+		br.close();
+		pw.close();
+
+	}
+
 }
