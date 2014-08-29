@@ -52,7 +52,7 @@ public class FieldProcessMR {
 			}
 			catch(Exception e)
 			{
-				
+				e.printStackTrace();
 			}
 		}
 		

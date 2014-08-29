@@ -36,6 +36,8 @@ public class Segmenter {
 		{
 			e.printStackTrace();
 		}
+		
+		
 	}
 	
 	public String segAnsi(String text) {
