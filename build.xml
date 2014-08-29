@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<project default="jar" name="smart_hadoop">
+<project default="jar" name="user_click">
     <!-- 工程目录结构
     project
         |-bin
@@ -12,7 +12,7 @@
     <property name="src.dir" value="src"/>
     <property name="classes.dir" value="bin"/>
     <property name="output.dir" value="out"/>
-    <property name="jarname" value="smart_hadoop.jar"/>
+    <property name="jarname" value="user_click.jar"/>
     <!-- 第三方jar包的路径 -->
     <path id="lib-classpath">
         <fileset dir="${lib.dir}">
