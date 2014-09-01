@@ -1,4 +1,5 @@
 package cn.clickwise.baidu_hot;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -56,23 +57,22 @@ public class BKWHotWordsMR {
 		public int redis_host_cate_db = 0;
 		public int redis_cated_words_db = 0;
 
-                protected void setup(Context context) throws IOException,
+		protected void setup(Context context) throws IOException,
 				InterruptedException {
-			Configuration conf = context.getConfiguration();				
-			
-			try{
-			   load_config();	
-                           jedis = new Jedis(redis_host_ip, redis_port, 100000);// redis服务器地址
-                           jedis.ping();
-                           jedis.select(redis_host_cate_db);
+			Configuration conf = context.getConfiguration();
 
-                           cated_redis = new Jedis(redis_cated_words_ip, redis_port, 100000);
-                           cated_redis.ping();
-                           cated_redis.select(redis_cated_words_db);
-			}
-			catch(Exception e)
-			{
-			   e.printStackTrace();	
+			try {
+				load_config();
+				jedis = new Jedis(redis_host_ip, redis_port, 100000);// redis服务器地址
+				jedis.ping();
+				jedis.select(redis_host_cate_db);
+
+				cated_redis = new Jedis(redis_cated_words_ip, redis_port,
+						100000);
+				cated_redis.ping();
+				cated_redis.select(redis_cated_words_db);
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
 
@@ -80,15 +80,13 @@ public class BKWHotWordsMR {
 				throws IOException, InterruptedException {
 			String val = value.toString();
 			System.out.println(val);
-                        
-			String[] kud_seg = null;
-                        /*
-			try {
-				load_config();
-			} catch (Exception e) {
 
-			}
-                        */
+			String[] kud_seg = null;
+			/*
+			 * try { load_config(); } catch (Exception e) {
+			 * 
+			 * }
+			 */
 			if (val != null) {
 				kud_seg = val.split("\001");
 			}
@@ -99,7 +97,7 @@ public class BKWHotWordsMR {
 			String temp_url_info = "";
 			Vector trueurls_top_vec;
 
-                        System.out.println("redis is connected");
+			System.out.println("redis is connected");
 			String stcate = "";
 			String url_mos = "";
 			String sturl = "";
@@ -117,7 +115,7 @@ public class BKWHotWordsMR {
 				if ((keyword != null) && !(keyword.equals(""))) {
 
 					try {
-                                                System.out.println("keyword:"+keyword);
+						System.out.println("keyword:" + keyword);
 						oldcate = cated_redis.get(keyword);
 					} catch (Exception re) {
 						ran = Math.random();
@@ -433,9 +431,10 @@ public class BKWHotWordsMR {
 				System.out.println("ran:" + ran);
 				int rani = -1;
 				rani = (int) (ran * 16);
-				////HttpHost proxy = new HttpHost(proxy_hosts[rani], 80, "http");
-				////httpclient.getParams().setParameter(
-				////		ConnRoutePNames.DEFAULT_PROXY, proxy);
+				// //HttpHost proxy = new HttpHost(proxy_hosts[rani], 80,
+				// "http");
+				// //httpclient.getParams().setParameter(
+				// // ConnRoutePNames.DEFAULT_PROXY, proxy);
 				// httpclient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT,20000);
 				httpclient.setRedirectStrategy(new RedirectStrategy() { // 设置重定向处理方式
 
@@ -684,28 +683,28 @@ public class BKWHotWordsMR {
 
 	public static void main(String[] args) throws Exception {
 
+		Configuration conf = new Configuration();
+		String[] otherArgs = new GenericOptionsParser(conf, args)
+				.getRemainingArgs();
+		if (otherArgs.length != 3) {
+			System.err
+					.println("Usage: BKWSortKeyWordsMR <day> <input> <output>");
+			System.exit(2);
+		}
 
-                Configuration conf=new Configuration();
-                String[] otherArgs = new GenericOptionsParser(conf, args)
-                .getRemainingArgs();
-                if(otherArgs.length!=3){
-                        System.err.println("Usage: BKWSortKeyWordsMR <day> <input> <output>");
-                        System.exit(2);
-                }
-
-                String day=otherArgs[0];
-                Job job=new Job(conf,"BKWHotWordsMR_"+day);
-                job.setJarByClass(BKWHotWordsMR.class);
-                job.setMapperClass(PrepareMapper.class);
-                job.setReducerClass(PrepareReducer.class);
-                job.setNumReduceTasks(1);
-                job.setMapOutputKeyClass(Text.class);
-                job.setMapOutputValueClass(Text.class);
-                job.setOutputKeyClass(Text.class);
-                job.setOutputValueClass(Text.class);
-                FileInputFormat.addInputPath(job, new Path(otherArgs[1]));
-                FileOutputFormat.setOutputPath(job, new Path(otherArgs[2]));
-                System.exit(job.waitForCompletion(true) ? 0 : 1);
+		String day = otherArgs[0];
+		Job job = new Job(conf, "BKWHotWordsMR_" + day);
+		job.setJarByClass(BKWHotWordsMR.class);
+		job.setMapperClass(PrepareMapper.class);
+		job.setReducerClass(PrepareReducer.class);
+		job.setNumReduceTasks(1);
+		job.setMapOutputKeyClass(Text.class);
+		job.setMapOutputValueClass(Text.class);
+		job.setOutputKeyClass(Text.class);
+		job.setOutputValueClass(Text.class);
+		FileInputFormat.addInputPath(job, new Path(otherArgs[1]));
+		FileOutputFormat.setOutputPath(job, new Path(otherArgs[2]));
+		System.exit(job.waitForCompletion(true) ? 0 : 1);
 
 	}
 
