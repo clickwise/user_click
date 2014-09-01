@@ -11,6 +11,8 @@ if [ "$COMMAND" = "seg" ] ; then
   CLASS='cn.clickwise.clickad.seg.Segmenter'
 elif [ "$COMMAND" = "tag" ] ; then
   CLASS='cn.clickwise.clickad.tag.PosTagger'
+elif [ "$COMMAND" = "key" ] ; then
+  CLASS='cn.clickwise.clickad.keyword.KeyExtract'
 fi
 
 #echo $CLASS
