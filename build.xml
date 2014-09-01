@@ -354,7 +354,7 @@
         </patternset>
         </unzip>
         
-       <unzip src="${lib.dir}/httpclient-4.3.1.jar" dest="${classes.dir}">
+       <unzip src="${lib.dir}/httpclient-4.2.5.jar" dest="${classes.dir}">
         <patternset>
         <exclude name="META-INF"/>
         <exclude name="META-INF/MANIFEST.MF"/>
