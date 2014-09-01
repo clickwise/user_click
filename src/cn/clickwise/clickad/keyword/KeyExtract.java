@@ -19,6 +19,7 @@ import cn.clickwise.clickad.seg.Segmenter;
 public class KeyExtract {
 
 	public String keyword_extract(String text) {
+		
 		String k_s = "";
 		String[] seg_arr = text.split("\\s+");
 		Vector new_word_arr = new Vector();
@@ -32,13 +33,13 @@ public class KeyExtract {
 
 		for (int i = 0; i < seg_arr.length; i++) {
 			// System.out.println(i + ":" + seg_arr[i]);
-			if (((seg_arr[i].indexOf("/NN")) != -1)
-					|| ((seg_arr[i].indexOf("/NR")) != -1)) {
+			if (((seg_arr[i].indexOf("#NN")) != -1)
+					|| ((seg_arr[i].indexOf("#NR")) != -1)) {
 				key_word = seg_arr[i];
-				if ((seg_arr[i].indexOf("/NN")) != -1) {
-					key_word = key_word.replaceAll("/NN", "");
-				} else if ((seg_arr[i].indexOf("/NR")) != -1) {
-					key_word = key_word.replaceAll("/NR", "");
+				if ((seg_arr[i].indexOf("#NN")) != -1) {
+					key_word = key_word.replaceAll("#NN", "");
+				} else if ((seg_arr[i].indexOf("#NR")) != -1) {
+					key_word = key_word.replaceAll("#NR", "");
 				}
 				key_word = key_word.trim();
 				if (key_word.length() > 1) {
@@ -66,7 +67,7 @@ public class KeyExtract {
 
 			} else if (seg_arr[i].length() > 5) {
 				key_word = seg_arr[i];
-				key_word = key_word.replaceAll("/.*", "");
+				key_word = key_word.replaceAll("#.*", "");
 				key_word = key_word.trim();
 				new_word_arr.add(key_word);
 			}
@@ -78,23 +79,23 @@ public class KeyExtract {
 				history_word_arr[3] = seg_arr[i - 2];
 				history_word_arr[4] = seg_arr[i - 1];
 				history_word_arr[5] = seg_arr[i];
-				if (((history_word_arr[0].indexOf("/NN")) != -1)
-						&& ((history_word_arr[1].indexOf("/NN")) != -1)
-						&& ((history_word_arr[2].indexOf("/NN")) != -1)
-						&& ((history_word_arr[3].indexOf("/NN")) != -1)
-						&& ((history_word_arr[4].indexOf("/NN")) != -1)
-						&& ((history_word_arr[5].indexOf("/NN")) != -1)) {
-					history_word_arr[0] = history_word_arr[0].replaceAll("/NN",
+				if (((history_word_arr[0].indexOf("#NN")) != -1)
+						&& ((history_word_arr[1].indexOf("#NN")) != -1)
+						&& ((history_word_arr[2].indexOf("#NN")) != -1)
+						&& ((history_word_arr[3].indexOf("#NN")) != -1)
+						&& ((history_word_arr[4].indexOf("#NN")) != -1)
+						&& ((history_word_arr[5].indexOf("#NN")) != -1)) {
+					history_word_arr[0] = history_word_arr[0].replaceAll("#NN",
 							"").trim();
-					history_word_arr[1] = history_word_arr[1].replaceAll("/NN",
+					history_word_arr[1] = history_word_arr[1].replaceAll("#NN",
 							"").trim();
-					history_word_arr[2] = history_word_arr[2].replaceAll("/NN",
+					history_word_arr[2] = history_word_arr[2].replaceAll("#NN",
 							"").trim();
-					history_word_arr[3] = history_word_arr[3].replaceAll("/NN",
+					history_word_arr[3] = history_word_arr[3].replaceAll("#NN",
 							"").trim();
-					history_word_arr[4] = history_word_arr[4].replaceAll("/NN",
+					history_word_arr[4] = history_word_arr[4].replaceAll("#NN",
 							"").trim();
-					history_word_arr[5] = history_word_arr[5].replaceAll("/NN",
+					history_word_arr[5] = history_word_arr[5].replaceAll("#NN",
 							"").trim();
 					new_word_arr.add(history_word_arr[0] + history_word_arr[1]
 							+ history_word_arr[2] + history_word_arr[3]
@@ -114,20 +115,20 @@ public class KeyExtract {
 				history_word_arr[2] = seg_arr[i - 2];
 				history_word_arr[3] = seg_arr[i - 1];
 				history_word_arr[4] = seg_arr[i];
-				if (((history_word_arr[0].indexOf("/NN")) != -1)
-						&& ((history_word_arr[1].indexOf("/NN")) != -1)
-						&& ((history_word_arr[2].indexOf("/NN")) != -1)
-						&& ((history_word_arr[3].indexOf("/NN")) != -1)
-						&& ((history_word_arr[4].indexOf("/NN")) != -1)) {
-					history_word_arr[0] = history_word_arr[0].replaceAll("/NN",
+				if (((history_word_arr[0].indexOf("#NN")) != -1)
+						&& ((history_word_arr[1].indexOf("#NN")) != -1)
+						&& ((history_word_arr[2].indexOf("#NN")) != -1)
+						&& ((history_word_arr[3].indexOf("#NN")) != -1)
+						&& ((history_word_arr[4].indexOf("#NN")) != -1)) {
+					history_word_arr[0] = history_word_arr[0].replaceAll("#NN",
 							"").trim();
-					history_word_arr[1] = history_word_arr[1].replaceAll("/NN",
+					history_word_arr[1] = history_word_arr[1].replaceAll("#NN",
 							"").trim();
-					history_word_arr[2] = history_word_arr[2].replaceAll("/NN",
+					history_word_arr[2] = history_word_arr[2].replaceAll("#NN",
 							"").trim();
-					history_word_arr[3] = history_word_arr[3].replaceAll("/NN",
+					history_word_arr[3] = history_word_arr[3].replaceAll("#NN",
 							"").trim();
-					history_word_arr[4] = history_word_arr[4].replaceAll("/NN",
+					history_word_arr[4] = history_word_arr[4].replaceAll("#NN",
 							"").trim();
 
 					new_word_arr.add(history_word_arr[0] + history_word_arr[1]
@@ -147,17 +148,17 @@ public class KeyExtract {
 				history_word_arr[1] = seg_arr[i - 2];
 				history_word_arr[2] = seg_arr[i - 1];
 				history_word_arr[3] = seg_arr[i];
-				if (((history_word_arr[0].indexOf("/NN")) != -1)
-						&& ((history_word_arr[1].indexOf("/NN")) != -1)
-						&& ((history_word_arr[2].indexOf("/NN")) != -1)
-						&& ((history_word_arr[3].indexOf("/NN")) != -1)) {
-					history_word_arr[0] = history_word_arr[0].replaceAll("/NN",
+				if (((history_word_arr[0].indexOf("#NN")) != -1)
+						&& ((history_word_arr[1].indexOf("#NN")) != -1)
+						&& ((history_word_arr[2].indexOf("#NN")) != -1)
+						&& ((history_word_arr[3].indexOf("#NN")) != -1)) {
+					history_word_arr[0] = history_word_arr[0].replaceAll("#NN",
 							"").trim();
-					history_word_arr[1] = history_word_arr[1].replaceAll("/NN",
+					history_word_arr[1] = history_word_arr[1].replaceAll("#NN",
 							"").trim();
-					history_word_arr[2] = history_word_arr[2].replaceAll("/NN",
+					history_word_arr[2] = history_word_arr[2].replaceAll("#NN",
 							"").trim();
-					history_word_arr[3] = history_word_arr[3].replaceAll("/NN",
+					history_word_arr[3] = history_word_arr[3].replaceAll("#NN",
 							"").trim();
 					new_word_arr.add(history_word_arr[0] + history_word_arr[1]
 							+ history_word_arr[2] + history_word_arr[3]);
@@ -174,14 +175,14 @@ public class KeyExtract {
 				history_word_arr[0] = seg_arr[i - 2];
 				history_word_arr[1] = seg_arr[i - 1];
 				history_word_arr[2] = seg_arr[i];
-				if (((history_word_arr[0].indexOf("/NN")) != -1)
-						&& ((history_word_arr[1].indexOf("/NN")) != -1)
-						&& ((history_word_arr[2].indexOf("/NN")) != -1)) {
-					history_word_arr[0] = history_word_arr[0].replaceAll("/NN",
+				if (((history_word_arr[0].indexOf("#NN")) != -1)
+						&& ((history_word_arr[1].indexOf("#NN")) != -1)
+						&& ((history_word_arr[2].indexOf("#NN")) != -1)) {
+					history_word_arr[0] = history_word_arr[0].replaceAll("#NN",
 							"").trim();
-					history_word_arr[1] = history_word_arr[1].replaceAll("/NN",
+					history_word_arr[1] = history_word_arr[1].replaceAll("#NN",
 							"").trim();
-					history_word_arr[2] = history_word_arr[2].replaceAll("/NN",
+					history_word_arr[2] = history_word_arr[2].replaceAll("#NN",
 							"").trim();
 					new_word_arr.add(history_word_arr[0] + history_word_arr[1]
 							+ history_word_arr[2]);
@@ -202,13 +203,13 @@ public class KeyExtract {
 				// System.out.println((history_word_arr[0].indexOf("/NN")) +
 				// ":"
 				// + (history_word_arr[1].indexOf("/NN")));
-				if (((history_word_arr[0].indexOf("/NN")) != -1)
-						&& ((history_word_arr[1].indexOf("/NN")) != -1)) {
+				if (((history_word_arr[0].indexOf("#NN")) != -1)
+						&& ((history_word_arr[1].indexOf("#NN")) != -1)) {
 					// System.out.println("add the:"
 					// + (history_word_arr[0] + history_word_arr[1]));
-					history_word_arr[0] = history_word_arr[0].replaceAll("/NN",
+					history_word_arr[0] = history_word_arr[0].replaceAll("#NN",
 							"").trim();
-					history_word_arr[1] = history_word_arr[1].replaceAll("/NN",
+					history_word_arr[1] = history_word_arr[1].replaceAll("#NN",
 							"").trim();
 					new_word_arr.add(history_word_arr[0] + history_word_arr[1]);
 				}
@@ -222,7 +223,7 @@ public class KeyExtract {
 		String temp_CC = "";
 		for (int i = 0; i < new_word_arr.size(); i++) {
 			temp_CC = new_word_arr.get(i) + "";
-			if (!(Pattern.matches("[a-zA-Z%0-9\\\\\\\\_\\#]*", temp_CC))) {
+			if (!(Pattern.matches("[a-zA-Z%0-9\\\\\\\\_]*", temp_CC))) {
 				k_s = k_s + temp_CC + " ";
 			}
 		}
@@ -250,10 +251,7 @@ public class KeyExtract {
 		 * end_time-start_time)/(double)1000)+" seconds"); pw.close();
 		 */
 
-		if (args.length > 1) {
-			System.err.println("Usage:[dict]");
-			System.exit(1);
-		}
+
 
 		KeyExtract ke = new KeyExtract();
 
