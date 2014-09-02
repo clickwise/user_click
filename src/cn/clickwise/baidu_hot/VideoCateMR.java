@@ -49,7 +49,6 @@ import org.apache.http.conn.params.ConnRoutePNames;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.CoreConnectionPNames;
 import org.apache.http.util.EntityUtils;
-
 import cn.clickwise.clickad.keyword.KeyExtract;
 import cn.clickwise.clickad.seg.Segmenter;
 import cn.clickwise.clickad.tag.PosTagger;
@@ -64,6 +63,7 @@ public class VideoCateMR {
 		private Text word = new Text();
 		private Text word1 = new Text();
 		public Jedis jedis;
+		
 		public static double[] line_weights;
 		public static String Version;
 		public static int NUM_CLASS;
@@ -81,6 +81,7 @@ public class VideoCateMR {
 		public static double b;
 		public static double alpha;
 		public static int qid;
+		
 		public static String[] label_names = { "电影", "影视剧", "综艺", "噪音" };
 		public String redis_video_dict_ip = "";
 		public String redis_cated_words_ip = "";
@@ -421,6 +422,7 @@ public class VideoCateMR {
 			return sample;
 
 		}
+		
         /*
 		public String seg(String s) throws Exception {
 			s = s + "\n";
