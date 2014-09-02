@@ -46,6 +46,7 @@ public class Classifier {
 	private HashMap video_dict = null;
 	private HashMap label_names = null;
 
+	private String dict2jar="";
 	public Classifier() {
 		try {
 			String model_path = "model_host";
@@ -403,8 +404,6 @@ public class Classifier {
 	public static void main(String[] args) throws Exception {
 
 		Classifier cf = new Classifier();
-
-
 		InputStreamReader isr = new InputStreamReader(System.in);
 		BufferedReader br = new BufferedReader(isr);
 
@@ -421,6 +420,10 @@ public class Classifier {
 		br.close();
 		pw.close();
 
+	
+		
+
 	}
 
+	
 }

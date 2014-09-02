@@ -692,19 +692,19 @@ public class BKWHotWordsMR {
 			System.exit(2);
 		}
 
-		String day = otherArgs[0];
-		Job job = new Job(conf, "BKWHotWordsMR_" + day);
-		job.setJarByClass(BKWHotWordsMR.class);
-		job.setMapperClass(PrepareMapper.class);
-		job.setReducerClass(PrepareReducer.class);
-		job.setNumReduceTasks(1);
-		job.setMapOutputKeyClass(Text.class);
-		job.setMapOutputValueClass(Text.class);
-		job.setOutputKeyClass(Text.class);
-		job.setOutputValueClass(Text.class);
-		FileInputFormat.addInputPath(job, new Path(otherArgs[1]));
-		FileOutputFormat.setOutputPath(job, new Path(otherArgs[2]));
-		System.exit(job.waitForCompletion(true) ? 0 : 1);
+                String day=otherArgs[0];
+                Job job=new Job(conf,"BKWHotWordsMR_"+day);
+                job.setJarByClass(BKWHotWordsMR.class);
+                job.setMapperClass(PrepareMapper.class);
+                job.setReducerClass(PrepareReducer.class);
+                job.setNumReduceTasks(10);
+                job.setMapOutputKeyClass(Text.class);
+                job.setMapOutputValueClass(Text.class);
+                job.setOutputKeyClass(Text.class);
+                job.setOutputValueClass(Text.class);
+                FileInputFormat.addInputPath(job, new Path(otherArgs[1]));
+                FileOutputFormat.setOutputPath(job, new Path(otherArgs[2]));
+                System.exit(job.waitForCompletion(true) ? 0 : 1);
 
 	}
 
