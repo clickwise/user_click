@@ -3,6 +3,8 @@ package cn.clickwise.clickad.classify;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -10,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
+
 
 import cn.clickwise.clickad.keyword.KeyExtract;
 import cn.clickwise.clickad.seg.Segmenter;
@@ -41,6 +44,7 @@ public class Classifier {
 	private PosTagger posTagger = null;
 	private KeyExtract ke = null;
 	private HashMap video_dict = null;
+	private HashMap label_names = null;
 
 	public Classifier() {
 		try {
@@ -50,6 +54,8 @@ public class Classifier {
 			posTagger = new PosTagger("chinese-nodistsim.tagger");
 			ke = new KeyExtract();
 			video_dict = FileReaderUtil.getDictFromPlainFile("dict_host.txt");
+			label_names = FileReaderUtil.getIndexLabelFromPlainFile("label_host.txt");
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -185,7 +191,7 @@ public class Classifier {
 		double best_score = -1;
 
 		Word[] fvec = null;
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < NUM_CLASS; i++) {
 			y = new Label();
 			y.first_class = (i + 1);
 			fvec = psi(sample, y);
@@ -199,6 +205,7 @@ public class Classifier {
 		return best_label;
 	}
 
+	
 	public Word[] psi(Word[] sample, Label y) {
 		Word[] fvec = null;
 		int veclength = (sample.length) * NUM_CLASS;
@@ -321,6 +328,68 @@ public class Classifier {
 		return res;
 	}
 
+	public Label docate(String sample_line) {
+
+		Label y = null;
+		Word[] sample = null;
+
+		String[] sample_arr = sample_line.split("\\s+");
+		sample = new Word[sample_arr.length];
+		for (int i = 0; i < sample.length; i++) {
+			sample[i] = new Word();
+		}
+
+		String temp_token = "";
+		int temp_index = 0;
+		double temp_weight = 0.0;
+
+		for (int i = 0; i < sample_arr.length; i++) {
+			// System.out.println(i+" "+sample_arr[i]);
+			temp_token = sample_arr[i];
+			if (Pattern.matches("\\d+:[\\d\\.]+", temp_token)) {
+				temp_index = Integer.parseInt(temp_token.substring(0,
+						temp_token.indexOf(":")));
+				temp_weight = Double.parseDouble(temp_token.substring(
+						temp_token.indexOf(":") + 1, temp_token.length()));
+				sample[i].wnum = temp_index;
+				sample[i].weight = temp_weight;
+			}
+		}
+
+		// sample=getWords(sample_line);
+		y = classify_struct_example(sample);
+		// System.out.println("y.first_label:"+y.first_class+"  y.second_label:"+y.second_class);
+		return y;
+	}
+	
+	public String cate(String line)
+	{
+		String cate_name="";
+		try{
+		String sample = getSample(line);
+		Label label_pre = docate(sample);
+		cate_name = getCateName(label_pre);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return cate_name;
+	}
+	
+	public String getCateName(Label y) {
+		String cate_name = "";
+		int tempid = y.first_class;
+		if ((tempid >= 1) && (tempid <= NUM_CLASS)) {
+			cate_name = label_names.get(tempid+"")+"";
+		} else {
+			cate_name = "NA";
+		}
+
+		return cate_name;
+	}
+	
+	
 	public class Word {
 		int wnum;
 		double weight;
@@ -329,6 +398,29 @@ public class Classifier {
 	public class Label {
 		int first_class;
 		double score;
+	}
+	
+	public static void main(String[] args) throws Exception {
+
+		Classifier cf = new Classifier();
+
+
+		InputStreamReader isr = new InputStreamReader(System.in);
+		BufferedReader br = new BufferedReader(isr);
+
+		OutputStreamWriter osw = new OutputStreamWriter(System.out);
+		PrintWriter pw = new PrintWriter(osw);
+
+		String line = "";
+		while ((line = br.readLine()) != null) {
+			pw.println(cf.cate(line));
+		}
+
+		isr.close();
+		osw.close();
+		br.close();
+		pw.close();
+
 	}
 
 }
