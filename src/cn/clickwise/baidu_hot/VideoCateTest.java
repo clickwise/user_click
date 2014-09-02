@@ -86,7 +86,6 @@ public class VideoCateTest {
 			posTagger=new PosTagger("chinese-nodistsim.tagger");
 			ke=new KeyExtract();
 
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -222,13 +221,14 @@ public class VideoCateTest {
 		if (seg_s.equals("")) {
 			return "";
 		}
-
+                System.out.println("seg_s:"+seg_s);
 		String tag_s = posTagger.tag(seg_s);
 		tag_s = tag_s.trim();
 		if (tag_s.equals("")) {
 			return "";
 		}
 
+               System.out.println("tag_s:"+tag_s);
 		String key_s = "";
 		key_s = ke.keyword_extract(tag_s);
 		key_s = key_s.trim();
@@ -236,6 +236,7 @@ public class VideoCateTest {
 			return "";
 		}
 
+                System.out.println("key_s:"+key_s);
 		sample = get_word_id(key_s);
 		sample = sample.trim();
 		if (sample.equals("")) {
@@ -808,9 +809,11 @@ public class VideoCateTest {
 		String cate="";
 		try{
 		String code_url = getCodeUrl(keyword);
+                System.out.println("code_url:"+code_url);
 		String raw_content = getContent(code_url);
+                System.out.println("raw_content:"+raw_content);
 		String filted_content = getFilterContent(raw_content);
-
+                System.out.println("filted_content:"+filted_content);
 		String sample = getSample(filted_content);
 		Label label_pre = docate(sample);
 		String cate_name = getCateName(label_pre);
