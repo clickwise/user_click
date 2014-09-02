@@ -240,6 +240,7 @@ public class VideoCateTest {
 
                 System.out.println("key_s:"+key_s);
 		sample = get_word_id(key_s);
+                System.out.println("sample:"+sample);
 		sample = sample.trim();
 		if (sample.equals("")) {
 			return "";
@@ -516,10 +517,19 @@ public class VideoCateTest {
 			try {
 				////ids = jedis.get(words[i]);
 				ids = video_dict.get(words[i])+"";
+                                //System.out.println("ids:"+ids);
 			} catch (Exception re) {
-
+                              re.printStackTrace();
 			}
 			if (ids == null) {
+				continue;
+			}
+                        if(SSO.tioe(ids))
+			{
+				continue;
+			}
+			if(!(Pattern.matches("[\\d]*", ids)))
+			{
 				continue;
 			}
 			Long id = Long.parseLong(ids);
@@ -669,6 +679,7 @@ public class VideoCateTest {
 	public String getCateName(Label y) {
 		String cate_name = "";
 		int tempid = y.first_class;
+                System.out.println("tempid:"+tempid);
 		if ((tempid >= 1) && (tempid <= 4)) {
 			cate_name = label_names[tempid - 1];
 		} else {
@@ -890,8 +901,10 @@ public class VideoCateTest {
 		String filted_content = getFilterContent(raw_content);
                 System.out.println("filted_content:"+filted_content);
 		String sample = getSample(filted_content);
+                System.out.println("sample:"+sample);
 		Label label_pre = docate(sample);
 		String cate_name = getCateName(label_pre);
+                cate=cate_name;
 		}
 		catch(Exception e)
 		{
@@ -903,7 +916,7 @@ public class VideoCateTest {
 	public static void main(String[] args)
 	{
 		VideoCateTest vct=new VideoCateTest();
-		System.out.println("cate:"+vct.cate("bt天堂"));
+		System.out.println("cate:"+vct.cate("电视剧"));
 	}
 	
 }
