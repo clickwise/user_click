@@ -54,6 +54,7 @@ import cn.clickwise.clickad.keyword.KeyExtract;
 import cn.clickwise.clickad.seg.Segmenter;
 import cn.clickwise.clickad.tag.PosTagger;
 import cn.clickwise.liqi.file.uitls.FileReaderUtil;
+import cn.clickwise.liqi.str.basic.SSO;
 import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 
 import redis.clients.jedis.Jedis;
@@ -94,11 +95,11 @@ public class VideoCateMR {
 		public Jedis cated_redis;
 		public int redis_cated_words_db = 0;
 
-		private Segmenter seg=null;
-		private PosTagger posTagger=null;
-		private KeyExtract ke=null;
-		private HashMap video_dict=null;
-		
+		private Segmenter seg = null;
+		private PosTagger posTagger = null;
+		private KeyExtract ke = null;
+		private HashMap video_dict = null;
+
 		protected void setup(Context context) throws IOException,
 				InterruptedException {
 			Configuration conf = context.getConfiguration();
@@ -116,16 +117,85 @@ public class VideoCateMR {
 						100000);
 				cated_redis.ping();
 				cated_redis.select(redis_cated_words_db);
-				seg=new Segmenter();
-				posTagger=new PosTagger("chinese-nodistsim.tagger");
-				ke=new KeyExtract();
-				video_dict=FileReaderUtil.getDictFromPlainFile("dict_video.txt");			
-				
+				seg = new Segmenter();
+				posTagger = new PosTagger("chinese-nodistsim.tagger");
+				ke = new KeyExtract();
+				video_dict = getDictFromStream("dict_video.txt");
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 
+		public HashMap getDictFromStream(String input_file) {
+			// TODO Auto-generated method stub
+		
+			HashMap hm=new HashMap();
+		    String item="";
+		    String word="";
+		    String index_str="";
+			int index=0;
+			InputStream model_is = this.getClass().getResourceAsStream(
+					"/" + input_file);
+			InputStreamReader model_isr = new InputStreamReader(model_is);
+
+			BufferedReader br = new BufferedReader(model_isr);
+			//FileReader fr=null;
+			
+			String[] seg_arr=null;
+				
+			try{
+			  // fr=new FileReader(new File(input_file));
+			  // br=new BufferedReader(fr);
+			   while((item=br.readLine())!=null)
+			   {
+				   
+				   if(!(SSO.tnoe(item)))
+				   {
+					   continue;
+				   }
+				   item=item.trim();
+				   seg_arr=item.split("\\s+");
+				   if(seg_arr.length!=2)
+				   {
+					   continue;
+				   }
+				   word=seg_arr[0].trim();
+				   index_str=seg_arr[1].trim();
+
+				   if(!(SSO.tnoe(word)))
+				   {
+					   continue;
+				   }
+				   
+				   if(!(SSO.tnoe(index_str)))
+				   {
+					   continue;
+				   }
+				   index=Integer.parseInt(index_str);
+				   //if(index%100==0)
+				   //{
+					   //System.out.println(word+" "+index_str);
+				  // }
+				   if(index<1)
+				   {
+					   continue;
+				   }
+				   hm.put(word,index);			   
+			   }
+			   
+			   br.close();
+			   model_is.close();
+			   model_isr.close();
+			   
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}	
+			return hm;
+		}
+		
 		public void map(Object key, Text value, Context context)
 				throws IOException, InterruptedException {
 			// String model_path="/home/hadoop/lq/svm_model_dir/model";
@@ -421,265 +491,172 @@ public class VideoCateMR {
 			return sample;
 
 		}
-        /*
-		public String seg(String s) throws Exception {
-			s = s + "\n";
-			String seg_s = "";
-			String server = seg_server;
-			int port = seg_port;
-			Socket socket = new Socket(server, port);
 
-			InputStream in = socket.getInputStream();
-			OutputStream out = socket.getOutputStream();
-			out.write(s.getBytes());
-			out.flush();
-
-			byte[] receiveBuf = new byte[10032 * 8];
-			in.read(receiveBuf);
-
-			seg_s = new String(receiveBuf);
-			socket.close();
-			return seg_s;
-		}
-        */
 		/*
-		public String tag(String seg_s) throws Exception {
-			String tag_s = "";
-			String server = tag_server;
-			int port = tag_port;
-			Socket socket = new Socket(server, port);
-			seg_s = seg_s + "\n";
-			InputStream in = socket.getInputStream();
-			OutputStream out = socket.getOutputStream();
-			out.write(seg_s.getBytes());
-			out.flush();
-
-			byte[] receiveBuf = new byte[10032];
-			in.read(receiveBuf);
-
-			tag_s = new String(receiveBuf);
-			socket.close();
-			return tag_s;
-
-		}
-        */
+		 * public String seg(String s) throws Exception { s = s + "\n"; String
+		 * seg_s = ""; String server = seg_server; int port = seg_port; Socket
+		 * socket = new Socket(server, port);
+		 * 
+		 * InputStream in = socket.getInputStream(); OutputStream out =
+		 * socket.getOutputStream(); out.write(s.getBytes()); out.flush();
+		 * 
+		 * byte[] receiveBuf = new byte[10032 * 8]; in.read(receiveBuf);
+		 * 
+		 * seg_s = new String(receiveBuf); socket.close(); return seg_s; }
+		 */
 		/*
-		public String keyword_extract(String text) {
-			String k_s = "";
-			String[] seg_arr = text.split("\\s+");
-			Vector new_word_arr = new Vector();
-			String[] history_word_arr = new String[7];
-			for (int i = 0; i < history_word_arr.length; i++) {
-				history_word_arr[i] = "";
-			}
+		 * public String tag(String seg_s) throws Exception { String tag_s = "";
+		 * String server = tag_server; int port = tag_port; Socket socket = new
+		 * Socket(server, port); seg_s = seg_s + "\n"; InputStream in =
+		 * socket.getInputStream(); OutputStream out = socket.getOutputStream();
+		 * out.write(seg_s.getBytes()); out.flush();
+		 * 
+		 * byte[] receiveBuf = new byte[10032]; in.read(receiveBuf);
+		 * 
+		 * tag_s = new String(receiveBuf); socket.close(); return tag_s;
+		 * 
+		 * }
+		 */
+		/*
+		 * public String keyword_extract(String text) { String k_s = "";
+		 * String[] seg_arr = text.split("\\s+"); Vector new_word_arr = new
+		 * Vector(); String[] history_word_arr = new String[7]; for (int i = 0;
+		 * i < history_word_arr.length; i++) { history_word_arr[i] = ""; }
+		 * 
+		 * String key_word = ""; String subkey1 = "", subkey2 = "", subkey4 =
+		 * "", subkey5 = "", subkey6 = "", subkey7 = "", subkey8 = "";
+		 * 
+		 * for (int i = 0; i < seg_arr.length; i++) { // System.out.println(i +
+		 * ":" + seg_arr[i]); if (((seg_arr[i].indexOf("/NN")) != -1) ||
+		 * ((seg_arr[i].indexOf("/NR")) != -1)) { key_word = seg_arr[i]; if
+		 * ((seg_arr[i].indexOf("/NN")) != -1) { key_word =
+		 * key_word.replaceAll("/NN", ""); } else if
+		 * ((seg_arr[i].indexOf("/NR")) != -1) { key_word =
+		 * key_word.replaceAll("/NR", ""); } key_word = key_word.trim(); if
+		 * (key_word.length() > 1) { new_word_arr.add(key_word); if
+		 * ((key_word.length()) == 3) { subkey1 = key_word.substring(0, 2);
+		 * subkey2 = key_word.substring(1, 3); new_word_arr.add(subkey1);
+		 * new_word_arr.add(subkey2); }
+		 * 
+		 * if ((key_word.length()) == 4) { subkey4 = key_word.substring(0, 2);
+		 * subkey5 = key_word.substring(1, 3); subkey6 = key_word.substring(2,
+		 * 4); subkey7 = key_word.substring(0, 3); subkey8 =
+		 * key_word.substring(1, 4); new_word_arr.add(subkey4);
+		 * new_word_arr.add(subkey5); new_word_arr.add(subkey6);
+		 * new_word_arr.add(subkey7); new_word_arr.add(subkey8); } }
+		 * 
+		 * } else if (seg_arr[i].length() > 5) { key_word = seg_arr[i]; key_word
+		 * = key_word.replaceAll("/.*", ""); key_word = key_word.trim();
+		 * new_word_arr.add(key_word); }
+		 * 
+		 * if (i > 4) { history_word_arr[0] = seg_arr[i - 5];
+		 * history_word_arr[1] = seg_arr[i - 4]; history_word_arr[2] = seg_arr[i
+		 * - 3]; history_word_arr[3] = seg_arr[i - 2]; history_word_arr[4] =
+		 * seg_arr[i - 1]; history_word_arr[5] = seg_arr[i]; if
+		 * (((history_word_arr[0].indexOf("/NN")) != -1) &&
+		 * ((history_word_arr[1].indexOf("/NN")) != -1) &&
+		 * ((history_word_arr[2].indexOf("/NN")) != -1) &&
+		 * ((history_word_arr[3].indexOf("/NN")) != -1) &&
+		 * ((history_word_arr[4].indexOf("/NN")) != -1) &&
+		 * ((history_word_arr[5].indexOf("/NN")) != -1)) { history_word_arr[0] =
+		 * history_word_arr[0].replaceAll( "/NN", "").trim();
+		 * history_word_arr[1] = history_word_arr[1].replaceAll( "/NN",
+		 * "").trim(); history_word_arr[2] = history_word_arr[2].replaceAll(
+		 * "/NN", "").trim(); history_word_arr[3] =
+		 * history_word_arr[3].replaceAll( "/NN", "").trim();
+		 * history_word_arr[4] = history_word_arr[4].replaceAll( "/NN",
+		 * "").trim(); history_word_arr[5] = history_word_arr[5].replaceAll(
+		 * "/NN", "").trim(); new_word_arr.add(history_word_arr[0] +
+		 * history_word_arr[1] + history_word_arr[2] + history_word_arr[3] +
+		 * history_word_arr[4] + history_word_arr[5]); } history_word_arr[0] =
+		 * ""; history_word_arr[1] = ""; history_word_arr[2] = "";
+		 * history_word_arr[3] = ""; history_word_arr[4] = "";
+		 * history_word_arr[5] = ""; }
+		 * 
+		 * if (i > 3) { history_word_arr[0] = seg_arr[i - 4];
+		 * history_word_arr[1] = seg_arr[i - 3]; history_word_arr[2] = seg_arr[i
+		 * - 2]; history_word_arr[3] = seg_arr[i - 1]; history_word_arr[4] =
+		 * seg_arr[i]; if (((history_word_arr[0].indexOf("/NN")) != -1) &&
+		 * ((history_word_arr[1].indexOf("/NN")) != -1) &&
+		 * ((history_word_arr[2].indexOf("/NN")) != -1) &&
+		 * ((history_word_arr[3].indexOf("/NN")) != -1) &&
+		 * ((history_word_arr[4].indexOf("/NN")) != -1)) { history_word_arr[0] =
+		 * history_word_arr[0].replaceAll( "/NN", "").trim();
+		 * history_word_arr[1] = history_word_arr[1].replaceAll( "/NN",
+		 * "").trim(); history_word_arr[2] = history_word_arr[2].replaceAll(
+		 * "/NN", "").trim(); history_word_arr[3] =
+		 * history_word_arr[3].replaceAll( "/NN", "").trim();
+		 * history_word_arr[4] = history_word_arr[4].replaceAll( "/NN",
+		 * "").trim();
+		 * 
+		 * new_word_arr.add(history_word_arr[0] + history_word_arr[1] +
+		 * history_word_arr[2] + history_word_arr[3] + history_word_arr[4]); }
+		 * 
+		 * history_word_arr[0] = ""; history_word_arr[1] = "";
+		 * history_word_arr[2] = ""; history_word_arr[3] = "";
+		 * history_word_arr[4] = ""; }
+		 * 
+		 * if (i > 2) { history_word_arr[0] = seg_arr[i - 3];
+		 * history_word_arr[1] = seg_arr[i - 2]; history_word_arr[2] = seg_arr[i
+		 * - 1]; history_word_arr[3] = seg_arr[i]; if
+		 * (((history_word_arr[0].indexOf("/NN")) != -1) &&
+		 * ((history_word_arr[1].indexOf("/NN")) != -1) &&
+		 * ((history_word_arr[2].indexOf("/NN")) != -1) &&
+		 * ((history_word_arr[3].indexOf("/NN")) != -1)) { history_word_arr[0] =
+		 * history_word_arr[0].replaceAll( "/NN", "").trim();
+		 * history_word_arr[1] = history_word_arr[1].replaceAll( "/NN",
+		 * "").trim(); history_word_arr[2] = history_word_arr[2].replaceAll(
+		 * "/NN", "").trim(); history_word_arr[3] =
+		 * history_word_arr[3].replaceAll( "/NN", "").trim();
+		 * new_word_arr.add(history_word_arr[0] + history_word_arr[1] +
+		 * history_word_arr[2] + history_word_arr[3]); }
+		 * 
+		 * history_word_arr[0] = ""; history_word_arr[1] = "";
+		 * history_word_arr[2] = ""; history_word_arr[3] = "";
+		 * 
+		 * }
+		 * 
+		 * if (i > 1) { history_word_arr[0] = seg_arr[i - 2];
+		 * history_word_arr[1] = seg_arr[i - 1]; history_word_arr[2] =
+		 * seg_arr[i]; if (((history_word_arr[0].indexOf("/NN")) != -1) &&
+		 * ((history_word_arr[1].indexOf("/NN")) != -1) &&
+		 * ((history_word_arr[2].indexOf("/NN")) != -1)) { history_word_arr[0] =
+		 * history_word_arr[0].replaceAll( "/NN", "").trim();
+		 * history_word_arr[1] = history_word_arr[1].replaceAll( "/NN",
+		 * "").trim(); history_word_arr[2] = history_word_arr[2].replaceAll(
+		 * "/NN", "").trim(); new_word_arr.add(history_word_arr[0] +
+		 * history_word_arr[1] + history_word_arr[2]); }
+		 * 
+		 * history_word_arr[0] = ""; history_word_arr[1] = "";
+		 * history_word_arr[2] = ""; }
+		 * 
+		 * if (i > 0) { history_word_arr[0] = seg_arr[i - 1];
+		 * history_word_arr[1] = seg_arr[i]; // System.out //
+		 * .println("history_word_arr[0]:" + history_word_arr[0]); // System.out
+		 * // .println("history_word_arr[1]:" + history_word_arr[1]); //
+		 * System.out.println((history_word_arr[0].indexOf("/NN")) + // ":" // +
+		 * (history_word_arr[1].indexOf("/NN"))); if
+		 * (((history_word_arr[0].indexOf("/NN")) != -1) &&
+		 * ((history_word_arr[1].indexOf("/NN")) != -1)) { //
+		 * System.out.println("add the:" // + (history_word_arr[0] +
+		 * history_word_arr[1])); history_word_arr[0] =
+		 * history_word_arr[0].replaceAll( "/NN", "").trim();
+		 * history_word_arr[1] = history_word_arr[1].replaceAll( "/NN",
+		 * "").trim(); new_word_arr.add(history_word_arr[0] +
+		 * history_word_arr[1]); }
+		 * 
+		 * history_word_arr[0] = ""; history_word_arr[1] = "";
+		 * 
+		 * } }
+		 * 
+		 * String temp_CC = ""; for (int i = 0; i < new_word_arr.size(); i++) {
+		 * temp_CC = new_word_arr.get(i) + ""; if
+		 * (!(Pattern.matches("[a-zA-Z%0-9\\\\\\\\_\\#]*", temp_CC))) { k_s =
+		 * k_s + temp_CC + " "; } }
+		 * 
+		 * return k_s; }
+		 */
 
-			String key_word = "";
-			String subkey1 = "", subkey2 = "", subkey4 = "", subkey5 = "", subkey6 = "", subkey7 = "", subkey8 = "";
-
-			for (int i = 0; i < seg_arr.length; i++) {
-				// System.out.println(i + ":" + seg_arr[i]);
-				if (((seg_arr[i].indexOf("/NN")) != -1)
-						|| ((seg_arr[i].indexOf("/NR")) != -1)) {
-					key_word = seg_arr[i];
-					if ((seg_arr[i].indexOf("/NN")) != -1) {
-						key_word = key_word.replaceAll("/NN", "");
-					} else if ((seg_arr[i].indexOf("/NR")) != -1) {
-						key_word = key_word.replaceAll("/NR", "");
-					}
-					key_word = key_word.trim();
-					if (key_word.length() > 1) {
-						new_word_arr.add(key_word);
-						if ((key_word.length()) == 3) {
-							subkey1 = key_word.substring(0, 2);
-							subkey2 = key_word.substring(1, 3);
-							new_word_arr.add(subkey1);
-							new_word_arr.add(subkey2);
-						}
-
-						if ((key_word.length()) == 4) {
-							subkey4 = key_word.substring(0, 2);
-							subkey5 = key_word.substring(1, 3);
-							subkey6 = key_word.substring(2, 4);
-							subkey7 = key_word.substring(0, 3);
-							subkey8 = key_word.substring(1, 4);
-							new_word_arr.add(subkey4);
-							new_word_arr.add(subkey5);
-							new_word_arr.add(subkey6);
-							new_word_arr.add(subkey7);
-							new_word_arr.add(subkey8);
-						}
-					}
-
-				} else if (seg_arr[i].length() > 5) {
-					key_word = seg_arr[i];
-					key_word = key_word.replaceAll("/.*", "");
-					key_word = key_word.trim();
-					new_word_arr.add(key_word);
-				}
-
-				if (i > 4) {
-					history_word_arr[0] = seg_arr[i - 5];
-					history_word_arr[1] = seg_arr[i - 4];
-					history_word_arr[2] = seg_arr[i - 3];
-					history_word_arr[3] = seg_arr[i - 2];
-					history_word_arr[4] = seg_arr[i - 1];
-					history_word_arr[5] = seg_arr[i];
-					if (((history_word_arr[0].indexOf("/NN")) != -1)
-							&& ((history_word_arr[1].indexOf("/NN")) != -1)
-							&& ((history_word_arr[2].indexOf("/NN")) != -1)
-							&& ((history_word_arr[3].indexOf("/NN")) != -1)
-							&& ((history_word_arr[4].indexOf("/NN")) != -1)
-							&& ((history_word_arr[5].indexOf("/NN")) != -1)) {
-						history_word_arr[0] = history_word_arr[0].replaceAll(
-								"/NN", "").trim();
-						history_word_arr[1] = history_word_arr[1].replaceAll(
-								"/NN", "").trim();
-						history_word_arr[2] = history_word_arr[2].replaceAll(
-								"/NN", "").trim();
-						history_word_arr[3] = history_word_arr[3].replaceAll(
-								"/NN", "").trim();
-						history_word_arr[4] = history_word_arr[4].replaceAll(
-								"/NN", "").trim();
-						history_word_arr[5] = history_word_arr[5].replaceAll(
-								"/NN", "").trim();
-						new_word_arr.add(history_word_arr[0]
-								+ history_word_arr[1] + history_word_arr[2]
-								+ history_word_arr[3] + history_word_arr[4]
-								+ history_word_arr[5]);
-					}
-					history_word_arr[0] = "";
-					history_word_arr[1] = "";
-					history_word_arr[2] = "";
-					history_word_arr[3] = "";
-					history_word_arr[4] = "";
-					history_word_arr[5] = "";
-				}
-
-				if (i > 3) {
-					history_word_arr[0] = seg_arr[i - 4];
-					history_word_arr[1] = seg_arr[i - 3];
-					history_word_arr[2] = seg_arr[i - 2];
-					history_word_arr[3] = seg_arr[i - 1];
-					history_word_arr[4] = seg_arr[i];
-					if (((history_word_arr[0].indexOf("/NN")) != -1)
-							&& ((history_word_arr[1].indexOf("/NN")) != -1)
-							&& ((history_word_arr[2].indexOf("/NN")) != -1)
-							&& ((history_word_arr[3].indexOf("/NN")) != -1)
-							&& ((history_word_arr[4].indexOf("/NN")) != -1)) {
-						history_word_arr[0] = history_word_arr[0].replaceAll(
-								"/NN", "").trim();
-						history_word_arr[1] = history_word_arr[1].replaceAll(
-								"/NN", "").trim();
-						history_word_arr[2] = history_word_arr[2].replaceAll(
-								"/NN", "").trim();
-						history_word_arr[3] = history_word_arr[3].replaceAll(
-								"/NN", "").trim();
-						history_word_arr[4] = history_word_arr[4].replaceAll(
-								"/NN", "").trim();
-
-						new_word_arr.add(history_word_arr[0]
-								+ history_word_arr[1] + history_word_arr[2]
-								+ history_word_arr[3] + history_word_arr[4]);
-					}
-
-					history_word_arr[0] = "";
-					history_word_arr[1] = "";
-					history_word_arr[2] = "";
-					history_word_arr[3] = "";
-					history_word_arr[4] = "";
-				}
-
-				if (i > 2) {
-					history_word_arr[0] = seg_arr[i - 3];
-					history_word_arr[1] = seg_arr[i - 2];
-					history_word_arr[2] = seg_arr[i - 1];
-					history_word_arr[3] = seg_arr[i];
-					if (((history_word_arr[0].indexOf("/NN")) != -1)
-							&& ((history_word_arr[1].indexOf("/NN")) != -1)
-							&& ((history_word_arr[2].indexOf("/NN")) != -1)
-							&& ((history_word_arr[3].indexOf("/NN")) != -1)) {
-						history_word_arr[0] = history_word_arr[0].replaceAll(
-								"/NN", "").trim();
-						history_word_arr[1] = history_word_arr[1].replaceAll(
-								"/NN", "").trim();
-						history_word_arr[2] = history_word_arr[2].replaceAll(
-								"/NN", "").trim();
-						history_word_arr[3] = history_word_arr[3].replaceAll(
-								"/NN", "").trim();
-						new_word_arr.add(history_word_arr[0]
-								+ history_word_arr[1] + history_word_arr[2]
-								+ history_word_arr[3]);
-					}
-
-					history_word_arr[0] = "";
-					history_word_arr[1] = "";
-					history_word_arr[2] = "";
-					history_word_arr[3] = "";
-
-				}
-
-				if (i > 1) {
-					history_word_arr[0] = seg_arr[i - 2];
-					history_word_arr[1] = seg_arr[i - 1];
-					history_word_arr[2] = seg_arr[i];
-					if (((history_word_arr[0].indexOf("/NN")) != -1)
-							&& ((history_word_arr[1].indexOf("/NN")) != -1)
-							&& ((history_word_arr[2].indexOf("/NN")) != -1)) {
-						history_word_arr[0] = history_word_arr[0].replaceAll(
-								"/NN", "").trim();
-						history_word_arr[1] = history_word_arr[1].replaceAll(
-								"/NN", "").trim();
-						history_word_arr[2] = history_word_arr[2].replaceAll(
-								"/NN", "").trim();
-						new_word_arr.add(history_word_arr[0]
-								+ history_word_arr[1] + history_word_arr[2]);
-					}
-
-					history_word_arr[0] = "";
-					history_word_arr[1] = "";
-					history_word_arr[2] = "";
-				}
-
-				if (i > 0) {
-					history_word_arr[0] = seg_arr[i - 1];
-					history_word_arr[1] = seg_arr[i];
-					// System.out
-					// .println("history_word_arr[0]:" + history_word_arr[0]);
-					// System.out
-					// .println("history_word_arr[1]:" + history_word_arr[1]);
-					// System.out.println((history_word_arr[0].indexOf("/NN")) +
-					// ":"
-					// + (history_word_arr[1].indexOf("/NN")));
-					if (((history_word_arr[0].indexOf("/NN")) != -1)
-							&& ((history_word_arr[1].indexOf("/NN")) != -1)) {
-						// System.out.println("add the:"
-						// + (history_word_arr[0] + history_word_arr[1]));
-						history_word_arr[0] = history_word_arr[0].replaceAll(
-								"/NN", "").trim();
-						history_word_arr[1] = history_word_arr[1].replaceAll(
-								"/NN", "").trim();
-						new_word_arr.add(history_word_arr[0]
-								+ history_word_arr[1]);
-					}
-
-					history_word_arr[0] = "";
-					history_word_arr[1] = "";
-
-				}
-			}
-
-			String temp_CC = "";
-			for (int i = 0; i < new_word_arr.size(); i++) {
-				temp_CC = new_word_arr.get(i) + "";
-				if (!(Pattern.matches("[a-zA-Z%0-9\\\\\\\\_\\#]*", temp_CC))) {
-					k_s = k_s + temp_CC + " ";
-				}
-			}
-
-			return k_s;
-		}
-        */
-		
 		public String get_word_id(String s) {
 			String words[] = s.split("[\\s]+");
 			String res = "";
@@ -687,12 +664,18 @@ public class VideoCateMR {
 			HashMap<Long, Integer> cnts = new HashMap<Long, Integer>();
 			for (int i = 0; i < words.length; i++) {
 				try {
-					////ids = jedis.get(words[i]);
-					ids = video_dict.get(words[i])+"";
+					// //ids = jedis.get(words[i]);
+					ids = video_dict.get(words[i]) + "";
 				} catch (Exception re) {
 
 				}
 				if (ids == null) {
+					continue;
+				}
+				if (SSO.tioe(ids)) {
+					continue;
+				}
+				if (!(Pattern.matches("[\\d]*", ids))) {
 					continue;
 				}
 				Long id = Long.parseLong(ids);
@@ -987,10 +970,10 @@ public class VideoCateMR {
 			redis_port = Integer.parseInt(prop.getProperty("redis_port"));
 			redis_video_dict_db = Integer.parseInt(prop
 					.getProperty("redis_video_dict_db"));
-			//seg_server = prop.getProperty("seg_server");
-			//seg_port = Integer.parseInt(prop.getProperty("seg_port"));
-			//tag_server = prop.getProperty("tag_server");
-			//tag_port = Integer.parseInt(prop.getProperty("tag_port"));
+			// seg_server = prop.getProperty("seg_server");
+			// seg_port = Integer.parseInt(prop.getProperty("seg_port"));
+			// tag_server = prop.getProperty("tag_server");
+			// tag_port = Integer.parseInt(prop.getProperty("tag_port"));
 			redis_cated_words_db = Integer.parseInt(prop
 					.getProperty("redis_cated_words_db"));
 

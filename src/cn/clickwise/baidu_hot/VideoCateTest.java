@@ -716,10 +716,12 @@ public class VideoCateTest {
 		  // br=new BufferedReader(fr);
 		   while((item=br.readLine())!=null)
 		   {
+			   
 			   if(!(SSO.tnoe(item)))
 			   {
 				   continue;
 			   }
+			   item=item.trim();
 			   seg_arr=item.split("\\s+");
 			   if(seg_arr.length!=2)
 			   {
