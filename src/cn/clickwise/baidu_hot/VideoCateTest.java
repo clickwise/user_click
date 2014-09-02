@@ -2,6 +2,7 @@ package cn.clickwise.baidu_hot;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -34,6 +35,7 @@ import cn.clickwise.clickad.keyword.KeyExtract;
 import cn.clickwise.clickad.seg.Segmenter;
 import cn.clickwise.clickad.tag.PosTagger;
 import cn.clickwise.liqi.file.uitls.FileReaderUtil;
+import cn.clickwise.liqi.str.basic.SSO;
 
 
 public class VideoCateTest {
@@ -78,7 +80,7 @@ public class VideoCateTest {
 	{
 
 		try {
-			video_dict=FileReaderUtil.getDictFromPlainFile("dict2jar/dict_video.txt");	
+			video_dict=getDictFromStream("dict_video.txt");	
 			System.out.println(video_dict.get("秘史陆贞"));
 			String model_path = "model";
 			read_model(model_path);
@@ -675,6 +677,79 @@ public class VideoCateTest {
 
 		return cate_name;
 	}
+	
+	/**
+	 * 读取模型的词典文件，建立单词索引
+	 * 词典索引从1开始
+	 * @return
+	 */
+	public HashMap getDictFromStream(String input_file) {
+		// TODO Auto-generated method stub
+	
+		HashMap hm=new HashMap();
+	    String item="";
+	    String word="";
+	    String index_str="";
+		int index=0;
+		InputStream model_is = this.getClass().getResourceAsStream(
+				"/" + input_file);
+		InputStreamReader model_isr = new InputStreamReader(model_is);
+
+		BufferedReader br = new BufferedReader(model_isr);
+		//FileReader fr=null;
+		
+		String[] seg_arr=null;
+			
+		try{
+		  // fr=new FileReader(new File(input_file));
+		  // br=new BufferedReader(fr);
+		   while((item=br.readLine())!=null)
+		   {
+			   if(!(SSO.tnoe(item)))
+			   {
+				   continue;
+			   }
+			   seg_arr=item.split("\\s+");
+			   if(seg_arr.length!=2)
+			   {
+				   continue;
+			   }
+			   word=seg_arr[0].trim();
+			   index_str=seg_arr[1].trim();
+
+			   if(!(SSO.tnoe(word)))
+			   {
+				   continue;
+			   }
+			   
+			   if(!(SSO.tnoe(index_str)))
+			   {
+				   continue;
+			   }
+			   index=Integer.parseInt(index_str);
+			   //if(index%100==0)
+			   //{
+				   //System.out.println(word+" "+index_str);
+			  // }
+			   if(index<1)
+			   {
+				   continue;
+			   }
+			   hm.put(word,index);			   
+		   }
+		   
+		   br.close();
+		   model_is.close();
+		   model_isr.close();
+		   
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}	
+		return hm;
+	}
+	
 
 	public void read_model(String model_path) throws Exception {
       

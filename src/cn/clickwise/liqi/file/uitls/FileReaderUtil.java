@@ -139,7 +139,6 @@ public class FileReaderUtil {
 	
 	
 	
-	
 	/**
 	 * 类别索引和类别名的对应关系
 	 * 类别索引从1开始
