@@ -698,7 +698,7 @@ public class BKWHotWordsMR {
                 job.setJarByClass(BKWHotWordsMR.class);
                 job.setMapperClass(PrepareMapper.class);
                 job.setReducerClass(PrepareReducer.class);
-                job.setNumReduceTasks(1);
+                job.setNumReduceTasks(10);
                 job.setMapOutputKeyClass(Text.class);
                 job.setMapOutputValueClass(Text.class);
                 job.setOutputKeyClass(Text.class);
