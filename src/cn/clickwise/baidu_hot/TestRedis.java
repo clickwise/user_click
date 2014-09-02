@@ -112,7 +112,7 @@ public class TestRedis{
                                 ////HttpHost proxy = new HttpHost(proxy_hosts[rani], 80, "http");
                                 ////httpclient.getParams().setParameter(
                                 ////            ConnRoutePNames.DEFAULT_PROXY, proxy);
-                                // httpclient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT,20000);
+                                 httpclient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT,20000);
                                 httpclient.setRedirectStrategy(new RedirectStrategy() { // 设置重定向处理方式
 
                                                         @Override
@@ -197,7 +197,7 @@ public class TestRedis{
                 {
                     TestRedis tr=new TestRedis();
                     tr.load_config();
-                    //tr.test();
+                    tr.test();
                     String url1="www.baidu.com/link?url=PZogKuGkjG4wbU8sJ1kDweXzvFquzBovGQJLK14UQm_FWpdhqA3LT8TwcjNyFNop";
                     String url2="www.baidu.com/link?url=dzPzDFCie-SRzYu1W7KhYdbCJElz9U1CfPrQFeU04U7";
                     System.out.println(tr.getRedirect(url1));

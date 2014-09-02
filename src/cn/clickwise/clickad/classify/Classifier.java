@@ -46,6 +46,7 @@ public class Classifier {
 	private HashMap video_dict = null;
 	private HashMap label_names = null;
 
+	private String dict2jar="";
 	public Classifier() {
 		try {
 			String model_path = "model_host";
@@ -403,9 +404,11 @@ public class Classifier {
 	public static void main(String[] args) throws Exception {
 
 		Classifier cf = new Classifier();
+
 		String text="凤凰网 凤凰网是中国领先的综合门户网站，提供含文图音视频的全方位综合新闻资讯、深度访谈、观点评论、财经产品、互动应用、分享社区等服务，同时与凤凰无线、凤凰宽频形成动，为全球主流华人提供互联网、无线通信、电视网三网融合无缝衔接的新媒体优质体验。";
         System.out.println("cate:"+cf.cate(text));
 		/*
+
 		InputStreamReader isr = new InputStreamReader(System.in);
 		BufferedReader br = new BufferedReader(isr);
 
@@ -422,6 +425,9 @@ public class Classifier {
 		br.close();
 		pw.close();
 		*/
+		
+
+	
 		
 
 	}
