@@ -13,6 +13,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
@@ -77,13 +78,15 @@ public class VideoCateTest {
 	{
 
 		try {
+			video_dict=FileReaderUtil.getDictFromPlainFile("dict2jar/dict_video.txt");	
+			System.out.println(video_dict.get("秘史陆贞"));
 			String model_path = "model";
 			read_model(model_path);
 			seg=new Segmenter();
 			posTagger=new PosTagger("chinese-nodistsim.tagger");
 			ke=new KeyExtract();
-			video_dict=FileReaderUtil.getDictFromPlainFile("dict_video.txt");			
-			
+
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
