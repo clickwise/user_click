@@ -108,13 +108,14 @@ public class Sample {
 
 			FileWriterUtil.writeHashMap(dictMap, dict_file.getAbsolutePath());
 			FileWriterUtil.writeHashMap(labelMap, label_file.getAbsolutePath());
-
+           
 			PrintWriter trainpw = FileWriterUtil.getPWFile(train_file);
 			PrintWriter testpw = FileWriterUtil.getPWFile(test_file);
 
 			texts = FileToArray.fileToDimArr(temp);
 			String sample = "";
 			double random = 0;
+	
 
 			for (int i = 0; i < texts.length; i++) {
 				line = texts[i];
@@ -135,11 +136,23 @@ public class Sample {
 				if (sample.equals("")) {
 					continue;
 				}
-				random = Math.random();
+				
+				if(!(labelMap.containsKey(label)))
+				{
+					continue;
+				}
+				
+				label_index=labelMap.get(label);
+				if(label_index<1)
+				{
+					continue;
+				}
+				
+				random = Math.random();				
 				if (random > 0.3) {
-					trainpw.println(host + "\001" + label + "\001" + sample);
+					trainpw.println(label_index + "\001" + sample);
 				} else {
-					testpw.println(host + "\001" + label + "\001" + sample);
+					testpw.println( label_index + "\001" + sample);
 				}
 
 			}
