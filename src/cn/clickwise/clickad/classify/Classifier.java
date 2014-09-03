@@ -56,7 +56,7 @@ public class Classifier {
 	private String dict2jar="";
 	
 	static Logger logger = LoggerFactory.getLogger(Classifier.class);
-	private static int verbosity=1;
+	private static int verbosity=5;
 	
 	public Classifier() {
 		try {
