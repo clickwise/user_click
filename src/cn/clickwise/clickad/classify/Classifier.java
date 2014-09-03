@@ -15,9 +15,13 @@ import java.util.List;
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 import cn.clickwise.clickad.keyword.KeyExtract;
 import cn.clickwise.clickad.seg.Segmenter;
+import cn.clickwise.clickad.server.AuxiliaryServer;
 import cn.clickwise.clickad.tag.PosTagger;
 import cn.clickwise.liqi.file.uitls.FileReaderUtil;
 import cn.clickwise.liqi.str.basic.SSO;
@@ -50,6 +54,10 @@ public class Classifier {
 	private HashMap label_names = null;
 
 	private String dict2jar="";
+	
+	static Logger logger = LoggerFactory.getLogger(Classifier.class);
+	private static int verbosity=1;
+	
 	public Classifier() {
 		try {
 			String model_path = "model_host";
@@ -73,26 +81,96 @@ public class Classifier {
 		// File model_file = new File(model_path);
 		// FileReader fr = new FileReader(model_file);
 		BufferedReader br = new BufferedReader(model_isr);
+		
 		Version = cut_comment(br.readLine());
+		if(verbosity>=3)
+		{
+			logger.info("Version:"+Version);
+		}
+		
 		NUM_CLASS = Integer.parseInt(cut_comment(br.readLine()));
+		if(verbosity>=3)
+		{
+			logger.info("NUM_CLASS:"+NUM_CLASS);
+		}
+		
 		NUM_WORDS = Integer.parseInt(cut_comment(br.readLine()));
-		// System.out.println("NUM_WORDS:" + NUM_WORDS);
+		if(verbosity>=3)
+		{
+			logger.info("NUM_WORDS:"+NUM_WORDS);
+		}
+		
 		loss_function = Integer.parseInt(cut_comment(br.readLine()));
+		if(verbosity>=3)
+		{
+			logger.info("loss_function:"+loss_function);
+		}
+		
 		kernel_type = Integer.parseInt(cut_comment(br.readLine()));
+		if(verbosity>=3)
+		{
+			logger.info("kernel_type:"+kernel_type);
+		}
+		
 		para_d = Integer.parseInt(cut_comment(br.readLine()));
+		if(verbosity>=3)
+		{
+			logger.info("para_d:"+para_d);
+		}
+		
 		para_g = Integer.parseInt(cut_comment(br.readLine()));
+		if(verbosity>=3)
+		{
+			logger.info("para_g:"+para_g);
+		}
+		
 		para_s = Integer.parseInt(cut_comment(br.readLine()));
+		if(verbosity>=3)
+		{
+			logger.info("para_s:"+para_s);
+		}
+		
 		para_r = Integer.parseInt(cut_comment(br.readLine()));
+		if(verbosity>=3)
+		{
+			logger.info("para_r:"+para_r);
+		}
+		
 		para_u = cut_comment(br.readLine());
+		if(verbosity>=3)
+		{
+			logger.info("para_u:"+para_u);
+		}
+		
 		NUM_FEATURES = Integer.parseInt(cut_comment(br.readLine()));
-		// System.out.println("NUM_FEATURES:" + NUM_FEATURES);
+		if(verbosity>=3)
+		{
+			logger.info("NUM_FEATURES:"+NUM_FEATURES);
+		}
+		
 		train_num = Integer.parseInt(cut_comment(br.readLine()));
+		if(verbosity>=3)
+		{
+			logger.info("train_num:"+train_num);
+		}
+		
 		suv_num = Integer.parseInt(cut_comment(br.readLine()));
+		if(verbosity>=3)
+		{
+			logger.info("suv_num:"+suv_num);
+		}
+		
 		b = Double.parseDouble(cut_comment(br.readLine()));
+		if(verbosity>=3)
+		{
+			logger.info("b:"+b);
+		}
+		
 		line_weights = new double[NUM_FEATURES + 2];
 		for (int i = 0; i < line_weights.length; i++) {
 			line_weights[i] = 0;
 		}
+		
 		String line = br.readLine();
 		StringTokenizer st = new StringTokenizer(line, " ");
 		// System.out.println("st.count:" + st.countTokens());
