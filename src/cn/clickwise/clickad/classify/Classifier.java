@@ -65,7 +65,7 @@ public class Classifier {
 			seg = new Segmenter();
 			posTagger = new PosTagger("chinese-nodistsim.tagger");
 			ke = new KeyExtract();
-			video_dict = getDictFromStream("dict_host.txt");
+			video_dict = getDictFromStream("dict_cate28.txt");
 			label_names = getIndexLabelFromStream("label_host.txt");
 			
 		} catch (Exception e) {
