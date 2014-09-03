@@ -36,9 +36,9 @@ public class Classifier {
 	public static int loss_function;
 	public static int kernel_type;
 	public static int para_d;
-	public static int para_g;
-	public static int para_s;
-	public static int para_r;
+	public static double para_g;
+	public static double para_s;
+	public static double para_r;
 	public static String para_u;
 	public static int NUM_FEATURES;
 	public static int train_num;
@@ -118,19 +118,19 @@ public class Classifier {
 			logger.info("para_d:"+para_d);
 		}
 		
-		para_g = Integer.parseInt(cut_comment(br.readLine()));
+		para_g = Double.parseDouble(cut_comment(br.readLine()));
 		if(verbosity>=3)
 		{
 			logger.info("para_g:"+para_g);
 		}
 		
-		para_s = Integer.parseInt(cut_comment(br.readLine()));
+		para_s = Double.parseDouble(cut_comment(br.readLine()));
 		if(verbosity>=3)
 		{
 			logger.info("para_s:"+para_s);
 		}
 		
-		para_r = Integer.parseInt(cut_comment(br.readLine()));
+		para_r = Double.parseDouble(cut_comment(br.readLine()));
 		if(verbosity>=3)
 		{
 			logger.info("para_r:"+para_r);
