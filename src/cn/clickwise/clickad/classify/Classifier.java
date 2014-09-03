@@ -1,6 +1,8 @@
 package cn.clickwise.clickad.classify;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -18,6 +20,7 @@ import cn.clickwise.clickad.keyword.KeyExtract;
 import cn.clickwise.clickad.seg.Segmenter;
 import cn.clickwise.clickad.tag.PosTagger;
 import cn.clickwise.liqi.file.uitls.FileReaderUtil;
+import cn.clickwise.liqi.str.basic.SSO;
 
 public class Classifier {
 
@@ -54,8 +57,8 @@ public class Classifier {
 			seg = new Segmenter();
 			posTagger = new PosTagger("chinese-nodistsim.tagger");
 			ke = new KeyExtract();
-			video_dict = FileReaderUtil.getDictFromPlainFile("dict_host.txt");
-			label_names = FileReaderUtil.getIndexLabelFromPlainFile("label_host.txt");
+			video_dict = getDictFromStream("dict_host.txt");
+			label_names = getIndexLabelFromStream("label_host.txt");
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -291,12 +294,21 @@ public class Classifier {
 		HashMap<Long, Integer> cnts = new HashMap<Long, Integer>();
 		for (int i = 0; i < words.length; i++) {
 			try {
-				// //ids = jedis.get(words[i]);
-				ids = video_dict.get(words[i]) + "";
+				////ids = jedis.get(words[i]);
+				ids = video_dict.get(words[i])+"";
+                                //System.out.println("ids:"+ids);
 			} catch (Exception re) {
-
+                              re.printStackTrace();
 			}
 			if (ids == null) {
+				continue;
+			}
+                        if(SSO.tioe(ids))
+			{
+				continue;
+			}
+			if(!(Pattern.matches("[\\d]*", ids)))
+			{
 				continue;
 			}
 			Long id = Long.parseLong(ids);
@@ -399,6 +411,139 @@ public class Classifier {
 	public class Label {
 		int first_class;
 		double score;
+	}
+	
+	public HashMap getDictFromStream(String input_file) {
+		// TODO Auto-generated method stub
+	
+		HashMap hm=new HashMap();
+	    String item="";
+	    String word="";
+	    String index_str="";
+		int index=0;
+		InputStream model_is = this.getClass().getResourceAsStream(
+				"/" + input_file);
+		InputStreamReader model_isr = new InputStreamReader(model_is);
+
+		BufferedReader br = new BufferedReader(model_isr);
+		//FileReader fr=null;
+		
+		String[] seg_arr=null;
+			
+		try{
+		  // fr=new FileReader(new File(input_file));
+		  // br=new BufferedReader(fr);
+		   while((item=br.readLine())!=null)
+		   {
+			   
+			   if(!(SSO.tnoe(item)))
+			   {
+				   continue;
+			   }
+			   item=item.trim();
+			   seg_arr=item.split("\\s+");
+			   if(seg_arr.length!=2)
+			   {
+				   continue;
+			   }
+			   word=seg_arr[0].trim();
+			   index_str=seg_arr[1].trim();
+
+			   if(!(SSO.tnoe(word)))
+			   {
+				   continue;
+			   }
+			   
+			   if(!(SSO.tnoe(index_str)))
+			   {
+				   continue;
+			   }
+			   index=Integer.parseInt(index_str);
+			   //if(index%100==0)
+			   //{
+				   //System.out.println(word+" "+index_str);
+			  // }
+			   if(index<1)
+			   {
+				   continue;
+			   }
+			   hm.put(word,index);			   
+		   }
+		   
+		   br.close();
+		   model_is.close();
+		   model_isr.close();
+		   
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}	
+		return hm;
+	}
+	
+	public  HashMap getIndexLabelFromStream(String input_file) {
+		// TODO Auto-generated method stub
+	
+		HashMap hm=new HashMap();
+	    String item="";
+	    String label="";
+	    String index_str="";
+		int index=0;
+		//FileReader fr=null;
+		//BufferedReader br=null;
+		InputStream model_is = this.getClass().getResourceAsStream(
+				"/" + input_file);
+		InputStreamReader model_isr = new InputStreamReader(model_is);
+
+		BufferedReader br = new BufferedReader(model_isr);
+		
+		String[] seg_arr=null;
+			
+		try{
+		  // fr=new FileReader(new File(input_file));
+		  // br=new BufferedReader(fr);
+		   while((item=br.readLine())!=null)
+		   {
+			   if(!(SSO.tnoe(item)))
+			   {
+				   continue;
+			   }
+			   seg_arr=item.split("\\s+");
+			   if(seg_arr.length!=2)
+			   {
+				   continue;
+			   }
+			   label=seg_arr[0].trim();
+			   index_str=seg_arr[1].trim();
+
+			   if(!(SSO.tnoe(index_str)))
+			   {
+				   continue;
+			   }
+			   
+			   if(!(SSO.tnoe(label)))
+			   {
+				   continue;
+			   }
+			   index=Integer.parseInt(index_str);
+
+			   if(index<1)
+			   {
+				   continue;
+			   }
+			   hm.put(index_str,label);			   
+		   }
+		   
+		   br.close();
+		   model_is.close();
+		   model_isr.close();	   
+		}
+		catch(Exception e)
+		{
+			
+		}	
+		return hm;
 	}
 	
 	public static void main(String[] args) throws Exception {
