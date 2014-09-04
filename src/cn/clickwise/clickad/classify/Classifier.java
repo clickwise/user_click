@@ -18,7 +18,6 @@ import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 import cn.clickwise.clickad.keyword.KeyExtract;
 import cn.clickwise.clickad.seg.Segmenter;
 import cn.clickwise.clickad.server.AuxiliaryServer;
@@ -26,6 +25,10 @@ import cn.clickwise.clickad.tag.PosTagger;
 import cn.clickwise.liqi.file.uitls.FileReaderUtil;
 import cn.clickwise.liqi.str.basic.SSO;
 
+/**
+ * 分类程序
+ * @author zkyz
+ */
 public class Classifier {
 
 	/*** model params */
@@ -53,11 +56,11 @@ public class Classifier {
 	private HashMap video_dict = null;
 	private HashMap label_names = null;
 
-	private String dict2jar="";
-	
+	private String dict2jar = "";
+
 	static Logger logger = LoggerFactory.getLogger(Classifier.class);
-	private static int verbosity=5;
-	
+	private static int verbosity = 5;
+
 	public Classifier() {
 		try {
 			String model_path = "model_host";
@@ -67,7 +70,7 @@ public class Classifier {
 			ke = new KeyExtract();
 			video_dict = getDictFromStream("dict_host.txt");
 			label_names = getIndexLabelFromStream("label_host.txt");
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -81,96 +84,82 @@ public class Classifier {
 		// File model_file = new File(model_path);
 		// FileReader fr = new FileReader(model_file);
 		BufferedReader br = new BufferedReader(model_isr);
-		
+
 		Version = cut_comment(br.readLine());
-		if(verbosity>=3)
-		{
-			logger.info("Version:"+Version);
+		if (verbosity >= 3) {
+			logger.info("Version:" + Version);
 		}
-		
+
 		NUM_CLASS = Integer.parseInt(cut_comment(br.readLine()));
-		if(verbosity>=3)
-		{
-			logger.info("NUM_CLASS:"+NUM_CLASS);
+		if (verbosity >= 3) {
+			logger.info("NUM_CLASS:" + NUM_CLASS);
 		}
-		
+
 		NUM_WORDS = Integer.parseInt(cut_comment(br.readLine()));
-		if(verbosity>=3)
-		{
-			logger.info("NUM_WORDS:"+NUM_WORDS);
+		if (verbosity >= 3) {
+			logger.info("NUM_WORDS:" + NUM_WORDS);
 		}
-		
+
 		loss_function = Integer.parseInt(cut_comment(br.readLine()));
-		if(verbosity>=3)
-		{
-			logger.info("loss_function:"+loss_function);
+		if (verbosity >= 3) {
+			logger.info("loss_function:" + loss_function);
 		}
-		
+
 		kernel_type = Integer.parseInt(cut_comment(br.readLine()));
-		if(verbosity>=3)
-		{
-			logger.info("kernel_type:"+kernel_type);
+		if (verbosity >= 3) {
+			logger.info("kernel_type:" + kernel_type);
 		}
-		
+
 		para_d = Integer.parseInt(cut_comment(br.readLine()));
-		if(verbosity>=3)
-		{
-			logger.info("para_d:"+para_d);
+		if (verbosity >= 3) {
+			logger.info("para_d:" + para_d);
 		}
-		
+
 		para_g = Double.parseDouble(cut_comment(br.readLine()));
-		if(verbosity>=3)
-		{
-			logger.info("para_g:"+para_g);
+		if (verbosity >= 3) {
+			logger.info("para_g:" + para_g);
 		}
-		
+
 		para_s = Double.parseDouble(cut_comment(br.readLine()));
-		if(verbosity>=3)
-		{
-			logger.info("para_s:"+para_s);
+		if (verbosity >= 3) {
+			logger.info("para_s:" + para_s);
 		}
-		
+
 		para_r = Double.parseDouble(cut_comment(br.readLine()));
-		if(verbosity>=3)
-		{
-			logger.info("para_r:"+para_r);
+		if (verbosity >= 3) {
+			logger.info("para_r:" + para_r);
 		}
-		
+
 		para_u = cut_comment(br.readLine());
-		if(verbosity>=3)
-		{
-			logger.info("para_u:"+para_u);
+		if (verbosity >= 3) {
+			logger.info("para_u:" + para_u);
 		}
-		
+
 		NUM_FEATURES = Integer.parseInt(cut_comment(br.readLine()));
-		if(verbosity>=3)
-		{
-			logger.info("NUM_FEATURES:"+NUM_FEATURES);
+		if (verbosity >= 3) {
+			logger.info("NUM_FEATURES:" + NUM_FEATURES);
 		}
-		
+
 		train_num = Integer.parseInt(cut_comment(br.readLine()));
-		if(verbosity>=3)
-		{
-			logger.info("train_num:"+train_num);
+		if (verbosity >= 3) {
+			logger.info("train_num:" + train_num);
 		}
-		
+
 		suv_num = Integer.parseInt(cut_comment(br.readLine()));
-		if(verbosity>=3)
-		{
-			logger.info("suv_num:"+suv_num);
+		if (verbosity >= 3) {
+			logger.info("suv_num:" + suv_num);
 		}
-		
+
 		b = Double.parseDouble(cut_comment(br.readLine()));
-		if(verbosity>=3)
-		{
-			logger.info("b:"+b);
+		if (verbosity >= 3) {
+			logger.info("b:" + b);
 		}
-		
+
 		line_weights = new double[NUM_FEATURES + 2];
 		for (int i = 0; i < line_weights.length; i++) {
 			line_weights[i] = 0;
 		}
-		
+
 		String line = br.readLine();
 		StringTokenizer st = new StringTokenizer(line, " ");
 		// System.out.println("st.count:" + st.countTokens());
@@ -287,7 +276,6 @@ public class Classifier {
 		return best_label;
 	}
 
-	
 	public Word[] psi(Word[] sample, Label y) {
 		Word[] fvec = null;
 		int veclength = (sample.length) * NUM_CLASS;
@@ -372,21 +360,19 @@ public class Classifier {
 		HashMap<Long, Integer> cnts = new HashMap<Long, Integer>();
 		for (int i = 0; i < words.length; i++) {
 			try {
-				////ids = jedis.get(words[i]);
-				ids = video_dict.get(words[i])+"";
-                                //System.out.println("ids:"+ids);
+				// //ids = jedis.get(words[i]);
+				ids = video_dict.get(words[i]) + "";
+				// System.out.println("ids:"+ids);
 			} catch (Exception re) {
-                              re.printStackTrace();
+				re.printStackTrace();
 			}
 			if (ids == null) {
 				continue;
 			}
-                        if(SSO.tioe(ids))
-			{
+			if (SSO.tioe(ids)) {
 				continue;
 			}
-			if(!(Pattern.matches("[\\d]*", ids)))
-			{
+			if (!(Pattern.matches("[\\d]*", ids))) {
 				continue;
 			}
 			Long id = Long.parseLong(ids);
@@ -452,35 +438,31 @@ public class Classifier {
 		// System.out.println("y.first_label:"+y.first_class+"  y.second_label:"+y.second_class);
 		return y;
 	}
-	
-	public String cate(String line)
-	{
-		String cate_name="";
-		try{
-		String sample = getSample(line);
-		Label label_pre = docate(sample);
-		cate_name = getCateName(label_pre);
-		}
-		catch(Exception e)
-		{
+
+	public String cate(String line) {
+		String cate_name = "";
+		try {
+			String sample = getSample(line);
+			Label label_pre = docate(sample);
+			cate_name = getCateName(label_pre);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return cate_name;
 	}
-	
+
 	public String getCateName(Label y) {
 		String cate_name = "";
 		int tempid = y.first_class;
 		if ((tempid >= 1) && (tempid <= NUM_CLASS)) {
-			cate_name = label_names.get(tempid+"")+"";
+			cate_name = label_names.get(tempid + "") + "";
 		} else {
 			cate_name = "NA";
 		}
 
 		return cate_name;
 	}
-	
-	
+
 	public class Word {
 		int wnum;
 		double weight;
@@ -490,147 +472,124 @@ public class Classifier {
 		int first_class;
 		double score;
 	}
-	
+
 	public HashMap getDictFromStream(String input_file) {
 		// TODO Auto-generated method stub
-	
-		HashMap hm=new HashMap();
-	    String item="";
-	    String word="";
-	    String index_str="";
-		int index=0;
+
+		HashMap hm = new HashMap();
+		String item = "";
+		String word = "";
+		String index_str = "";
+		int index = 0;
 		InputStream model_is = this.getClass().getResourceAsStream(
 				"/" + input_file);
 		InputStreamReader model_isr = new InputStreamReader(model_is);
 
 		BufferedReader br = new BufferedReader(model_isr);
-		//FileReader fr=null;
-		
-		String[] seg_arr=null;
-			
-		try{
-		  // fr=new FileReader(new File(input_file));
-		  // br=new BufferedReader(fr);
-		   while((item=br.readLine())!=null)
-		   {
-			   
-			   if(!(SSO.tnoe(item)))
-			   {
-				   continue;
-			   }
-			   item=item.trim();
-			   seg_arr=item.split("\\s+");
-			   if(seg_arr.length!=2)
-			   {
-				   continue;
-			   }
-			   word=seg_arr[0].trim();
-			   index_str=seg_arr[1].trim();
+		String[] seg_arr = null;
 
-			   if(!(SSO.tnoe(word)))
-			   {
-				   continue;
-			   }
-			   
-			   if(!(SSO.tnoe(index_str)))
-			   {
-				   continue;
-			   }
-			   index=Integer.parseInt(index_str);
-			   //if(index%100==0)
-			   //{
-				   //System.out.println(word+" "+index_str);
-			  // }
-			   if(index<1)
-			   {
-				   continue;
-			   }
-			   hm.put(word,index);			   
-		   }
-		   
-		   br.close();
-		   model_is.close();
-		   model_isr.close();
-		   
-		}
-		catch(Exception e)
-		{
+		try {
+			while ((item = br.readLine()) != null) {
+
+				if (!(SSO.tnoe(item))) {
+					continue;
+				}
+				item = item.trim();
+				seg_arr = item.split("\\s+");
+				if (seg_arr.length != 2) {
+					continue;
+				}
+				word = seg_arr[0].trim();
+				index_str = seg_arr[1].trim();
+
+				if (!(SSO.tnoe(word))) {
+					continue;
+				}
+
+				if (!(SSO.tnoe(index_str))) {
+					continue;
+				}
+				index = Integer.parseInt(index_str);
+
+				if (index < 1) {
+					continue;
+				}
+				hm.put(word, index);
+			}
+
+			br.close();
+			model_is.close();
+			model_isr.close();
+
+		} catch (Exception e) {
 			e.printStackTrace();
-		}	
+		}
 		return hm;
 	}
-	
-	public  HashMap getIndexLabelFromStream(String input_file) {
+
+	public HashMap getIndexLabelFromStream(String input_file) {
 		// TODO Auto-generated method stub
-	
-		HashMap hm=new HashMap();
-	    String item="";
-	    String label="";
-	    String index_str="";
-		int index=0;
-		//FileReader fr=null;
-		//BufferedReader br=null;
+
+		HashMap hm = new HashMap();
+		String item = "";
+		String label = "";
+		String index_str = "";
+		int index = 0;
+		// FileReader fr=null;
+		// BufferedReader br=null;
 		InputStream model_is = this.getClass().getResourceAsStream(
 				"/" + input_file);
 		InputStreamReader model_isr = new InputStreamReader(model_is);
 
 		BufferedReader br = new BufferedReader(model_isr);
-		
-		String[] seg_arr=null;
-			
-		try{
-		  // fr=new FileReader(new File(input_file));
-		  // br=new BufferedReader(fr);
-		   while((item=br.readLine())!=null)
-		   {
-			   if(!(SSO.tnoe(item)))
-			   {
-				   continue;
-			   }
-			   seg_arr=item.split("\\s+");
-			   if(seg_arr.length!=2)
-			   {
-				   continue;
-			   }
-			   label=seg_arr[0].trim();
-			   index_str=seg_arr[1].trim();
 
-			   if(!(SSO.tnoe(index_str)))
-			   {
-				   continue;
-			   }
-			   
-			   if(!(SSO.tnoe(label)))
-			   {
-				   continue;
-			   }
-			   index=Integer.parseInt(index_str);
+		String[] seg_arr = null;
 
-			   if(index<1)
-			   {
-				   continue;
-			   }
-			   hm.put(index_str,label);			   
-		   }
-		   
-		   br.close();
-		   model_is.close();
-		   model_isr.close();	   
+		try {
+			// fr=new FileReader(new File(input_file));
+			// br=new BufferedReader(fr);
+			while ((item = br.readLine()) != null) {
+				if (!(SSO.tnoe(item))) {
+					continue;
+				}
+				seg_arr = item.split("\\s+");
+				if (seg_arr.length != 2) {
+					continue;
+				}
+				label = seg_arr[0].trim();
+				index_str = seg_arr[1].trim();
+
+				if (!(SSO.tnoe(index_str))) {
+					continue;
+				}
+
+				if (!(SSO.tnoe(label))) {
+					continue;
+				}
+				index = Integer.parseInt(index_str);
+
+				if (index < 1) {
+					continue;
+				}
+				hm.put(index_str, label);
+			}
+
+			br.close();
+			model_is.close();
+			model_isr.close();
+		} catch (Exception e) {
+
 		}
-		catch(Exception e)
-		{
-			
-		}	
 		return hm;
 	}
-	
+
 	public static void main(String[] args) throws Exception {
 
 		Classifier cf = new Classifier();
 
-		//String text="凤凰网 凤凰网是中国领先的综合门户网站，提供含文图音视频的全方位综合新闻资讯、深度访谈、观点评论、财经产品、互动应用、分享社区等服务，同时与凤凰无线、凤凰宽频形成动，为全球主流华人提供互联网、无线通信、电视网三网融合无缝衔接的新媒体优质体验。";
-        //System.out.println("cate:"+cf.cate(text));
-	
+		// String
+		// text="凤凰网 凤凰网是中国领先的综合门户网站，提供含文图音视频的全方位综合新闻资讯、深度访谈、观点评论、财经产品、互动应用、分享社区等服务，同时与凤凰无线、凤凰宽频形成动，为全球主流华人提供互联网、无线通信、电视网三网融合无缝衔接的新媒体优质体验。";
+		// System.out.println("cate:"+cf.cate(text));
 
 		InputStreamReader isr = new InputStreamReader(System.in);
 		BufferedReader br = new BufferedReader(isr);
@@ -647,13 +606,7 @@ public class Classifier {
 		osw.close();
 		br.close();
 		pw.close();
-		
-		
-
-	
-		
 
 	}
 
-	
 }
