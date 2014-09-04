@@ -323,7 +323,10 @@ public class Classifier {
 	}
 
 	public String getSample(String filter_content) throws Exception {
-		String sample = "";
+		
+		String sample = "";	
+		
+		/*
 		String seg_s = seg.segAnsi(filter_content);
 		seg_s = seg_s.trim();
 		if (seg_s.equals("")) {
@@ -342,15 +345,15 @@ public class Classifier {
 		if (key_s.equals("")) {
 			return "";
 		}
-
-		sample = get_word_id(key_s);
+        */
+			
+		sample = get_word_id(filter_content);
 		sample = sample.trim();
 		if (sample.equals("")) {
 			return "";
 		}
 
 		return sample;
-
 	}
 
 	public String get_word_id(String s) {
@@ -442,9 +445,11 @@ public class Classifier {
 	public String cate(String line) {
 		String cate_name = "";
 		try {
+			
 			String sample = getSample(line);
 			Label label_pre = docate(sample);
 			cate_name = getCateName(label_pre);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
