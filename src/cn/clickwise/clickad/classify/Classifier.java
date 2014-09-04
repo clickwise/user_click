@@ -56,8 +56,6 @@ public class Classifier {
 	private HashMap video_dict = null;
 	private HashMap label_names = null;
 
-	private String dict2jar = "";
-
 	static Logger logger = LoggerFactory.getLogger(Classifier.class);
 	private static int verbosity = 5;
 
@@ -174,19 +172,11 @@ public class Classifier {
 		int search_blank = 0;
 		// System.out.println("line.length:" + line.length());
 		while (current_pos < (line.length())) {
-			// if((current_pos%10000==0))
-			// {
-			// System.out.println("current_pos:"+current_pos);
-			// }
+
 			forward_num = 0;
 			temp_token = "";
 			while ((current_pos + forward_num) < (line.length())) {
-				// if(current_pos>26080000)
-				// {
-				// System.out.println("current_pos+forward_num:"+(current_pos+forward_num));
-				// System.out.println("cc:"+line.charAt(current_pos+forward_num));
-				// }
-
+	
 				if (((line.charAt(current_pos + forward_num)) != ' ')
 						&& ((line.charAt(current_pos + forward_num)) != '#')) {
 					temp_token = temp_token
@@ -223,10 +213,7 @@ public class Classifier {
 							break;
 						}
 					}
-					// if((current_pos%10000==0)||current_pos>26080000)
-					// {
-					// System.out.println("forward_num+search_blank:"+(forward_num+search_blank));
-					// }
+
 					if ((line.charAt(current_pos + forward_num)) == '#') {
 						forward_num++;
 					}
@@ -409,7 +396,7 @@ public class Classifier {
 	}
 
 	public Label docate(String sample_line) {
-
+		
 		Label y = null;
 		Word[] sample = null;
 

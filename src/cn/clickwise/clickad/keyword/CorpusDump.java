@@ -30,7 +30,6 @@ public class CorpusDump {
 	public void tf_idf(File input_file, File output_file) {
 		
 		MapCount<String> idfs = new MapCount<String>();
-
 		BufferedReader br = FileReaderUtil.getBufRed(input_file);
 		String line = "";
 
@@ -89,6 +88,7 @@ public class CorpusDump {
 	{
 		CorpusDump corpusDump=new CorpusDump();
 		corpusDump.tf_idf(new File("temp/seg_test/tb_test_bat.txt"), new File("temp/seg_test/tfidf.txt"));
+		
 	}
 	
 

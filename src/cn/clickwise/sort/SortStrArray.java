@@ -61,9 +61,6 @@ public class SortStrArray {
 	}
 	
 	/**
-	 * arr:寰呮帓搴忕殑鏁扮粍
-	 * key_index:鎺掑簭key鐨勭储寮�
-	 * key_type:鎺掑簭key鐨勭被鍨嬶紝渚嬪str,int,dou
 	 * @param arr
 	 * @param key_index
 	 * @param key_type
@@ -110,9 +107,6 @@ public class SortStrArray {
 	}
 	
 	/**
-	 * arr:寰呮帓搴忕殑鏁扮粍
-	 * key_index:鎺掑簭key鐨勭储寮�
-	 * key_type:鎺掑簭key鐨勭被鍨嬶紝渚嬪str,int,dou
 	 * @param arr
 	 * @param key_index
 	 * @param key_type
@@ -169,6 +163,10 @@ public class SortStrArray {
 			System.out.println(narr[i]);
 		}
 		
+		
+		
 	}
+	
+	
 	
 }
