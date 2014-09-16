@@ -13,6 +13,8 @@ elif [ "$COMMAND" = "tag" ] ; then
   CLASS='cn.clickwise.clickad.tag.PosTagger'
 elif [ "$COMMAND" = "key" ] ; then
   CLASS='cn.clickwise.clickad.keyword.KeyExtract'
+elif [ "$COMMAND" = "classify" ] ; then
+  CLASS='cn.clickwise.clickad.classify.Classifier'
 fi
 
 #echo $CLASS
