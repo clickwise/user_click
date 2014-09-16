@@ -17,4 +17,7 @@ public class ClassifierModel {
 	  svm_struct.train_from_stream(c, args[0]);
 	  
   }
+  
+  
+  
 }
