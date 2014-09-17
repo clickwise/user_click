@@ -324,6 +324,7 @@ public class ClassifierUseText {
 				continue;
 			}
 			sample_list.add(pairArr[0]+" "+cut.get_word_id(pairArr[1]));
+			logger.info(pairArr[0]+" "+cut.get_word_id(pairArr[1]));
 		}
 		
 		
