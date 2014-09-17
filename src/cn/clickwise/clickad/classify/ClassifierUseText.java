@@ -43,7 +43,6 @@ public class ClassifierUseText {
 
 	public ClassifierUseText() {
 		try {
-			String model_path = "model_host";
 			seg = new Segmenter();
 			posTagger = new PosTagger("chinese-nodistsim.tagger");
 			ke = new KeyExtract();
@@ -307,47 +306,45 @@ public class ClassifierUseText {
 			}
 		}
 		
+		ArrayList<String> sample_list=new ArrayList<String>();
+		InputStreamReader isr=new InputStreamReader(System.in);
+		BufferedReader br=new BufferedReader(isr);	
+		ClassifierUseText cut=new ClassifierUseText();
+				
+		String key_line="";
+		String docid="";
+		String docwords="";
+		
+		String[] pairArr=null;
+		while((key_line=br.readLine())!=null)
+		{
+			pairArr=SSO.sepFirst(key_line, "\\s+");
+			if(pairArr==null)
+			{
+				continue;
+			}
+			sample_list.add(pairArr[0]+" "+cut.get_word_id(pairArr[1]));
+		}
+		
+		
 		if(args.length==0)
 		{
-			
+			String default_model_file="model_host";
+			ssc.classify_from_arraylist(sample_list,default_model_file);
 		}
 		else if (args.length == 1) {// default: multiclass
 			
 			//选用何种分类体系
 			svm_struct_api_factory ssaf = new svm_struct_api_factory(0);			
-			ssc.classify_from_stream(args[0]);
+			ssc.classify_from_arraylist(sample_list,args[0]);
+		
 
 		} else if (args.length == 2) {
 
 			//选用何种分类体系
 			svm_struct_api_factory ssaf = new svm_struct_api_factory(Integer.parseInt(args[0]));
-			ssc.classify_from_stream(args[1]);
-			
+			ssc.classify_from_arraylist(sample_list,args[1]);
 		}
-		
-		
-		
-		Classifier cf = new Classifier();
-		// String
-		// text="凤凰网 凤凰网是中国领先的综合门户网站，提供含文图音视频的全方位综合新闻资讯、深度访谈、观点评论、财经产品、互动应用、分享社区等服务，同时与凤凰无线、凤凰宽频形成动，为全球主流华人提供互联网、无线通信、电视网三网融合无缝衔接的新媒体优质体验。";
-		// System.out.println("cate:"+cf.cate(text));
-
-		InputStreamReader isr = new InputStreamReader(System.in);
-		BufferedReader br = new BufferedReader(isr);
-
-		OutputStreamWriter osw = new OutputStreamWriter(System.out);
-		PrintWriter pw = new PrintWriter(osw);
-
-		String line = "";
-		while ((line = br.readLine()) != null) {
-			pw.println(cf.cate(line));
-		}
-
-		isr.close();
-		osw.close();
-		br.close();
-		pw.close();
-
 	}
 	
 	
