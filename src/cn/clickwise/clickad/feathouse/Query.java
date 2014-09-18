@@ -18,7 +18,7 @@ public abstract class Query {
 	 * @param key
 	 * @return
 	 */
-	abstract boolean resetStatistics(Key key);
+	abstract State resetStatistics(Key key);
 	
 	
 	

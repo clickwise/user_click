@@ -13,7 +13,12 @@ public abstract class DmpInquiry {
 	 * @param keyFile
 	 * @return
 	 */
-	public abstract boolean fetchFromDmp(File keyFile);
+	public abstract State fetchFromDmp(File keyFile,File recordFile);
+	
+	
+	
+	
+	
 	
 
 }

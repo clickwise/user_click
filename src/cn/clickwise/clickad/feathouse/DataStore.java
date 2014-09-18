@@ -6,9 +6,9 @@ package cn.clickwise.clickad.feathouse;
  */
 public abstract class DataStore {
 
-	public abstract boolean write2db(Record rec);
+	public abstract State write2db(Record rec);
 	
-	public abstract boolean deleteExpired(TimeRange time);
+	public abstract State deleteExpired(TimeRange time);
 	
 	
 	
