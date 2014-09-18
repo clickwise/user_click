@@ -1,0 +1,41 @@
+用户特征缓存查询系统(feathouse)是用户广告匹配系统(clickad)的一部分。
+完成的功能:
+    1.dsp等系统按uid(cookie)查询用户特征、按特征查询用户uid(cookie)
+	  查询特征类型:用户访问过的url,refer,host,title关键词
+	                                   用户访问电商关键词、单品、搜索关键词
+				   用户标签
+				 
+				 
+				   
+	2.记录dsp等系统查询不同地区uid(cookie)的数量
+	3.记录未命中uid(cookie),离线从dmp平台查询
+	
+待解决问题及方案：
+    1.数据存储
+	   采用何种存储：入库速度、查询速度、容量
+	                 ardb:用户标签
+	                 索引:用户其它特征
+	   	   
+    2.查询接口
+	   接口类型:
+	     uid(cookie)->特征 
+	     特征->uid(cookie)
+	   传输协议:
+	     http
+	   接口格式:
+	     http://<server_ip>:<server_port>/<method>&<key>&<platform>[&other parameters]
+	   
+    3.dmp离线查询	
+	    如何记录未命中用户:未命中uid(cookie)导入文件
+        如何初始化及更新用户特征:定时批量更新，dmp平台接口
+		dmp平台接口:
+		  输入：uid(cookie)文件 
+		  输出: visit 记录文件，url、refer、host、title、area  
+		      analysis result文件,电商、百度、分类、地区
+		  
+	4.统计不同地区uid(cookie)查询数量
+	    如何记录不同地区uid(cookie)查询数：ardb计数
+		mysql存储表结构：
+		       area date uv pv
+	    
+		
