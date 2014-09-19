@@ -9,11 +9,19 @@ import java.io.File;
 public abstract class DmpInquiry {
 	
 	/**
-	 * 从dmp获取keyFile里所有用户的记录
+	 * 从某地区dmp获取keyFile里所有用户的记录
 	 * @param keyFile
 	 * @return
 	 */
-	public abstract State fetchFromDmp(File keyFile,File recordFile);
+	public abstract State fetchFromDmp(File keyFile,File recordFile,Dmp dmp);
+	
+	/**
+	 * 从所有地区dmp获取所有用户的记录
+	 * @param timeRange
+	 * @return
+	 */
+	public abstract State fetchFromAllDmps(TimeRange timeRange);
+	
 	
 	/**
 	 * 用户记录从文件写入kv 存储
