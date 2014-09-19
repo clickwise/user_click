@@ -11,7 +11,17 @@ public abstract class MissesTmpStore {
 
 	public abstract File getFileByName(String name);
 	
-	public abstract File getFileByAreaTimeRange(Area area,TimeRange timeRange);
+	/**
+	 * 按照area 和 timeRange 查找文件，
+	 * iscreate:
+	 *    false:未找到不创建新文件
+	 *    true:未找到创建新文件
+	 * @param area
+	 * @param timeRange
+	 * @param iscreate
+	 * @return
+	 */
+	public abstract File findFileByAreaTimeRange(Area area,TimeRange timeRange,boolean iscreate);
 	
 	
 }

@@ -3,23 +3,37 @@ package cn.clickwise.clickad.feathouse;
 import java.io.File;
 import java.util.Date;
 
+import cn.clickwise.lib.file.MulFileOpera;
+
 public class MissesDirectory extends MissesStore{
 
-	public File rootDirectory;
+	private File rootDirectory;
+	private MissesTmpStore missesTmp;
 	
 	public MissesDirectory(File rootDirectory)
 	{
 		this.rootDirectory=rootDirectory;
+		ConfigureFactory confFactory=ConfigureFactoryInstantiate.getConfigureFactory();
+		missesTmp=confFactory.getMissesTmpStore();
 	}
 	
 	@Override
 	public File getMissesByAreaName(Area area, TimeRange timeRange) {
 		// TODO Auto-generated method stub
+		
 	    Date[] intervals=timeRange.listDays();
 		
-	    
+	    File destFile=missesTmp.findFileByAreaTimeRange(area, timeRange,true);
+		File[] sourceFiles=new File[intervals.length];
 		
-		return null;
+	    for(int i=0;i<sourceFiles.length;i++)
+	    {
+	    	sourceFiles[i]=findFileByAreaDate(area,intervals[i]);
+	    }
+	    
+	    MulFileOpera.mergeMulFileNoDup(sourceFiles, destFile);
+	    
+		return destFile;
 	}
 
 	

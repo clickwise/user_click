@@ -13,8 +13,10 @@ public class MissesTmpDirectoy extends MissesTmpStore{
 	}
 
 	@Override
-	public File getFileByAreaTimeRange(Area area, TimeRange timeRange) {
+	public File findFileByAreaTimeRange(Area area, TimeRange timeRange,boolean iscreate) {
 		// TODO Auto-generated method stub
+		
+		
 		return null;
 	}
 
