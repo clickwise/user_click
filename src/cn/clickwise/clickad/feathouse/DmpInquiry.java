@@ -15,8 +15,12 @@ public abstract class DmpInquiry {
 	 */
 	public abstract State fetchFromDmp(File keyFile,File recordFile);
 	
-	
-	
+	/**
+	 * 用户记录从文件写入kv 存储
+	 * @param recordFile
+	 * @return
+	 */
+	public abstract State writeRecFile2DataStore(File recordFile);
 	
 	
 	

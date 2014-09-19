@@ -4,7 +4,7 @@ package cn.clickwise.clickad.feathouse;
  * 查询接口定义
  * @author zkyz
  */
-public abstract class Query {
+public abstract class DataQuery {
 
 	/**
 	 * 按照用户uid 查询用户记录
