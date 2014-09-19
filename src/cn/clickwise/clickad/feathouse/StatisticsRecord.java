@@ -8,26 +8,19 @@ import java.util.Date;
  */
 public class StatisticsRecord {
 
-	private String area;
+	private Area area;
 	private Date date;
 	private int uv;
 	private int pv;
 	
-	public StatisticsRecord(String area,Date date,int uv,int pv)
+	public StatisticsRecord(Area area,Date date,int uv,int pv)
 	{
-		this.area=area;
+		this.setArea(area);
 		this.date=date;
 		this.uv=uv;
 		this.pv=pv;
 	}
 	
-	public String getArea() {
-		return area;
-	}
-	
-	public void setArea(String area) {
-		this.area = area;
-	}
 	
 	public Date getDate() {
 		return date;
@@ -51,6 +44,16 @@ public class StatisticsRecord {
 	
 	public void setPv(int pv) {
 		this.pv = pv;
+	}
+
+
+	public Area getArea() {
+		return area;
+	}
+
+
+	public void setArea(Area area) {
+		this.area = area;
 	}
 	
 	

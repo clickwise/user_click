@@ -1,6 +1,7 @@
 package cn.clickwise.clickad.feathouse;
 
 import java.io.File;
+import java.util.Date;
 
 /**
  * 查询未命中的用户存储
@@ -14,7 +15,7 @@ public abstract class MissesStore {
 	 * @param timeRange
 	 * @return
 	 */
-	public abstract File getMissesByAreaName(String area,TimeRange timeRange);
+	public abstract File getMissesByAreaName(Area area,TimeRange timeRange);
 	
 	/**
 	 * 根据名字返回文件
@@ -23,5 +24,6 @@ public abstract class MissesStore {
 	 */
 	public abstract File getFileByName(String name);
 	
+	public abstract File findFileByAreaDate(Area area,Date date);
 	
 }

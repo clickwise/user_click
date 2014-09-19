@@ -24,7 +24,7 @@ public abstract class DmpInquiry {
 	
 	
 	/**
-	 * 用户记录从文件写入kv 存储
+	 * 用户记录从文件写入kv存储
 	 * @param recordFile
 	 * @return
 	 */

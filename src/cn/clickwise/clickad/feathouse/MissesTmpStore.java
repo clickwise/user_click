@@ -11,5 +11,7 @@ public abstract class MissesTmpStore {
 
 	public abstract File getFileByName(String name);
 	
+	public abstract File getFileByAreaTimeRange(Area area,TimeRange timeRange);
+	
 	
 }

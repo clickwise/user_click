@@ -119,4 +119,10 @@ public class TimeOpera {
 		
 	}
 	
+	public static long getEntireDay()
+	{
+		long entireDay=1000 * 60 * 60 * 24;
+		return entireDay;
+	}
+	
 }
