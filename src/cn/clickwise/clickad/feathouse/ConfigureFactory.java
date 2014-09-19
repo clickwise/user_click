@@ -20,4 +20,16 @@ public abstract class ConfigureFactory {
 	 */
 	public abstract UserRecordTmpStore getUserRecordTmpStore();
 	
+	/**
+	 * 获取mysql的配置信息
+	 * @return
+	 */
+	public abstract MysqlConfigure getMysqlConfigure();
+	
+	/**
+	 * 获得不同地区uid(cookie)查询数量统计表名 
+	 * @return
+	 */
+	public abstract String getStatisticsTableName();
+	
 }
