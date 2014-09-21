@@ -16,7 +16,11 @@ import org.apache.thrift.protocol.TProtocol;
 import org.apache.thrift.transport.TFramedTransport;
 import org.apache.thrift.transport.TSocket;
 import org.apache.thrift.transport.TTransport;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import cn.clickwise.clickad.classify.Classifier;
+import cn.clickwise.lib.code.MD5Code;
 import cn.clickwise.lib.string.SSO;
 
 public class CassandraStore extends DataStore {
@@ -33,6 +37,8 @@ public class CassandraStore extends DataStore {
 
 	private static final ConsistencyLevel CL = ConsistencyLevel.ONE;
 
+	static Logger logger = LoggerFactory.getLogger(CassandraStore.class);
+	
 	@Override
 	public State connect(Connection con) {
 
@@ -137,7 +143,14 @@ public class CassandraStore extends DataStore {
 				if (tokens.length != 2) {
 					continue;
 				}
-				Record rec = new Record(tokens[0], tokens[1]);
+				
+				String md5key=MD5Code.Md5(tokens[0]);
+				if(SSO.tioe(md5key))
+				{
+					continue;
+				}
+				Record rec = new Record(md5key, tokens[1]);
+				logger.info("adding:key="+md5key+",value="+tokens[1]);
 				cs.write2db(rec);
 				// pw.println(seg.segAnsi(line));
 			}
