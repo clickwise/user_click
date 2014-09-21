@@ -19,7 +19,6 @@ import org.apache.thrift.transport.TTransport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import cn.clickwise.clickad.classify.Classifier;
 import cn.clickwise.lib.code.MD5Code;
 import cn.clickwise.lib.string.SSO;
 
