@@ -1,7 +1,9 @@
 package cn.clickwise.clickad.feathouse;
 
-
-
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.nio.ByteBuffer;
 
 import org.apache.cassandra.thrift.Cassandra.Client;
@@ -15,69 +17,66 @@ import org.apache.thrift.transport.TFramedTransport;
 import org.apache.thrift.transport.TSocket;
 import org.apache.thrift.transport.TTransport;
 
+import cn.clickwise.lib.string.SSO;
 
-public class CassandraStore extends  DataStore{
+public class CassandraStore extends DataStore {
 
-	private Client client=null;
-	
-	private ColumnParent cp=null;
-	
-	private ColumnPath colPathName=null;
-	
-	private static final String UTF8="UTF8";
-	
-	private static final ConsistencyLevel CL=ConsistencyLevel.ONE;
-	
+	private Client client = null;
+
+	private ColumnParent cp = null;
+
+	private ColumnPath colPathName = null;
+
+	private String columnName = null;
+
+	private static final String UTF8 = "UTF8";
+
+	private static final ConsistencyLevel CL = ConsistencyLevel.ONE;
+
 	@Override
 	public State connect(Connection con) {
-		
-		State state=new State();
-		
-		try{
-			TTransport tr=new TSocket(con.getHost(),con.getPort());
-			TFramedTransport tf=new TFramedTransport(tr);
-			TProtocol proto=new TBinaryProtocol(tf);
-			client=new Client(proto);
+
+		State state = new State();
+
+		try {
+			TTransport tr = new TSocket(con.getHost(), con.getPort());
+			TFramedTransport tf = new TFramedTransport(tr);
+			TProtocol proto = new TBinaryProtocol(tf);
+			client = new Client(proto);
 			tf.open();
-		
+
 			client.set_keyspace(con.getKeySpace());
 			setCp(new ColumnParent(con.getCfName()));
 			setColPathName(new ColumnPath(con.getCfName()));
+			columnName = con.getColumnName();
 			colPathName.setColumn(con.getColumnName().getBytes(UTF8));
-		
-		
+
 			state.setStatValue(StateValue.Normal);
-		}
-		catch(Exception e)
-		{
+		} catch (Exception e) {
 			state.setStatValue(StateValue.Error);
 			e.printStackTrace();
 		}
-		
+
 		return state;
 	}
 
 	@Override
 	public State write2db(Record rec) {
 		// TODO Auto-generated method stub
-		
-		//Clock clock=new Clock(System.currentTimeMillis());
-		ByteBuffer sendBuffer=null;
-		try{
-		  sendBuffer=ByteBuffer.wrap(rec.getKey().getBytes(UTF8));
-		  Column column=new Column();
-		  column.setName("title".getBytes(UTF8));
-		  column.setValue("testvalue".getBytes());
-		  column.setTimestamp(System.currentTimeMillis());
-		  client.insert(sendBuffer, cp, column, CL);
-		}
-		catch(Exception e)
-		{
+
+		// Clock clock=new Clock(System.currentTimeMillis());
+		ByteBuffer sendBuffer = null;
+		try {
+			sendBuffer = ByteBuffer.wrap(rec.getKey().getBytes(UTF8));
+			Column column = new Column();
+			column.setName(columnName.getBytes(UTF8));
+			column.setValue(rec.getValue().getBytes());
+			column.setTimestamp(System.currentTimeMillis());
+			client.insert(sendBuffer, cp, column, CL);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
-		
+
 		return null;
 	}
 
@@ -102,23 +101,55 @@ public class CassandraStore extends  DataStore{
 	public void setColPathName(ColumnPath colPathName) {
 		this.colPathName = colPathName;
 	}
-	
-	public static void main(String[] args)
-	{
-		
-		CassandraStore cs=new CassandraStore();
-		Connection con=new Connection();
-		con.setHost("192.168.110.181");
+
+	public static void main(String[] args) {
+		if (args.length != 1) {
+			System.err.println("Usage:[host]");
+			System.exit(1);
+		}
+
+		CassandraStore cs = new CassandraStore();
+		Connection con = new Connection();
+		con.setHost(args[0]);
 		con.setPort(9160);
 		con.setCfName("Urls");
 		con.setKeySpace("urlstore");
 		con.setColumnName("title");
 		cs.connect(con);
-		
-		Record rec=new Record("testkey","testvalue");
-		cs.write2db(rec);
-		
-		
+
+		/*
+		 * Record rec=new Record("testkey2","testvalue2"); cs.write2db(rec);
+		 */
+		InputStreamReader isr = new InputStreamReader(System.in);
+		BufferedReader br = new BufferedReader(isr);
+
+		OutputStreamWriter osw = new OutputStreamWriter(System.out);
+		PrintWriter pw = new PrintWriter(osw);
+
+		String line = "";
+		String[] tokens = null;
+		try {
+			while ((line = br.readLine()) != null) {
+				if (SSO.tioe(line)) {
+					continue;
+				}
+				tokens = line.split("\001");
+				if (tokens.length != 2) {
+					continue;
+				}
+				Record rec = new Record(tokens[0], tokens[1]);
+				cs.write2db(rec);
+				// pw.println(seg.segAnsi(line));
+			}
+
+			isr.close();
+			osw.close();
+			br.close();
+			pw.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }
