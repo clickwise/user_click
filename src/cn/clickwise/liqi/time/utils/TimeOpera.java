@@ -14,6 +14,11 @@ import cn.clickwise.liqi.str.basic.SSO;
  */
 public class TimeOpera {
 
+	public static int formatDay(Date date)
+	{
+		
+	  return 0;
+	}
 	public static long str2long(String str)
 	{
 		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
