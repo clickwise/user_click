@@ -5,7 +5,14 @@ package cn.clickwise.clickad.feathouse;
  * @author zkyz
  */
 public abstract class DataStore {
-
+	
+    /**
+     * 连接kv-value server
+     * @param con
+     * @return
+     */
+	public abstract State connect(Connection con);
+	
 	public abstract State write2db(Record rec);
 	
 	public abstract State deleteExpired(TimeRange time);
