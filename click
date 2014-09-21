@@ -14,7 +14,7 @@ elif [ "$COMMAND" = "tag" ] ; then
 elif [ "$COMMAND" = "key" ] ; then
   CLASS='cn.clickwise.clickad.keyword.KeyExtract'
 elif [ "$COMMAND" = "classify" ] ; then
-  CLASS='cn.clickwise.clickad.classify.Classifier'
+  CLASS='cn.clickwise.clickad.classify.ClassifierUseText'
 fi
 
 #echo $CLASS
