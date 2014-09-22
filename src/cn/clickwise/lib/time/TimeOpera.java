@@ -89,6 +89,19 @@ public class TimeOpera {
 		return tstr;
 	}
 	
+	/**
+	 * 获得当前日期，格式20140626
+	 * @return
+	 */
+	public static int getToday()
+	{
+		long ctime=System.currentTimeMillis();
+		SimpleDateFormat sdf= new SimpleDateFormat("yyyyMMdd");
+		Date dt = new Date(ctime);	
+	
+		return Integer.parseInt(sdf.format(dt));
+	}
+	
 	public static String getCurrentTime()
 	{
 		long ctime=System.currentTimeMillis();
@@ -114,9 +127,9 @@ public class TimeOpera {
 			System.out.println(i+":"+str2long(dstr[i])+"    "+long2str(str2long(dstr[i])-999));
 		}
 		*/
-		for(int i=0;i<10;i++)
-		System.out.println(getCurrentTimeLong());
-		
+		//for(int i=0;i<10;i++)
+		//System.out.println(getCurrentTimeLong());
+		System.out.println(getToday());
 	}
 	
 	public static long getEntireDay()

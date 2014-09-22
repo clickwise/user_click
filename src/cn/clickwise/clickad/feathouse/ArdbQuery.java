@@ -5,11 +5,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import cn.clickwise.lib.time.TimeOpera;
+
 import redis.clients.jedis.Jedis;
 
 public class ArdbQuery extends DataQuery {
 
 	private Jedis jedis = null;
+	private int day=0;
 
 	@Override
 	public State connect(Connection con) {
@@ -57,7 +60,18 @@ public class ArdbQuery extends DataQuery {
 
 	@Override
 	State resetStatistics(Key key) {
-		// TODO Auto-generated method stub
-		return null;
+		State state = new State();
+		int counted=0;
+		String areaDayIdentity=KeyOpera.areaDayKey(TimeOpera.getToday(), KeyOpera.getAreaFromUid(key.key));
+		String counted_str=jedis.get(areaDayIdentity);
+		if(counted_str!=null)
+		{
+			counted=Integer.parseInt(counted_str);
+		}
+		counted++;
+		jedis.set(areaDayIdentity, counted+"");
+		
+		state.setStatValue(StateValue.Normal);
+		return state;
 	}
 }
