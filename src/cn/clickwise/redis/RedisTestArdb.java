@@ -13,17 +13,17 @@ public class RedisTestArdb {
 		//Httpsqs_client sqs_fetch=new Httpsqs_client("192.168.110.186","1218","utf-8");
 		//Jedis jedis = new Jedis("192.168.110.186", 16379, 1000);// redis服务器地址
 		//Httpsqs_client sqs_fetch=new Httpsqs_client("42.62.29.25","1218","utf-8");
-		Jedis jedis = new Jedis("42.62.29.25", 16379, 1000);// redis服务器地址
-		jedis.select(14);
+		Jedis jedis = new Jedis("192.168.110.181", 16379, 1000);// redis服务器地址
+		jedis.select(10);
 	    ////jedis.flushDB();
 	    
-		String one_item="adshow_28";
+		String one_item="ca8bd12435685c4fdbfc554f0e2bcd06";
 		//String one_item="user:045f0af0387026ac421b9dc873634853";
 		System.out.println("dbsize:"+jedis.dbSize());
 		//////jedis.zrem(key, members);
 		//jedis.zrange(key, start, end);
-		//Set<String> js=jedis.zrangeByScore(one_item,(long) ((double)TimeOpera.str2long("2014-02-08 15:29:05")/(double)1000), (long)((double)(TimeOpera.getCurrentTimeLong()+100000)/(double)1000));
-		Set<String> js=jedis.zrevrange(one_item, 0, 0);
+		Set<String> js=jedis.zrangeByScore(one_item,(long) ((double)TimeOpera.str2long("2014-02-08 15:29:05")/(double)1000), (long)((double)(TimeOpera.getCurrentTimeLong()+100000)/(double)1000));
+		//Set<String> js=jedis.zrevrange(one_item, 0, 0);
 		System.out.println(js.size());
 		Iterator js_it=js.iterator();
 		String[] seg_arr=null;

@@ -33,8 +33,9 @@ public class ArdbStore extends DataStore{
 	@Override
 	public State write2db(Record rec) {
 		State state=new State();	
-		double score=(System.currentTimeMillis()/1000)+(Math.random()*100);
+		long score=(long)((System.currentTimeMillis()/1000)+(Math.random()*100));
 		logger.info("adding to ardb:key="+rec.getKey()+",value="+rec.getValue()+",score="+score);
+		
 		jedis.zadd(rec.getKey(), score, rec.getValue());
 		state.setStatValue(StateValue.Normal);
 		return state;
