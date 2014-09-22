@@ -22,6 +22,10 @@ fi
 
 if [ $1 = "feathouse" ]
 then
+ rm -rf feathouse_src/cn
+ cd src 
+ cp -r --parents cn/clickwise/clickad/feathouse/ ../feathouse_src
+ cd ..
  echo "build feathouse";
  $ANT_BUILD -buildfile build_feathouse.xml
 else
