@@ -14,8 +14,14 @@ fi
 
 if [[ "$1" = "tool" ]]
 then
+ rm -rf tool_src/cn
+ cd src
+ cp -r --parents cn/clickwise/lib ../tool_src
+ cd ..
  echo "build tool";
  $ANT_BUILD -buildfile build_tool.xml
+ rm cassandra_lib/mytool.jar
+ cp out/mytool.jar cassandra_lib
 else
  OPT=2
 fi
