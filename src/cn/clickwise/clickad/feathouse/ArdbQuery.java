@@ -101,7 +101,7 @@ public static void main(String[] args) {
 
 		aq.connect(con);
 
-		Key key=new Key("test");
+		Key key=new Key("ca8bd12435685c4fdbfc554f0e2bcd06");
 	    List<Record> result=aq.queryUid(key);
 
 	    for(int i=0;i<result.size();i++)

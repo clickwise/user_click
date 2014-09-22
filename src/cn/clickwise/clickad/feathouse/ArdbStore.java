@@ -32,8 +32,10 @@ public class ArdbStore extends DataStore{
 
 	@Override
 	public State write2db(Record rec) {
-		State state=new State();
-		jedis.zadd(rec.getKey(), System.currentTimeMillis()+(Math.random()*100), rec.getValue());
+		State state=new State();	
+		double score=System.currentTimeMillis()+(Math.random()*100);
+		logger.info("adding to ardb:key="+rec.getKey()+",value="+rec.getValue()+",score="+score);
+		jedis.zadd(rec.getKey(), score, rec.getValue());
 		state.setStatValue(StateValue.Normal);
 		return state;
 	}
@@ -94,7 +96,6 @@ public static void main(String[] args) {
 					continue;
 				}
 				Record rec = new Record(md5key, tokens[1]);
-				logger.info("adding to ardb:key="+md5key+",value="+tokens[1]);
 				as.write2db(rec);
 				// pw.println(seg.segAnsi(line));
 			}
