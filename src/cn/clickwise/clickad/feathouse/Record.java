@@ -31,4 +31,9 @@ public class Record {
 		this.value = value;
 	}
 	
+	public String toString()
+	{
+		return "key="+key+",value="+value;
+	}
+	
 }

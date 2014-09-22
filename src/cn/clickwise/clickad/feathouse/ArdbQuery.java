@@ -1,10 +1,16 @@
 package cn.clickwise.clickad.feathouse;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import cn.clickwise.lib.code.MD5Code;
+import cn.clickwise.lib.string.SSO;
 import cn.clickwise.lib.time.TimeOpera;
 
 import redis.clients.jedis.Jedis;
@@ -77,5 +83,31 @@ public class ArdbQuery extends DataQuery {
 		
 		state.setStatValue(StateValue.Normal);
 		return state;
+	}
+	
+	
+public static void main(String[] args) {
+		
+		if (args.length != 1) {
+			System.err.println("Usage:[host]");
+			System.exit(1);
+		}
+
+		ArdbQuery aq = new ArdbQuery();
+		Connection con = new Connection();
+		con.setHost(args[0]);
+		con.setPort(16379);
+		con.setDb(10);
+
+		aq.connect(con);
+
+		Key key=new Key("test");
+	    List<Record> result=aq.queryUid(key);
+
+	    for(int i=0;i<result.size();i++)
+	    {
+	    	System.out.println(result.get(i).toString());
+	    }
+		
 	}
 }
