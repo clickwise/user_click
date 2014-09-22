@@ -26,12 +26,6 @@ public class CassandraStore extends DataStore {
 
 	private Client client = null;
 
-	private ColumnParent cp = null;
-
-	private ColumnPath colPathName = null;
-
-	private String columnName = null;
-
 	private static final String UTF8 = "UTF8";
 
 	private static final ConsistencyLevel CL = ConsistencyLevel.ONE;
@@ -49,14 +43,9 @@ public class CassandraStore extends DataStore {
 			TProtocol proto = new TBinaryProtocol(tf);
 			client = new Client(proto);
 			tf.open();
-
 			client.set_keyspace(con.getKeySpace());
-			setCp(new ColumnParent(con.getCfName()));
-			setColPathName(new ColumnPath(con.getCfName()));
-			columnName = con.getColumnName();
-			colPathName.setColumn(con.getColumnName().getBytes(UTF8));
-
 			state.setStatValue(StateValue.Normal);
+			
 		} catch (Exception e) {
 			state.setStatValue(StateValue.Error);
 			e.printStackTrace();
@@ -73,8 +62,14 @@ public class CassandraStore extends DataStore {
 		ByteBuffer sendBuffer = null;
 		try {
 			sendBuffer = ByteBuffer.wrap(rec.getKey().getBytes(UTF8));
+	        String columnName = KeyOpera.getTimeColunm();
+	        ColumnParent cp = null;
+	        //ColumnPath colPathName=null;
+			//colPathName=new ColumnPath(columnName);
+			cp=new ColumnParent(columnName);			
 			Column column = new Column();
 			column.setName(columnName.getBytes(UTF8));
+			
 			column.setValue(rec.getValue().getBytes());
 			column.setTimestamp(System.currentTimeMillis());
 			client.insert(sendBuffer, cp, column, CL);
@@ -90,7 +85,7 @@ public class CassandraStore extends DataStore {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+    /*
 	public ColumnParent getCp() {
 		return cp;
 	}
@@ -106,7 +101,7 @@ public class CassandraStore extends DataStore {
 	public void setColPathName(ColumnPath colPathName) {
 		this.colPathName = colPathName;
 	}
-
+  */
 	public static void main(String[] args) {
 		
 		if (args.length != 1) {

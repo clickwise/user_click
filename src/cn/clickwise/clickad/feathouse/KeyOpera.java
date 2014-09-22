@@ -18,4 +18,9 @@ public class KeyOpera {
 		return "";
 	}
 
+	public static String getTimeColunm()
+	{
+		long score=(long)((System.currentTimeMillis())+(Math.random()*1000));
+		return score+"";
+	}
 }

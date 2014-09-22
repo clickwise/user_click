@@ -17,13 +17,17 @@ public class RedisTestArdb {
 		jedis.select(10);
 	    ////jedis.flushDB();
 	    
-		String one_item="82fef1316adc8331e61c4b07bf0997c2";
+		String one_item="ae51f2757a48c0af4c0d0628c78f437f";
 		//String one_item="user:045f0af0387026ac421b9dc873634853";
 		System.out.println("dbsize:"+jedis.dbSize());
 		//////jedis.zrem(key, members);
 		//jedis.zrange(key, start, end);
+		long start=TimeOpera.getCurrentTimeLong();
 		Set<String> js=jedis.zrangeByScore(one_item,(long) ((double)TimeOpera.str2long("2014-02-08 15:29:05")/(double)1000), (long)((double)(TimeOpera.getCurrentTimeLong()+100000)/(double)1000));
 		//Set<String> js=jedis.zrevrange(one_item, 0, 0);
+		System.currentTimeMillis();
+		long end=TimeOpera.getCurrentTimeLong();
+		System.out.println("Use time:"+(end-start)+" ms");
 		System.out.println(js.size());
 		Iterator js_it=js.iterator();
 		String[] seg_arr=null;

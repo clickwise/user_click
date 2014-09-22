@@ -98,16 +98,52 @@ public static void main(String[] args) {
 		con.setHost(args[0]);
 		con.setPort(16379);
 		con.setDb(10);
-
 		aq.connect(con);
 
-		Key key=new Key("ca8bd12435685c4fdbfc554f0e2bcd06");
-	    List<Record> result=aq.queryUid(key);
+		InputStreamReader isr = new InputStreamReader(System.in);
+		BufferedReader br = new BufferedReader(isr);
 
-	    for(int i=0;i<result.size();i++)
-	    {
-	    	System.out.println(result.get(i).toString());
-	    }
+		OutputStreamWriter osw = new OutputStreamWriter(System.out);
+		PrintWriter pw = new PrintWriter(osw);
+
+		String line = "";
+		  
+	    try {
+	    	long total_time=0;
+	    	long query_count=0;
+			while ((line = br.readLine()) != null) {
+				if (SSO.tioe(line)) {
+					continue;
+				}
+		        line=line.trim();
+				try{
+					Key key=new Key(line);
+					long start=TimeOpera.getCurrentTimeLong();
+				    List<Record> result=aq.queryUid(key);
+				    long end=TimeOpera.getCurrentTimeLong();
+				    total_time+=(end-start);
+				    query_count++;
+				    System.out.println("Use time:"+(end-start)+" ms");
+				    
+				    for(int i=0;i<result.size();i++)
+				    {
+				    	System.out.println(result.get(i).toString());
+				    }
+				}
+				catch(Exception e)
+				{
+				  Thread.sleep(1000);	
+				}
+				// pw.println(seg.segAnsi(line));
+			}
+            System.out.println("average query time:"+((double)total_time/(double)query_count));
+			isr.close();
+			osw.close();
+			br.close();
+			pw.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
 }
