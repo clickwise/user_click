@@ -20,7 +20,7 @@ public class KeyOpera {
 
 	public static String getTimeColunm()
 	{
-		long score=(long)((System.currentTimeMillis()/1000)+(Math.random()*100));
-		return "testcol"+score+"";
+		long score=(long)((System.currentTimeMillis())+(Math.random()*1000));
+		return score+"";
 	}
 }
