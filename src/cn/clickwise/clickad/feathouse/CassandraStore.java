@@ -108,6 +108,7 @@ public class CassandraStore extends DataStore {
 	}
 
 	public static void main(String[] args) {
+		
 		if (args.length != 1) {
 			System.err.println("Usage:[host]");
 			System.exit(1);
@@ -162,6 +163,7 @@ public class CassandraStore extends DataStore {
 			e.printStackTrace();
 		}
 
+		
 	}
 
 }

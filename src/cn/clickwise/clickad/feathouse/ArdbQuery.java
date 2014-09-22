@@ -35,7 +35,9 @@ public class ArdbQuery extends DataQuery {
 		while (it.hasNext()) {
 			recordList.add(new Record(key.key, it.next() + ""));
 		}
-
+		
+		resetStatistics(key);
+		
 		return recordList;
 	}
 
@@ -54,7 +56,9 @@ public class ArdbQuery extends DataQuery {
 		while (it.hasNext()) {
 			recordList.add(new Record(key.key, it.next() + ""));
 		}
-
+		
+		resetStatistics(key);
+		
 		return recordList;
 	}
 
