@@ -19,6 +19,9 @@ public class Connection {
 	//cassandra 列名
 	private String columnName;
 	
+	//ardb的数据库编号
+	private int db;
+	
    public Connection()
    {
 	   
@@ -65,6 +68,14 @@ public class Connection {
 
 	public void setColumnName(String columnName) {
 		this.columnName = columnName;
+	}
+
+	public int getDb() {
+		return db;
+	}
+
+	public void setDb(int db) {
+		this.db = db;
 	}
 	
 }

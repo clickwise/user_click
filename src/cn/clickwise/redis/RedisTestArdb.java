@@ -21,7 +21,9 @@ public class RedisTestArdb {
 		//String one_item="user:045f0af0387026ac421b9dc873634853";
 		System.out.println("dbsize:"+jedis.dbSize());
 		//////jedis.zrem(key, members);
-		Set<String> js=jedis.zrangeByScore(one_item,(long) ((double)TimeOpera.str2long("2014-02-08 15:29:05")/(double)1000), (long)((double)(TimeOpera.getCurrentTimeLong()+100000)/(double)1000));
+		//jedis.zrange(key, start, end);
+		//Set<String> js=jedis.zrangeByScore(one_item,(long) ((double)TimeOpera.str2long("2014-02-08 15:29:05")/(double)1000), (long)((double)(TimeOpera.getCurrentTimeLong()+100000)/(double)1000));
+		Set<String> js=jedis.zrevrange(one_item, 0, 0);
 		System.out.println(js.size());
 		Iterator js_it=js.iterator();
 		String[] seg_arr=null;
@@ -31,13 +33,17 @@ public class RedisTestArdb {
 			rec=js_it.next()+"";
 			System.out.println("rec :"+rec);
 			seg_arr=rec.split("\001");
-			
 			for(int j=0;j<seg_arr.length;j++)
 			{
-				System.out.println("j="+j+"  "+seg_arr[j]);	
-				System.out.println("j="+j+"  "+jedis.get("md5_"+seg_arr[j]));				
+			  System.out.print(" j="+j+"  "+seg_arr[j]);	
+			}
+			System.out.println();
+			for(int j=0;j<seg_arr.length;j++)
+			{
+				System.out.print(" j="+j+"  "+jedis.get("md5_"+seg_arr[j]));				
 			}
 			
+			System.out.println();
 		}
 	}
 }
