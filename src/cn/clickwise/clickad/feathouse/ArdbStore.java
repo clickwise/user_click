@@ -97,7 +97,13 @@ public static void main(String[] args) {
 					continue;
 				}
 				Record rec = new Record(md5key, tokens[1]);
-				as.write2db(rec);
+				try{
+				 as.write2db(rec);
+				}
+				catch(Exception e)
+				{
+				  Thread.sleep(1000);	
+				}
 				// pw.println(seg.segAnsi(line));
 			}
 
