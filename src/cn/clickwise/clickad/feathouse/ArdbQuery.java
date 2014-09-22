@@ -35,7 +35,7 @@ public class ArdbQuery extends DataQuery {
 	public List<Record> queryUid(Key key) {
 		List<Record> recordList = new ArrayList<Record>();
 
-		Set<String> result = jedis.zrevrange(key.key, 0, 5);
+		Set<String> result = jedis.zrevrange(key.key, 0, -1);
 		Iterator it = result.iterator();
 
 		while (it.hasNext()) {
