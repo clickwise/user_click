@@ -21,6 +21,7 @@ import org.slf4j.LoggerFactory;
 
 import cn.clickwise.lib.code.MD5Code;
 import cn.clickwise.lib.string.SSO;
+import cn.clickwise.liqi.time.utils.TimeOpera;
 
 public class CassandraStore extends DataStore {
 
@@ -133,7 +134,10 @@ public class CassandraStore extends DataStore {
 
 		String line = "";
 		String[] tokens = null;
+		
 		try {
+			long start=TimeOpera.getCurrentTimeLong();
+			long count=0;
 			while ((line = br.readLine()) != null) {
 				if (SSO.tioe(line)) {
 					continue;
@@ -151,9 +155,11 @@ public class CassandraStore extends DataStore {
 				Record rec = new Record(md5key, tokens[1]);
 				logger.info("adding to cassandra:key="+md5key+",value="+tokens[1]);
 				cs.write2db(rec);
+				count++;
 				// pw.println(seg.segAnsi(line));
 			}
-
+			long end=TimeOpera.getCurrentTimeLong();
+			System.out.println("record count:"+count+" totol time:"+(end-start)+" ms"+" avg time:"+((double)(end-start)/(double)count)+" ms");
 			isr.close();
 			osw.close();
 			br.close();
