@@ -150,7 +150,7 @@ public class CassandraStore extends DataStore {
 					continue;
 				}
 				Record rec = new Record(md5key, tokens[1]);
-				logger.info("adding:key="+md5key+",value="+tokens[1]);
+				logger.info("adding to cassandra:key="+md5key+",value="+tokens[1]);
 				cs.write2db(rec);
 				// pw.println(seg.segAnsi(line));
 			}
