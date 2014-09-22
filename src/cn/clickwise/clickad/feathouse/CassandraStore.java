@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
 
 import cn.clickwise.lib.code.MD5Code;
 import cn.clickwise.lib.string.SSO;
-import cn.clickwise.liqi.time.utils.TimeOpera;
+import cn.clickwise.lib.time.TimeOpera;
 
 public class CassandraStore extends DataStore {
 
