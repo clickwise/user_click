@@ -17,7 +17,7 @@ public class RedisTestArdb {
 		jedis.select(10);
 	    ////jedis.flushDB();
 	    
-		String one_item="ca8bd12435685c4fdbfc554f0e2bcd06";
+		String one_item="82fef1316adc8331e61c4b07bf0997c2";
 		//String one_item="user:045f0af0387026ac421b9dc873634853";
 		System.out.println("dbsize:"+jedis.dbSize());
 		//////jedis.zrem(key, members);
