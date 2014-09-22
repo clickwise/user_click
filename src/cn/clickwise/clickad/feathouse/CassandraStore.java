@@ -30,7 +30,10 @@ public class CassandraStore extends DataStore {
 
 	private static final ConsistencyLevel CL = ConsistencyLevel.ONE;
 
+	private ColumnParent cp = null;
+	
 	static Logger logger = LoggerFactory.getLogger(CassandraStore.class);
+	
 	
 	@Override
 	public State connect(Connection con) {
@@ -44,6 +47,8 @@ public class CassandraStore extends DataStore {
 			client = new Client(proto);
 			tf.open();
 			client.set_keyspace(con.getKeySpace());
+			setCp(new ColumnParent(con.getCfName()));
+			
 			state.setStatValue(StateValue.Normal);
 			
 		} catch (Exception e) {
@@ -63,10 +68,9 @@ public class CassandraStore extends DataStore {
 		try {
 			sendBuffer = ByteBuffer.wrap(rec.getKey().getBytes(UTF8));
 	        String columnName = KeyOpera.getTimeColunm();
-	        ColumnParent cp = null;
+	       
 	        //ColumnPath colPathName=null;
-			//colPathName=new ColumnPath(columnName);
-			cp=new ColumnParent(columnName);			
+			//colPathName=new ColumnPath(columnName);			
 			Column column = new Column();
 			column.setName(columnName.getBytes(UTF8));
 			
@@ -85,7 +89,7 @@ public class CassandraStore extends DataStore {
 		// TODO Auto-generated method stub
 		return null;
 	}
-    /*
+   
 	public ColumnParent getCp() {
 		return cp;
 	}
@@ -93,7 +97,7 @@ public class CassandraStore extends DataStore {
 	public void setCp(ColumnParent cp) {
 		this.cp = cp;
 	}
-
+  /*
 	public ColumnPath getColPathName() {
 		return colPathName;
 	}
