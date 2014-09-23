@@ -185,6 +185,7 @@ public class Segmenter {
 			{
 				pw.print(seg.segAnsi(fields[fieldNum-1]));
 			}	
+			pw.println();
 		}
 		
 		isr.close();
