@@ -63,7 +63,7 @@ public class CassandraQuery extends DataQuery {
 
 	@Override
 	public List<Record> queryUid(Key key) {
-		// TODO Auto-generated method stub
+		
         List<Record> recordList=new ArrayList<Record>();
 		SlicePredicate predicate = new SlicePredicate();
 		SliceRange sliceRange = new SliceRange();
