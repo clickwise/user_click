@@ -42,12 +42,12 @@ public class Sample {
 			String text = "";
 			String[] seg_arr = null;
 
-			Segmenter seg = null;
-			PosTagger posTagger = null;
-			KeyExtract ke = null;
-			seg = new Segmenter();
-			posTagger = new PosTagger("chinese-nodistsim.tagger");
-			ke = new KeyExtract();
+			//Segmenter seg = null;
+			//PosTagger posTagger = null;
+			//KeyExtract ke = null;
+			//seg = new Segmenter();
+			//posTagger = new PosTagger("chinese-nodistsim.tagger");
+			//ke = new KeyExtract();
 
 			String seg_s = "";
 			String tag_s = "";
@@ -62,6 +62,7 @@ public class Sample {
 
 			for (int i = 0; i < texts.length; i++) {
 				line = texts[i];
+			
 				seg_arr = line.split("\001");
 				if (seg_arr.length != 3) {
 					continue;
@@ -74,7 +75,7 @@ public class Sample {
 				}
 
 				text = seg_arr[2].trim();
-
+				/*
 				seg_s = seg.segAnsi(text);
 				seg_s = seg_s.trim();
 				if (seg_s.equals("")) {
@@ -93,8 +94,9 @@ public class Sample {
 				if (key_s.equals("")) {
 					continue;
 				}
+				*/
 
-				tokens = key_s.split("\\s+");
+				tokens = text.split("\\s+");
 
 				for (int j = 0; j < tokens.length; j++) {
 					word = tokens[j].trim();
