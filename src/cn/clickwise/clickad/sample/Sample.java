@@ -62,7 +62,7 @@ public class Sample {
 
 			for (int i = 0; i < texts.length; i++) {
 				line = texts[i];
-			
+			    line=line.trim();
 				seg_arr = line.split("\001");
 				if (seg_arr.length != 3) {
 					continue;
@@ -104,7 +104,7 @@ public class Sample {
 						dictMap.put(word, dict_index++);
 					}
 				}
-				pw.println(host + "\001" + label + "\001" + key_s);
+				pw.println(host + "\001" + label + "\001" + text);
 			}
 			pw.close();
 
