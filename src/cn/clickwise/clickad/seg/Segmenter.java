@@ -81,7 +81,7 @@ public class Segmenter {
 			System.err.println("    dict : 外加词典路径");
 			System.err.println("    field_num : 输入的字段个数");
 			System.err.println("    seg_field_index: 要分词的字段编号，从0开始，即0表示第一个字段");
-			System.err.println("    separator:字段间的分隔符，001 表示 \001，blank 表示\\s+ 即连续空格");
+			System.err.println("    separator:字段间的分隔符，001 表示 字符001，blank 表示\\s+ 即连续空格");
 			System.exit(1);
 		}
 		
