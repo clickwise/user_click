@@ -21,4 +21,4 @@ fi
 #echo $CLASSPATH
 #echo $@
 
-exec "$JAVA"  -classpath "$CLASSPATH" $CLASS "$@"
+exec "$JAVA" -Xmx2000m -classpath "$CLASSPATH" $CLASS "$@"
