@@ -158,12 +158,14 @@ public class CassandraStore extends DataStore {
 				count++;
 				// pw.println(seg.segAnsi(line));
 			}
+			
 			long end=TimeOpera.getCurrentTimeLong();
 			System.out.println("record count:"+count+" totol time:"+(end-start)+" ms"+" avg time:"+((double)(end-start)/(double)count)+" ms");
 			isr.close();
 			osw.close();
 			br.close();
 			pw.close();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
