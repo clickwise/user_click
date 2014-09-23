@@ -75,14 +75,75 @@ public class Segmenter {
 		pw.close();
 		*/
 		
-		if(args.length>1)
+		if(args.length>4||args.length<2)
 		{
-			System.err.println("Usage:[dict]");
+			System.err.println("Usage:[dict] <field_num> <seg_field_index> <separator>");
+			System.err.println("    dict : 外加词典路径");
+			System.err.println("    field_num : 输入的字段个数");
+			System.err.println("    seg_field_index: 要分词的字段编号，从0开始，即0表示第一个字段");
+			System.err.println("    separator:字段间的分隔符，001 表示 \001，blank 表示\\s+ 即连续空格");
 			System.exit(1);
 		}
 		
+		//外加词典的路径
+		String dict="";
+		
+		//输入的字段个数用
+		int fieldNum=0;
+		
+		//待分词的字段编号
+		int segFieldIndex=0;
+		
+		//字段间的分隔符:001 表示 \001
+		//             :blank 表示\\s+ 即连续空格
+		String separator="";
+		String outputSeparator="";
+		
+		if(args.length==3)
+		{
+			fieldNum=Integer.parseInt(args[0]);
+			segFieldIndex=Integer.parseInt(args[1]);
+			if(args[2].equals("001"))
+			{
+				separator="\001";
+				outputSeparator="\001";
+			}
+			else if(args[2].equals("blank"))
+			{
+				separator="\\s+";
+				outputSeparator="\t";
+			}
+			else
+			{
+				separator=args[2].trim();
+				outputSeparator=separator.trim();
+			}		
+		}
+		else if(args.length==4)
+		{
+			dict=args[0];
+			fieldNum=Integer.parseInt(args[1]);
+			segFieldIndex=Integer.parseInt(args[2]);
+			if(args[3].equals("001"))
+			{
+				separator="\001";
+				outputSeparator="\001";
+			}
+			else if(args[3].equals("blank"))
+			{
+				separator="\\s+";
+				outputSeparator="\t";
+			}
+			else
+			{
+				separator=args[3];
+				outputSeparator=separator.trim();
+			}
+		}
+		
+		
 		Segmenter seg=new Segmenter();
-		if(args.length==1)
+		if(args.length==4)
 		{
 			seg.loadAnsjDic(new File(args[0]));
 		}
@@ -94,9 +155,36 @@ public class Segmenter {
 		PrintWriter pw=new PrintWriter(osw);
 		
 		String line="";
+		String[] fields=null;
 		while((line=br.readLine())!=null)
 		{
-			pw.println(seg.segAnsi(line));
+			fields=line.split(separator);
+			if(fields.length!=fieldNum)
+			{
+				continue;
+			}
+			for(int j=0;j<segFieldIndex;j++)
+			{
+				pw.print(fields[j]+outputSeparator);
+			}
+			if(segFieldIndex<(fieldNum-1))
+			{
+		    	pw.print(seg.segAnsi(fields[segFieldIndex]).trim()+outputSeparator);
+			}
+			else
+			{
+				pw.print(seg.segAnsi(fields[segFieldIndex]).trim());
+			}
+			
+			for(int j=segFieldIndex+1;j<fieldNum-1;j++)
+			{
+				pw.println(fields[j]+outputSeparator);
+			}
+			
+			if(segFieldIndex<(fieldNum-1))
+			{
+				pw.print(seg.segAnsi(fields[fieldNum-1]));
+			}	
 		}
 		
 		isr.close();
