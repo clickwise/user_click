@@ -31,7 +31,8 @@
         <javac srcdir="${src.dir}" destdir="${classes.dir}">
             <compilerarg line="-encoding UTF-8"/>
             <classpath refid="lib-classpath"/>
-            <exclude name="**/bigdata/" />            
+            <exclude name="**/bigdata/" /> 
+            <exclude name="**/feathouse/" />            
         </javac>
     </target>
 
