@@ -45,9 +45,9 @@ public class ClassifierUseText {
 
 	public ClassifierUseText() {
 		try {
-			seg = new Segmenter();
-			posTagger = new PosTagger("chinese-nodistsim.tagger");
-			ke = new KeyExtract();
+			//seg = new Segmenter();
+			//posTagger = new PosTagger("chinese-nodistsim.tagger");
+			//ke = new KeyExtract();
 			video_dict = getDictFromStream("dict_host.txt");
 			label_names = getIndexLabelFromStream("label_host.txt");
 
@@ -423,28 +423,11 @@ public class ClassifierUseText {
 			{
 				continue;
 			}
-			for(int j=0;j<segFieldIndex;j++)
+			for(int j=0;j<fields.length;j++)
 			{
 				pw.print(fields[j]+outputSeparator);
 			}
-			if(segFieldIndex<(fieldNum-1))
-			{
-		    	pw.print(cut.getCateName(ssc.classifyWordString(cut.get_word_id(fields[segFieldIndex]))).trim()+outputSeparator);
-			}
-			else
-			{
-				pw.print(cut.getCateName(ssc.classifyWordString(cut.get_word_id(fields[segFieldIndex]))).trim());
-			}
-			
-			for(int j=segFieldIndex+1;j<fieldNum-1;j++)
-			{
-				pw.println(fields[j]+outputSeparator);
-			}
-			
-			if(segFieldIndex<(fieldNum-1))
-			{
-				pw.print(fields[fieldNum-1]);
-			}	
+			pw.print(cut.getCateName(ssc.classifyWordString(cut.get_word_id(fields[segFieldIndex]))).trim());
 			pw.println();
 		}
 		
