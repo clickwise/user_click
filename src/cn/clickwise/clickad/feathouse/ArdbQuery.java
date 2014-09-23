@@ -24,7 +24,7 @@ public class ArdbQuery extends DataQuery {
 	public State connect(Connection con) {
 		State state = new State();
 
-		jedis = new Jedis(con.getHost(), con.getPort(), 1000);
+		jedis = new Jedis(con.getHost(), con.getPort(), 10000);
 		jedis.select(con.getDb());
 
 		state.setStatValue(StateValue.Normal);
