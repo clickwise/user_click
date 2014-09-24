@@ -39,10 +39,10 @@ public class AuxiliaryServer implements Runnable {
 		// TODO Auto-generated method stub
 		// 配置成根据传入请求的前缀不同调用不同的处理程序
 		// 每种请求对应一个handler
+		
 		try {
 			HttpServer hs = HttpServer.create(
-					new InetSocketAddress(Integer.parseInt(properties
-							.getProperty("port"))), 0);
+					new InetSocketAddress(Integer.parseInt(properties.getProperty("port"))), 0);
 
 			// 设置分词 hander
 			AnsjSegHandler ansj_handler = new AnsjSegHandler();
@@ -101,6 +101,9 @@ public class AuxiliaryServer implements Runnable {
 			os.close();
 		}
 
+		
+		
+		
 
 	}
 

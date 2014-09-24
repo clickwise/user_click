@@ -13,7 +13,7 @@ public class EasyServer extends Server{
 	public void init()
 	{
 		confFactory=ConfigureFactoryInstantiate.getConfigureFactory();
-		conf=confFactory.getConfigure();
+		//conf=confFactory.getConfigure();
 	}
 	
 	@Override
@@ -59,6 +59,9 @@ public class EasyServer extends Server{
 	}
 	
 	
-	
+	public static void main(String[] args)
+	{
+		
+	}
 
 }

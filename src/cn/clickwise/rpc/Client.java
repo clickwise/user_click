@@ -9,7 +9,5 @@ public  abstract class Client {
 	
 	public abstract State execute(Command cmd);
 	
-	abstract OutputStream command2stream(Command cmd);
-	
 	
 }

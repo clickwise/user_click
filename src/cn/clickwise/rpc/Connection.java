@@ -6,6 +6,8 @@ public class Connection {
 	
 	private int port;
 	
+	private String method;
+	
 	public String getHost() {
 		return host;
 	}
@@ -17,6 +19,12 @@ public class Connection {
 	}
 	public void setPort(int port) {
 		this.port = port;
+	}
+	public String getMethod() {
+		return method;
+	}
+	public void setMethod(String method) {
+		this.method = method;
 	}
 	
 }
