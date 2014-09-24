@@ -9,4 +9,11 @@ public abstract class ConfigureFactory {
     
     public abstract CommandHandler[] getCommandHandler();
 	
+    
+    
+    
+    
+    
+    
+    
 }

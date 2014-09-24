@@ -20,17 +20,19 @@ public class EasyServer extends Server{
 	public void run() {
 		
 		try {
-			HttpServer hs = HttpServer.create(new InetSocketAddress(Integer.parseInt(conf.getHost())), 0);
+			HttpServer hs = HttpServer.create(new InetSocketAddress(conf.getPort()), 0);
 
-			// hander
-		
+			// hander	
 			Context[] contexts=null;
+			CommandHandler[] cmdHandlers=null;
+			contexts=confFactory.getContext();
+			cmdHandlers=confFactory.getCommandHandler();
 			
-			//hs.createContext("/seg", ansj_handler);
-
-			//TestHandler test_handler = new TestHandler();
-			//hs.createContext("/test", test_handler);
-
+			for(int i=0;i<contexts.length;i++)
+			{
+				hs.createContext(contexts[i].getName(), cmdHandlers[i]);
+			}
+			
 			hs.setExecutor(null);
 			hs.start();
 
@@ -43,6 +45,7 @@ public class EasyServer extends Server{
 	public Configuration getConf() {
 		return conf;
 	}
+	
 	public void setConf(Configuration conf) {
 		this.conf = conf;
 	}
