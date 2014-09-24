@@ -1,6 +1,7 @@
 package cn.clickwise.rpc;
 
 import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -18,17 +19,26 @@ public abstract class CommandHandler implements HttpHandler{
 		//System.out.println("request:"+request);
 		
 		InputStream is = exchange.getRequestBody();
-		InputStreamReader isr=new InputStreamReader(is);
-		BufferedReader br=new BufferedReader(isr);
-		String content="";
-		String line="";
-		while((line=br.readLine())!=null)
-		{
-			content+=line;
+
+		DataInputStream dis=new DataInputStream(is);
+
+		
+		Command cmd=null;
+		try{
+			ObjectInputStream ois =new ObjectInputStream(dis);
+			System.out.println(ois.toString());
+			cmd=(Command)ois.readObject();
+			System.out.println("ok");
+			
 		}
-		System.out.println("content:"+content);
+		catch(Exception e)
+		{
+			System.out.println("error");
+			e.printStackTrace();
+		}
+		
 		//exchange.setAttribute("", "");
-		Command cmd=deserialization(is);
+		cmd=deserialization(is);
 		complie(cmd,exchange);
 	}
 
