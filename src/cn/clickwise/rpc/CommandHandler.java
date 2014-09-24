@@ -18,5 +18,4 @@ public abstract class CommandHandler implements HttpHandler{
 	public abstract void complie(Command cmd,HttpExchange exchange);
 	
 	
-	
 }

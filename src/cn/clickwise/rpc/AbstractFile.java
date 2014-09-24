@@ -9,6 +9,8 @@ public class AbstractFile implements Serializable {
 
 	private String path;
 	
+	private String name;
+	
     private Date modifyTime;
     
     private Date createTime;
@@ -36,6 +38,14 @@ public class AbstractFile implements Serializable {
 
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	
