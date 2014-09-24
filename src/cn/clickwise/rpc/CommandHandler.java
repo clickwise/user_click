@@ -13,6 +13,7 @@ public abstract class CommandHandler implements HttpHandler{
 	public void handle(HttpExchange exchange) throws IOException {
 		
 		String request = exchange.getRequestURI().toString();
+		System.out.println("request:"+request);
 		InputStream is = exchange.getRequestBody();
 		Command cmd=deserialization(is);
 		complie(cmd,exchange);

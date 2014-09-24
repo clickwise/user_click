@@ -12,6 +12,8 @@ public class FileStatusHandler extends CommandHandler {
 	public void complie(Command cmd, HttpExchange exchange) {
 
 		FileStatusCommand fscmd = (FileStatusCommand) cmd;
+		System.out.println("name:"+fscmd.getName());
+		System.out.println("path:"+fscmd.getPath());
 		File file = null;
 		try {
 			file = new File(fscmd.getPath());
