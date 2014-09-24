@@ -24,9 +24,10 @@ public abstract class CommandHandler implements HttpHandler{
 	{
 		System.out.println("in deserialization");
 		System.out.println(is.toString());
-		ObjectInputStream ois = (ObjectInputStream)is;
+	
 		Command cmd=null;
 		try{
+			ObjectInputStream ois = (ObjectInputStream)is;
 			System.out.println(ois.toString());
 			cmd=(Command)ois.readObject();
 			
