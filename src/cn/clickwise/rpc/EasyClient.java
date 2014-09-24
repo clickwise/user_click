@@ -24,7 +24,7 @@ public class EasyClient extends Client {
 			urlCon.setDoOutput(true);
 			urlCon.setDoInput(true);
 			urlCon.setRequestProperty("Content-type", "application/x-java-serialized-object");
-
+            urlCon.setUseCaches(false);
 			// 设定请求的方法为"POST"，默认是GET
 			urlCon.setRequestMethod("POST");
 			urlCon.setConnectTimeout(1000000);
@@ -45,6 +45,7 @@ public class EasyClient extends Client {
 			outputStream = urlCon.getOutputStream();
 			ObjectOutputStream oos = new ObjectOutputStream(outputStream);
 			oos.writeObject(new String("我是测试数据"));
+		
 			oos.flush();
 			oos.close();
            
