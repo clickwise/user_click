@@ -23,10 +23,10 @@ public class EasyClient extends Client {
 			urlCon = (HttpURLConnection) url.openConnection();
 			urlCon.setDoOutput(true);
 			urlCon.setDoInput(true);
-			urlCon.setRequestProperty("Content-type", "text/plain");
+			urlCon.setRequestProperty("Content-type", "application/x-java-serialized-object");
 
 			// 设定请求的方法为"POST"，默认是GET
-			urlCon.setRequestMethod("GET");
+			urlCon.setRequestMethod("POST");
 			urlCon.setConnectTimeout(1000000);
 			urlCon.connect();
 
@@ -44,8 +44,9 @@ public class EasyClient extends Client {
 		try {
 			outputStream = urlCon.getOutputStream();
 			ObjectOutputStream oos = new ObjectOutputStream(outputStream);
-			oos.writeObject(cmd);
+			oos.writeObject(new String("我是测试数据"));
 			oos.flush();
+			oos.close();
            
             InputStream is=urlCon.getInputStream();
             ObjectInputStream ois = new ObjectInputStream(is);
@@ -63,6 +64,7 @@ public class EasyClient extends Client {
 
 		try {
 			FileStatus fs=new FileStatus();
+	
 			FileOutputStream fos = new FileOutputStream("test_serial.txt");
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			oos.writeObject(cmd);

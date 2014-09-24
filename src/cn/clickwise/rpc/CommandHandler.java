@@ -14,7 +14,8 @@ public abstract class CommandHandler implements HttpHandler{
 		
 		String request = exchange.getRequestURI().toString();
 		System.out.println("request:"+request);
-		InputStream is = exchange.getRequestBody();
+
+		InputStream is = (ObjectInputStream)exchange.getRequestBody();
 		Command cmd=deserialization(is);
 		complie(cmd,exchange);
 	}

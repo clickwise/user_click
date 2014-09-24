@@ -16,7 +16,6 @@ public class MatchAdTitleTest extends AdMatchTestBase{
 		System.out.println("response:"+response);
 	  }
 	
-	
 	 public static void main(String[] args)
 	 {
 		MatchAdTitleTest matt=new MatchAdTitleTest();

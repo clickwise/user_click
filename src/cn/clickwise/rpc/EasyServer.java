@@ -4,6 +4,7 @@ import java.net.InetSocketAddress;
 
 import com.sun.net.httpserver.HttpServer;
 
+
 public class EasyServer extends Server{
 
 	private Configuration conf;
@@ -32,7 +33,7 @@ public class EasyServer extends Server{
 			{
 				hs.createContext(contexts[i].getName(), cmdHandlers[i]);
 			}
-			
+		
 			hs.setExecutor(null);
 			hs.start();
 
