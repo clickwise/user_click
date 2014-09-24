@@ -31,6 +31,12 @@ public class FileStatusHandler extends CommandHandler {
 			fs.setChildren(getChildren(fs));
 			fs.setParent(null);
 		}
+		
+		System.out.println("fs:" + fs.getName());
+		for (FileStatus sfs : fs.getChildren()) {
+			System.out.println("sfs:" + sfs.getName());
+		}
+		
 		OutputStream os = null;
 		ObjectOutputStream oos = null;
 		try {
@@ -38,7 +44,7 @@ public class FileStatusHandler extends CommandHandler {
 			oos = new ObjectOutputStream(os);
 			oos.writeObject(fs);
 			oos.flush();
-			oos.close();
+			//oos.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
