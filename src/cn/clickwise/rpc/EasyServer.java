@@ -61,7 +61,17 @@ public class EasyServer extends Server{
 	
 	public static void main(String[] args)
 	{
+		if(args.length!=1)
+		{
+			System.err.println("Usage:EasyServer <port>");
+			System.exit(1);
+		}
 		
+		Configuration conf=new Configuration();
+		conf.setPort(2733);
+		EasyServer es=new EasyServer();
+		Thread easyThread = new Thread(es);
+		easyThread.start();
 	}
 
 }
