@@ -1,5 +1,6 @@
 package cn.clickwise.rpc;
 
+@SuppressWarnings("serial")
 public class FileStatusCommand extends Command{
 
 	private static final long serialVersionUID = 6490793333889299562L;

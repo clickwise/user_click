@@ -44,7 +44,7 @@ public class EasyClient extends Client {
 			ObjectOutputStream oos = new ObjectOutputStream(outputStream);
 			oos.writeObject(cmd);
 			oos.flush();
-            oos.close();
+           
             InputStream is=urlCon.getInputStream();
             ObjectInputStream ois = new ObjectInputStream(is);
 			result=(Result)ois.readObject();

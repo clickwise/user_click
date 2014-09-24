@@ -7,6 +7,7 @@ import java.io.Serializable;
  * @author zkyz
  *
  */
+@SuppressWarnings("serial")
 public abstract class Command implements Serializable{
 
 
