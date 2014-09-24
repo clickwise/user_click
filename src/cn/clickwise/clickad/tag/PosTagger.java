@@ -55,7 +55,7 @@ public class PosTagger {
 			System.err.println("Usage:<field_num> <tag_field_index> <separator>");
 			System.err.println("    field_num : 输入的字段个数");
 			System.err.println("    tag_field_index: 要进行词性标注的字段编号，从0开始，即0表示第一个字段");
-			System.err.println("    separator:字段间的分隔符，001 表示 字符001，blank 表示\\s+ 即连续空格");
+			System.err.println("    separator:字段间的分隔符，001 表示 字符001，blank 表示\\s+ 即连续空格 ,tab 表示 \t");
 			System.exit(1);
 		}
 		
@@ -82,6 +82,11 @@ public class PosTagger {
 		else if(args[2].equals("blank"))
 		{
 			separator="\\s+";
+			outputSeparator="\t";
+		}
+		else if(args[2].equals("tab"))
+		{
+			separator="\t";
 			outputSeparator="\t";
 		}
 		else

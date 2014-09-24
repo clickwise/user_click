@@ -257,7 +257,7 @@ public class KeyExtract {
 			System.err.println("Usage:<field_num> <key_field_index> <separator>");
 			System.err.println("    field_num : 输入的字段个数");
 			System.err.println("    key_field_index: 要进行关键词提取的字段编号，从0开始，即0表示第一个字段");
-			System.err.println("    separator:字段间的分隔符，001 表示 字符001，blank 表示\\s+ 即连续空格");
+			System.err.println("    separator:字段间的分隔符，001 表示 字符001，blank 表示\\s+ 即连续空格,tab 表示 \t");
 			System.exit(1);
 		}
 		
@@ -282,6 +282,11 @@ public class KeyExtract {
 		else if(args[2].equals("blank"))
 		{
 			separator="\\s+";
+			outputSeparator="\t";
+		}
+		else if(args[2].equals("tab"))
+		{
+			separator="\t";
 			outputSeparator="\t";
 		}
 		else
