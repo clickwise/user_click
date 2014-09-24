@@ -22,6 +22,7 @@ public abstract class CommandHandler implements HttpHandler{
 	
 	public Command deserialization(InputStream is)
 	{
+		System.out.println("in deserialization");
 		ObjectInputStream ois = (ObjectInputStream)is;
 		Command cmd=null;
 		try{
@@ -32,6 +33,8 @@ public abstract class CommandHandler implements HttpHandler{
 		{
 			e.printStackTrace();
 		}
+		
+		System.out.println("end");
 		
 		return cmd;
 	}

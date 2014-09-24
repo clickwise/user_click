@@ -10,7 +10,7 @@ public class FileStatusHandler extends CommandHandler {
 
 	@Override
 	public void complie(Command cmd, HttpExchange exchange) {
-
+        System.out.println("in FileStatusHandler complie");
 		FileStatusCommand fscmd = (FileStatusCommand) cmd;
 		System.out.println("name:"+fscmd.getName());
 		System.out.println("path:"+fscmd.getPath());
