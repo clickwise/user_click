@@ -23,47 +23,27 @@ public abstract class CommandHandler implements HttpHandler{
 		//System.out.println("request:"+request);
 		
 		InputStream is = exchange.getRequestBody();
-        InputStreamReader isr=new InputStreamReader(is);
-        BufferedReader br=new BufferedReader(isr);
-        String line="";
-        String content="";
-        while((line=br.readLine())!=null)
-        {
-        	content+=line;
-        	
-        }
-        try{
-        FileWriter fw=new FileWriter("/tmp/test_serial.txt");
-        PrintWriter pw=new PrintWriter(fw);
-        pw.println(content);
-        pw.close();
-        fw.close();
-        FileInputStream fis = new FileInputStream("/tmp/test_serial.txt");
-        ObjectInputStream ois = new ObjectInputStream(fis);
-		Command result=(Command)ois.readObject();
-		FileStatusCommand fresult=(FileStatusCommand)result;
-		System.out.println("get fresult name:"+fresult.getName());
-		System.out.println("get fresult path:"+fresult.getPath());
-        }
-        catch(Exception e)
-        {
-        	e.printStackTrace();
-        }
+
 		//exchange.setAttribute("", "");
-		//cmd=deserialization(is);
-		//complie(cmd,exchange);
+		Command cmd=deserialization(is);
+		complie(cmd,exchange);
 	}
 
 	
 	public Command deserialization(InputStream is)
 	{
 		System.out.println("in deserialization");
-		System.out.println(is.toString());
+		//System.out.println(is.toString());
 	
+	      
 		Command cmd=null;
 		try{
-			ObjectInputStream ois = (ObjectInputStream)is;
-			System.out.println(ois.toString());
+			
+			//byte[] bytes=new byte[10000];
+			//is.read(bytes);
+			//ByteArrayInputStream bis = new ByteArrayInputStream (bytes);  
+			ObjectInputStream ois = new ObjectInputStream(is);
+			//System.out.println(ois.toString());
 			cmd=(Command)ois.readObject();
 			
 		}

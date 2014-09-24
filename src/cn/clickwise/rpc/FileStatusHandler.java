@@ -42,6 +42,7 @@ public class FileStatusHandler extends CommandHandler {
 		OutputStream os = null;
 		ObjectOutputStream oos = null;
 		try {
+			exchange.sendResponseHeaders(200, 0);
 			os = exchange.getResponseBody();
 			oos = new ObjectOutputStream(os);
 			oos.writeObject(fs);
