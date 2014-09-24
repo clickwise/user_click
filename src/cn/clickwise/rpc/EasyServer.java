@@ -70,6 +70,7 @@ public class EasyServer extends Server{
 		Configuration conf=new Configuration();
 		conf.setPort(2733);
 		EasyServer es=new EasyServer();
+		es.setConf(conf);
 		Thread easyThread = new Thread(es);
 		easyThread.start();
 	}
