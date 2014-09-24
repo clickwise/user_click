@@ -1,5 +1,8 @@
 package cn.clickwise.rpc;
 
-public class State {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class State implements Serializable{
 
 }

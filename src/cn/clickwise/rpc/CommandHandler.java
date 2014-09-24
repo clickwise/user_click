@@ -14,7 +14,7 @@ import java.io.PrintWriter;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
-public abstract class CommandHandler implements HttpHandler{
+public abstract class CommandHandler extends Handler  {
 
 	@Override
 	public void handle(HttpExchange exchange) throws IOException {

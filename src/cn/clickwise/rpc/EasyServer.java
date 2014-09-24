@@ -25,13 +25,13 @@ public class EasyServer extends Server{
           
 			// hander	
 			Context[] contexts=null;
-			CommandHandler[] cmdHandlers=null;
+			Handler[] handlers=null;
 			contexts=confFactory.getContext();
-			cmdHandlers=confFactory.getCommandHandler();
+			handlers=confFactory.getHandler();
 			
 			for(int i=0;i<contexts.length;i++)
 			{
-				hs.createContext(contexts[i].getName(), cmdHandlers[i]);
+				hs.createContext(contexts[i].getName(), handlers[i]);
 			}
 		
 			hs.setExecutor(null);

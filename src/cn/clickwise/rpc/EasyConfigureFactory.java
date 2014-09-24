@@ -18,7 +18,7 @@ public class EasyConfigureFactory extends ConfigureFactory{
 	}
 
 	@Override
-	public CommandHandler[] getCommandHandler() {
+	public Handler[] getHandler() {
 
         CommandHandler ch=new FileStatusHandler();
         CommandHandler[] chs=new CommandHandler[1];

@@ -1,5 +1,7 @@
 package cn.clickwise.rpc;
 
+//列出远程文件信息
+
 @SuppressWarnings("serial")
 public class FileStatusCommand extends Command{
 
