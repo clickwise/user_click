@@ -27,7 +27,6 @@ import com.sun.net.httpserver.HttpServer;
 /**
  * 辅助工具server端
  * @author zkyz
- *
  */
 public class AuxiliaryServer implements Runnable {
 
