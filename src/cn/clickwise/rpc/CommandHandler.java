@@ -36,6 +36,8 @@ public abstract class CommandHandler implements HttpHandler{
         FileWriter fw=new FileWriter("/tmp/test_serial.txt");
         PrintWriter pw=new PrintWriter(fw);
         pw.println(content);
+        pw.close();
+        fw.close();
         FileInputStream fis = new FileInputStream("/tmp/test_serial.txt");
         ObjectInputStream ois = new ObjectInputStream(fis);
 		Command result=(Command)ois.readObject();
