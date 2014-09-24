@@ -18,10 +18,10 @@ public class EasyServer extends Server{
 	
 	@Override
 	public void run() {
-		
+		init();
 		try {
 			HttpServer hs = HttpServer.create(new InetSocketAddress(conf.getPort()), 0);
-
+             
 			// hander	
 			Context[] contexts=null;
 			CommandHandler[] cmdHandlers=null;
