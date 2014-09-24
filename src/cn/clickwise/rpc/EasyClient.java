@@ -111,7 +111,7 @@ public class EasyClient extends Client {
 		FileStatusCommand fsc=new FileStatusCommand();
 		fsc.setName("logs");
 		fsc.setPath("/home/test/logs");
-		ec.execute_test(fsc);
+		ec.execute(fsc);
 		/*
 		FileStatus fs=(FileStatus)ec.getResult();
 		

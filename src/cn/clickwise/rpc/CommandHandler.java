@@ -27,11 +27,13 @@ public abstract class CommandHandler implements HttpHandler{
 		ObjectInputStream ois = (ObjectInputStream)is;
 		Command cmd=null;
 		try{
+			System.out.println(ois.toString());
 			cmd=(Command)ois.readObject();
 			
 		}
 		catch(Exception e)
 		{
+			System.out.println("error");
 			e.printStackTrace();
 		}
 		

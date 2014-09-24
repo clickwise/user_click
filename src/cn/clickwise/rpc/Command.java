@@ -9,11 +9,6 @@ import java.io.Serializable;
  */
 @SuppressWarnings("serial")
 public abstract class Command implements Serializable{
-
-
-	private static final long serialVersionUID = 6279177210508855436L;
-
-	
 	
 }
 
