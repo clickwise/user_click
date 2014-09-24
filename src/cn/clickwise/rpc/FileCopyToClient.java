@@ -69,7 +69,7 @@ public class FileCopyToClient extends Client{
             
             InputStream is=urlCon.getInputStream();
             ObjectInputStream ois = new ObjectInputStream(is);
-			result=(Result)ois.readObject();
+			setResult((Result)ois.readObject());
             
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -77,5 +77,46 @@ public class FileCopyToClient extends Client{
 		return state;
 	
 	}
+	
+	public static void main(String[] args)
+	{
+		
+		FileCopyToCommand fcc=new FileCopyToCommand();
+		fcc.setLocalName("a.txt");
+		fcc.setLocalPath("a.txt");
+		fcc.setRemoteName("b.txt");
+		fcc.setRemotePath("app/b.txt");
+		
+		FileCopyToClient ec=new FileCopyToClient();
+		ec.setFileCopyToCommand(fcc);
+		Connection con=new Connection();
+		con.setHost("127.0.0.1");
+		con.setPort(2733);
+		con.setMethod("/fileCopyTo");
+		ec.connect(con);
+		ec.execute(fcc);
+		
+		State fs=(State)ec.getResult();
+		System.out.println("fs:"+fs.getState());
+	}
 
+	public Result getResult() {
+		return result;
+	}
+
+	public void setResult(Result result) {
+		this.result = result;
+	}
+	
+	
+	public FileCopyToCommand getFileCopyToCommand()
+	{
+		return fcc;
+	}
+
+	
+	public void setFileCopyToCommand(FileCopyToCommand fcc)
+	{
+		this.fcc=fcc;
+	}
 }
