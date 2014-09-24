@@ -1,5 +1,7 @@
 package cn.clickwise.rpc;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -55,7 +57,31 @@ public class EasyClient extends Client {
 		return state;
 	}
 
+	public State execute_test(Command cmd) {
+		State state=new State();
+		OutputStream outputStream = null;
 
+		try {
+			FileStatus fs=new FileStatus();
+			FileOutputStream fos = new FileOutputStream("test_serial.txt");
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject(cmd);
+			oos.flush();
+            oos.close();
+            
+            FileInputStream fis = new FileInputStream("test_serial.txt");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+			Command result=(Command)ois.readObject();
+			FileStatusCommand fresult=(FileStatusCommand)result;
+			System.out.println(fresult.getName());
+			System.out.println(fresult.getPath());
+            
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return state;
+	}
+	
 	public HttpURLConnection getUrlCon() {
 		return urlCon;
 	}
@@ -85,12 +111,14 @@ public class EasyClient extends Client {
 		FileStatusCommand fsc=new FileStatusCommand();
 		fsc.setName("logs");
 		fsc.setPath("/home/test/logs");
-		ec.execute(fsc);
+		ec.execute_test(fsc);
+		/*
 		FileStatus fs=(FileStatus)ec.getResult();
 		
 		System.out.println("fs:" + fs.getName());
 		for (FileStatus sfs : fs.getChildren()) {
 			System.out.println("sfs:" + sfs.getName());
 		}
+		*/
 	}
 }
