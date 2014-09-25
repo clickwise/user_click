@@ -20,4 +20,18 @@ public class FileName {
 		return "";
 	}
 	
+	public static String normalizePath(File tempFile)
+	{
+		String path=tempFile.getAbsolutePath();
+		System.out.println("old_path:"+path);
+		path=path.replaceAll("\\\\", "\\/");
+		return path;
+	}
+	
+	public static void main(String[] args)
+	{
+		File file=new File("temp\test_cookie.txt");
+        System.out.println(normalizePath(file));		
+	}
+	
 }
