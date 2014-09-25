@@ -106,22 +106,22 @@ public class EasyClient extends Client {
 	{
 		EasyClient ec=new EasyClient();
 		Connection con=new Connection();
-		con.setHost("192.168.110.182");
+		con.setHost("127.0.0.1");
 		con.setPort(2733);
 		con.setMethod("/fileStatus");
 		ec.connect(con);
 		
 		FileStatusCommand fsc=new FileStatusCommand();
-		fsc.setName("logs");
-		fsc.setPath("/home/test/logs");
+		fsc.setName("app");
+		fsc.setPath("app");
 		ec.execute(fsc);
-		/*
+		
 		FileStatus fs=(FileStatus)ec.getResult();
 		
 		System.out.println("fs:" + fs.getName());
 		for (FileStatus sfs : fs.getChildren()) {
 			System.out.println("sfs:" + sfs.getName());
 		}
-		*/
+		
 	}
 }

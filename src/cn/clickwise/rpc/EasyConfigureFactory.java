@@ -12,17 +12,22 @@ public class EasyConfigureFactory extends ConfigureFactory{
 	public Context[] getContext() {
 		
 		Context c=new Context("/fileStatus");
-		Context[] cs=new Context[1];
+		Context c2=new Context("/fileCopyTo");
+		Context[] cs=new Context[2];
 		cs[0]=c;
+		cs[1]=c2;
+		
 		return cs;
 	}
 
 	@Override
-	public CommandHandler[] getCommandHandler() {
+	public Handler[] getHandler() {
 
         CommandHandler ch=new FileStatusHandler();
-        CommandHandler[] chs=new CommandHandler[1];
+        FileCopyToHandler fch=new FileCopyToHandler();
+        Handler[] chs=new Handler[2];
         chs[0]=ch;
+        chs[1]=fch;
 		return chs;
 	}
 
