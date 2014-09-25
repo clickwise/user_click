@@ -41,7 +41,7 @@ public class HiveFetchByKeysCommand extends Command{
     //匹配记录写入的远程文件夹的路径
     private String resultRemotePath;
     
-   
+    private String tmpIdentify;
     
 	public String getKeyName() {
 		return keyName;
@@ -160,7 +160,7 @@ public class HiveFetchByKeysCommand extends Command{
 		String hfkcs="";
 		hfkcs+=(hfkc.getKeyName()+";"+hfkc.getKeyPath()+";"+hfkc.getTableName()+";"+hfkc.getKeyFieldName()+";"+hfkc.getKeyTableName()
 				+";"+hfkc.getDay()+";"+hfkc.getRemoteTmpName()+";"+hfkc.getRemoteTmpPath()+";"+hfkc.getTableName()+";"+hfkc.getHdfTmpPath()
-				+";"+hfkc.getResultName()+";"+hfkc.getResultPath()+";"+hfkc.getResultRemoteName()+";"+hfkc.getResultRemotePath());
+				+";"+hfkc.getResultName()+";"+hfkc.getResultPath()+";"+hfkc.getResultRemoteName()+";"+hfkc.getResultRemotePath()+";"+hfkc.getTmpIdentify());
 		return hfkcs;
 	}
 	
@@ -183,7 +183,7 @@ public class HiveFetchByKeysCommand extends Command{
         String resultRemotePath;
 		    
         String[] tokens=hfkcs.split(";");
-        if(tokens.length!=14)
+        if(tokens.length!=15)
         {
 		   return null;
         }
@@ -203,8 +203,18 @@ public class HiveFetchByKeysCommand extends Command{
         	 hfkc.setResultPath(tokens[11]);
         	 hfkc.setResultRemoteName(tokens[12]);
         	 hfkc.setResultRemotePath(tokens[13]);
-        	
+        	 hfkc.setTmpIdentify(tokens[14]);
         	return  hfkc;
         }
 	}
+
+	public String getTmpIdentify() {
+		return tmpIdentify;
+	}
+
+	public void setTmpIdentify(String tmpIdentify) {
+		this.tmpIdentify = tmpIdentify;
+	}
+
+
 }

@@ -125,9 +125,9 @@ public class HiveFetchByKeysClient extends Client {
 		hfkc.setHdfTmpPath("/user/remote_cookie/remote_cookie_hdfs_20140512");
 		hfkc.setResultName("local_user_info.txt");
 		hfkc.setResultPath("temp/local_user_info.txt");
-		hfkc.setResultRemoteName("remote_user_info_20140512");
-		hfkc.setResultRemotePath("/tmp/remote_user_info_20140512");
-		
+		hfkc.setResultRemoteName("remote_cookie_info_20140512");
+		hfkc.setResultRemotePath("/tmp/remote_cookie_info_20140512");
+		hfkc.setTmpIdentify("remote_cookie");
 		ec.setHfkc(hfkc);
 		ec.connect(con);
 		ec.execute(hfkc);

@@ -63,7 +63,10 @@ public class HiveFetchByKeysHandler extends Handler {
 			File[] subFiles = resDir.listFiles();
 
 			for (int j = 0; j < subFiles.length; j++) {
-				
+				if(!(FileName.isValidResult(subFiles[j])))
+				{
+					continue;
+				}
 				FileInputStream resfis = new FileInputStream(subFiles[j]);
 				InputStreamReader resisr = new InputStreamReader(resfis);
 				BufferedReader resbr = new BufferedReader(resisr);
@@ -76,11 +79,33 @@ public class HiveFetchByKeysHandler extends Handler {
 				resisr.close();
 				resbr.close();
 			}
+			cleanTmpWorkplace(hfkc);
 			os.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
+	}
+	
+	public void cleanTmpWorkplace(HiveFetchByKeysCommand hfkc)
+	{
+		if(SSO.tioe(hfkc.getTmpIdentify()))
+		{
+			return;
+		}
+		File remoteTmp=new File(hfkc.getRemoteTmpPath());
+		
+		if(remoteTmp.getName().indexOf(hfkc.getTmpIdentify())>-1)
+		{
+			remoteTmp.delete();
+		}
+		
+		File resultRemote=new File(hfkc.getResultRemotePath());
+		if(resultRemote.getName().indexOf(hfkc.getTmpIdentify())>-1)
+		{
+			COMMAND.exec(FileCommand.deleteDirectory(resultRemote.getAbsolutePath()));
+		}
+		
 	}
 
 }
