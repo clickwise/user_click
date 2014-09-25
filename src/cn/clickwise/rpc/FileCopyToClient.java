@@ -82,15 +82,15 @@ public class FileCopyToClient extends Client{
 	{
 		
 		FileCopyToCommand fcc=new FileCopyToCommand();
-		fcc.setLocalName("a.txt");
-		fcc.setLocalPath("a.txt");
-		fcc.setRemoteName("b.txt");
-		fcc.setRemotePath("app/b.txt");
+		fcc.setLocalName("hcn.txt");
+		fcc.setLocalPath("temp/host_cate/hcn.txt");
+		fcc.setRemoteName("hcn.txt");
+		fcc.setRemotePath("/home/test/hcn.txt");
 		
 		FileCopyToClient ec=new FileCopyToClient();
 		ec.setFileCopyToCommand(fcc);
 		Connection con=new Connection();
-		con.setHost("127.0.0.1");
+		con.setHost("192.168.110.182");
 		con.setPort(2733);
 		con.setMethod("/fileCopyTo");
 		ec.connect(con);
