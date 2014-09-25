@@ -104,4 +104,32 @@ public class HiveFetchByKeysClient extends Client {
 		this.hfkc = hfkc;
 	}
 
+	public static void main(String[] args)
+	{
+		HiveFetchByKeysClient ec=new HiveFetchByKeysClient();
+		Connection con=new Connection();
+		con.setHost("192.168.110.186");
+		con.setPort(2733);
+		con.setMethod("/hiveFetchByKeys");
+		ec.connect(con);
+		
+		HiveFetchByKeysCommand hfkc=new HiveFetchByKeysCommand();
+		hfkc.setDay(20140512);
+		hfkc.setKeyName("test_cookie.txt");
+		hfkc.setKeyPath("temp/test_cookie.txt");
+		hfkc.setTableName("user_se_keywords_day_ad");
+		hfkc.setKeyFieldName("cookie");
+		hfkc.setKeyTableName("remote_cookie");
+		hfkc.setRemoteTmpName("remote_cookie_20140512.txt");
+		hfkc.setRemoteTmpPath("/tmp/remote_cookie_20140512.txt");
+		hfkc.setHdfTmpName("remote_cookie_hdfs_20140512");
+		hfkc.setHdfTmpPath("/user/remote_cookie/remote_cookie_hdfs_20140512");
+		hfkc.setResultName("local_user_info.txt");
+		hfkc.setResultPath("temp/local_user_info.txt");
+		hfkc.setResultRemoteName("remote_user_info_20140512");
+		hfkc.setResultRemotePath("/temp/remote_user_info_20140512");
+		
+		ec.execute(hfkc);
+	}
+	
 }

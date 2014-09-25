@@ -12,6 +12,9 @@ public class HiveFetchByKeysCommand extends Command{
     
     private String keyFieldName;
     
+    //key存储的hive表名
+    private String keyTableName;
+    
     private int day;
     
     //keys写入的远程文件的名称
@@ -37,6 +40,8 @@ public class HiveFetchByKeysCommand extends Command{
     
     //匹配记录写入的远程文件夹的路径
     private String resultRemotePath;
+    
+   
     
 	public String getKeyName() {
 		return keyName;
@@ -153,6 +158,14 @@ public class HiveFetchByKeysCommand extends Command{
 
 	public void setResultRemotePath(String resultRemotePath) {
 		this.resultRemotePath = resultRemotePath;
+	}
+
+	public String getKeyTableName() {
+		return keyTableName;
+	}
+
+	public void setKeyTableName(String keyTableName) {
+		this.keyTableName = keyTableName;
 	}
 	
 }

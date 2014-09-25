@@ -16,16 +16,16 @@ import cn.clickwise.lib.string.SSO;
 
 import com.sun.net.httpserver.HttpExchange;
 
-public class HiveFetchByKeysHandler extends Handler{
+public class HiveFetchByKeysHandler extends Handler {
 
 	@Override
 	public void handle(HttpExchange exchange) throws IOException {
 		URI uri = exchange.getRequestURI();
 		System.out.println("uri:" + uri);
-		HiveFetchByKeysCommand hfkc = HiveFetchByKeysCommand.readObject(SSO.afterStr(
-				uri.toString(), "method="));
+		HiveFetchByKeysCommand hfkc = HiveFetchByKeysCommand.readObject(SSO
+				.afterStr(uri.toString(), "method="));
 		complie(hfkc, exchange);
-		
+
 	}
 
 	public void complie(Command cmd, HttpExchange exchange) {
@@ -39,25 +39,48 @@ public class HiveFetchByKeysHandler extends Handler{
 			FileWriter fw = new FileWriter(hfkc.getRemoteTmpPath());
 			PrintWriter pw = new PrintWriter(fw);
 
-			String line="";
-			while((line=br.readLine())!=null)
-			{
+			String line = "";
+			while ((line = br.readLine()) != null) {
 				pw.println(line);
 			}
-			
+
 			fw.close();
 			pw.close();
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		String hiveSql=HiveSql.getSql(hfkc);
-		
-		COMMAND.exec(hiveSql);
-		
-		
-		
+
+		COMMAND.exec(HadoopCmd.load2hdfs(hfkc.getRemoteTmpPath(), hfkc.getHdfTmpPath()));
+		COMMAND.exec(HiveSql.load2hive(hfkc));
+		COMMAND.exec(HiveSql.getSql(hfkc));
+			
+		try {
+			exchange.sendResponseHeaders(200, 0);
+			OutputStream os = exchange.getResponseBody();
+
+			File resDir = new File(hfkc.getResultRemotePath());
+			File[] subFiles = resDir.listFiles();
+
+			for (int j = 0; j < subFiles.length; j++) {
+				
+				FileInputStream resfis = new FileInputStream(subFiles[j]);
+				InputStreamReader resisr = new InputStreamReader(resfis);
+				BufferedReader resbr = new BufferedReader(resisr);
+
+				String resline = "";
+				while ((resline = resbr.readLine()) != null) {
+					os.write(new String(resline + "\n").getBytes());
+				}
+				resfis.close();
+				resisr.close();
+				resbr.close();
+			}
+			os.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
-	
+
 }
