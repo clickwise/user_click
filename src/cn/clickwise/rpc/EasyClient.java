@@ -115,13 +115,13 @@ public class EasyClient extends Client {
 		fsc.setName("logs");
 		fsc.setPath("/home/test/logs");
 		ec.execute(fsc);
-		/*
+		
 		FileStatus fs=(FileStatus)ec.getResult();
 		
 		System.out.println("fs:" + fs.getName());
 		for (FileStatus sfs : fs.getChildren()) {
 			System.out.println("sfs:" + sfs.getName());
 		}
-		*/
+		
 	}
 }
