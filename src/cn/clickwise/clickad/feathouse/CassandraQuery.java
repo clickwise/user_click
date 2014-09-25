@@ -136,10 +136,10 @@ public class CassandraQuery extends DataQuery {
 	    	long total_time=0;
 	    	long query_count=0;
 			while ((line = br.readLine()) != null) {
-				if(Math.random()<0.98)
-				{
-					continue;
-				}
+				//if(Math.random()<0.98)
+				//{
+				//	continue;
+				//}
 				if (SSO.tioe(line)) {
 					continue;
 				}
