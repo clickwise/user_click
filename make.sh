@@ -22,6 +22,8 @@ then
  $ANT_BUILD -buildfile build_tool.xml
  rm cassandra_lib/mytool.jar
  cp out/mytool.jar cassandra_lib
+ rm rpc_lib/mytool.jar
+ cp out/mytool.jar rpc_lib
 else
  OPT=2
 fi
@@ -38,5 +40,17 @@ else
  OPT=3
 fi
 
-
+if [ $1 = "rpc" ]
+then
+ rm -rf rpc_src/cn
+ cd src
+ cp -r --parents cn/clickwise/rpc ../rpc_src
+ cd ..
+ echo "build rpc";
+ $ANT_BUILD -buildfile build_rpc.xml
+ rm cassandra_lib/rpc.jar
+ cp out/rpc.jar cassandra_lib
+else
+ OPT=3
+fi
 
