@@ -2,11 +2,17 @@ package cn.clickwise.clickad.feathouse;
 
 import java.io.File;
 
+
 /**
  * dmp离线查询
  * @author zkyz
  */
 public abstract class DmpInquiry {
+	
+	private int day;
+	
+	public abstract void init();
+	
 	
 	/**
 	 * 从某地区dmp获取keyFile里所有用户的记录
@@ -28,7 +34,13 @@ public abstract class DmpInquiry {
 	 * @param recordFile
 	 * @return
 	 */
-	public abstract State writeRecFile2DataStore(File recordFile);
+	public abstract State writeRecFile2DataStore(File recordFile,Connection con);
+	public int getDay() {
+		return day;
+	}
+	public void setDay(int day) {
+		this.day = day;
+	}
 	
 	
 	

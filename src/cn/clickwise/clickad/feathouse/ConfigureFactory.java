@@ -32,4 +32,20 @@ public abstract class ConfigureFactory {
 	 */
 	public abstract String getStatisticsTableName();
 	
+	/**
+	 * 获取所有dmp的配置信息
+	 * @return
+	 */
+	public abstract Dmp[] getDmps();
+	
+	public abstract Dmp getDmpById(int id);
+	
+	public abstract Dmp getDmpByArea(String area);
+	
+	public abstract Record string2Record(String recordString);
+	
+	public abstract DataStore getDataStore();
+	
+	public abstract Connection getConnection();
+	
 }

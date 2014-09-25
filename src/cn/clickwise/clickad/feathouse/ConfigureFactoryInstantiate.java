@@ -4,6 +4,6 @@ public class ConfigureFactoryInstantiate {
 
 	public static ConfigureFactory getConfigureFactory()
 	{
-		return null;
+		return new EasyConfigureFactory();
 	}
 }
