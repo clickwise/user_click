@@ -111,7 +111,6 @@ public class HiveFetchByKeysClient extends Client {
 		con.setHost("192.168.110.186");
 		con.setPort(2733);
 		con.setMethod("/hiveFetchByKeys");
-		ec.connect(con);
 		
 		HiveFetchByKeysCommand hfkc=new HiveFetchByKeysCommand();
 		hfkc.setDay(20140512);
@@ -130,6 +129,7 @@ public class HiveFetchByKeysClient extends Client {
 		hfkc.setResultRemotePath("/temp/remote_user_info_20140512");
 		
 		ec.setHfkc(hfkc);
+		ec.connect(con);
 		ec.execute(hfkc);
 	}
 	

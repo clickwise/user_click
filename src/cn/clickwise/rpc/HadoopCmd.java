@@ -13,7 +13,7 @@ public class HadoopCmd {
 	{
 		String cmd="";
 		cmd=" fs put "+local_file+" "+hdfs_file;		
-		return cmd;
+		return hadoop+cmd;
 	}
 	
 	
