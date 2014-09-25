@@ -52,9 +52,7 @@ public class FileCopyFromClient extends Client {
 			oos.flush();
 			oos.close();
            
-            InputStream is=urlCon.getInputStream();
-            ObjectInputStream ois = new ObjectInputStream(is);
-            
+           
             //读取远程文件
 	        BufferedReader br = new BufferedReader(new InputStreamReader(
 	        		urlCon.getInputStream()));
@@ -68,8 +66,7 @@ public class FileCopyFromClient extends Client {
 	        {
 	        	pw.println(line);
 	        }
-	        is.close();
-	        ois.close();
+
 	        br.close();
 	        fw.close();
 	        pw.close();

@@ -15,7 +15,9 @@ import java.net.URL;
 public class FileCopyToClient extends Client{
 
 	private HttpURLConnection urlCon;
+	
 	private FileCopyToCommand fcc;
+	
 	private Result result;
 	
 	@Override
