@@ -83,19 +83,6 @@ public class HiveFetchByKeysCommand extends Command{
 		this.day = day;
 	}
 
-
-	public static String writeObject(HiveFetchByKeysCommand hfkc)
-	{
-		
-		return "";
-	}
-	
-	public static HiveFetchByKeysCommand readObject(String hfkcs)
-	{
-		
-		return null;
-	}
-
 	public String getResultName() {
 		return resultName;
 	}
@@ -168,4 +155,56 @@ public class HiveFetchByKeysCommand extends Command{
 		this.keyTableName = keyTableName;
 	}
 	
+	public static String writeObject(HiveFetchByKeysCommand hfkc)
+	{
+		String hfkcs="";
+		hfkcs+=(hfkc.getKeyName()+";"+hfkc.getKeyPath()+";"+hfkc.getTableName()+";"+hfkc.getKeyFieldName()+";"+hfkc.getKeyTableName()
+				+";"+hfkc.getDay()+";"+hfkc.getRemoteTmpName()+";"+hfkc.getRemoteTmpPath()+";"+hfkc.getTableName()+";"+hfkc.getHdfTmpPath()
+				+";"+hfkc.getResultName()+";"+hfkc.getResultPath()+";"+hfkc.getResultRemoteName()+";"+hfkc.getResultRemotePath());
+		return hfkcs;
+	}
+	
+	public static HiveFetchByKeysCommand readObject(String hfkcs)
+	{
+		HiveFetchByKeysCommand hfkc=new HiveFetchByKeysCommand();
+		String keyName;		    
+		String keyPath;
+		String tableName;
+		String keyFieldName;
+		String keyTableName;
+        int day;
+        String remoteTmpName;
+        String remoteTmpPath;
+        String hdfTmpName;
+		String hdfTmpPath;
+        String resultName;
+        String resultPath;
+        String resultRemoteName;
+        String resultRemotePath;
+		    
+        String[] tokens=hfkcs.split(";");
+        if(tokens.length!=14)
+        {
+		   return null;
+        }
+        else
+        {
+        	 hfkc.setKeyName(tokens[0]);
+        	 hfkc.setKeyPath(tokens[1]);
+        	 hfkc.setTableName(tokens[2]);
+        	 hfkc.setKeyFieldName(tokens[3]);
+        	 hfkc.setKeyTableName(tokens[4]);
+        	 hfkc.setDay(Integer.parseInt(tokens[5]));
+        	 hfkc.setRemoteTmpName(tokens[6]);
+        	 hfkc.setRemoteTmpPath(tokens[7]);
+        	 hfkc.setHdfTmpName(tokens[8]);
+        	 hfkc.setHdfTmpPath(tokens[9]);
+        	 hfkc.setResultName(tokens[10]);
+        	 hfkc.setResultPath(tokens[11]);
+        	 hfkc.setResultRemoteName(tokens[12]);
+        	 hfkc.setResultRemotePath(tokens[13]);
+        	
+        	return  hfkc;
+        }
+	}
 }

@@ -106,14 +106,14 @@ public class EasyClient extends Client {
 	{
 		EasyClient ec=new EasyClient();
 		Connection con=new Connection();
-		con.setHost("192.168.110.182");
+		con.setHost("192.168.110.186");
 		con.setPort(2733);
 		con.setMethod("/fileStatus");
 		ec.connect(con);
 		
 		FileStatusCommand fsc=new FileStatusCommand();
-		fsc.setName("logs");
-		fsc.setPath("/home/test");
+		fsc.setName("test");
+		fsc.setPath("/home/hadoop/lq/test");
 		ec.execute(fsc);
 		
 		FileStatus fs=(FileStatus)ec.getResult();
