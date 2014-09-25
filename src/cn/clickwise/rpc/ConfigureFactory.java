@@ -7,7 +7,7 @@ public abstract class ConfigureFactory {
     
     public abstract Context[] getContext();
     
-    public abstract CommandHandler[] getCommandHandler();
+    public abstract Handler[] getHandler();
 	
     
     

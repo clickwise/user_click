@@ -10,10 +10,10 @@ public class FileStatusHandler extends CommandHandler {
 
 	@Override
 	public void complie(Command cmd, HttpExchange exchange) {
-        System.out.println("in FileStatusHandler complie");
+        //System.out.println("in FileStatusHandler complie");
 		FileStatusCommand fscmd = (FileStatusCommand) cmd;
-		System.out.println("name:"+fscmd.getName());
-		System.out.println("path:"+fscmd.getPath());
+		//System.out.println("name:"+fscmd.getName());
+		//System.out.println("path:"+fscmd.getPath());
 		File file = null;
 		try {
 			file = new File(fscmd.getPath());
@@ -34,14 +34,15 @@ public class FileStatusHandler extends CommandHandler {
 			fs.setParent(null);
 		}
 		
-		System.out.println("fs:" + fs.getName());
-		for (FileStatus sfs : fs.getChildren()) {
-			System.out.println("sfs:" + sfs.getName());
-		}
+		//System.out.println("fs:" + fs.getName());
+		//for (FileStatus sfs : fs.getChildren()) {
+		//	System.out.println("sfs:" + sfs.getName());
+		//}
 		
 		OutputStream os = null;
 		ObjectOutputStream oos = null;
 		try {
+			exchange.sendResponseHeaders(200, 0);
 			os = exchange.getResponseBody();
 			oos = new ObjectOutputStream(os);
 			oos.writeObject(fs);

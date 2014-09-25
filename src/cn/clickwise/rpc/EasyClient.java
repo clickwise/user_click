@@ -44,7 +44,7 @@ public class EasyClient extends Client {
 		try {
 			outputStream = urlCon.getOutputStream();
 			ObjectOutputStream oos = new ObjectOutputStream(outputStream);
-			oos.writeObject(new String("我是测试数据"));
+			oos.writeObject(cmd);
 		
 			oos.flush();
 			oos.close();
@@ -106,14 +106,14 @@ public class EasyClient extends Client {
 	{
 		EasyClient ec=new EasyClient();
 		Connection con=new Connection();
-		con.setHost("192.168.110.182");
+		con.setHost("127.0.0.1");
 		con.setPort(2733);
 		con.setMethod("/fileStatus");
 		ec.connect(con);
 		
 		FileStatusCommand fsc=new FileStatusCommand();
-		fsc.setName("logs");
-		fsc.setPath("/home/test/logs");
+		fsc.setName("app");
+		fsc.setPath("app");
 		ec.execute(fsc);
 		
 		FileStatus fs=(FileStatus)ec.getResult();
