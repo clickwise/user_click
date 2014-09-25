@@ -42,6 +42,7 @@ public class FileCopyFromHandler extends Handler {
 
 		try {
 			File test = new File(fcc.getRemotePath());
+			exchange.sendResponseHeaders(200, 0);
 			OutputStream os = exchange.getResponseBody();
 			if (test.exists()) {
 				FileInputStream fis = new FileInputStream(fcc.getRemotePath());
