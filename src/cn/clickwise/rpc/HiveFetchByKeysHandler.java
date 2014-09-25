@@ -50,8 +50,11 @@ public class HiveFetchByKeysHandler extends Handler {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		
+        COMMAND.exec(HadoopCmd.mkParent(hfkc.getHdfTmpPath()));
 		COMMAND.exec(HadoopCmd.load2hdfs(hfkc.getRemoteTmpPath(), hfkc.getHdfTmpPath()));
+		COMMAND.exec(HiveSql.createTable(hfkc));
+		COMMAND.exec(HiveSql.dropOld(hfkc));
 		COMMAND.exec(HiveSql.load2hive(hfkc));
 		COMMAND.exec(HiveSql.getSql(hfkc));
 			

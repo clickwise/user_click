@@ -1,5 +1,5 @@
 package cn.clickwise.rpc;
-
+import java.io.File;
 /**
  * 返回hadoop操作的命令
  * @author zkyz
@@ -16,5 +16,12 @@ public class HadoopCmd {
 		return hadoop+cmd;
 	}
 	
+	public static String mkParent(String hdfs_file)
+	{
+		File tmp=new File(hdfs_file);
+		String cmd="";
+		cmd=" fs -mkdir "+tmp.getParentFile().getAbsolutePath();
+		return hadoop+cmd;
+	}
 	
 }

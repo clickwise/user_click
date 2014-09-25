@@ -9,11 +9,25 @@ public class HiveSql {
 
 	private static final String hive="hive -e ";
 	
+	public static String createTable(HiveFetchByKeysCommand hfkc)
+	{
+		String sql="";
+		sql=" CREATE TABLE IF NOT EXISTS "+hfkc.getKeyTableName()+"("+hfkc.getKeyFieldName()+" string) PARTITIONED BY(dt STRING,dp string) ROW FORMAT DELIMITED FIELDS TERMINATED BY '\001' LINES TERMINATED BY '\n';";
+		return hive+"\""+sql+"\"";
+	}
+	
 	public static String getSql(HiveFetchByKeysCommand hfkc)
 	{
 		String sql="";
-		sql="INSERT OVERWRITE LOCAL DIRECTORY '"+hfkc.getResultRemotePath()+"' SELECT *  FROM "+hfkc.getTableName()+" a JOIN "+hfkc.getKeyTableName()+" b  ON  a.cookie=b.cookie where a.dt="+hfkc.getDay()+";";
+		sql="INSERT OVERWRITE LOCAL DIRECTORY '"+hfkc.getResultRemotePath()+"' SELECT *  FROM "+hfkc.getTableName()+" a JOIN "+hfkc.getKeyTableName()+" b  ON  a."+hfkc.getKeyFieldName()+"=b."+hfkc.getKeyFieldName()+" where a.dt="+hfkc.getDay()+";";
 		return hive+"\""+sql+"\"";
+	}
+	
+	public static String dropOld(HiveFetchByKeysCommand hfkc)
+	{
+		String cmd="";
+		cmd="ALTER TABLE "+hfkc.getKeyTableName()+"  DROP PARTITION (dt='"+hfkc.getDay()+"');";
+		return hive+"\""+cmd+"\"";
 	}
 	
 	public static String load2hive(HiveFetchByKeysCommand hfkc)
