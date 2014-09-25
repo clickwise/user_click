@@ -37,14 +37,14 @@ public class RpcDmpInquiry extends DmpInquiry {
 		hfkc.setDay(getDay());
 		hfkc.setTmpIdentify(tmpIdentify);
 		hfkc.setKeyName(keyFile.getName());
-		hfkc.setKeyPath(keyFile.getAbsolutePath());
+		hfkc.setKeyPath(FileName.normalizePath(keyFile));
 
 		hfkc.setTableName(dmp.getUserFeatureTableName());
 		hfkc.setKeyFieldName(dmp.getUidFieldName());
 		hfkc.setKeyTableName(tmpIdentify);
 
 		hfkc.setResultName(recordFile.getName());
-		hfkc.setResultPath(recordFile.getAbsolutePath());
+		hfkc.setResultPath(FileName.normalizePath(recordFile));
 		HiveFetchByKeysClient.initRandomFileName(tmpIdentify, getDay(), hfkc);
 
 		ec.setHfkc(hfkc);
@@ -60,6 +60,8 @@ public class RpcDmpInquiry extends DmpInquiry {
 	public State fetchFromAllDmps(TimeRange timeRange) {
 		// TODO Auto-generated method stub
 
+		
+		
 		return null;
 	}
 
@@ -118,6 +120,39 @@ public class RpcDmpInquiry extends DmpInquiry {
 
 	public void setDataStore(DataStore dataStore) {
 		this.dataStore = dataStore;
+	}
+
+	public static void main(String[] args)
+	{
+		
+		RpcDmpInquiry rdi=new RpcDmpInquiry();
+		rdi.setDay(20140512);
+		rdi.init();
+		
+		Dmp dmp=new Dmp();
+		dmp.setName("186");
+		dmp.setArea("local");
+		dmp.setAreaCode(186);
+		dmp.setHost("192.168.110.186");
+		dmp.setRpcPort(2733);
+		dmp.setDmpInquiryMethod("/hiveFetchByKeys");
+		dmp.setUserFeatureTableName("user_se_keywords_day_ad");
+		dmp.setUidFieldName("cookie");
+		dmp.setTmpIdentify("remote_cookie");
+		
+		String keyFile="temp/test_cookie.txt";
+		String recordFile="temp/local_user_info.txt";
+		
+		rdi.fetchFromDmp(new File(keyFile), new File(recordFile), dmp);
+		
+		Connection con = new Connection();
+		con.setHost("192.168.110.182");
+		con.setPort(9160);
+		con.setCfName("Urls");
+		con.setKeySpace("urlstore");
+		con.setColumnName("title");
+		rdi.writeRecFile2DataStore(new File(recordFile), con);
+		
 	}
 
 }
