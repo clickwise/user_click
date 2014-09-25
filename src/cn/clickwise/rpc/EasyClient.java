@@ -44,7 +44,7 @@ public class EasyClient extends Client {
 		try {
 			outputStream = urlCon.getOutputStream();
 			ObjectOutputStream oos = new ObjectOutputStream(outputStream);
-			oos.writeObject(new String("我是测试数据"));
+			oos.writeObject(cmd);
 		
 			oos.flush();
 			oos.close();
