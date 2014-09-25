@@ -1,0 +1,126 @@
+<?xml version="1.0" ?>
+<project default="jar" name="rpc">
+    <!-- 工程目录结构
+    project
+        |-bin
+        |-src
+        |-lib
+        |-out
+        |-build.xml
+    -->
+    <property name="lib.dir" value="rpc_lib"/>
+    <property name="src.dir" value="rpc_src"/>
+    <property name="classes.dir" value="bin"/>
+    <property name="output.dir" value="out"/>
+    <property name="jarname" value="rpc.jar"/>
+    <!-- 第三方jar包的路径 -->
+    <path id="lib-classpath">
+        <fileset dir="${lib.dir}">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+    
+    <!-- 1. 初始化工作，如创建目录等 -->
+    <target name="init">
+        <mkdir dir="${classes.dir}"/>
+        <mkdir dir="${output.dir}"/>
+    </target>
+
+    <!-- 2. 编译 -->
+    <target name="compile" depends="init">
+        <javac srcdir="${src.dir}" destdir="${classes.dir}">
+            <compilerarg line="-encoding UTF-8"/>
+            <classpath refid="lib-classpath"/>
+            <exclude name="**/bigdata/" />            
+        </javac>
+    </target>
+
+  
+
+    <!-- 3. 打包jar文件 -->
+    <target name="jar" depends="compile">
+
+       
+
+        <unzip src="${lib.dir}/commons-httpclient-3.0.1.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+        <unzip src="${lib.dir}/commons-lang-2.4.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+        <unzip src="${lib.dir}/commons-net-1.4.1.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+        <unzip src="${lib.dir}/httpclient-4.2.5.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+        <unzip src="${lib.dir}/httpclient-cache-4.3.1.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+        <unzip src="${lib.dir}/httpcore-4.3.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+
+        <unzip src="${lib.dir}/httpmime-4.3.1.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+
+        <unzip src="${lib.dir}/mytool.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+        <!--Create a property containing all .jar files,
+        prefix lib/, and seperated with a space-->
+        <pathconvert property="mf.classpath" pathsep=" ">
+            <mapper>
+                <chainedmapper>
+                    <!-- jar包文件只留文件名，去掉目录信息 -->
+                    <flattenmapper/>
+                    <!-- add lib/ prefix -->
+                    <globmapper from="*" to="*"/>
+                </chainedmapper>
+            </mapper>
+            <!--flattenmapper /-->
+            <path refid="lib-classpath"/>
+         </pathconvert>
+
+        <!-- jar文件的输出路径 -->
+        <jar destfile="${output.dir}/${jarname}" basedir="${classes.dir}">
+            <manifest>
+                <attribute name="Class-Path" value="${mf.classpath}"/>
+                
+            </manifest>
+        </jar>
+    </target>
+</project>
+
