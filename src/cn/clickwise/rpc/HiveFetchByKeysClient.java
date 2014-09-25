@@ -126,7 +126,7 @@ public class HiveFetchByKeysClient extends Client {
 		hfkc.setResultName("local_user_info.txt");
 		hfkc.setResultPath("temp/local_user_info.txt");
 		hfkc.setResultRemoteName("remote_user_info_20140512");
-		hfkc.setResultRemotePath("/temp/remote_user_info_20140512");
+		hfkc.setResultRemotePath("/tmp/remote_user_info_20140512");
 		
 		ec.setHfkc(hfkc);
 		ec.connect(con);

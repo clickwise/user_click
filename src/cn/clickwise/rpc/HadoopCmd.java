@@ -12,7 +12,7 @@ public class HadoopCmd {
 	public static String load2hdfs(String local_file,String hdfs_file)
 	{
 		String cmd="";
-		cmd=" fs put "+local_file+" "+hdfs_file;		
+		cmd=" -fs put "+local_file+" "+hdfs_file;		
 		return hadoop+cmd;
 	}
 	
