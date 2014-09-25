@@ -11,6 +11,7 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.URI;
 
+import cn.clickwise.lib.linux.COMMAND;
 import cn.clickwise.lib.string.SSO;
 
 import com.sun.net.httpserver.HttpExchange;
@@ -51,6 +52,9 @@ public class HiveFetchByKeysHandler extends Handler{
 			e.printStackTrace();
 		}
 		
+		String hiveSql=HiveSql.getSql(hfkc);
+		
+		COMMAND.exec(hiveSql);
 		
 		
 		

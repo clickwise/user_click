@@ -14,15 +14,29 @@ public class HiveFetchByKeysCommand extends Command{
     
     private int day;
     
+    //keys写入的远程文件的名称
     private String remoteTmpName;
     
+    //keys写入的远程文件的路径
     private String remoteTmpPath;
+     
+    //keys写入的hdfs文件的名称
+    private String hdfTmpName;
     
-    //取回记录写入的文件名
+    //keys写入的hdfs文件的名称
+    private String hdfTmpPath;
+    
+    //取回记录写入的本地文件的名称
     private String resultName;
 
-    //取回记录写入的文件路径
+    //取回记录写入的本地文件的路径
     private String resultPath;
+    
+    //匹配记录写入的远程文件夹的名称
+    private String resultRemoteName;
+    
+    //匹配记录写入的远程文件夹的路径
+    private String resultRemotePath;
     
 	public String getKeyName() {
 		return keyName;
@@ -107,6 +121,38 @@ public class HiveFetchByKeysCommand extends Command{
 
 	public void setRemoteTmpPath(String remoteTmpPath) {
 		this.remoteTmpPath = remoteTmpPath;
+	}
+
+	public String getHdfTmpName() {
+		return hdfTmpName;
+	}
+
+	public void setHdfTmpName(String hdfTmpName) {
+		this.hdfTmpName = hdfTmpName;
+	}
+
+	public String getHdfTmpPath() {
+		return hdfTmpPath;
+	}
+
+	public void setHdfTmpPath(String hdfTmpPath) {
+		this.hdfTmpPath = hdfTmpPath;
+	}
+
+	public String getResultRemoteName() {
+		return resultRemoteName;
+	}
+
+	public void setResultRemoteName(String resultRemoteName) {
+		this.resultRemoteName = resultRemoteName;
+	}
+
+	public String getResultRemotePath() {
+		return resultRemotePath;
+	}
+
+	public void setResultRemotePath(String resultRemotePath) {
+		this.resultRemotePath = resultRemotePath;
 	}
 	
 }
