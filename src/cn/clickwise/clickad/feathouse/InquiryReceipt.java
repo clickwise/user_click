@@ -1,27 +1,9 @@
 package cn.clickwise.clickad.feathouse;
 
-//一次dmp 查询的清单
-public class InquiryReceipt {
+//离线从dmp查询用户特征的清单，每次查询产生一个清单
+public class InquiryReceipt extends Receipt{
 	
-	private Dmp dmp;
-	
-	private int uv;
 
-	public Dmp getDmp() {
-		return dmp;
-	}
-
-	public void setDmp(Dmp dmp) {
-		this.dmp = dmp;
-	}
-
-	public int getUv() {
-		return uv;
-	}
-
-	public void setUv(int uv) {
-		this.uv = uv;
-	}
 	
 	
 }

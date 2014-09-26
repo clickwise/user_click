@@ -6,10 +6,8 @@ public class Dmp {
 	private String name;
 	
 	//dmp所属的区域
-	private String area;
+	private Area area;
 	
-	//dmp所属的区域编码
-	private int areaCode;
 	
 	//用户特征服务器的host
 	private String host;
@@ -33,24 +31,14 @@ public class Dmp {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getArea() {
-		return area;
-	}
-	public void setArea(String area) {
-		this.area = area;
-	}
+
 	public String getHost() {
 		return host;
 	}
 	public void setHost(String host) {
 		this.host = host;
 	}
-	public int getAreaCode() {
-		return areaCode;
-	}
-	public void setAreaCode(int areaCode) {
-		this.areaCode = areaCode;
-	}
+
 	public int getRpcPort() {
 		return rpcPort;
 	}
@@ -80,6 +68,12 @@ public class Dmp {
 	}
 	public void setTmpIdentify(String tmpIdentify) {
 		this.tmpIdentify = tmpIdentify;
+	}
+	public Area getArea() {
+		return area;
+	}
+	public void setArea(Area area) {
+		this.area = area;
 	}
 	
 }

@@ -131,8 +131,7 @@ public class RpcDmpInquiry extends DmpInquiry {
 		
 		Dmp dmp=new Dmp();
 		dmp.setName("186");
-		dmp.setArea("local");
-		dmp.setAreaCode(186);
+		dmp.setArea(new Area("local","186"));
 		dmp.setHost("192.168.110.186");
 		dmp.setRpcPort(2733);
 		dmp.setDmpInquiryMethod("/hiveFetchByKeys");

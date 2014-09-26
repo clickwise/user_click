@@ -68,10 +68,10 @@ public class Mysql {
 		}
 	}
 
-	public State insertStatisticsRecord(StatisticsRecord statrec) {
+	public State insertStatistics(Receipt receipt) {
 		
 		State state = new State();
-        String sql = "insert into "+statisticsTableName+" values ('"+statrec.getArea().getName()+"',"+TimeOpera.formatDay(statrec.getDate())+","+statrec.getUv()+","+statrec.getPv()+")";
+        String sql = "insert into "+statisticsTableName+" values ('"+receipt.getDmp().getArea().getName()+"',"+receipt.getDay()+","+receipt.getUv()+","+receipt.getPv()+")";
         try{
           stmt.executeUpdate(sql);
           state.setStatValue(StateValue.Normal);
