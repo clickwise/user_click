@@ -31,7 +31,6 @@ public class HiveFetchTableCommand extends Command{
     private String tmpIdentify;
 
 
-
 	public int getQuery_type() {
 		return query_type;
 	}
