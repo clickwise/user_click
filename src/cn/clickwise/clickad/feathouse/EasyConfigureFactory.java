@@ -77,14 +77,14 @@ public class EasyConfigureFactory extends ConfigureFactory{
 
 	@Override
 	public Table getQueryTable() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return new Table("QueryReceipts");
 	}
 
 	@Override
 	public Table getInquiryTable() {
-		// TODO Auto-generated method stub
-		return null;
+
+		return new Table("InquiryReceipts");
 	}
 
 }

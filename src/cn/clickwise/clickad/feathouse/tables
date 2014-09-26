@@ -1,0 +1,22 @@
+
+create database if not exists receipts;
+use receipts;
+create table IF NOT EXISTS QueryReceipts
+(
+id int not null auto_increment,
+area_code int not null,
+area varchar(30) not null,
+pv  int not null,
+uv int not null,
+primary key (id)
+)engine=innodb default charset=utf8;
+
+create table IF NOT EXISTS InquiryReceipts
+(
+id int not null auto_increment,
+area_code int not null,
+area varchar(30) not null,
+pv  int not null,
+uv int not null,
+primary key (id)
+)engine=innodb default charset=utf8;

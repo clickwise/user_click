@@ -24,7 +24,6 @@ public class Mysql {
 	public Mysql() {
 		confFactory = ConfigureFactoryInstantiate.getConfigureFactory();
 		connect();
-
 	}
 
 	public void connect() {

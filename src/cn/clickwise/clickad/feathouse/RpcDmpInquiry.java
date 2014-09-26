@@ -140,8 +140,7 @@ public class RpcDmpInquiry extends DmpInquiry {
 		
 		Table inquiryTable=confFactory.getInquiryTable();
 		Mysql mysql=new Mysql();
-		mysql.insertStatistics(inquiryReceipt, inquiryTable);
-		
+		mysql.insertStatistics(inquiryReceipt, inquiryTable);		
 		state.setStatValue(StateValue.Normal);
 		
 		return state;
