@@ -29,6 +29,7 @@ public abstract class DataQuery {
 	 * @return key对应的 record list
 	 */
 	public abstract List<Record> queryUidTop(Key key,int top);
+	
 	/**
 	 * 重置不同地区uid(cookie)查询数量
 	 * @param key

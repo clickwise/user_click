@@ -78,6 +78,7 @@ public class CassandraStore extends DataStore {
 			column.setValue(rec.getValue().getBytes());
 			column.setTimestamp(System.currentTimeMillis());
 			client.insert(sendBuffer, cp, column, CL);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

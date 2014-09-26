@@ -155,4 +155,10 @@ public class RpcDmpInquiry extends DmpInquiry {
 		
 	}
 
+	@Override
+	public State resetStatistics(InquiryReceipt inquiryReceipt) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

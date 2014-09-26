@@ -69,9 +69,7 @@ public class HiveFetchTableClient extends Client{
 	        br.close();
 	        fw.close();
 	        pw.close();
-	        
-	        
-            
+	        	               
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -109,13 +107,13 @@ public class HiveFetchTableClient extends Client{
 		hftcmd.setDay(day);
 		hftcmd.setTmpIdentify(tmpIdentify);
 		
-		hftcmd.setTableName("user_se_keywords_day_ad");
+		hftcmd.setTableName("user_ec_search_day_ad");
 		hftcmd.setKeyFieldName("cookie");
 		
 		hftcmd.setResultName("local_user_table_info.txt");
 		hftcmd.setResultPath("temp/local_user_table_info.txt");
 		HiveFetchTableClient.initRandomFileName(tmpIdentify, day, hftcmd);
-		hftcmd.setQuery_type(0);
+		hftcmd.setQuery_type(1);
 		
 		hftc.connect(con);
 		hftc.execute(hftcmd);

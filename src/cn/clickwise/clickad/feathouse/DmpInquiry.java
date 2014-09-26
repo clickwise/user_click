@@ -42,7 +42,12 @@ public abstract class DmpInquiry {
 		this.day = day;
 	}
 	
-	
+	/**
+	 * 重置从不同地区查询用户数量
+	 * @param key
+	 * @return
+	 */
+	public abstract State resetStatistics(InquiryReceipt inquiryReceipt);
 	
 
 }
