@@ -23,6 +23,22 @@ public class HiveSql {
 		return hive+"\""+sql+"\"";
 	}
 	
+	public static String getSql(HiveFetchTableCommand hftc)
+	{
+		String sql="";
+		
+		if(hftc.getQuery_type()==0)//只返回Key Field
+		{
+		  sql="INSERT OVERWRITE LOCAL DIRECTORY '"+hftc.getResultRemotePath()+"' SELECT "+hftc.getKeyFieldName()+"  FROM "+hftc.getTableName()+" where a.dt="+hftc.getDay()+";";
+		}
+		else if(hftc.getQuery_type()==1)//返回all Fields
+		{
+		  sql="INSERT OVERWRITE LOCAL DIRECTORY '"+hftc.getResultRemotePath()+"' SELECT *  FROM "+hftc.getTableName()+" where a.dt="+hftc.getDay()+";";
+		}
+		return hive+"\""+sql+"\"";
+		
+	}
+	
 	public static String dropOld(HiveFetchByKeysCommand hfkc)
 	{
 		String cmd="";

@@ -34,9 +34,6 @@ public class HiveFetchByKeysClient extends Client {
 			urlCon.setConnectTimeout(1000000);
 			urlCon.connect();
 			
-			
-			
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

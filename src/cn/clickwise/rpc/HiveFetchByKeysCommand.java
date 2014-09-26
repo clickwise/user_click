@@ -167,21 +167,7 @@ public class HiveFetchByKeysCommand extends Command{
 	public static HiveFetchByKeysCommand readObject(String hfkcs)
 	{
 		HiveFetchByKeysCommand hfkc=new HiveFetchByKeysCommand();
-		String keyName;		    
-		String keyPath;
-		String tableName;
-		String keyFieldName;
-		String keyTableName;
-        int day;
-        String remoteTmpName;
-        String remoteTmpPath;
-        String hdfTmpName;
-		String hdfTmpPath;
-        String resultName;
-        String resultPath;
-        String resultRemoteName;
-        String resultRemotePath;
-		    
+	  
         String[] tokens=hfkcs.split(";");
         if(tokens.length!=15)
         {
