@@ -86,5 +86,47 @@ public class HiveFetchTableClient extends Client{
 	public void setUrlCon(HttpURLConnection urlCon) {
 		this.urlCon = urlCon;
 	}
+	
+	public static void initRandomFileName(String tmpIdentify,int day,HiveFetchTableCommand hftc)
+	{
+		hftc.setResultRemoteName(tmpIdentify+"_info_"+day);
+		hftc.setResultRemotePath("/tmp/"+tmpIdentify+"_info_"+day);
+		
+	}
+	
+	public static void main(String[] args)
+	{
+		HiveFetchTableClient hftc=new HiveFetchTableClient();
+		
+		Connection con=new Connection();
+		con.setHost("192.168.110.186");
+		con.setPort(2733);
+		con.setMethod("/hiveFetchTable");
+		
+		HiveFetchTableCommand hftcmd=new HiveFetchTableCommand();
+		String tmpIdentify="remote_table_cookie";
+		int day=20140512;
+		hftcmd.setDay(day);
+		hftcmd.setTmpIdentify(tmpIdentify);
+		
+		hftcmd.setTableName("user_se_keywords_day_ad");
+		hftcmd.setKeyFieldName("cookie");
+		
+		hftcmd.setResultName("local_user_info.txt");
+		hftcmd.setResultPath("temp/local_user_info.txt");
+		HiveFetchTableClient.initRandomFileName(tmpIdentify, day, hftcmd);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
+	
+	
+	
 
 }

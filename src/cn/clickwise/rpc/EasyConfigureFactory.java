@@ -15,12 +15,15 @@ public class EasyConfigureFactory extends ConfigureFactory{
 		Context c2=new Context("/fileCopyTo");
 		Context c3=new Context("/fileCopyFrom");
 		Context c4=new Context("/hiveFetchByKeys");
+		Context c5=new Context("/hiveFetchTable");
 		
-		Context[] cs=new Context[4];
+		Context[] cs=new Context[5];
 		cs[0]=c;
 		cs[1]=c2;
 		cs[2]=c3;
 		cs[3]=c4;
+		cs[4]=c5;
+		
 		return cs;
 	}
 
@@ -31,12 +34,14 @@ public class EasyConfigureFactory extends ConfigureFactory{
         FileCopyToHandler fcth=new FileCopyToHandler();
         FileCopyFromHandler fcfh=new FileCopyFromHandler();
         HiveFetchByKeysHandler hfkh=new HiveFetchByKeysHandler();
-        
-        Handler[] chs=new Handler[4];
+        HiveFetchTableHandler hfth=new HiveFetchTableHandler();
+             
+        Handler[] chs=new Handler[5];
         chs[0]=ch;
         chs[1]=fcth;
         chs[2]=fcfh;
         chs[3]=hfkh;
+        chs[4]=hfth;
         
 		return chs;
 	}
