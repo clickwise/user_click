@@ -72,6 +72,7 @@ public class CassandraQuery extends DataQuery {
 		predicate.setSlice_range(sliceRange);
 		ByteBuffer sendBuffer = null;
 		try {
+			
 			sendBuffer = ByteBuffer.wrap(key.key.getBytes(UTF8));
 			List<ColumnOrSuperColumn> results = client.get_slice(sendBuffer,
 					cp, predicate, CL.ONE);
