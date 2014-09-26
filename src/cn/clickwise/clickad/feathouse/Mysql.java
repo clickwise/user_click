@@ -20,12 +20,11 @@ public class Mysql {
 	private Statement stmt;
 
 	ConfigureFactory confFactory;
-	private String statisticsTableName;
 
 	public Mysql() {
 		confFactory = ConfigureFactoryInstantiate.getConfigureFactory();
 		connect();
-		statisticsTableName=confFactory.getStatisticsTableName();
+
 	}
 
 	public void connect() {
@@ -68,10 +67,10 @@ public class Mysql {
 		}
 	}
 
-	public State insertStatistics(Receipt receipt) {
+	public State insertStatistics(Receipt receipt,Table table) {
 		
 		State state = new State();
-        String sql = "insert into "+statisticsTableName+" values ('"+receipt.getDmp().getArea().getName()+"',"+receipt.getDay()+","+receipt.getUv()+","+receipt.getPv()+")";
+        String sql = "insert into "+table.getName()+" values ('"+receipt.getDmp().getArea().getName()+"',"+receipt.getDay()+","+receipt.getUv()+","+receipt.getPv()+")";
         try{
           stmt.executeUpdate(sql);
           state.setStatValue(StateValue.Normal);

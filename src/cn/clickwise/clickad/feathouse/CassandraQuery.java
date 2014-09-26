@@ -152,12 +152,14 @@ public class CassandraQuery extends DataQuery {
 				    long end=TimeOpera.getCurrentTimeLong();
 				    total_time+=(end-start);
 				    query_count++;
+				    
 				    System.out.println("Use time:"+(end-start)+" ms");
 				    
 				    for(int i=0;i<result.size();i++)
 				    {
 				    	System.out.println(result.get(i).toString());
 				    }
+				    
 				}
 				catch(Exception e)
 				{

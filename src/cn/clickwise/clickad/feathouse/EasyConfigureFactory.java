@@ -26,11 +26,7 @@ public class EasyConfigureFactory extends ConfigureFactory{
 		return null;
 	}
 
-	@Override
-	public String getStatisticsTableName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 	@Override
 	public Dmp[] getDmps() {
@@ -77,6 +73,18 @@ public class EasyConfigureFactory extends ConfigureFactory{
 		Record record=new Record(key,value);
 		// TODO Auto-generated method stub
 		return record;
+	}
+
+	@Override
+	public Table getQueryTable() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Table getInquiryTable() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

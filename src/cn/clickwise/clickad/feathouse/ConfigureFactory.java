@@ -30,7 +30,7 @@ public abstract class ConfigureFactory {
 	 * 获得不同地区uid(cookie)查询数量统计表名 
 	 * @return
 	 */
-	public abstract String getStatisticsTableName();
+	public abstract Table getQueryTable();
 	
 	/**
 	 * 获取所有dmp的配置信息
@@ -48,4 +48,5 @@ public abstract class ConfigureFactory {
 	
 	public abstract Connection getConnection();
 	
+	public abstract Table getInquiryTable();
 }
