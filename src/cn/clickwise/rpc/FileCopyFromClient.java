@@ -90,14 +90,14 @@ public class FileCopyFromClient extends Client {
 	public static void main(String[] args)
 	{
 		FileCopyFromCommand fcc=new FileCopyFromCommand();
-		fcc.setLocalName("log_query_cassandra.txt");
-		fcc.setLocalPath("temp/log_query_cassandra.txt");
-		fcc.setRemoteName("log_query_cassandra.txt");
-		fcc.setRemotePath("/home/test/log_query_cassandra.txt");
+		fcc.setLocalName("log_easy_server.txt");
+		fcc.setLocalPath("temp/log_easy_server.txt");
+		fcc.setRemoteName("log_easy_server.txt");
+		fcc.setRemotePath("/home/hadoop/lq/test/log_easy_server.txt");
 		
 		FileCopyFromClient ec=new FileCopyFromClient();
 		Connection con=new Connection();
-		con.setHost("192.168.110.182");
+		con.setHost("192.168.110.186");
 		con.setPort(2733);
 		con.setMethod("/fileCopyFrom");
 		ec.connect(con);
