@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
 import cn.clickwise.lib.string.SSO;
+import cn.clickwise.lib.time.TimeOpera;
 import cn.clickwise.rpc.HiveFetchByKeysClient;
 import cn.clickwise.rpc.HiveFetchByKeysCommand;
 
@@ -66,13 +67,15 @@ public class RpcDmpInquiry extends DmpInquiry {
 	}
 
 	@Override
-	public State writeRecFile2DataStore(File recordFile, Connection con) {
+	public State writeRecFile2DataStore(File recordFile, Connection con,Dmp dmp) {
 
 		State state = new State();
 
 		DataStore dataStore = confFactory.getDataStore();
 		dataStore.connect(con);
 
+		int uv=0;
+		
 		try {
 			FileInputStream fis = new FileInputStream(recordFile);
 			InputStreamReader isr = new InputStreamReader(fis);
@@ -84,6 +87,7 @@ public class RpcDmpInquiry extends DmpInquiry {
             	{
             		continue;
             	}
+            	uv++;
             	Record rec=confFactory.string2Record(line);
             	if(rec==null)
             	{
@@ -102,6 +106,13 @@ public class RpcDmpInquiry extends DmpInquiry {
 			e.printStackTrace();
 		}
 		
+		InquiryReceipt receipt=new InquiryReceipt();
+		receipt.setDay(TimeOpera.getToday());
+		receipt.setDmp(dmp);
+		receipt.setUv(uv);
+		receipt.setReceiptId(System.currentTimeMillis()+"");	
+		resetStatistics(receipt);
+			
         state.setStatValue(StateValue.Normal);
 		return state;
 	}
@@ -122,6 +133,20 @@ public class RpcDmpInquiry extends DmpInquiry {
 		this.dataStore = dataStore;
 	}
 
+	@Override
+	public State resetStatistics(InquiryReceipt inquiryReceipt) {
+		
+		State state=new State();
+		
+		Table inquiryTable=confFactory.getInquiryTable();
+		Mysql mysql=new Mysql();
+		mysql.insertStatistics(inquiryReceipt, inquiryTable);
+		
+		state.setStatValue(StateValue.Normal);
+		
+		return state;
+	}
+	
 	public static void main(String[] args)
 	{
 		
@@ -150,22 +175,10 @@ public class RpcDmpInquiry extends DmpInquiry {
 		con.setCfName("Urls");
 		con.setKeySpace("urlstore");
 		con.setColumnName("title");
-		rdi.writeRecFile2DataStore(new File(recordFile), con);
+		rdi.writeRecFile2DataStore(new File(recordFile), con,dmp);
 		
 	}
 
-	@Override
-	public State resetStatistics(InquiryReceipt inquiryReceipt) {
-		
-		State state=new State();
-		
-		Table inquiryTable=confFactory.getInquiryTable();
-		Mysql mysql=new Mysql();
-		mysql.insertStatistics(inquiryReceipt, inquiryTable);
-		
-		state.setStatValue(StateValue.Normal);
-		
-		return state;
-	}
+
 
 }

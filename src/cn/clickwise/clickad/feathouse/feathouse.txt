@@ -36,6 +36,6 @@
 	4.统计不同地区uid(cookie)查询数量
 	    如何记录不同地区uid(cookie)查询数：ardb计数
 		mysql存储表结构：
-		       area date uv pv
-	    
+		  inquiry:   area date uv pv
+	      query:     area date uv pv
 		

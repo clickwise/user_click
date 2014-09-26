@@ -34,7 +34,8 @@ public abstract class DmpInquiry {
 	 * @param recordFile
 	 * @return
 	 */
-	public abstract State writeRecFile2DataStore(File recordFile,Connection con);
+	public abstract State writeRecFile2DataStore(File recordFile,Connection con,Dmp dmp);
+	
 	public int getDay() {
 		return day;
 	}
