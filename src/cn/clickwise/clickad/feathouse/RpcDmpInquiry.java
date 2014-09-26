@@ -110,6 +110,7 @@ public class RpcDmpInquiry extends DmpInquiry {
 		receipt.setDay(TimeOpera.getToday());
 		receipt.setDmp(dmp);
 		receipt.setUv(uv);
+		receipt.setPv(uv);
 		receipt.setReceiptId(System.currentTimeMillis()+"");	
 		resetStatistics(receipt);
 			

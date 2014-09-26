@@ -42,6 +42,7 @@ public class Mysql {
 			url = "jdbc:mysql://" + myconfig.getIp() + ":" + myconfig.getPort()
 					+ "/";
 		}
+		
 		try {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, myconfig.getUser(),
@@ -55,21 +56,20 @@ public class Mysql {
 			System.out.println("数据库存在异常！");
 			System.out.println(e2.toString());
 		} finally {
-			try {
-				if (stmt != null)
-					stmt.close();
-				if (con != null)
-					con.close();
-			} catch (SQLException e) {
-				System.out.println(e.toString());
-			}
+		
+				//if (stmt != null)
+				//	stmt.close();
+				//if (con != null)
+					//con.close();
+		
 		}
 	}
 
 	public State insertStatistics(Receipt receipt,Table table) {
 		
 		State state = new State();
-        String sql = "insert into "+table.getName()+" values ('"+receipt.getDmp().getArea().getName()+"',"+receipt.getDay()+","+receipt.getUv()+","+receipt.getPv()+")";
+        String sql = "insert into  "+table.getName()+"(area_code,area,date,pv,uv) values("+receipt.getDmp().getArea().getAreaCode()+",'"+receipt.getDmp().getArea().getName()+"',"+receipt.getDay()+","+receipt.getPv()+","+receipt.getUv()+");";
+        System.out.println("sql:"+sql);
         try{
           stmt.executeUpdate(sql);
           state.setStatValue(StateValue.Normal);
@@ -82,5 +82,37 @@ public class Mysql {
         
 		return state;
 	}
+	
+	
+	public static void main(String[] args)
+	{
+		Dmp dmp=new Dmp();
+		dmp.setName("186");
+		dmp.setArea(new Area("local","188"));
+		dmp.setHost("192.168.110.186");
+		dmp.setRpcPort(2733);
+		dmp.setDmpInquiryMethod("/hiveFetchByKeys");
+		dmp.setUserFeatureTableName("user_se_keywords_day_ad");
+		dmp.setUidFieldName("cookie");
+		dmp.setTmpIdentify("remote_cookie");
+		
+		InquiryReceipt receipt=new InquiryReceipt();
+		receipt.setDay(TimeOpera.getToday());
+		receipt.setDmp(dmp);
+		receipt.setUv(200);
+		receipt.setPv(100);
+		receipt.setReceiptId(System.currentTimeMillis()+"");
+		
+		ConfigureFactory confFactory = ConfigureFactoryInstantiate.getConfigureFactory();
+		Table inquiryTable=confFactory.getInquiryTable();
+		Mysql mysql=new Mysql();
+		mysql.insertStatistics(receipt, inquiryTable);		
+	
+		
+		
+	}
+	
+	
+	
 
 }

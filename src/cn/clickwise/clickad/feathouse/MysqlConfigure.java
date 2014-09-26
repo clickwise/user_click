@@ -13,6 +13,11 @@ public class MysqlConfigure {
 	private int port;
 	private String dbname;
 	
+	public MysqlConfigure()
+	{
+		
+	}
+	
 	public MysqlConfigure(String ip,String user,String password,int port,String dbname)
 	{
 		this.ip=ip;

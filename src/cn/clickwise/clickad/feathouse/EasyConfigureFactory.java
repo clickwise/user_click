@@ -1,5 +1,9 @@
 package cn.clickwise.clickad.feathouse;
 
+import java.util.Properties;
+
+import cn.clickwise.lib.file.PropertiesUtil;
+
 public class EasyConfigureFactory extends ConfigureFactory{
 
 	@Override
@@ -22,8 +26,16 @@ public class EasyConfigureFactory extends ConfigureFactory{
 
 	@Override
 	public MysqlConfigure getMysqlConfigure() {
-		// TODO Auto-generated method stub
-		return null;
+	
+		Properties prop=PropertiesUtil.file2properties("mysql.conf");
+		MysqlConfigure myconf=new MysqlConfigure();
+		myconf.setIp(prop.getProperty("ip"));
+		myconf.setPort(Integer.parseInt(prop.getProperty("port")));
+		myconf.setUser(prop.getProperty("user"));
+		myconf.setPassword(prop.getProperty("password"));
+		myconf.setDbname(prop.getProperty("dbname"));
+		
+		return myconf;
 	}
 
 
