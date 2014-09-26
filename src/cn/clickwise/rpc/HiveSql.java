@@ -29,11 +29,11 @@ public class HiveSql {
 		
 		if(hftc.getQuery_type()==0)//只返回Key Field
 		{
-		  sql="INSERT OVERWRITE LOCAL DIRECTORY '"+hftc.getResultRemotePath()+"' SELECT "+hftc.getKeyFieldName()+"  FROM "+hftc.getTableName()+" where a.dt="+hftc.getDay()+";";
+		  sql="INSERT OVERWRITE LOCAL DIRECTORY '"+hftc.getResultRemotePath()+"' SELECT "+hftc.getKeyFieldName()+"  FROM "+hftc.getTableName()+" where dt="+hftc.getDay()+";";
 		}
 		else if(hftc.getQuery_type()==1)//返回all Fields
 		{
-		  sql="INSERT OVERWRITE LOCAL DIRECTORY '"+hftc.getResultRemotePath()+"' SELECT *  FROM "+hftc.getTableName()+" where a.dt="+hftc.getDay()+";";
+		  sql="INSERT OVERWRITE LOCAL DIRECTORY '"+hftc.getResultRemotePath()+"' SELECT *  FROM "+hftc.getTableName()+" where dt="+hftc.getDay()+";";
 		}
 		return hive+"\""+sql+"\"";
 		
