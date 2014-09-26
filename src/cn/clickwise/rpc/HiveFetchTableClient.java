@@ -112,16 +112,13 @@ public class HiveFetchTableClient extends Client{
 		hftcmd.setTableName("user_se_keywords_day_ad");
 		hftcmd.setKeyFieldName("cookie");
 		
-		hftcmd.setResultName("local_user_info.txt");
-		hftcmd.setResultPath("temp/local_user_info.txt");
+		hftcmd.setResultName("local_user_table_info.txt");
+		hftcmd.setResultPath("temp/local_user_table_info.txt");
 		HiveFetchTableClient.initRandomFileName(tmpIdentify, day, hftcmd);
+		hftcmd.setQuery_type(0);
 		
-		
-		
-		
-		
-		
-		
+		hftc.connect(con);
+		hftc.execute(hftcmd);
 		
 		
 	}
