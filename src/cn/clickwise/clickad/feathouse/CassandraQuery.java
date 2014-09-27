@@ -70,6 +70,7 @@ public class CassandraQuery extends DataQuery {
 			FileWriter fw=new FileWriter(missesDirectory.getMissesByDay(TimeOpera.getToday()));
 			supervisor=new PrintWriter(fw);
 			state.setStatValue(StateValue.Normal);
+			
 
 		} catch (Exception e) {
 			state.setStatValue(StateValue.Error);
@@ -103,6 +104,7 @@ public class CassandraQuery extends DataQuery {
 						column.getValue(), UTF8)));
 			}
 
+			resetStatistics(key);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -120,8 +122,8 @@ public class CassandraQuery extends DataQuery {
 	State resetStatistics(Key key) {
 		State state = new State();
 		int counted = 0;
-		String areaDayIdentity = KeyOpera.areaDayKey(TimeOpera.getToday(),
-				KeyOpera.getAreaFromUid(key.key));
+		String areaDayIdentity = KeyOpera.areaCodeDayKey(TimeOpera.getToday(),
+				KeyOpera.getAreaCodeFromUid(key.key));
 		String counted_str = jedis.get(areaDayIdentity);
 		if (counted_str != null) {
 			counted = Integer.parseInt(counted_str);
@@ -160,6 +162,8 @@ public class CassandraQuery extends DataQuery {
 		CassandraQuery cq = new CassandraQuery();
 		Connection con = new Connection();
 		con.setHost(args[0]);
+		con.setArdbHost("192.168.110.186");
+		con.setArdbPort(16379);
 		con.setPort(9160);
 		con.setCfName("Urls");
 		con.setKeySpace("urlstore");

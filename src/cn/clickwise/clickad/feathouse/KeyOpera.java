@@ -16,10 +16,24 @@ public class KeyOpera {
 		// to do
 		return null;
 	}
+	
+	public static String getAreaCodeFromUid(String uid) {
+	
+		if(uid.length()!=35)
+		{
+			return "";
+		}
+		return uid.substring(uid.length()-3,uid.length());
+	}
 
 	public static String areaDayKey(int day, Area area) {
-		// to do
-		return "";
+		
+		return "rtb_query_"+area.getAreaCode();
+	}
+	
+	public static String areaCodeDayKey(int day, String areaCode) {
+		
+		return "rtb_query_"+areaCode+"_"+day;
 	}
 
 	public static String getTimeColunm() {
