@@ -18,15 +18,22 @@ import redis.clients.jedis.Jedis;
 public class ArdbQuery extends DataQuery {
 
 	private Jedis jedis = null;
+	
 	private int day = 0;
 
+	private ConfigureFactory confFactory;
+	
 	@Override
 	public State connect(Connection con) {
 		State state = new State();
 
-		jedis = new Jedis(con.getHost(), con.getPort(), 10000);
-		jedis.select(con.getDb());
-
+		confFactory = ConfigureFactoryInstantiate.getConfigureFactory();
+		
+		ArdbConfigure ardbConf=confFactory.getArdbConfigure();
+		
+		jedis = new Jedis(ardbConf.getHost() ,ardbConf.getPort(), 10000);
+		jedis.select(ardbConf.getDb());
+		
 		state.setStatValue(StateValue.Normal);
 		return state;
 	}
@@ -102,7 +109,6 @@ public class ArdbQuery extends DataQuery {
 		Connection con = new Connection();
 		con.setHost(args[0]);
 		con.setPort(16379);
-		con.setDb(10);
 		aq.connect(con);
 
 		InputStreamReader isr = new InputStreamReader(System.in);

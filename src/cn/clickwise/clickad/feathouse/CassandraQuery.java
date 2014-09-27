@@ -45,6 +45,8 @@ public class CassandraQuery extends DataQuery {
 	
 	private MissesDirectory missesDirectory;
 	
+	private ConfigureFactory confFactory;
+	
 	//记录未查到用户的uid
 	private PrintWriter supervisor=null;
 
@@ -53,7 +55,8 @@ public class CassandraQuery extends DataQuery {
 	@Override
 	public State connect(Connection con) {
 		State state = new State();
-
+		confFactory = ConfigureFactoryInstantiate.getConfigureFactory();
+		
 		try {
 			TTransport tr = new TSocket(con.getHost(), con.getPort());
 			TFramedTransport tf = new TFramedTransport(tr);
@@ -63,8 +66,10 @@ public class CassandraQuery extends DataQuery {
 			client.set_keyspace(con.getKeySpace());
 			setCp(new ColumnParent(con.getCfName()));
 
-			jedis = new Jedis(con.getArdbHost() ,con.getArdbPort(), 10000);
-			jedis.select(con.getDb());
+			ArdbConfigure ardbConf=confFactory.getArdbConfigure();
+						
+			jedis = new Jedis(ardbConf.getHost() ,ardbConf.getPort(), 10000);
+			jedis.select(ardbConf.getDb());
 			
 			missesDirectory=new MissesDirectory();
 			FileWriter fw=new FileWriter(missesDirectory.getMissesByDay(TimeOpera.getToday()),true);
@@ -179,10 +184,7 @@ public class CassandraQuery extends DataQuery {
 		CassandraQuery cq = new CassandraQuery();
 		Connection con = new Connection();
 		con.setHost(args[0]);
-		con.setArdbHost("192.168.110.186");
-		con.setArdbPort(16379);
 		con.setPort(9160);
-		con.setDb(10);
 		con.setCfName("Urls");
 		con.setKeySpace("urlstore");
 		con.setColumnName("title");
@@ -190,6 +192,7 @@ public class CassandraQuery extends DataQuery {
 		Key key=new Key("476cb38e3aace0a5d129a147643d8bc3009");
 		List<Record> result = cq.queryUid(key);
         cq.getSupervisor().close();
+        
 		/*
 		InputStreamReader isr = new InputStreamReader(System.in);
 		BufferedReader br = new BufferedReader(isr);

@@ -106,4 +106,16 @@ public class EasyConfigureFactory extends ConfigureFactory{
 		return new File("unkownUid");
 	}
 
+	@Override
+	public ArdbConfigure getArdbConfigure() {
+		Properties prop=PropertiesUtil.file2properties("ardb.conf");
+		ArdbConfigure myconf=new ArdbConfigure();
+		
+		myconf.setHost(prop.getProperty("host"));
+		myconf.setPort(Integer.parseInt(prop.getProperty("port")));
+		myconf.setDb(Integer.parseInt(prop.getProperty("db")));
+		
+		return myconf;
+	}
+
 }

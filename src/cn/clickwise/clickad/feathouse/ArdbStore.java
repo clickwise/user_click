@@ -18,13 +18,19 @@ public class ArdbStore extends DataStore{
 	
 	static Logger logger = LoggerFactory.getLogger(ArdbStore.class);
 	
+	private ConfigureFactory confFactory;
+	
 	@Override
 	public State connect(Connection con) {
 		
 		State state=new State();
 		
-		jedis=new Jedis(con.getHost(), con.getPort(), 1000);
-		jedis.select(con.getDb());
+		confFactory = ConfigureFactoryInstantiate.getConfigureFactory();
+		
+		ArdbConfigure ardbConf=confFactory.getArdbConfigure();
+		
+		jedis = new Jedis(ardbConf.getHost() ,ardbConf.getPort(), 10000);
+		jedis.select(ardbConf.getDb());
 		
 		state.setStatValue(StateValue.Normal);
 		return state;
@@ -66,7 +72,6 @@ public static void main(String[] args) {
 		Connection con = new Connection();
 		con.setHost(args[0]);
 		con.setPort(16379);
-		con.setDb(10);
 
 		as.connect(con);
 

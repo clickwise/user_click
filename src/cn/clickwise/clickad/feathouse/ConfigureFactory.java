@@ -54,4 +54,6 @@ public abstract class ConfigureFactory {
 	
 	public abstract File getMissesRootDirectory();
 	
+	public abstract ArdbConfigure getArdbConfigure();
+	
 }

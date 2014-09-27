@@ -19,12 +19,6 @@ public class Connection {
 	//cassandra 列名
 	private String columnName;
 	
-	private String ardbHost;
-	
-	private int ardbPort;
-	
-	//ardb的数据库编号
-	private int db;
 	
    public Connection()
    {
@@ -74,28 +68,5 @@ public class Connection {
 		this.columnName = columnName;
 	}
 
-	public int getDb() {
-		return db;
-	}
-
-	public void setDb(int db) {
-		this.db = db;
-	}
-
-	public String getArdbHost() {
-		return ardbHost;
-	}
-
-	public void setArdbHost(String ardbHost) {
-		this.ardbHost = ardbHost;
-	}
-
-	public int getArdbPort() {
-		return ardbPort;
-	}
-
-	public void setArdbPort(int ardbPort) {
-		this.ardbPort = ardbPort;
-	}
 	
 }
