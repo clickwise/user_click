@@ -4,6 +4,8 @@ public abstract class Receipt {
 
 	private Dmp dmp;
 	
+	private String codeOfArea;
+	
 	private int pv;
 	
 	private int uv;
@@ -60,6 +62,14 @@ public abstract class Receipt {
 
 	public void setTime(long time) {
 		this.time = time;
+	}
+
+	public String getCodeOfArea() {
+		return codeOfArea;
+	}
+
+	public void setCodeOfArea(String codeOfArea) {
+		this.codeOfArea = codeOfArea;
 	}
 	
 	

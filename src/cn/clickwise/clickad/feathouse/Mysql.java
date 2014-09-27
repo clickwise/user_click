@@ -83,6 +83,15 @@ public class Mysql {
 		return state;
 	}
 	
+	public State updateStatistics(Receipt receipt,Table table)
+	{
+		State state=new State();
+		
+		
+		
+		return state;
+	}
+	
 	
 	public static void main(String[] args)
 	{
