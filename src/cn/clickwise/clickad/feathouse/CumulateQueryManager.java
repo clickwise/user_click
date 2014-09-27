@@ -21,6 +21,8 @@ public class CumulateQueryManager {
 	private static final long PERIOD_DAY = 24 * 60 * 60 * 1000;
 
 	private static final long PERIOD_MINUTE = 60 * 1000;
+	
+	private static final long PERIOD_HOUR =60 * 60 * 1000;
 
 	private Mysql mysql=null;
 	
@@ -50,7 +52,7 @@ public class CumulateQueryManager {
 		// Date date=TimeOpera.getCurrentTime()
 		Timer timer = new Timer();
 		CumulateQuery cq = new CumulateQuery();
-		timer.schedule(cq, date, PERIOD_MINUTE);
+		timer.schedule(cq, date, PERIOD_HOUR);
 	}
 
 	// 累加当天的查询统计
