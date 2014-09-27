@@ -8,13 +8,35 @@ import cn.clickwise.lib.file.MulFileOpera;
 public class MissesDirectory extends MissesStore{
 
 	private File rootDirectory;
+	
 	private MissesTmpStore missesTmp;
+	
+	private ConfigureFactory confFactory;
+	
+	
+	public MissesDirectory()
+	{
+		confFactory=ConfigureFactoryInstantiate.getConfigureFactory();
+	    rootDirectory=confFactory.getMissesRootDirectory();	
+	}
 	
 	public MissesDirectory(File rootDirectory)
 	{
 		this.rootDirectory=rootDirectory;
 		ConfigureFactory confFactory=ConfigureFactoryInstantiate.getConfigureFactory();
 		missesTmp=confFactory.getMissesTmpStore();
+	}
+	
+	public File getMissesByAreaDay(Area area,int day)
+	{
+		
+		return null;
+	}
+	
+	public File getMissesByDay(int day)
+	{
+		
+		return null;
 	}
 	
 	@Override
@@ -60,6 +82,14 @@ public class MissesDirectory extends MissesStore{
 		}
 		
 		return objectFile;
+	}
+
+	public ConfigureFactory getConfFactory() {
+		return confFactory;
+	}
+
+	public void setConfFactory(ConfigureFactory confFactory) {
+		this.confFactory = confFactory;
 	}
 	
 	

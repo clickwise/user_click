@@ -1,5 +1,7 @@
 package cn.clickwise.clickad.feathouse;
 
+import java.io.File;
+
 public abstract class ConfigureFactory {
 
 	/**
@@ -49,4 +51,7 @@ public abstract class ConfigureFactory {
 	public abstract Connection getConnection();
 	
 	public abstract Table getInquiryTable();
+	
+	public abstract File getMissesRootDirectory();
+	
 }

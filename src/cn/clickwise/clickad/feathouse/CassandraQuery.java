@@ -1,6 +1,8 @@
 package cn.clickwise.clickad.feathouse;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
@@ -41,6 +43,8 @@ public class CassandraQuery extends DataQuery {
 	//统计不同地区用户查询数
 	private Jedis jedis = null;
 	
+	private MissesDirectory missesDirectory;
+	
 	//记录未查到用户的uid
 	private PrintWriter supervisor=null;
 
@@ -61,7 +65,10 @@ public class CassandraQuery extends DataQuery {
 
 			jedis = new Jedis(con.getHost(), con.getPort(), 10000);
 			jedis.select(con.getDb());
-
+			
+			missesDirectory=new MissesDirectory();
+			FileWriter fw=new FileWriter(missesDirectory.getMissesByDay(TimeOpera.getToday()));
+			supervisor=new PrintWriter(fw);
 			state.setStatValue(StateValue.Normal);
 
 		} catch (Exception e) {
@@ -128,8 +135,12 @@ public class CassandraQuery extends DataQuery {
 
 	@Override
 	State logUnkwonUid(Key key) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		State state=new State();
+	    supervisor.println(key.key);
+		state.setStatValue(StateValue.Normal);
+		
+		return state;
 	}
 
 	public ColumnParent getCp() {

@@ -1,5 +1,6 @@
 package cn.clickwise.clickad.feathouse;
 
+import java.io.File;
 import java.util.Properties;
 
 import cn.clickwise.lib.file.PropertiesUtil;
@@ -97,6 +98,12 @@ public class EasyConfigureFactory extends ConfigureFactory{
 	public Table getInquiryTable() {
 
 		return new Table("InquiryReceipts");
+	}
+
+	@Override
+	public File getMissesRootDirectory() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
