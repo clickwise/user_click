@@ -63,6 +63,8 @@ public class CumulateQueryManager {
 			
 			int day=TimeOpera.getToday();
 			
+			
+			
 			for(Map.Entry<String, String> item:codeArea.entrySet())
 			{
 				//item.
@@ -84,7 +86,7 @@ public class CumulateQueryManager {
 				receipt.setUv(pv);
 				receipt.setPv(pv);
 				receipt.setReceiptId(System.currentTimeMillis()+"");	
-			    mysql.updateStatistics(receipt, table);
+			    mysql.updateStatistics(receipt, table,codeArea);
 				
 			}
 			
