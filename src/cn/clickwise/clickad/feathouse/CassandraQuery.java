@@ -63,7 +63,7 @@ public class CassandraQuery extends DataQuery {
 			client.set_keyspace(con.getKeySpace());
 			setCp(new ColumnParent(con.getCfName()));
 
-			jedis = new Jedis(con.getHost(), con.getPort(), 10000);
+			jedis = new Jedis(con.getArdbHost() ,con.getArdbPort(), 10000);
 			jedis.select(con.getDb());
 			
 			missesDirectory=new MissesDirectory();
@@ -170,7 +170,10 @@ public class CassandraQuery extends DataQuery {
 		con.setKeySpace("urlstore");
 		con.setColumnName("title");
 		cq.connect(con);
-
+		Key key=new Key("476cb38e3aace0a5d129a147643d8bc3009");
+		List<Record> result = cq.queryUid(key);
+      
+		/*
 		InputStreamReader isr = new InputStreamReader(System.in);
 		BufferedReader br = new BufferedReader(isr);
 
@@ -219,6 +222,8 @@ public class CassandraQuery extends DataQuery {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		*/
+		
 
 	}
 

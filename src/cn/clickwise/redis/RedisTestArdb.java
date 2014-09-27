@@ -13,13 +13,15 @@ public class RedisTestArdb {
 		//Httpsqs_client sqs_fetch=new Httpsqs_client("192.168.110.186","1218","utf-8");
 		//Jedis jedis = new Jedis("192.168.110.186", 16379, 1000);// redis服务器地址
 		//Httpsqs_client sqs_fetch=new Httpsqs_client("42.62.29.25","1218","utf-8");
-		Jedis jedis = new Jedis("192.168.110.181", 16379, 10000);// redis服务器地址
+		Jedis jedis = new Jedis("192.168.110.186", 16379, 10000);// redis服务器地址
 		jedis.select(10);
 	    ////jedis.flushDB();
 	    
 		String one_item="ae51f2757a48c0af4c0d0628c78f437f";
 		//String one_item="user:045f0af0387026ac421b9dc873634853";
 		System.out.println("dbsize:"+jedis.dbSize());
+		
+		System.out.println(jedis.get("rtb_query_009_20140927"));
 		//////jedis.zrem(key, members);
 		//jedis.zrange(key, start, end);
 		long start=TimeOpera.getCurrentTimeLong();
