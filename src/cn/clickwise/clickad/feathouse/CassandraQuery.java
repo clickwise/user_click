@@ -23,6 +23,8 @@ import org.apache.thrift.transport.TTransport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import redis.clients.jedis.Jedis;
+
 import cn.clickwise.lib.string.SSO;
 import cn.clickwise.lib.time.TimeOpera;
 
@@ -35,6 +37,12 @@ public class CassandraQuery extends DataQuery {
 	private static final ConsistencyLevel CL = ConsistencyLevel.ONE;
 
 	private ColumnParent cp = null;
+
+	//统计不同地区用户查询数
+	private Jedis jedis = null;
+	
+	//记录未查到用户的uid
+	private PrintWriter supervisor=null;
 
 	static Logger logger = LoggerFactory.getLogger(CassandraQuery.class);
 
@@ -51,6 +59,9 @@ public class CassandraQuery extends DataQuery {
 			client.set_keyspace(con.getKeySpace());
 			setCp(new ColumnParent(con.getCfName()));
 
+			jedis = new Jedis(con.getHost(), con.getPort(), 10000);
+			jedis.select(con.getDb());
+
 			state.setStatValue(StateValue.Normal);
 
 		} catch (Exception e) {
@@ -63,25 +74,27 @@ public class CassandraQuery extends DataQuery {
 
 	@Override
 	public List<Record> queryUid(Key key) {
-		
-        List<Record> recordList=new ArrayList<Record>();
+
+		List<Record> recordList = new ArrayList<Record>();
 		SlicePredicate predicate = new SlicePredicate();
 		SliceRange sliceRange = new SliceRange();
 		sliceRange.setStart(new byte[0]);
 		sliceRange.setFinish(new byte[0]);
 		predicate.setSlice_range(sliceRange);
 		ByteBuffer sendBuffer = null;
+		
 		try {
-			
+
 			sendBuffer = ByteBuffer.wrap(key.key.getBytes(UTF8));
 			List<ColumnOrSuperColumn> results = client.get_slice(sendBuffer,
 					cp, predicate, CL.ONE);
 
-			for(ColumnOrSuperColumn result:results){
-				Column column=result.column;
-				recordList.add(new Record(key.key,new String(column.getValue(),UTF8)));
+			for (ColumnOrSuperColumn result : results) {
+				Column column = result.column;
+				recordList.add(new Record(key.key, new String(
+						column.getValue(), UTF8)));
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -97,6 +110,23 @@ public class CassandraQuery extends DataQuery {
 
 	@Override
 	State resetStatistics(Key key) {
+		State state = new State();
+		int counted = 0;
+		String areaDayIdentity = KeyOpera.areaDayKey(TimeOpera.getToday(),
+				KeyOpera.getAreaFromUid(key.key));
+		String counted_str = jedis.get(areaDayIdentity);
+		if (counted_str != null) {
+			counted = Integer.parseInt(counted_str);
+		}
+		counted++;
+		jedis.set(areaDayIdentity, counted + "");
+
+		state.setStatValue(StateValue.Normal);
+		return state;
+	}
+
+	@Override
+	State logUnkwonUid(Key key) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -109,8 +139,7 @@ public class CassandraQuery extends DataQuery {
 		this.cp = cp;
 	}
 
-	public static void main(String[] args)
-	{
+	public static void main(String[] args) {
 		if (args.length != 1) {
 			System.err.println("Usage:[host]");
 			System.exit(1);
@@ -124,7 +153,7 @@ public class CassandraQuery extends DataQuery {
 		con.setKeySpace("urlstore");
 		con.setColumnName("title");
 		cq.connect(con);
-		
+
 		InputStreamReader isr = new InputStreamReader(System.in);
 		BufferedReader br = new BufferedReader(isr);
 
@@ -132,42 +161,40 @@ public class CassandraQuery extends DataQuery {
 		PrintWriter pw = new PrintWriter(osw);
 
 		String line = "";
-		  
-	    try {
-	    	long total_time=0;
-	    	long query_count=0;
+
+		try {
+			long total_time = 0;
+			long query_count = 0;
 			while ((line = br.readLine()) != null) {
-				//if(Math.random()<0.98)
-				//{
-				//	continue;
-				//}
+				// if(Math.random()<0.98)
+				// {
+				// continue;
+				// }
 				if (SSO.tioe(line)) {
 					continue;
 				}
-		        line=line.trim();
-				try{
-					Key key=new Key(line);
-					long start=TimeOpera.getCurrentTimeLong();
-				    List<Record> result=cq.queryUid(key);
-				    long end=TimeOpera.getCurrentTimeLong();
-				    total_time+=(end-start);
-				    query_count++;
-				    
-				    System.out.println("Use time:"+(end-start)+" ms");
-				    
-				    for(int i=0;i<result.size();i++)
-				    {
-				    	System.out.println(result.get(i).toString());
-				    }
-				    
-				}
-				catch(Exception e)
-				{
-				  Thread.sleep(1000);	
+				line = line.trim();
+				try {
+					Key key = new Key(line);
+					long start = TimeOpera.getCurrentTimeLong();
+					List<Record> result = cq.queryUid(key);
+					long end = TimeOpera.getCurrentTimeLong();
+					total_time += (end - start);
+					query_count++;
+
+					System.out.println("Use time:" + (end - start) + " ms");
+
+					for (int i = 0; i < result.size(); i++) {
+						System.out.println(result.get(i).toString());
+					}
+
+				} catch (Exception e) {
+					Thread.sleep(1000);
 				}
 				// pw.println(seg.segAnsi(line));
 			}
-            System.out.println("average query time:"+((double)total_time/(double)query_count));
+			System.out.println("average query time:"
+					+ ((double) total_time / (double) query_count));
 			isr.close();
 			osw.close();
 			br.close();
@@ -175,7 +202,7 @@ public class CassandraQuery extends DataQuery {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
+
 	}
+
 }
