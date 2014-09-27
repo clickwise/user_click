@@ -18,7 +18,7 @@ import redis.clients.jedis.Jedis;
 public class ArdbQuery extends DataQuery {
 
 	private Jedis jedis = null;
-	private int day=0;
+	private int day = 0;
 
 	@Override
 	public State connect(Connection con) {
@@ -41,9 +41,9 @@ public class ArdbQuery extends DataQuery {
 		while (it.hasNext()) {
 			recordList.add(new Record(key.key, it.next() + ""));
 		}
-		
+
 		resetStatistics(key);
-		
+
 		return recordList;
 	}
 
@@ -62,32 +62,37 @@ public class ArdbQuery extends DataQuery {
 		while (it.hasNext()) {
 			recordList.add(new Record(key.key, it.next() + ""));
 		}
-		
+
 		resetStatistics(key);
-		
+
 		return recordList;
 	}
 
 	@Override
 	State resetStatistics(Key key) {
 		State state = new State();
-		int counted=0;
-		String areaDayIdentity=KeyOpera.areaDayKey(TimeOpera.getToday(), KeyOpera.getAreaFromUid(key.key));
-		String counted_str=jedis.get(areaDayIdentity);
-		if(counted_str!=null)
-		{
-			counted=Integer.parseInt(counted_str);
+		int counted = 0;
+		String areaDayIdentity = KeyOpera.areaDayKey(TimeOpera.getToday(),
+				KeyOpera.getAreaFromUid(key.key));
+		String counted_str = jedis.get(areaDayIdentity);
+		if (counted_str != null) {
+			counted = Integer.parseInt(counted_str);
 		}
 		counted++;
-		jedis.set(areaDayIdentity, counted+"");
-		
+		jedis.set(areaDayIdentity, counted + "");
+
 		state.setStatValue(StateValue.Normal);
 		return state;
 	}
-	
-	
-public static void main(String[] args) {
-		
+
+	@Override
+	State logUnkwonUid(Key key) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public static void main(String[] args) {
+
 		if (args.length != 1) {
 			System.err.println("Usage:[host]");
 			System.exit(1);
@@ -107,40 +112,37 @@ public static void main(String[] args) {
 		PrintWriter pw = new PrintWriter(osw);
 
 		String line = "";
-		  
-	    try {
-	    	long total_time=0;
-	    	long query_count=0;
+
+		try {
+			long total_time = 0;
+			long query_count = 0;
 			while ((line = br.readLine()) != null) {
-				if(Math.random()<0.98)
-				{
+				if (Math.random() < 0.98) {
 					continue;
 				}
 				if (SSO.tioe(line)) {
 					continue;
 				}
-		        line=line.trim();
-				try{
-					Key key=new Key(line);
-					long start=TimeOpera.getCurrentTimeLong();
-				    List<Record> result=aq.queryUid(key);
-				    long end=TimeOpera.getCurrentTimeLong();
-				    total_time+=(end-start);
-				    query_count++;
-				    System.out.println("Use time:"+(end-start)+" ms");
-				    
-				    for(int i=0;i<result.size();i++)
-				    {
-				    	System.out.println(result.get(i).toString());
-				    }
-				}
-				catch(Exception e)
-				{
-				  Thread.sleep(1000);	
+				line = line.trim();
+				try {
+					Key key = new Key(line);
+					long start = TimeOpera.getCurrentTimeLong();
+					List<Record> result = aq.queryUid(key);
+					long end = TimeOpera.getCurrentTimeLong();
+					total_time += (end - start);
+					query_count++;
+					System.out.println("Use time:" + (end - start) + " ms");
+
+					for (int i = 0; i < result.size(); i++) {
+						System.out.println(result.get(i).toString());
+					}
+				} catch (Exception e) {
+					Thread.sleep(1000);
 				}
 				// pw.println(seg.segAnsi(line));
 			}
-            System.out.println("average query time:"+((double)total_time/(double)query_count));
+			System.out.println("average query time:"
+					+ ((double) total_time / (double) query_count));
 			isr.close();
 			osw.close();
 			br.close();
@@ -148,6 +150,7 @@ public static void main(String[] args) {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
+
 }
