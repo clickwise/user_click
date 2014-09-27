@@ -89,6 +89,7 @@ public class CassandraQuery extends DataQuery {
 			List<ColumnOrSuperColumn> results = client.get_slice(sendBuffer,
 					cp, predicate, CL.ONE);
 
+			System.out.println("key:"+key.key+"  results.size:"+results.size());
 			for (ColumnOrSuperColumn result : results) {
 				Column column = result.column;
 				recordList.add(new Record(key.key, new String(
