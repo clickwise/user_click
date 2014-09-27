@@ -36,7 +36,7 @@ public class MissesDirectory extends MissesStore{
 	public File getMissesByDay(int day)
 	{
 		
-		return null;
+		return new File(rootDirectory.getAbsolutePath()+"/unkonwn_"+day);
 	}
 	
 	@Override

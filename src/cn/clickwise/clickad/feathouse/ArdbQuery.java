@@ -86,7 +86,7 @@ public class ArdbQuery extends DataQuery {
 	}
 
 	@Override
-	State logUnkwonUid(Key key) {
+	State logUnknownUid(Key key) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -102,8 +102,8 @@ public class EasyConfigureFactory extends ConfigureFactory{
 
 	@Override
 	public File getMissesRootDirectory() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return new File("unkownUid");
 	}
 
 }

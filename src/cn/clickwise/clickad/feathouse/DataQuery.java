@@ -38,7 +38,7 @@ public abstract class DataQuery {
 	abstract State resetStatistics(Key key);
 	
 	
-	abstract State logUnkwonUid(Key key);
+	abstract State logUnknownUid(Key key);
 	
 	
 }

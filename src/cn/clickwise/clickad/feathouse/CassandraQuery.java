@@ -67,7 +67,7 @@ public class CassandraQuery extends DataQuery {
 			jedis.select(con.getDb());
 			
 			missesDirectory=new MissesDirectory();
-			FileWriter fw=new FileWriter(missesDirectory.getMissesByDay(TimeOpera.getToday()));
+			FileWriter fw=new FileWriter(missesDirectory.getMissesByDay(TimeOpera.getToday()),true);
 			supervisor=new PrintWriter(fw);
 			state.setStatValue(StateValue.Normal);
 			
@@ -97,7 +97,7 @@ public class CassandraQuery extends DataQuery {
 			List<ColumnOrSuperColumn> results = client.get_slice(sendBuffer,
 					cp, predicate, CL.ONE);
 
-			System.out.println("key:"+key.key+"  results.size:"+results.size());
+			//System.out.println("key:"+key.key+"  results.size:"+results.size());
 			for (ColumnOrSuperColumn result : results) {
 				Column column = result.column;
 				recordList.add(new Record(key.key, new String(
@@ -105,6 +105,13 @@ public class CassandraQuery extends DataQuery {
 			}
 
 			resetStatistics(key);
+			
+			if(results.size()==0)
+			{
+			  logUnknownUid(key);	
+			}
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -136,7 +143,7 @@ public class CassandraQuery extends DataQuery {
 	}
 
 	@Override
-	State logUnkwonUid(Key key) {
+	State logUnknownUid(Key key) {
 		
 		State state=new State();
 	    supervisor.println(key.key);
@@ -153,6 +160,16 @@ public class CassandraQuery extends DataQuery {
 		this.cp = cp;
 	}
 
+	public PrintWriter getSupervisor()
+	{
+	    return supervisor;	
+	}
+	
+	public void setSupervisor(PrintWriter supervisor)
+	{
+		this.supervisor=supervisor;
+	}
+	
 	public static void main(String[] args) {
 		if (args.length != 1) {
 			System.err.println("Usage:[host]");
@@ -172,7 +189,7 @@ public class CassandraQuery extends DataQuery {
 		cq.connect(con);
 		Key key=new Key("476cb38e3aace0a5d129a147643d8bc3009");
 		List<Record> result = cq.queryUid(key);
-      
+        cq.getSupervisor().close();
 		/*
 		InputStreamReader isr = new InputStreamReader(System.in);
 		BufferedReader br = new BufferedReader(isr);
