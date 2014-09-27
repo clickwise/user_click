@@ -165,6 +165,7 @@ public class CassandraQuery extends DataQuery {
 		con.setArdbHost("192.168.110.186");
 		con.setArdbPort(16379);
 		con.setPort(9160);
+		con.setDb(10);
 		con.setCfName("Urls");
 		con.setKeySpace("urlstore");
 		con.setColumnName("title");
