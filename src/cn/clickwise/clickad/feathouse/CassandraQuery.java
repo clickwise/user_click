@@ -143,7 +143,7 @@ public class CassandraQuery extends DataQuery {
 	State resetStatistics(Key key) {
 		State state = new State();
 		int counted = 0;
-		String areaDayIdentity = KeyOpera.areaCodeDayKey(TimeOpera.getToday(),
+		String areaDayIdentity = KeyOpera.areaCodeDayKeyPV(TimeOpera.getToday(),
 				KeyOpera.getAreaCodeFromUid(key.key));
 		String counted_str = jedis.get(areaDayIdentity);
 		if (counted_str != null) {

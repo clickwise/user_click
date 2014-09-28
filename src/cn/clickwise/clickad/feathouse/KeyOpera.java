@@ -4,6 +4,8 @@ import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 用户名的系列操作
@@ -31,10 +33,10 @@ public class KeyOpera {
 		return "rtb_query_"+area.getAreaCode();
 	}
 	
-	public static String areaCodeDayKey(int day, String areaCode) {
+	//public static String areaCodeDayKey(int day, String areaCode) {
 		
-		return "rtb_query_"+areaCode+"_"+day;
-	}
+	//	return "rtb_query_"+areaCode+"_"+day;
+	//}
 
 	public static String areaCodeDayKeyPV(int day, String areaCode) {
 		
@@ -44,6 +46,25 @@ public class KeyOpera {
 	public static String areaCodeDayKeyUV(int day, String areaCode) {
 		
 		return "rtb_query_uv_"+areaCode+"_"+day;
+	}
+	
+	/**
+	 * 从
+	 * @param AreaDayUVKey
+	 * @return
+	 */
+	public static String getCodeOfAreaFromAreaDayKeyUV(String AreaDayKeyUV)
+	{
+		String codeOfArea="";
+		String pats="rtb_query_uv_(.*?)_[0-9]*";
+		Pattern pat=Pattern.compile(pats);
+		Matcher mat=pat.matcher(AreaDayKeyUV);
+		if(mat.find())
+		{
+			codeOfArea=mat.group(1);
+		}
+		
+		return codeOfArea;
 	}
 	
 	public static String getTimeColunm() {
