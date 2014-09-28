@@ -101,10 +101,6 @@ public class AuxiliaryServer implements Runnable {
 			os.close();
 		}
 
-		
-		
-		
-
 	}
 
 	class TestHandler implements HttpHandler {

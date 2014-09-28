@@ -2,6 +2,7 @@ package cn.clickwise.clickad.feathouse;
 
 import java.io.File;
 
+
 public abstract class ConfigureFactory {
 
 	/**
@@ -57,5 +58,9 @@ public abstract class ConfigureFactory {
 	public abstract ArdbConfigure getArdbConfigure();
 	
 	public abstract File getQueryLogDirectory();
+	
+    public abstract Context[] getContext();
+    
+    public abstract Handler[] getHandler();
 	
 }

@@ -5,6 +5,7 @@ import java.util.Properties;
 
 import cn.clickwise.lib.file.PropertiesUtil;
 
+
 public class EasyConfigureFactory extends ConfigureFactory{
 
 	@Override
@@ -122,6 +123,27 @@ public class EasyConfigureFactory extends ConfigureFactory{
 	public File getQueryLogDirectory() {
 		// TODO Auto-generated method stub
 		return new File("queryUid");
+	}
+
+	@Override
+	public Context[] getContext() {
+		
+		Context c=new Context("/queryUser");
+		
+		Context[] cs=new Context[1];
+		cs[0]=c;
+		
+		return cs;
+	}
+
+	@Override
+	public Handler[] getHandler() {
+
+             
+        Handler[] chs=new Handler[1];
+        chs[0]=null;
+        
+		return chs;
 	}
 
 }
