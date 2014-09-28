@@ -62,5 +62,7 @@ public abstract class ConfigureFactory {
     public abstract Context[] getContext();
     
     public abstract Handler[] getHandler();
+    
+    public abstract CassandraConfigure getCassandraConfigure();
 	
 }

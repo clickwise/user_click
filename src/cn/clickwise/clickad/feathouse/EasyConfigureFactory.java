@@ -146,4 +146,18 @@ public class EasyConfigureFactory extends ConfigureFactory{
 		return chs;
 	}
 
+	@Override
+	public CassandraConfigure getCassandraConfigure() {
+		Properties prop=PropertiesUtil.file2properties("cassandra.conf");
+		CassandraConfigure myconf=new CassandraConfigure();
+		
+		myconf.setHost(prop.getProperty("host"));
+		myconf.setPort(Integer.parseInt(prop.getProperty("port")));
+		myconf.setCfName(prop.getProperty("cfName"));
+		myconf.setKeySpace(prop.getProperty("keySpace"));
+		myconf.setColumnName(prop.getProperty("columnName"));
+		
+		return myconf;
+	}
+
 }

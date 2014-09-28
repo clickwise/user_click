@@ -9,11 +9,22 @@ public class EasyServer extends Server{
 
 	private Configuration conf;
 	
+	private CassandraQuery cq;
+	
 	private ConfigureFactory confFactory;
 	
 	public void init()
 	{
 		confFactory=ConfigureFactoryInstantiate.getConfigureFactory();
+		CassandraConfigure cassConf=confFactory.getCassandraConfigure();
+		CassandraQuery cq = new CassandraQuery();
+		Connection con = new Connection();
+		con.setHost(cassConf.getHost());
+		con.setPort(cassConf.getPort());
+		con.setCfName(cassConf.getCfName());
+		con.setKeySpace(cassConf.getKeySpace());
+		con.setColumnName(cassConf.getColumnName());
+		cq.connect(con);
 		//conf=confFactory.getConfigure();
 	}
 	
@@ -28,6 +39,10 @@ public class EasyServer extends Server{
 			Handler[] handlers=null;
 			contexts=confFactory.getContext();
 			handlers=confFactory.getHandler();
+			for(int i=0;i<handlers.length;i++)
+			{
+				handlers[i].setCassandraQuery(cq);
+			}
 			
 			for(int i=0;i<contexts.length;i++)
 			{
@@ -59,6 +74,13 @@ public class EasyServer extends Server{
 		this.confFactory = confFactory;
 	}
 	
+	public CassandraQuery getCq() {
+		return cq;
+	}
+
+	public void setCq(CassandraQuery cq) {
+		this.cq = cq;
+	}
 	
 	public static void main(String[] args)
 	{
@@ -69,11 +91,13 @@ public class EasyServer extends Server{
 		}
 		
 		Configuration conf=new Configuration();
-		conf.setPort(2733);
+		conf.setPort(Integer.parseInt(args[0]));
 		EasyServer es=new EasyServer();
 		es.setConf(conf);
 		Thread easyThread = new Thread(es);
 		easyThread.start();
 	}
+
+
 
 }
