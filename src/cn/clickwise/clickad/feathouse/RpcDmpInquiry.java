@@ -155,13 +155,13 @@ public class RpcDmpInquiry extends DmpInquiry {
 		rdi.init();
 		
 		Dmp dmp=new Dmp();
-		dmp.setName("186");
-		dmp.setArea(new Area("local","186"));
-		dmp.setHost("192.168.110.186");
+		dmp.setName("hn_101");
+		dmp.setArea(new Area("hn","009"));
+		dmp.setHost("112.67.253.101");
 		dmp.setRpcPort(2733);
 		dmp.setDmpInquiryMethod("/hiveFetchByKeys");
-		dmp.setUserFeatureTableName("user_se_keywords_day_ad");
-		dmp.setUidFieldName("cookie");
+		dmp.setUserFeatureTableName("auser_cates_keys");
+		dmp.setUidFieldName("uid");
 		dmp.setTmpIdentify("remote_cookie");
 		
 		String keyFile="temp/test_cookie.txt";
@@ -175,6 +175,7 @@ public class RpcDmpInquiry extends DmpInquiry {
 		con.setCfName("Urls");
 		con.setKeySpace("urlstore");
 		con.setColumnName("title");
+		
 		rdi.writeRecFile2DataStore(new File(recordFile), con,dmp);
 		
 	}

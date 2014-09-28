@@ -97,7 +97,7 @@ public class HiveFetchTableClient extends Client{
 		HiveFetchTableClient hftc=new HiveFetchTableClient();
 		
 		Connection con=new Connection();
-		con.setHost("192.168.110.186");
+		con.setHost("112.67.253.101");
 		con.setPort(2733);
 		con.setMethod("/hiveFetchTable");
 		
@@ -107,8 +107,8 @@ public class HiveFetchTableClient extends Client{
 		hftcmd.setDay(day);
 		hftcmd.setTmpIdentify(tmpIdentify);
 		
-		hftcmd.setTableName("user_ec_search_day_ad");
-		hftcmd.setKeyFieldName("cookie");
+		hftcmd.setTableName("auser_cates_keys");
+		hftcmd.setKeyFieldName("uid");
 		
 		hftcmd.setResultName("local_user_table_info.txt");
 		hftcmd.setResultPath("temp/local_user_table_info.txt");
