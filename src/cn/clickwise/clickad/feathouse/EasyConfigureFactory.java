@@ -77,13 +77,20 @@ public class EasyConfigureFactory extends ConfigureFactory{
 	public Record string2Record(String recordString) {
 		
 		String[] tokens=recordString.split("\001");
-		if(tokens.length!=9)
+		if(tokens.length<5)
 		{
 			return null;
 		}
 		
 		String key=tokens[0];
-		String value=tokens[3];
+		
+		String value="";
+		for(int j=1;j<tokens.length-3;j++)
+		{
+            value+=(tokens[j]+"\001");
+			
+		}
+		value=value.trim();
 		Record record=new Record(key,value);
 		// TODO Auto-generated method stub
 		return record;

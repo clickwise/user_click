@@ -9,6 +9,8 @@ import cn.clickwise.lib.string.SSO;
 import cn.clickwise.lib.time.TimeOpera;
 import cn.clickwise.rpc.HiveFetchByKeysClient;
 import cn.clickwise.rpc.HiveFetchByKeysCommand;
+import cn.clickwise.rpc.HiveFetchTableClient;
+import cn.clickwise.rpc.HiveFetchTableCommand;
 
 public class RpcDmpInquiry extends DmpInquiry {
 
@@ -149,33 +151,66 @@ public class RpcDmpInquiry extends DmpInquiry {
 	
 	public static void main(String[] args)
 	{
-		
+		int day=20140926;
 		RpcDmpInquiry rdi=new RpcDmpInquiry();
-		rdi.setDay(20140512);
+		rdi.setDay(20140926);
 		rdi.init();
 		
 		Dmp dmp=new Dmp();
 		dmp.setName("hn_101");
 		dmp.setArea(new Area("hn","009"));
 		dmp.setHost("112.67.253.101");
-		dmp.setRpcPort(2733);
-		dmp.setDmpInquiryMethod("/hiveFetchByKeys");
 		dmp.setUserFeatureTableName("auser_cates_keys");
 		dmp.setUidFieldName("uid");
 		dmp.setTmpIdentify("remote_cookie");
-		
+		/*
 		String keyFile="temp/test_cookie.txt";
 		String recordFile="temp/local_user_info.txt";
 		
 		rdi.fetchFromDmp(new File(keyFile), new File(recordFile), dmp);
+		*/
+		HiveFetchTableClient hftc=new HiveFetchTableClient();
 		
+		cn.clickwise.rpc.Connection conrpc=new cn.clickwise.rpc.Connection();
+		conrpc.setHost("112.67.253.101");
+		conrpc.setPort(2733);
+		conrpc.setMethod("/hiveFetchTable");
+		
+		HiveFetchTableCommand hftcmd=new HiveFetchTableCommand();
+		String tmpIdentify="remote_table_cookie";
+		hftcmd.setDay(day);
+		hftcmd.setTmpIdentify(tmpIdentify);
+		
+		hftcmd.setTableName("auser_cates_keys");
+		hftcmd.setKeyFieldName("uid");
+		String recordFile="user_info_"+day+".txt";
+		hftcmd.setResultName(recordFile);
+		hftcmd.setResultPath("temp/"+recordFile);
+		HiveFetchTableClient.initRandomFileName(tmpIdentify, day, hftcmd);
+		hftcmd.setQuery_type(1);
+		
+		hftc.connect(conrpc);
+		hftc.execute(hftcmd);
+		
+		/*
 		Connection con = new Connection();
 		con.setHost("192.168.110.182");
 		con.setPort(9160);
 		con.setCfName("Urls");
 		con.setKeySpace("urlstore");
 		con.setColumnName("title");
+		*/
 		
+		ConfigureFactory confFactory=ConfigureFactoryInstantiate.getConfigureFactory();
+		CassandraConfigure cassConf=confFactory.getCassandraConfigure();
+
+		Connection con = new Connection();
+		con.setHost(cassConf.getHost());
+		con.setPort(cassConf.getPort());
+		con.setCfName(cassConf.getCfName());
+		con.setKeySpace(cassConf.getKeySpace());
+		con.setColumnName(cassConf.getColumnName());
+			
 		rdi.writeRecFile2DataStore(new File(recordFile), con,dmp);
 		
 	}
