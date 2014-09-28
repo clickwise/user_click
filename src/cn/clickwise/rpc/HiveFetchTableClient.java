@@ -103,7 +103,7 @@ public class HiveFetchTableClient extends Client{
 		
 		HiveFetchTableCommand hftcmd=new HiveFetchTableCommand();
 		String tmpIdentify="remote_table_cookie";
-		int day=20140512;
+		int day=20140926;
 		hftcmd.setDay(day);
 		hftcmd.setTmpIdentify(tmpIdentify);
 		
