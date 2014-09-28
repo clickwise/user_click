@@ -32,6 +32,7 @@ import cn.clickwise.liqi.str.basic.SSO;
  * @author zkyz
  * 
  */
+
 public class ClassifierUseText {
 
 	private Segmenter seg = null;
