@@ -164,9 +164,9 @@ public class Mysql {
 				.getConfigureFactory();
 		Table queryTable = confFactory.getQueryTable();
 		Mysql mysql = new Mysql();
-		Map<String, String> codeArea = AreaCode.getCodeAreaMap();
-		//mysql.select(receipt, queryTable, codeArea);
-		 mysql.updateStatistics(receipt, queryTable,codeArea);
+		Map<String, String> codeArea = AreaCode.getCodeAreaMap();	
+		mysql.updateStatistics(receipt, queryTable,codeArea);
+		mysql.select(receipt, queryTable, codeArea);
 		
 
 	}
