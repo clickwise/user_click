@@ -40,5 +40,7 @@ public abstract class DataQuery {
 	
 	abstract State logUnknownUid(Key key);
 	
+	abstract State logQuery(Key key);
+	
 	
 }

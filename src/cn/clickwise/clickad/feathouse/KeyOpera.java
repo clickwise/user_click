@@ -36,6 +36,16 @@ public class KeyOpera {
 		return "rtb_query_"+areaCode+"_"+day;
 	}
 
+	public static String areaCodeDayKeyPV(int day, String areaCode) {
+		
+		return "rtb_query_pv_"+areaCode+"_"+day;
+	}
+	
+	public static String areaCodeDayKeyUV(int day, String areaCode) {
+		
+		return "rtb_query_uv_"+areaCode+"_"+day;
+	}
+	
 	public static String getTimeColunm() {
 		long score = (long) ((System.currentTimeMillis()) + (Math.random() * 1000));
 		return score + "";

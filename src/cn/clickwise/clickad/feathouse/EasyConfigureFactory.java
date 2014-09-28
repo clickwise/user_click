@@ -118,4 +118,10 @@ public class EasyConfigureFactory extends ConfigureFactory{
 		return myconf;
 	}
 
+	@Override
+	public File getQueryLogDirectory() {
+		// TODO Auto-generated method stub
+		return new File("queryUid");
+	}
+
 }

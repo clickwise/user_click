@@ -56,4 +56,6 @@ public abstract class ConfigureFactory {
 	
 	public abstract ArdbConfigure getArdbConfigure();
 	
+	public abstract File getQueryLogDirectory();
+	
 }

@@ -159,4 +159,10 @@ public class ArdbQuery extends DataQuery {
 
 	}
 
+	@Override
+	State logQuery(Key key) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

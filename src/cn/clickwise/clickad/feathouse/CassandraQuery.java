@@ -47,8 +47,12 @@ public class CassandraQuery extends DataQuery {
 	
 	private ConfigureFactory confFactory;
 	
+	private QueryLogDirectory queryLogDirectory;
+	
 	//记录未查到用户的uid
 	private PrintWriter supervisor=null;
+	
+	private PrintWriter querySupervisor=null;
 
 	static Logger logger = LoggerFactory.getLogger(CassandraQuery.class);
 
@@ -74,8 +78,12 @@ public class CassandraQuery extends DataQuery {
 			missesDirectory=new MissesDirectory();
 			FileWriter fw=new FileWriter(missesDirectory.getMissesByDay(TimeOpera.getToday()),true);
 			supervisor=new PrintWriter(fw);
-			state.setStatValue(StateValue.Normal);
+					
+			queryLogDirectory=new QueryLogDirectory();			
+			FileWriter qlfw=new FileWriter(queryLogDirectory.getQueryLogByDay(TimeOpera.getToday()),true);
+			querySupervisor=new PrintWriter(qlfw);
 			
+			state.setStatValue(StateValue.Normal);
 
 		} catch (Exception e) {
 			state.setStatValue(StateValue.Error);
@@ -108,9 +116,10 @@ public class CassandraQuery extends DataQuery {
 				recordList.add(new Record(key.key, new String(
 						column.getValue(), UTF8)));
 			}
-
+           
+			//记录日志和统计
 			resetStatistics(key);
-			
+			logQuery(key);
 			if(results.size()==0)
 			{
 			  logUnknownUid(key);	
@@ -154,6 +163,13 @@ public class CassandraQuery extends DataQuery {
 	    supervisor.println(key.key);
 		state.setStatValue(StateValue.Normal);
 		
+		return state;
+	}
+	
+	@Override
+	State logQuery(Key key) {
+		State state=new State();
+		querySupervisor.println(key.key);
 		return state;
 	}
 
@@ -246,5 +262,23 @@ public class CassandraQuery extends DataQuery {
 		
 
 	}
+
+	public PrintWriter getQuerySupervisor() {
+		return querySupervisor;
+	}
+
+	public void setQuerySupervisor(PrintWriter querySupervisor) {
+		this.querySupervisor = querySupervisor;
+	}
+
+	public QueryLogDirectory getQueryLogDirectory() {
+		return queryLogDirectory;
+	}
+
+	public void setQueryLogDirectory(QueryLogDirectory queryLogDirectory) {
+		this.queryLogDirectory = queryLogDirectory;
+	}
+
+
 
 }
