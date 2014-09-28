@@ -141,7 +141,7 @@ public class EasyConfigureFactory extends ConfigureFactory{
 
              
         Handler[] chs=new Handler[1];
-        chs[0]=null;
+        chs[0]=new EasyQueryHandler();
         
 		return chs;
 	}

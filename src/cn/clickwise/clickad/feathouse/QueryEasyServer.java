@@ -5,7 +5,7 @@ import java.net.InetSocketAddress;
 import com.sun.net.httpserver.HttpServer;
 
 
-public class EasyServer extends Server{
+public class QueryEasyServer extends Server{
 
 	private Configuration conf;
 	
@@ -92,7 +92,7 @@ public class EasyServer extends Server{
 		
 		Configuration conf=new Configuration();
 		conf.setPort(Integer.parseInt(args[0]));
-		EasyServer es=new EasyServer();
+		QueryEasyServer es=new QueryEasyServer();
 		es.setConf(conf);
 		Thread easyThread = new Thread(es);
 		easyThread.start();
