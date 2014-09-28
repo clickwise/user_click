@@ -205,9 +205,10 @@ public class CassandraQuery extends DataQuery {
 		con.setKeySpace("userstore");
 		con.setColumnName("title");
 		cq.connect(con);
-		Key key=new Key("476cb38e3aace0a5d129a147643d8bc3009");
+		Key key=new Key("476cb38e3aace0ad5129a147643d8bc3009");
 		List<Record> result = cq.queryUid(key);
         cq.getSupervisor().close();
+        cq.getQuerySupervisor().close();
         
 		/*
 		InputStreamReader isr = new InputStreamReader(System.in);

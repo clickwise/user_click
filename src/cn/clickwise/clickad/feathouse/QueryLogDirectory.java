@@ -11,7 +11,7 @@ public class QueryLogDirectory extends QueryLogStore{
 	public  QueryLogDirectory()
 	{
 		confFactory=ConfigureFactoryInstantiate.getConfigureFactory();
-	    rootDirectory=confFactory.getMissesRootDirectory();	
+	    rootDirectory=confFactory.getQueryLogDirectory();	
 	}
 	
 	public File getRootDirectory() {
