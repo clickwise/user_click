@@ -211,7 +211,7 @@ public class RpcDmpInquiry extends DmpInquiry {
 		con.setKeySpace(cassConf.getKeySpace());
 		con.setColumnName(cassConf.getColumnName());
 			
-		rdi.writeRecFile2DataStore(new File(recordFile), con,dmp);
+		rdi.writeRecFile2DataStore(new File("temp/"+recordFile), con,dmp);
 		
 	}
 
