@@ -60,7 +60,7 @@ public class CumulateQueryManager {
 		// Date date=TimeOpera.getCurrentTime()
 		Timer timer = new Timer();
 		CumulateQuery cq = new CumulateQuery();
-		timer.schedule(cq, date, PERIOD_HOUR);
+		timer.schedule(cq, date, PERIOD_MINUTE);
 	}
 
 	// 累加当天的查询统计
