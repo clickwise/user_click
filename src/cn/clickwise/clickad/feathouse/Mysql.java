@@ -101,8 +101,8 @@ public class Mysql {
 			stmt.executeUpdate(sql);
 
 			sql = "insert into  " + table.getName()
-					+ "(area_code,area,date,pv,uv) values("
-					+ receipt.getCodeOfArea() + ",'"
+					+ "(area_code,area,date,pv,uv) values('"
+		            + receipt.getCodeOfArea() + "','"
 					+ codeArea.get(receipt.getCodeOfArea()) + "',"
 					+ receipt.getDay() + "," + receipt.getPv() + ","
 					+ receipt.getUv() + ");";
