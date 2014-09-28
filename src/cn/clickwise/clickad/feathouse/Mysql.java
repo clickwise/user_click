@@ -153,7 +153,7 @@ public class Mysql {
 		 * confFactory.getInquiryTable(); Mysql mysql = new Mysql();
 		 * mysql.insertStatistics(receipt, inquiryTable);
 		 */
-
+        
 		QueryReceipt receipt = new QueryReceipt();
 		receipt.setCodeOfArea("009");
 		receipt.setDay(TimeOpera.getToday());
@@ -165,8 +165,9 @@ public class Mysql {
 		Table queryTable = confFactory.getQueryTable();
 		Mysql mysql = new Mysql();
 		Map<String, String> codeArea = AreaCode.getCodeAreaMap();
-		mysql.select(receipt, queryTable, codeArea);
-		 //mysql.updateStatistics(receipt, queryTable,codeArea);
+		//mysql.select(receipt, queryTable, codeArea);
+		 mysql.updateStatistics(receipt, queryTable,codeArea);
+		
 
 	}
 
