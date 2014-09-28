@@ -193,7 +193,8 @@ public class Segmenter {
 			
 			if(segFieldIndex<(fieldNum-1))
 			{
-				pw.print(seg.segAnsi(fields[fieldNum-1]));
+				//pw.print(seg.segAnsi(fields[fieldNum-1]));
+				pw.print(fields[fieldNum-1]);
 			}	
 			pw.println();
 		}

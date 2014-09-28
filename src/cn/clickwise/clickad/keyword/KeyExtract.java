@@ -231,6 +231,53 @@ public class KeyExtract {
 		return k_s;
 	}
 
+	public String keyword_extract_noun(String text) {
+		
+		String k_s = "";
+		String[] seg_arr = text.split("\\s+");
+		Vector new_word_arr = new Vector();
+		String[] history_word_arr = new String[7];
+		for (int i = 0; i < history_word_arr.length; i++) {
+			history_word_arr[i] = "";
+		}
+
+		String key_word = "";
+		String subkey1 = "", subkey2 = "", subkey4 = "", subkey5 = "", subkey6 = "", subkey7 = "", subkey8 = "";
+
+		for (int i = 0; i < seg_arr.length; i++) {
+			// System.out.println(i + ":" + seg_arr[i]);
+			if (((seg_arr[i].indexOf("#NN")) != -1)
+					|| ((seg_arr[i].indexOf("#NR")) != -1)) {
+				key_word = seg_arr[i];
+				if ((seg_arr[i].indexOf("#NN")) != -1) {
+					key_word = key_word.replaceAll("#NN", "");
+				} else if ((seg_arr[i].indexOf("#NR")) != -1) {
+					key_word = key_word.replaceAll("#NR", "");
+				}
+				key_word = key_word.trim();
+				if (key_word.length() > 1) {
+					new_word_arr.add(key_word);
+				}
+
+			} else if (seg_arr[i].length() > 5) {
+				key_word = seg_arr[i];
+				key_word = key_word.replaceAll("#.*", "");
+				key_word = key_word.trim();
+				new_word_arr.add(key_word);
+			}
+		}
+
+		String temp_CC = "";
+		for (int i = 0; i < new_word_arr.size(); i++) {
+			temp_CC = new_word_arr.get(i) + "";
+			if (!(Pattern.matches("[a-zA-Z%0-9\\\\\\\\_]*", temp_CC))) {
+				k_s = k_s + temp_CC + " ";
+			}
+		}
+
+		return k_s;
+	}
+	
 	public static void main(String[] args) throws Exception {
 		// String
 		// text="凤凰网 凤凰网是中国领先的综合门户网站，提供含文图音视频的全方位综合新闻资讯、深度访谈、观点评论、财经产品、互动应用、分享社区等服务，同时与凤凰无线、凤凰宽频形成动，为全球主流华人提供互联网、无线通信、电视网三网融合无缝衔接的新媒体优质体验。";
@@ -322,11 +369,11 @@ public class KeyExtract {
 			}
 			if(keyFieldIndex<(fieldNum-1))
 			{
-		    	pw.print(ke.keyword_extract(fields[keyFieldIndex]).trim()+outputSeparator);
+		    	pw.print(ke.keyword_extract_noun(fields[keyFieldIndex]).trim()+outputSeparator);
 			}
 			else
 			{
-				pw.print(ke.keyword_extract(fields[keyFieldIndex]).trim());
+				pw.print(ke.keyword_extract_noun(fields[keyFieldIndex]).trim());
 			}
 			
 			for(int j=keyFieldIndex+1;j<fieldNum-1;j++)
@@ -336,7 +383,8 @@ public class KeyExtract {
 			
 			if(keyFieldIndex<(fieldNum-1))
 			{
-				pw.print(ke.keyword_extract(fields[fieldNum-1]));
+				//pw.print(ke.keyword_extract_noun(fields[fieldNum-1]));
+				pw.print(fields[fieldNum-1]);
 			}	
 			pw.println();
 		}

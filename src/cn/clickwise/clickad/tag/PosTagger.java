@@ -136,7 +136,8 @@ public class PosTagger {
 			
 			if(tagFieldIndex<(fieldNum-1))
 			{
-				pw.print(posTagger.tag(fields[fieldNum-1]));
+				//pw.print(posTagger.tag(fields[fieldNum-1]));
+				pw.print(fields[fieldNum-1]);
 			}	
 			pw.println();
 		}
