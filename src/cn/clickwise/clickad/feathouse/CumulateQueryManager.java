@@ -9,8 +9,6 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import love.cq.util.MapCount;
-
 import cn.clickwise.lib.string.SSO;
 import cn.clickwise.lib.time.TimeOpera;
 
@@ -103,7 +101,6 @@ public class CumulateQueryManager {
 		public void queryPvUvStatistics() {
 			
 			int day = TimeOpera.getToday();
-			MapCount<String> mc = new MapCount<>();
 			HashMap<String, HashMap<String, Integer>> areaUser = new HashMap<String, HashMap<String, Integer>>();
 			
 			
