@@ -201,8 +201,8 @@ public class CassandraQuery extends DataQuery {
 		Connection con = new Connection();
 		con.setHost(args[0]);
 		con.setPort(9160);
-		con.setCfName("Urls");
-		con.setKeySpace("urlstore");
+		con.setCfName("Users");
+		con.setKeySpace("userstore");
 		con.setColumnName("title");
 		cq.connect(con);
 		Key key=new Key("476cb38e3aace0a5d129a147643d8bc3009");
