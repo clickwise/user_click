@@ -10,6 +10,7 @@ import java.util.List;
 import cn.clickwise.lib.string.SSO;
 import cn.clickwise.rpc.FileCopyToCommand;
 
+import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 
 /**
@@ -44,6 +45,8 @@ public class EasyQueryHandler extends Handler {
 		System.out.println("after query:"+uid);
 		try{
 		exchange.sendResponseHeaders(200, 0);
+		Headers headers=exchange.getResponseHeaders();
+		headers.set("Content-Type", "text/plain; charset=UTF-8");
 		OutputStream os = exchange.getResponseBody();
 		PrintWriter pw=new PrintWriter(os);
 		String encode="";
