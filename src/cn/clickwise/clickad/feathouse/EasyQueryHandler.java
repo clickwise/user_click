@@ -27,6 +27,7 @@ public class EasyQueryHandler extends Handler {
 		URI uri = exchange.getRequestURI();
 		System.out.println("uri:" + uri);
 		String uid = SSO.afterStr(uri.toString(), "uid=");
+		query(uid,exchange);
 	}
 
 	@Override
