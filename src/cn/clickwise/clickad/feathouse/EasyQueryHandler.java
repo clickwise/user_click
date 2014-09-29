@@ -2,6 +2,7 @@ package cn.clickwise.clickad.feathouse;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.URI;
 import java.net.URLEncoder;
 import java.util.List;
@@ -44,11 +45,12 @@ public class EasyQueryHandler extends Handler {
 		try{
 		exchange.sendResponseHeaders(200, 0);
 		OutputStream os = exchange.getResponseBody();
-		
+		PrintWriter pw=new PrintWriter(os);
 		String encode="";
 		for(int j=0;j<result.size();j++)
 		{
-			os.write((new String(((result.get(j).toString())+"\n").getBytes(),"GBK")).getBytes());
+		//	os.write((new String(((result.get(j).toString())+"\n").getBytes(),"GBK")).getBytes());
+			pw.println(result.get(j).toString());
 		}
 		
 		os.close();
