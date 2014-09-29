@@ -54,17 +54,17 @@ public class EasyQueryHandler extends Handler {
 		for(int j=0;j<result.size();j++)
 		{
 		//	os.write((new String(((result.get(j).toString())+"\n").getBytes(),"GBK")).getBytes());
-			pw.println("<html>");
-			pw.println("<head>");
-			pw.println("<head>");
-			pw.println("<meta http-equiv=\"Content-type\" content=\"text/html; charset=utf-8\" />");
-			pw.println("<title>title</title>");
-			pw.println("</head>");
-			pw.println("<body>");
+			//pw.println("<html>");
+			//pw.println("<head>");
+			//pw.println("<head>");
+			//pw.println("<meta http-equiv=\"Content-type\" content=\"text/html; charset=utf-8\" />");
+			//pw.println("<title>title</title>");
+			//pw.println("</head>");
+			//pw.println("<body>");
 			pw.println(result.get(j).toString());
-			pw.println("</body>");
-			pw.println("<head>");
-			pw.println("</html>");
+			//pw.println("</body>");
+			//pw.println("<head>");
+			//pw.println("</html>");
 			pw.flush();
 		}
 		
