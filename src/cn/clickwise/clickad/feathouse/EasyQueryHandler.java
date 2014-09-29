@@ -70,7 +70,7 @@ public class EasyQueryHandler extends Handler {
 
 		exchange.sendResponseHeaders(200, resultstr.length());
 		OutputStream os = exchange.getResponseBody();
-		os.write(resultstr.getBytes());
+		os.write(new String(resultstr+"\n").getBytes());
 		//PrintWriter pw=new PrintWriter(os);
 		//pw.println(resultstr);
 		os.close();
