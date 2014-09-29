@@ -134,11 +134,14 @@ public class EasyConfigureFactory extends ConfigureFactory{
 
 	@Override
 	public Context[] getContext() {
-		
+
 		Context c=new Context("/queryUser");
+		Context c1=new Context("/test");
 		
-		Context[] cs=new Context[1];
+		Context[] cs=new Context[2];
+		
 		cs[0]=c;
+		cs[1]=c1;
 		
 		return cs;
 	}
@@ -147,9 +150,10 @@ public class EasyConfigureFactory extends ConfigureFactory{
 	public Handler[] getHandler() {
 
              
-        Handler[] chs=new Handler[1];
-        chs[0]=new EasyQueryHandler();
+        Handler[] chs=new Handler[2];
         
+        chs[0]=new EasyQueryHandler();
+        chs[1]=new TestHandler();
 		return chs;
 	}
 
