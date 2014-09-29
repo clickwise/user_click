@@ -163,6 +163,7 @@ public class RpcDmpInquiry extends DmpInquiry {
 		dmp.setUserFeatureTableName("auser_cates_keys");
 		dmp.setUidFieldName("uid");
 		dmp.setTmpIdentify("remote_cookie");
+		
 		/*
 		String keyFile="temp/test_cookie.txt";
 		String recordFile="temp/local_user_info.txt";
@@ -187,7 +188,7 @@ public class RpcDmpInquiry extends DmpInquiry {
 		hftcmd.setResultName(recordFile);
 		hftcmd.setResultPath("temp/"+recordFile);
 		HiveFetchTableClient.initRandomFileName(tmpIdentify, day, hftcmd);
-		hftcmd.setQuery_type(1);
+		hftcmd.setQueryType(1);
 		
 		hftc.connect(conrpc);
 		hftc.execute(hftcmd);

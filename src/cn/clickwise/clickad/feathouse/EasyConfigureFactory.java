@@ -171,4 +171,28 @@ public class EasyConfigureFactory extends ConfigureFactory{
 		return myconf;
 	}
 
+	@Override
+	public String getTmpIdentify() {
+		// TODO Auto-generated method stub
+		return "remote_table_cookie";
+	}
+
+	@Override
+	public String getRecordFilePrefix() {
+		// TODO Auto-generated method stub
+		return "user_info_";
+	}
+
+	@Override
+	public String getRecordFileDirectory() {
+		// TODO Auto-generated method stub
+		return "temp/";
+	}
+
+	@Override
+	public int getQueryType() {
+		// TODO Auto-generated method stub
+		return 1;
+	}
+
 }

@@ -10,7 +10,7 @@ public class HiveFetchTableCommand extends Command{
 	//查询选项，
 	//0 只输出key field
 	//1 输出 all fields
-	private int query_type;
+	private int queryType;
 	
 	private int day;
 	
@@ -31,13 +31,7 @@ public class HiveFetchTableCommand extends Command{
     private String tmpIdentify;
 
 
-	public int getQuery_type() {
-		return query_type;
-	}
 
-	public void setQuery_type(int query_type) {
-		this.query_type = query_type;
-	}
 
 	public int getDay() {
 		return day;
@@ -101,6 +95,14 @@ public class HiveFetchTableCommand extends Command{
 
 	public void setTableName(String tableName) {
 		this.tableName = tableName;
+	}
+
+	public int getQueryType() {
+		return queryType;
+	}
+
+	public void setQueryType(int queryType) {
+		this.queryType = queryType;
 	}
 	
 }
