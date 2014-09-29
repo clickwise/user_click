@@ -27,11 +27,11 @@ public class HiveSql {
 	{
 		String sql="";
 		
-		if(hftc.getQuery_type()==0)//只返回Key Field
+		if(hftc.getQueryType()==0)//只返回Key Field
 		{
 		  sql="use clickwise; INSERT OVERWRITE LOCAL DIRECTORY '"+hftc.getResultRemotePath()+"' SELECT DISTINCT "+hftc.getKeyFieldName()+"  FROM "+hftc.getTableName()+" where dt="+hftc.getDay()+";";
 		}
-		else if(hftc.getQuery_type()==1)//返回all Fields
+		else if(hftc.getQueryType()==1)//返回all Fields
 		{
 		  sql="use clickwise; INSERT OVERWRITE LOCAL DIRECTORY '"+hftc.getResultRemotePath()+"' SELECT *  FROM "+hftc.getTableName()+" where dt="+hftc.getDay()+";";
 		}

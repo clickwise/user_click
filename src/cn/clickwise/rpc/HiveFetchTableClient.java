@@ -113,7 +113,7 @@ public class HiveFetchTableClient extends Client{
 		hftcmd.setResultName("local_user_table_info.txt");
 		hftcmd.setResultPath("temp/local_user_table_info.txt");
 		HiveFetchTableClient.initRandomFileName(tmpIdentify, day, hftcmd);
-		hftcmd.setQuery_type(1);
+		hftcmd.setQueryType(1);
 		
 		hftc.connect(con);
 		hftc.execute(hftcmd);

@@ -41,6 +41,7 @@ public class ScheduleTask {
 	}
 
 	public void dmpInquiries() {
+		
 		Dmp[] dmps = confFactory.getDmps();
 
 		for (int i = 0; i < dmps.length; i++) {

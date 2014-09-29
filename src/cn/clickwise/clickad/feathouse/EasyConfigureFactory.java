@@ -45,6 +45,8 @@ public class EasyConfigureFactory extends ConfigureFactory{
 	@Override
 	public Dmp[] getDmps() {
 		// TODO Auto-generated method stub
+		
+		
 		return null;
 	}
 
