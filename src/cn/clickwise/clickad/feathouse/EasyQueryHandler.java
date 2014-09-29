@@ -51,6 +51,7 @@ public class EasyQueryHandler extends Handler {
 		{
 		//	os.write((new String(((result.get(j).toString())+"\n").getBytes(),"GBK")).getBytes());
 			pw.println(result.get(j).toString());
+			pw.flush();
 		}
 		
 		os.close();
