@@ -67,7 +67,7 @@ public class EasyQueryHandler extends Handler {
 			//pw.println("</html>");
 			//pw.flush();
 		}
-		resultstr=resultstr.trim();
+
 		exchange.sendResponseHeaders(200, resultstr.length());
 		OutputStream os = exchange.getResponseBody();
 		
