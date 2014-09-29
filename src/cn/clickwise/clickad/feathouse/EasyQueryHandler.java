@@ -48,7 +48,7 @@ public class EasyQueryHandler extends Handler {
 		String encode="";
 		for(int j=0;j<result.size();j++)
 		{
-			os.write(new String((result.get(j).toString())+"\n").getBytes());
+			os.write((new String(((result.get(j).toString())+"\n").getBytes("UTF-8"),"UTF-8")).getBytes());
 		}
 		
 		os.close();
