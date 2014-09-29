@@ -46,9 +46,10 @@ public class EasyQueryHandler extends Handler {
 		try{
 		
 		Headers headers=exchange.getResponseHeaders();
-		exchange.getResponseHeaders().add("Content-type", "text/html; charset=utf-8");
-		exchange.sendResponseHeaders(1000, 0);
-		//headers.set("Content-type", "text/html; charset=utf-8");
+		//exchange.getResponseHeaders().add("Content-type", "text/plain; charset=utf-8");
+		
+		headers.set("Content-type", "text/plain; charset=utf-8");
+		exchange.sendResponseHeaders(1000, 1000L);
 		OutputStream os = exchange.getResponseBody();
 		
 		PrintWriter pw=new PrintWriter(os);
