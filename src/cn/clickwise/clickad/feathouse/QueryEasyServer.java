@@ -17,7 +17,7 @@ public class QueryEasyServer extends Server{
 	{
 		confFactory=ConfigureFactoryInstantiate.getConfigureFactory();
 		CassandraConfigure cassConf=confFactory.getCassandraConfigure();
-		CassandraQuery cq = new CassandraQuery();
+		cq = new CassandraQuery();
 		Connection con = new Connection();
 		con.setHost(cassConf.getHost());
 		con.setPort(cassConf.getPort());
