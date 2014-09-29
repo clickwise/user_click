@@ -44,9 +44,10 @@ public class EasyQueryHandler extends Handler {
 		List<Record> result = cq.queryUid(key);
 		System.out.println("after query:"+uid);
 		try{
-		exchange.sendResponseHeaders(200, 0);
+		
 		Headers headers=exchange.getResponseHeaders();
 		exchange.getResponseHeaders().add("Content-type", "text/html; charset=utf-8");
+		exchange.sendResponseHeaders(1000, 0);
 		//headers.set("Content-type", "text/html; charset=utf-8");
 		OutputStream os = exchange.getResponseBody();
 		
