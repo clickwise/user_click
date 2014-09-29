@@ -37,9 +37,10 @@ public class EasyQueryHandler extends Handler {
 
 	public void query(String uid,HttpExchange exchange)
 	{
+		System.out.println("in query:"+uid);
 		Key key=new Key(uid);
 		List<Record> result = cq.queryUid(key);
-		
+		System.out.println("after query:"+uid);
 		try{
 		exchange.sendResponseHeaders(200, 0);
 		OutputStream os = exchange.getResponseBody();
