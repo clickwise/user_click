@@ -57,7 +57,7 @@ public class EasyQueryHandler extends Handler {
 			pw.println("<html>");
 			pw.println("<head>");
 			pw.println("<head>");
-			pw.println("<meta http-equiv=\"Content-type\" content=\"text/html; charset=gb2312\" />");
+			pw.println("<meta http-equiv=\"Content-type\" content=\"text/html; charset=utf-8\" />");
 			pw.println("<title>title</title>");
 			pw.println("</head>");
 			pw.println("<body>");
