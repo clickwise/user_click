@@ -115,6 +115,8 @@ public class CassandraQuery extends DataQuery {
 				Column column = result.column;
 				recordList.add(new Record(key.key, new String(
 						column.getValue(), UTF8)));
+				System.out.println("key:"+key+" value:"+(new String(
+						column.getValue(), UTF8)).toString());
 			}
            
 			//记录日志和统计
