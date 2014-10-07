@@ -16,6 +16,13 @@ import cn.clickwise.lib.string.SSO;
  */
 public class TimeOpera {
 
+	
+	private static final long PERIOD_DAY = 24 * 60 * 60 * 1000;
+
+	private static final long PERIOD_MINUTE = 60 * 1000;
+
+	private static final long PERIOD_HOUR = 60 * 60 * 1000;
+	
 	public static int formatDay(Date date)
 	{
 		
@@ -96,6 +103,20 @@ public class TimeOpera {
 	public static int getToday()
 	{
 		long ctime=System.currentTimeMillis();
+		SimpleDateFormat sdf= new SimpleDateFormat("yyyyMMdd");
+		Date dt = new Date(ctime);	
+	
+		return Integer.parseInt(sdf.format(dt));
+	}
+	
+	/**
+	 * 获得当前日期，格式20140626
+	 * @return
+	 */
+	public static int getYesterday()
+	{
+		long ctime=System.currentTimeMillis();
+		ctime=ctime-PERIOD_DAY;
 		SimpleDateFormat sdf= new SimpleDateFormat("yyyyMMdd");
 		Date dt = new Date(ctime);	
 	

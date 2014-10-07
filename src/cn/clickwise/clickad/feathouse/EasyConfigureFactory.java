@@ -45,6 +45,8 @@ public class EasyConfigureFactory extends ConfigureFactory{
 	@Override
 	public Dmp[] getDmps() {
 		// TODO Auto-generated method stub
+		
+		
 		return null;
 	}
 
@@ -134,11 +136,14 @@ public class EasyConfigureFactory extends ConfigureFactory{
 
 	@Override
 	public Context[] getContext() {
-		
+
 		Context c=new Context("/queryUser");
+		Context c1=new Context("/test");
 		
-		Context[] cs=new Context[1];
+		Context[] cs=new Context[2];
+		
 		cs[0]=c;
+		cs[1]=c1;
 		
 		return cs;
 	}
@@ -147,9 +152,10 @@ public class EasyConfigureFactory extends ConfigureFactory{
 	public Handler[] getHandler() {
 
              
-        Handler[] chs=new Handler[1];
-        chs[0]=new EasyQueryHandler();
+        Handler[] chs=new Handler[2];
         
+        chs[0]=new EasyQueryHandler();
+        chs[1]=new TestHandler();
 		return chs;
 	}
 
@@ -165,6 +171,30 @@ public class EasyConfigureFactory extends ConfigureFactory{
 		myconf.setColumnName(prop.getProperty("columnName"));
 		
 		return myconf;
+	}
+
+	@Override
+	public String getTmpIdentify() {
+		// TODO Auto-generated method stub
+		return "remote_table_cookie";
+	}
+
+	@Override
+	public String getRecordFilePrefix() {
+		// TODO Auto-generated method stub
+		return "user_info_";
+	}
+
+	@Override
+	public String getRecordFileDirectory() {
+		// TODO Auto-generated method stub
+		return "temp/";
+	}
+
+	@Override
+	public int getQueryType() {
+		// TODO Auto-generated method stub
+		return 1;
 	}
 
 }

@@ -95,7 +95,7 @@ public class CassandraQuery extends DataQuery {
 
 	@Override
 	public List<Record> queryUid(Key key) {
-
+     
 		List<Record> recordList = new ArrayList<Record>();
 		SlicePredicate predicate = new SlicePredicate();
 		SliceRange sliceRange = new SliceRange();
@@ -116,6 +116,8 @@ public class CassandraQuery extends DataQuery {
 				System.out.println("key:"+key.key+" value:"+(new String(column.getValue(), UTF8)).toString());
 				recordList.add(new Record(key.key, new String(
 						column.getValue(), UTF8)));
+				System.out.println("key:"+key+" value:"+(new String(
+						column.getValue(), UTF8)).toString());
 			}
            
 			//记录日志和统计

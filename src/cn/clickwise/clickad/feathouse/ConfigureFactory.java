@@ -64,5 +64,13 @@ public abstract class ConfigureFactory {
     public abstract Handler[] getHandler();
     
     public abstract CassandraConfigure getCassandraConfigure();
+    
+    public abstract String getTmpIdentify();
+    
+    //取回用户特征文件的前缀
+    public abstract String getRecordFilePrefix();
+    
+    public abstract String getRecordFileDirectory();
 	
+    public abstract int getQueryType();
 }
