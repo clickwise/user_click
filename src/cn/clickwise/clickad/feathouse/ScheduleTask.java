@@ -45,6 +45,7 @@ public class ScheduleTask {
 		Dmp[] dmps = confFactory.getDmps();
 
 		for (int i = 0; i < dmps.length; i++) {
+			
 			HiveFetchTableClient hftc = new HiveFetchTableClient();
 			cn.clickwise.rpc.Connection conrpc = new cn.clickwise.rpc.Connection();
 			conrpc.setHost(dmps[i].getHost());
@@ -68,6 +69,7 @@ public class ScheduleTask {
 
 			rdi.writeRecFile2DataStore(new File(confFactory.getRecordFileDirectory() + recordFile), con,
 					dmps[i]);
+			
 		}
 	}
 

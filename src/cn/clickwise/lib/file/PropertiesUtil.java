@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -52,11 +53,12 @@ public class PropertiesUtil {
 			  br=new BufferedReader(fr);
 			}
 			else
-			{
-				//InputStream fileIs=new InputStream();
+			{	
+			  InputStream fileIs=PropertiesUtil.class.getResourceAsStream("/" + name);
+			  InputStreamReader isr=new InputStreamReader(fileIs);
+			  br=new BufferedReader(isr);
 			}
-			
-			
+					
 			propList = new ArrayList<Properties>();
 			
 			while((line=br.readLine())!=null)
@@ -86,7 +88,6 @@ public class PropertiesUtil {
 				propList.add(prop);
 			}
 
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

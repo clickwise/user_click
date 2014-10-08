@@ -2,7 +2,6 @@ package cn.clickwise.clickad.feathouse;
 
 import java.io.File;
 import java.util.Properties;
-
 import cn.clickwise.lib.file.PropertiesUtil;
 
 
@@ -39,7 +38,6 @@ public class EasyConfigureFactory extends ConfigureFactory{
 		
 		return myconf;
 	}
-
 
 
 	@Override
@@ -149,9 +147,7 @@ public class EasyConfigureFactory extends ConfigureFactory{
 	}
 
 	@Override
-	public Handler[] getHandler() {
-
-             
+	public Handler[] getHandler() {             
         Handler[] chs=new Handler[2];
         
         chs[0]=new EasyQueryHandler();
