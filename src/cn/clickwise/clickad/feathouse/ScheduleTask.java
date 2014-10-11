@@ -81,4 +81,11 @@ public class ScheduleTask {
 		this.confFactory = confFactory;
 	}
 
+	public static void main(String[] args)
+	{
+		ScheduleTask st=new ScheduleTask();
+		st.init();
+		st.dmpInquiries();
+	}
+	
 }
