@@ -23,7 +23,7 @@ public class ScheduleTask {
 	private Connection con;
 
 	public void init() {
-		
+                System.out.println("start init");		
 		day=TimeOpera.getYesterday();
 		confFactory = ConfigureFactoryInstantiate.getConfigureFactory();
 		
@@ -38,10 +38,11 @@ public class ScheduleTask {
 		rdi=new RpcDmpInquiry();
 		rdi.setDay(day);
 		rdi.init();
+                System.out.println("after init");
 	}
 
 	public void dmpInquiries() {
-		
+		System.out.println("begin dmpInquiries");
 		Dmp[] dmps = confFactory.getDmps();
 
 		for (int i = 0; i < dmps.length; i++) {
