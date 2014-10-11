@@ -5,7 +5,7 @@ COMMAND=$1
 shift
 
 JAVA=$JAVA_HOME/bin/java
-CLASSPATH=${CLASSPATH}out/user_click.jar
+CLASSPATH=${CLASSPATH}out/feathouse.jar
 
 if [ "$COMMAND" = "seg" ] ; then
   CLASS='cn.clickwise.clickad.seg.Segmenter'
