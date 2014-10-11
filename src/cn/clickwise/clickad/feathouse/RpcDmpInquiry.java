@@ -91,10 +91,13 @@ public class RpcDmpInquiry extends DmpInquiry {
             	}
             	uv++;
             	Record rec=confFactory.string2Record(line);
+            	
             	if(rec==null)
             	{
             		continue;
             	}
+            	
+            	System.out.println(rec.toString());
             	
             	dataStore.write2db(rec);
             }
