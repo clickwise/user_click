@@ -69,7 +69,7 @@ public class RpcDmpInquiry extends DmpInquiry {
 	}
 
 	@Override
-	public State writeRecFile2DataStore(File recordFile, Connection con,Dmp dmp) {
+	public State writeRecFile2DataStore(File recordFile, Connection con,Dmp dmp,int day) {
 
 		State state = new State();
 
@@ -97,9 +97,8 @@ public class RpcDmpInquiry extends DmpInquiry {
             		continue;
             	}
             	
-            	System.out.println(rec.toString());
-            	
-            	dataStore.write2db(rec);
+            	System.out.println(rec.toString());          	
+            	dataStore.write2db(rec,day);
             }
             
             fis.close();
@@ -215,7 +214,7 @@ public class RpcDmpInquiry extends DmpInquiry {
 		con.setKeySpace(cassConf.getKeySpace());
 		con.setColumnName(cassConf.getColumnName());
 			
-		rdi.writeRecFile2DataStore(new File("temp/"+recordFile), con,dmp);
+		rdi.writeRecFile2DataStore(new File("temp/"+recordFile), con,dmp,day);
 		
 	}
 

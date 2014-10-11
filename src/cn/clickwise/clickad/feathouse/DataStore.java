@@ -13,7 +13,7 @@ public abstract class DataStore {
      */
 	public abstract State connect(Connection con);
 	
-	public abstract State write2db(Record rec);
+	public abstract State write2db(Record rec,int day);
 	
 	public abstract State deleteExpired(TimeRange time);
 	

@@ -69,7 +69,7 @@ public class ScheduleTask {
 			hftc.execute(hftcmd);
 
 			rdi.writeRecFile2DataStore(new File(confFactory.getRecordFileDirectory() + recordFile), con,
-					dmps[i]);
+					dmps[i],day);
 			
 		}
 	}

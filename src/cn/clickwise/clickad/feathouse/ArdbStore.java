@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import cn.clickwise.lib.code.MD5Code;
 import cn.clickwise.lib.string.SSO;
+import cn.clickwise.lib.time.TimeOpera;
 import redis.clients.jedis.Jedis;
 
 public class ArdbStore extends DataStore{
@@ -37,7 +38,7 @@ public class ArdbStore extends DataStore{
 	}
 
 	@Override
-	public State write2db(Record rec) {
+	public State write2db(Record rec,int day) {
 		State state=new State();	
 		long score=(long)((System.currentTimeMillis()/1000)+(Math.random()*100));
 		logger.info("adding to ardb:key="+rec.getKey()+",value="+rec.getValue()+",score="+score);
@@ -103,7 +104,7 @@ public static void main(String[] args) {
 				}
 				Record rec = new Record(md5key, tokens[1]);
 				try{
-				 as.write2db(rec);
+				 as.write2db(rec,TimeOpera.getYesterday());
 				}
 				catch(Exception e)
 				{
