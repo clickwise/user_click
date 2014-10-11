@@ -63,8 +63,7 @@ public class RpcDmpInquiry extends DmpInquiry {
 	public State fetchFromAllDmps(TimeRange timeRange) {
 		// TODO Auto-generated method stub
 
-		
-		
+				
 		return null;
 	}
 
