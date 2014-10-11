@@ -153,7 +153,7 @@ public class RpcDmpInquiry extends DmpInquiry {
 	{
 		int day=20141009;
 		RpcDmpInquiry rdi=new RpcDmpInquiry();
-		rdi.setDay(20141009);
+		rdi.setDay(day);
 		rdi.init();
 		
 		Dmp dmp=new Dmp();
