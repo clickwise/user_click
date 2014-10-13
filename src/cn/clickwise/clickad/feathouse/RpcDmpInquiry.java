@@ -125,7 +125,7 @@ public class RpcDmpInquiry extends DmpInquiry {
             		continue;
             	}
             	
-            	System.out.println(rec.toString());          	
+            	//System.out.println(rec.toString());          	
             	dataStore.write2db(rec,day);
             }
             
