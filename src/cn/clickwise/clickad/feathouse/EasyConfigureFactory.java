@@ -204,4 +204,12 @@ public class EasyConfigureFactory extends ConfigureFactory{
 		return 1;
 	}
 
+	@Override
+	public String getDmpRecordFile(int day,Dmp dmp) {
+		
+		return getRecordFilePrefix() + day+"_"+dmp.getArea().getAreaCode() + ".txt";
+	}
+	
+	
+
 }

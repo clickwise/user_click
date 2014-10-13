@@ -60,13 +60,11 @@ public class UrlCode {
 	}
 	
 	
-
-	
 	public static void main(String[] args)
 	{
 		//String code_str="dq.baidu.com|||/nocipher?pid=rtlog&ver=1.0&cdn=wangsu&service=91bcs&type=access&log=220.180.227.146%20-%20bcs.91rb.com%20%5b20%2FApr%2F2014%3A05%3A31%3A41%20%2B0800%5d%201%20%22HEAD%20%2Frbreszy%2Fandroid%2Fsoft%2F2014%2F3%2F30%2Ffe4cbe285d3042d5ac9a4d93959caf27%2Fcom.sina.weibo_1026_4.3.0_635322331845862939.apk%20HTTP/1.1%22%20200%200%20%22-%22%20-%20220.180.227.146%20115.231.148.18%20%22-%22%201397943101.944%201&node=dx_zhejiang";
 		//String code_str="dq.baidu.com|||/nocipher?pid=rtlog&ver=1.0&cdn=wangsu&service=sjzs&type=access&log=180.155.118.57%20-%20dl.sj.91.com%20%5b20%2FApr%2F2014%3A05%3A31%3A33%20%2B0800%5d%203030%20%22GET%20%2Fmsoft%2F91assistant_3.9.6_295_417.apk%3F%20HTTP/1.1%22%20200%205037354%20%22-%22%20-%20-%2060.191.196.209%20%22-%22%201397943093.377%201&node=dx_zhejiang";
-		String code_str="%E6%99%93%E6%9D%BE%E5%A5%87%E8%B0%88%C2%A020140926%C2%A0%E4%B8%80%E6%88%981913%EF%BC%88%E4%B8%8B%EF%BC%89%20%E6%95%A2%E7%88%B1%E6%95%85%E4%BA%8B%E4%B9%8B%E6%96%87%E8%89%BA%E6%97%B6%E4%BB%A3-%E8%A7%86%E9%A2%91%E5%9C%A8%E7%BA%BF%E8%A7%82%E7%9C%8B-%E6%99%93%E6%9D%BE%E5%A5%87%E8%B0%88-%E7%BB%BC%E8%89%BA-%E7%88%B1%E5%A5%87%E8%89%BA";
+		String code_str="2Fs%3Fie%3Dutf-8%26f%3D8%26rsv_bp%3D1%26tn%3Dbaidu%26wd%3Dlol%25E4%25BA%259A%25E7%25B4%25A2%25E8%25A1%25A5%25E5%25B7%25AE%25E4%25BB%25B7%25E7%259A%2584%25E7%25BD%2591%25E5%259D%2580%26rsv_enter%3D1%26rsv_sug3%3D24%26rsv_sug4%3D254%26rsv_sug1%3D19%26rsv_sug2%3D0%26inputT%3D2488%26rsv_sug%3D2%26oq%3Dlol%26rsp%3D0&ltu=http%3A%2F%2Fzhidao.baidu.com%2Flink%3Furl%3DvPaDpcbIcjcgCW5DbvwwLBgTajEgsEFRUaUpTw7_k15Cigjq2yeeYGni2H2gPhfBfhzHgCdHDkRA_KFt-GKGZYKSUkELM8ZYqYcfEvMELO7&lunum=6&n=91010099_4_cpr&pcs=1444x866&pis=10000x10000&ps=511x932&psr=1920x1080&pss=1444x1643&qn=9c4ef1c0fbcb0fc1";
 		String de_str=UrlCode.getDecodeUrl(code_str);
 		System.out.println("de_str:"+de_str);
 		

@@ -23,10 +23,11 @@ public class ScheduleTask {
 	private Connection con;
 
 	public void init() {
-        System.out.println("start init");		
+       	
 		day=TimeOpera.getYesterday();
 		confFactory = ConfigureFactoryInstantiate.getConfigureFactory();
 		
+		//连接用户特征cassandra库
 		CassandraConfigure cassConf = confFactory.getCassandraConfigure();
 		con = new Connection();
 		con.setHost(cassConf.getHost());
@@ -35,14 +36,17 @@ public class ScheduleTask {
 		con.setKeySpace(cassConf.getKeySpace());
 		con.setColumnName(cassConf.getColumnName());
 		
+		//初始化rpcdmpinquery
 		rdi=new RpcDmpInquiry();
 		rdi.setDay(day);
 		rdi.init();
-        System.out.println("after init");
+		
+     
 	}
 
 	public void dmpInquiries() {
-		System.out.println("begin dmpInquiries");
+		
+		/*
 		Dmp[] dmps = confFactory.getDmps();
 
 		for (int i = 0; i < dmps.length; i++) {
@@ -59,7 +63,8 @@ public class ScheduleTask {
 
 			hftcmd.setTableName(dmps[i].getUserFeatureTableName());
 			hftcmd.setKeyFieldName(dmps[i].getUidFieldName());
-			String recordFile = confFactory.getRecordFilePrefix() + day+"_"+dmps[i].getArea().getAreaCode() + ".txt";
+			//String recordFile = confFactory.getRecordFilePrefix() + day+"_"+dmps[i].getArea().getAreaCode() + ".txt";
+			String recordFile=confFactory.getDmpRecordFile(day, dmps[i]);
 			hftcmd.setResultName(recordFile);
 			hftcmd.setResultPath(confFactory.getRecordFileDirectory()+ recordFile);
 			HiveFetchTableClient.initRandomFileName(confFactory.getTmpIdentify(), day, hftcmd);
@@ -72,6 +77,18 @@ public class ScheduleTask {
 					dmps[i],day);
 			
 		}
+		*/
+		
+		//从各dmp取回用户特征数据存入本地文件
+		rdi.fetchFromAllDmps(day);
+			
+		Dmp[] dmps = confFactory.getDmps();
+		for (int i = 0; i < dmps.length; i++) {
+			rdi.writeRecFile2DataStore(new File(confFactory.getRecordFileDirectory() + confFactory.getDmpRecordFile(day, dmps[i])), con,
+					dmps[i],day);//用户特征数据写入cassandra
+		}
+		
+		
 	}
 
 	public ConfigureFactory getConfFactory() {

@@ -26,7 +26,7 @@ public abstract class DmpInquiry {
 	 * @param timeRange
 	 * @return
 	 */
-	public abstract State fetchFromAllDmps(TimeRange timeRange);
+	public abstract State fetchFromAllDmps(int day);
 	
 	
 	/**

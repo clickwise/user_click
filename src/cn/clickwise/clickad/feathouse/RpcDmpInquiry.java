@@ -60,11 +60,40 @@ public class RpcDmpInquiry extends DmpInquiry {
 	}
 
 	@Override
-	public State fetchFromAllDmps(TimeRange timeRange) {
-		// TODO Auto-generated method stub
+	public State fetchFromAllDmps(int day) {
+		State state = new State();
+		
+		Dmp[] dmps = confFactory.getDmps();
+
+		for (int i = 0; i < dmps.length; i++) {
+			
+			HiveFetchTableClient hftc = new HiveFetchTableClient();
+			cn.clickwise.rpc.Connection conrpc = new cn.clickwise.rpc.Connection();
+			conrpc.setHost(dmps[i].getHost());
+			conrpc.setPort(dmps[i].getRpcPort());
+			conrpc.setMethod(dmps[i].getDmpInquiryMethod());
+
+			HiveFetchTableCommand hftcmd = new HiveFetchTableCommand();
+			hftcmd.setDay(day);
+			hftcmd.setTmpIdentify(confFactory.getTmpIdentify());
+
+			hftcmd.setTableName(dmps[i].getUserFeatureTableName());
+			hftcmd.setKeyFieldName(dmps[i].getUidFieldName());
+			//String recordFile = confFactory.getRecordFilePrefix() + day+"_"+dmps[i].getArea().getAreaCode() + ".txt";
+			String recordFile=confFactory.getDmpRecordFile(day, dmps[i]);
+			hftcmd.setResultName(recordFile);
+			hftcmd.setResultPath(confFactory.getRecordFileDirectory()+ recordFile);
+			HiveFetchTableClient.initRandomFileName(confFactory.getTmpIdentify(), day, hftcmd);
+			hftcmd.setQueryType(confFactory.getQueryType());
+
+			hftc.connect(conrpc);
+			hftc.execute(hftcmd);
+			
+		}
 
 				
-		return null;
+	    state.setStatValue(StateValue.Normal);
+		return state;
 	}
 
 	@Override
