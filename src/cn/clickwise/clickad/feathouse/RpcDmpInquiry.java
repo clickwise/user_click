@@ -87,8 +87,7 @@ public class RpcDmpInquiry extends DmpInquiry {
 			hftcmd.setQueryType(confFactory.getQueryType());
 
 			hftc.connect(conrpc);
-			hftc.execute(hftcmd);
-			
+			hftc.execute(hftcmd);		
 		}
 
 				
@@ -138,6 +137,7 @@ public class RpcDmpInquiry extends DmpInquiry {
 			e.printStackTrace();
 		}
 		
+		//****将此次更新的数据统计写入mysql*******
 		InquiryReceipt receipt=new InquiryReceipt();
 		receipt.setDay(TimeOpera.getToday());
 		receipt.setDmp(dmp);
@@ -145,7 +145,7 @@ public class RpcDmpInquiry extends DmpInquiry {
 		receipt.setPv(uv);
 		receipt.setReceiptId(System.currentTimeMillis()+"");	
 		resetStatistics(receipt);
-			
+				
         state.setStatValue(StateValue.Normal);
 		return state;
 	}
