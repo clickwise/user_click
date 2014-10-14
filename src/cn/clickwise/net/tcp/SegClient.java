@@ -21,10 +21,14 @@ public class SegClient implements Runnable{
 		try {
 			Socket sock =new Socket(server_addr,server_port);
 			InputStream in = sock.getInputStream();
+			
 			OutputStream out = sock.getOutputStream();
+			char[] heartbeat={'0','0'};
+			
 			InputStreamReader isr = new InputStreamReader(in);
 			BufferedReader br = new BufferedReader(isr);
 			OutputStreamWriter osw = new OutputStreamWriter(out);
+			
 			PrintWriter pw = new PrintWriter(osw);
             String line="";
             String seg_text="";
@@ -56,6 +60,9 @@ public class SegClient implements Runnable{
 	   SegClient sc=new SegClient();
 	   sc.server_addr=args[0];
 	   sc.server_port=Integer.parseInt(args[1]);
+	   
+	   
+	   
 	   	
 	}
 	

@@ -89,8 +89,7 @@ public class RpcDmpInquiry extends DmpInquiry {
 			hftc.connect(conrpc);
 			hftc.execute(hftcmd);		
 		}
-
-				
+			
 	    state.setStatValue(StateValue.Normal);
 		return state;
 	}
