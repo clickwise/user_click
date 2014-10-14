@@ -139,7 +139,7 @@ public class RpcDmpInquiry extends DmpInquiry {
 		
 		//****将此次更新的数据统计写入mysql*******
 		InquiryReceipt receipt=new InquiryReceipt();
-		receipt.setDay(TimeOpera.getToday());
+		receipt.setDay(day);
 		receipt.setDmp(dmp);
 		receipt.setUv(uv);
 		receipt.setPv(uv);
