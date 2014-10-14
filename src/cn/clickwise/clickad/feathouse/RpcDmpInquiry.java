@@ -60,16 +60,42 @@ public class RpcDmpInquiry extends DmpInquiry {
 	}
 
 	@Override
-	public State fetchFromAllDmps(TimeRange timeRange) {
-		// TODO Auto-generated method stub
+	public State fetchFromAllDmps(int day) {
+		State state = new State();
+		
+		Dmp[] dmps = confFactory.getDmps();
 
-		
-		
-		return null;
+		for (int i = 0; i < dmps.length; i++) {
+			
+			HiveFetchTableClient hftc = new HiveFetchTableClient();
+			cn.clickwise.rpc.Connection conrpc = new cn.clickwise.rpc.Connection();
+			conrpc.setHost(dmps[i].getHost());
+			conrpc.setPort(dmps[i].getRpcPort());
+			conrpc.setMethod(dmps[i].getDmpInquiryMethod());
+
+			HiveFetchTableCommand hftcmd = new HiveFetchTableCommand();
+			hftcmd.setDay(day);
+			hftcmd.setTmpIdentify(confFactory.getTmpIdentify());
+
+			hftcmd.setTableName(dmps[i].getUserFeatureTableName());
+			hftcmd.setKeyFieldName(dmps[i].getUidFieldName());
+			//String recordFile = confFactory.getRecordFilePrefix() + day+"_"+dmps[i].getArea().getAreaCode() + ".txt";
+			String recordFile=confFactory.getDmpRecordFile(day, dmps[i]);
+			hftcmd.setResultName(recordFile);
+			hftcmd.setResultPath(confFactory.getRecordFileDirectory()+ recordFile);
+			HiveFetchTableClient.initRandomFileName(confFactory.getTmpIdentify(), day, hftcmd);
+			hftcmd.setQueryType(confFactory.getQueryType());
+
+			hftc.connect(conrpc);
+			hftc.execute(hftcmd);		
+		}
+			
+	    state.setStatValue(StateValue.Normal);
+		return state;
 	}
 
 	@Override
-	public State writeRecFile2DataStore(File recordFile, Connection con,Dmp dmp) {
+	public State writeRecFile2DataStore(File recordFile, Connection con,Dmp dmp,int day) {
 
 		State state = new State();
 
@@ -91,12 +117,14 @@ public class RpcDmpInquiry extends DmpInquiry {
             	}
             	uv++;
             	Record rec=confFactory.string2Record(line);
+            	
             	if(rec==null)
             	{
             		continue;
             	}
             	
-            	dataStore.write2db(rec);
+            	//System.out.println(rec.toString());          	
+            	dataStore.write2db(rec,day);
             }
             
             fis.close();
@@ -108,14 +136,15 @@ public class RpcDmpInquiry extends DmpInquiry {
 			e.printStackTrace();
 		}
 		
+		//****将此次更新的数据统计写入mysql*******
 		InquiryReceipt receipt=new InquiryReceipt();
-		receipt.setDay(TimeOpera.getToday());
+		receipt.setDay(day);
 		receipt.setDmp(dmp);
 		receipt.setUv(uv);
 		receipt.setPv(uv);
 		receipt.setReceiptId(System.currentTimeMillis()+"");	
 		resetStatistics(receipt);
-			
+				
         state.setStatValue(StateValue.Normal);
 		return state;
 	}
@@ -151,9 +180,9 @@ public class RpcDmpInquiry extends DmpInquiry {
 	
 	public static void main(String[] args)
 	{
-		int day=20140926;
+		int day=20141009;
 		RpcDmpInquiry rdi=new RpcDmpInquiry();
-		rdi.setDay(20140926);
+		rdi.setDay(day);
 		rdi.init();
 		
 		Dmp dmp=new Dmp();
@@ -212,7 +241,7 @@ public class RpcDmpInquiry extends DmpInquiry {
 		con.setKeySpace(cassConf.getKeySpace());
 		con.setColumnName(cassConf.getColumnName());
 			
-		rdi.writeRecFile2DataStore(new File("temp/"+recordFile), con,dmp);
+		rdi.writeRecFile2DataStore(new File("temp/"+recordFile), con,dmp,day);
 		
 	}
 

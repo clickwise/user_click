@@ -73,4 +73,6 @@ public abstract class ConfigureFactory {
     public abstract String getRecordFileDirectory();
 	
     public abstract int getQueryType();
+    
+    public abstract String getDmpRecordFile(int day,Dmp dmp);
 }

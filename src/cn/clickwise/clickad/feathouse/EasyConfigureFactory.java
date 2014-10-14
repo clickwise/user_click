@@ -2,7 +2,6 @@ package cn.clickwise.clickad.feathouse;
 
 import java.io.File;
 import java.util.Properties;
-
 import cn.clickwise.lib.file.PropertiesUtil;
 
 
@@ -41,13 +40,23 @@ public class EasyConfigureFactory extends ConfigureFactory{
 	}
 
 
-
 	@Override
 	public Dmp[] getDmps() {
 		// TODO Auto-generated method stub
 		
+		Dmp[] dmps=new Dmp[1];
+		dmps[0]=new Dmp();
+		dmps[0].setName("海南DX");
+		dmps[0].setArea(new Area("海南DX","009"));
+		dmps[0].setHost("112.67.253.101");
+		dmps[0].setUserFeatureTableName("auser_cates_keys");
+		dmps[0].setUidFieldName("uid");
+		dmps[0].setTmpIdentify("remote_cookie");
+	    dmps[0].setRpcPort(2733);
+	    dmps[0].setDmpInquiryMethod("/hiveFetchTable");
 		
-		return null;
+		
+		return dmps;
 	}
 
 	@Override
@@ -149,9 +158,7 @@ public class EasyConfigureFactory extends ConfigureFactory{
 	}
 
 	@Override
-	public Handler[] getHandler() {
-
-             
+	public Handler[] getHandler() {             
         Handler[] chs=new Handler[2];
         
         chs[0]=new EasyQueryHandler();
@@ -196,5 +203,13 @@ public class EasyConfigureFactory extends ConfigureFactory{
 		// TODO Auto-generated method stub
 		return 1;
 	}
+
+	@Override
+	public String getDmpRecordFile(int day,Dmp dmp) {
+		
+		return getRecordFilePrefix() + day+"_"+dmp.getArea().getAreaCode() + ".txt";
+	}
+	
+	
 
 }

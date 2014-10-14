@@ -61,15 +61,15 @@ public class CassandraStore extends DataStore {
 	}
 
 	@Override
-	public State write2db(Record rec) {
+	public State write2db(Record rec,int day) {
 		// TODO Auto-generated method stub
 
 		// Clock clock=new Clock(System.currentTimeMillis());
 		ByteBuffer sendBuffer = null;
 		try {
 			sendBuffer = ByteBuffer.wrap(rec.getKey().getBytes(UTF8));
-	        String columnName = KeyOpera.getTimeColunm();
-	       
+	        //////String columnName = KeyOpera.getTimeColunm();
+			String columnName = day+"";
 	        //ColumnPath colPathName=null;
 			//colPathName=new ColumnPath(columnName);			
 			Column column = new Column();
@@ -155,7 +155,7 @@ public class CassandraStore extends DataStore {
 				}
 				Record rec = new Record(md5key, tokens[1]);
 				logger.info("adding to cassandra:key="+md5key+",value="+tokens[1]);
-				cs.write2db(rec);
+				cs.write2db(rec,TimeOpera.getYesterday());
 				count++;
 				// pw.println(seg.segAnsi(line));
 			}

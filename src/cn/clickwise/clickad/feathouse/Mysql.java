@@ -70,8 +70,8 @@ public class Mysql {
 
 		State state = new State();
 		String sql = "insert into  " + table.getName()
-				+ "(area_code,area,date,pv,uv) values("
-				+ receipt.getDmp().getArea().getAreaCode() + ",'"
+				+ "(area_code,area,date,pv,uv) values('"
+				+ receipt.getDmp().getArea().getAreaCode() + "','"
 				+ receipt.getDmp().getArea().getName() + "',"
 				+ receipt.getDay() + "," + receipt.getPv() + ","
 				+ receipt.getUv() + ");";
