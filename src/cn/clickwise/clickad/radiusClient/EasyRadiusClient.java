@@ -7,7 +7,8 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 
-import cn.clickwise.liqi.time.utils.TimeOpera;
+import cn.clickwise.lib.time.TimeOpera;
+
 
 public class EasyRadiusClient extends RadiusClient {
 
