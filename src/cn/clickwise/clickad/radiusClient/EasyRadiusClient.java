@@ -58,6 +58,8 @@ public class EasyRadiusClient extends RadiusClient {
 		try {
 			sockIn.read(head);
             ph.setHead(head);
+			ph.parseBytes2Info();
+			
 			
 			
 			

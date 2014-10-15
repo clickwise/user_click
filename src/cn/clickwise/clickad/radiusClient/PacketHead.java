@@ -29,6 +29,45 @@ public class PacketHead {
 	 */
 	public void parseBytes2Info()
 	{
+		byte[] dbyte=new byte[2];
+		byte[] fbyte=new byte[4];
+		
+		int pos=0;
+		
+		//packet body length
+		for(int i=0;i<4;i++)
+		{
+			fbyte[i]=head[pos++];
+		}	
+		setPacketBodyLength(Integer.valueOf(new String(fbyte)));
+		
+		//source ip
+		for(int i=0;i<4;i++)
+		{
+			fbyte[i]=head[pos++];
+		}
+		setSourceIp(new String(fbyte));
+		
+		//dest ip
+		for(int i=0;i<4;i++)
+		{
+			fbyte[i]=head[pos++];
+		}
+		setDestIp(new String(fbyte));
+		
+		//source port
+		for(int i=0;i<2;i++)
+		{
+			dbyte[i]=head[pos++];
+		}
+		setSourcePort(Integer.valueOf(new String(dbyte)));
+		
+		//dest port
+		for(int i=0;i<2;i++)
+		{
+			dbyte[i]=head[pos++];
+		}
+		setDestPort(Integer.valueOf(new String(dbyte)));
 		
 	}
 	
