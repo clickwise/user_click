@@ -10,7 +10,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import cn.clickwise.clickad.client.AuxiliaryClient;
 import cn.clickwise.lib.string.SSO;
 import cn.clickwise.rpc.FileCopyToCommand;
 
