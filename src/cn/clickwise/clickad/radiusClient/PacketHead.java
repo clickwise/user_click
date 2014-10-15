@@ -39,7 +39,7 @@ public class PacketHead {
 		{
 			fbyte[i]=head[pos++];
 		}	
-		setPacketBodyLength(Integer.valueOf(new String(fbyte)));
+		setPacketBodyLength(byteToInt2(fbyte));
 		
 		//source ip
 		for(int i=0;i<4;i++)
@@ -60,17 +60,29 @@ public class PacketHead {
 		{
 			dbyte[i]=head[pos++];
 		}
-		setSourcePort(Integer.valueOf(new String(dbyte)));
+		setSourcePort(byteToInt2(dbyte));
 		
 		//dest port
 		for(int i=0;i<2;i++)
 		{
 			dbyte[i]=head[pos++];
 		}
-		setDestPort(Integer.valueOf(new String(dbyte)));
+		setDestPort(byteToInt2(dbyte));
 		
 	}
-	
+    public static int byteToInt2(byte[] b) {  
+        
+        int mask=0xff;  
+        int temp=0;  
+        int n=0;  
+        for(int i=0;i<4;i++){  
+           n<<=8;  
+           temp=b[i]&mask;  
+           n|=temp;  
+       }  
+      return n;  
+   }  
+    
 	public byte[] getHead() {
 		return head;
 	}
