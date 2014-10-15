@@ -34,8 +34,11 @@ public class EasyQueryHandler extends Handler {
 		System.out.println("uri:" + uri);
 		logger.info("uri:" + uri);
 		//String uid = SSO.afterStr(uri.toString(), "uid=");
-		String uid = SSO.midstrs(uri.toString(), "uid=", "&ip=");
-		query(uid,exchange);
+		String uid = SSO.midstrs(uri.toString(), "uid=", "&area=");
+		String area=SSO.midstrs(uri.toString(), "area=", "&ip=");
+		String ip=SSO.afterStr(uri.toString(), "ip=");
+		Key key=new Key(uid,ip);
+		query(key,exchange);
 	}
 
 	@Override
@@ -43,10 +46,10 @@ public class EasyQueryHandler extends Handler {
 		this.cq = cq;
 	}
 
-	public void query(String uid,HttpExchange exchange)
+	public void query(Key key,HttpExchange exchange)
 	{
 		
-		Key key=new Key(uid);
+		//Key key=new Key(uid);
 		List<Record> result = cq.queryUid(key);
 		try{
 		
