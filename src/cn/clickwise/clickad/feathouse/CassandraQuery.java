@@ -172,7 +172,7 @@ public class CassandraQuery extends DataQuery {
 	@Override
 	State logQuery(Key key) {
 		State state=new State();
-		querySupervisor.println(key.key);
+		querySupervisor.println(key.key+"\001"+key.area+"\001"+key.ip);
 		return state;
 	}
 
