@@ -23,7 +23,9 @@ then
  rm cassandra_lib/mytool.jar
  cp out/mytool.jar cassandra_lib
  rm rpc_lib/mytool.jar
+ rm radius_lib/mytool.jar
  cp out/mytool.jar rpc_lib
+ cp out/mytool.jar radius_lib
 else
  OPT=2
 fi
@@ -54,3 +56,15 @@ else
  OPT=3
 fi
 
+
+if [ $1 = "radius" ]
+then
+ rm -rf radius_src/cn
+ cd src
+ cp -r --parents cn/clickwise/clickad/radiusClient ../radius_src
+ cd ..
+ echo "build radius";
+ $ANT_BUILD -buildfile build_radius.xml
+else
+ OPT=3
+fi
