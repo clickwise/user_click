@@ -164,7 +164,7 @@ public class CassandraQuery extends DataQuery {
 		
 		State state=new State();
 	    supervisor.println(key.key);
-	    supervisor.flush();
+	    //supervisor.flush();
 		state.setStatValue(StateValue.Normal);
 		
 		return state;
@@ -174,7 +174,7 @@ public class CassandraQuery extends DataQuery {
 	State logQuery(Key key) {
 		State state=new State();
 		querySupervisor.println(key.key+"\001"+key.area+"\001"+key.ip);
-                supervisor.flush();
+              //  supervisor.flush();
 		return state;
 	}
 

@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import cn.clickwise.lib.string.SSO;
+import cn.clickwise.lib.time.TimeOpera;
 import cn.clickwise.rpc.FileCopyToCommand;
 
 import com.sun.net.httpserver.Headers;
@@ -32,12 +33,13 @@ public class EasyQueryHandler extends Handler {
 		// TODO Auto-generated method stub
 		URI uri = exchange.getRequestURI();
 		System.out.println("uri:" + uri);
-		logger.info("uri:" + uri);
+		logger.info(TimeOpera.getToday()+" uri:" + uri);
 		//String uid = SSO.afterStr(uri.toString(), "uid=");
 		String uid = SSO.midstrs(uri.toString(), "uid=", "&area=");
 		String area=SSO.midstrs(uri.toString(), "area=", "&ip=");
 		String ip=SSO.afterStr(uri.toString(), "ip=");
-		Key key=new Key(uid,ip);
+		logger.info(TimeOpera.getToday()+" uid=" + uid+" ip="+ip+" area="+area);
+		Key key=new Key(uid,ip,area);
 		query(key,exchange);
 	}
 
