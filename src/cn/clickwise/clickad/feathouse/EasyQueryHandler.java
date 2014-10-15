@@ -7,6 +7,10 @@ import java.net.URI;
 import java.net.URLEncoder;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import cn.clickwise.clickad.client.AuxiliaryClient;
 import cn.clickwise.lib.string.SSO;
 import cn.clickwise.rpc.FileCopyToCommand;
 
@@ -22,13 +26,16 @@ import com.sun.net.httpserver.HttpExchange;
 public class EasyQueryHandler extends Handler {
 
 	private CassandraQuery cq;
+	static Logger logger = LoggerFactory.getLogger(EasyQueryHandler.class);
 
 	@Override
 	public void handle(HttpExchange exchange) throws IOException {
 		// TODO Auto-generated method stub
 		URI uri = exchange.getRequestURI();
 		System.out.println("uri:" + uri);
-		String uid = SSO.afterStr(uri.toString(), "uid=");
+		logger.info("uri:" + uri);
+		//String uid = SSO.afterStr(uri.toString(), "uid=");
+		String uid = SSO.midstrs(uri.toString(), "uid=", "&ip=");
 		query(uid,exchange);
 	}
 
