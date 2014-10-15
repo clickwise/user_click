@@ -11,6 +11,11 @@ public class RadiusCenter {
 	
 	//radius center port
 	private int port;
+	
+	public RadiusCenter(String ip,int port){
+		this.ip=ip;
+		this.port=port;
+	}
 
 	public String getIp() {
 		return ip;

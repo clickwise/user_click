@@ -7,6 +7,8 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 
+import cn.clickwise.liqi.time.utils.TimeOpera;
+
 public class EasyRadiusClient extends RadiusClient {
 
 	private InputStream sockIn;
@@ -94,6 +96,34 @@ public class EasyRadiusClient extends RadiusClient {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void start(RadiusCenter rc) {
+		
+		connect(rc);
+		long startTime=TimeOpera.getCurrentTimeLong();
+		while(true){
+			if(TimeOpera.getCurrentTimeLong()-startTime>4000)
+			{
+				startTime=TimeOpera.getCurrentTimeLong();
+				sendHeartbeat();
+			}
+			
+			RadiusPacket rp=new RadiusPacket();
+			rp=readPacket();
+			writePacket(rp);		
+		}
+		
+	}
+	
+
+	
+	public static void main(String[] args)
+	{
+		RadiusCenter rc=new RadiusCenter("221.231.154.17",9002);
+		EasyRadiusClient erc=new EasyRadiusClient();
+		erc.start(rc);
 	}
 
 }

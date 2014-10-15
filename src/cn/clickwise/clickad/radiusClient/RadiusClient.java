@@ -36,6 +36,6 @@ public abstract class RadiusClient {
 	
 	public abstract void writePacket(RadiusPacket rp);
 	
-	
+	public abstract void start(RadiusCenter rc);
 
 }
