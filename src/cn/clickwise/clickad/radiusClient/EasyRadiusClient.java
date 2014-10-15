@@ -93,6 +93,7 @@ public class EasyRadiusClient extends RadiusClient {
 	public void writePacket(RadiusPacket rp) {
 
 		try {
+			fos.write(rp.getPackHead().getHead());
 			fos.write(rp.getPackBody().getBody());
 		} catch (IOException e) {
 			e.printStackTrace();
