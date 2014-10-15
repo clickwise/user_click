@@ -119,10 +119,10 @@ public class CassandraQuery extends DataQuery {
 				System.out.println("key:"+key+" value:"+(new String(
 						column.getValue(), UTF8)).toString());
 			}
-           
-			//记录日志和统计
-			resetStatistics(key);
+			
 			logQuery(key);
+			//记录日志和统计
+			resetStatistics(key);	
 			if(results.size()==0)
 			{
 			  logUnknownUid(key);	
