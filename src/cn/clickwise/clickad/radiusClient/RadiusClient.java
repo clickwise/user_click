@@ -34,7 +34,7 @@ public abstract class RadiusClient {
 		this.sock = sock;
 	}
 	
-	
+	public abstract void writePacket(RadiusPacket rp);
 	
 	
 

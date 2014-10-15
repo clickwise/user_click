@@ -1,5 +1,6 @@
 package cn.clickwise.clickad.radiusClient;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -12,18 +13,27 @@ public class EasyRadiusClient extends RadiusClient {
 
 	private OutputStreamWriter sockOut;
 
+	private FileOutputStream fos;
+	
+	private ConfigureFactory confFactory;
+	
+	
 	@Override
 	public State connect(RadiusCenter rc) {
 
 		State state = new State();
 
+		confFactory=ConfigureFactoryInstantiate.getConfigureFactory();
+		
 		try {
 			sock = new Socket(rc.getIp(), rc.getPort());
 			sockIn = sock.getInputStream();
 
 			OutputStream outputStream = sock.getOutputStream();
+			
 			sockOut = new OutputStreamWriter(outputStream);
-
+            fos=new FileOutputStream(confFactory.getPcapDirectory()+confFactory.getPcapFile());
+			
 			state.setStatValue(StateValue.Normal);
 		} catch (Exception e) {
 			state.setStatValue(StateValue.Error);
@@ -45,9 +55,6 @@ public class EasyRadiusClient extends RadiusClient {
 			state.setStatValue(StateValue.Error);
 		}
 
-		
-		
-		
 		return state;
 	}
 
@@ -56,22 +63,37 @@ public class EasyRadiusClient extends RadiusClient {
 		// TODO Auto-generated method stub
 		byte[] head = new byte[16];
 		
+		RadiusPacket rp=new RadiusPacket();		
 		PacketHead ph=new PacketHead();
-
+		PacketBody pb=new PacketBody();
+		
 		try {
 			sockIn.read(head);
             ph.setHead(head);
 			ph.parseBytes2Info();
+			rp.setPackHead(ph);
 			
-			
-			
-			
+			byte[] body=new byte[ph.getPacketBodyLength()];
+			sockIn.read(body);
+			pb.setBody(body);
+			//fos.write(body);
+			rp.setPackBody(pb);
 			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		return null;
+		return rp;
+	}
+
+	@Override
+	public void writePacket(RadiusPacket rp) {
+
+		try {
+			fos.write(rp.getPackBody().getBody());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

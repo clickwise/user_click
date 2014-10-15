@@ -1,7 +1,25 @@
 package cn.clickwise.clickad.radiusClient;
 
-public interface PacketBody {
+public class PacketBody {
 
+	private byte[] body;
 	
+	public PacketBody()
+	{
+		
+	}
+	
+	public PacketBody(byte[] body)
+	{
+		this.setBody(body);
+	}
+
+	public byte[] getBody() {
+		return body;
+	}
+
+	public void setBody(byte[] body) {
+		this.body = body;
+	}
 	
 }
