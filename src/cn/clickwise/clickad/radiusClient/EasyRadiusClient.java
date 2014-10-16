@@ -95,12 +95,8 @@ public class EasyRadiusClient extends RadiusClient {
 	public void parsePacketBody(RadiusPacket rp)
 	{
 	     int j=0;
-	     ////remove
-	     byte[] obuffer=new byte[1];
-	     byte[] dbuffer=new byte[2];
-	     byte[] stbuffer=new byte[16];
-	     byte[] sixbuffer=new byte[6];
-	     
+
+    
 	     byte[] body=rp.getPackBody().getBody();
 	     
 	     int k=0;
