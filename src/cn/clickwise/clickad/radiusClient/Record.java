@@ -81,7 +81,6 @@ public class Record {
 			+" packetIdentifier:"+packetIdentifier
 			+" length:"+length
 			+" userName:"+userName.trim()
-			//+" authenticator:"+authenticator
 			+" framedIpAddress:"+framedIpAddress
 			+" acctStatusType:"+acctStatusType;
 			
