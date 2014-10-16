@@ -98,7 +98,8 @@ public class Recordn {
 			+" length:"+BytesTransform.bytes2str(length)
 			+" authenticator:"+BytesTransform.bytes2str(authenticator)
 			+" acctStatusType:"+BytesTransform.bytes2str(acctStatusType)
-			+" userName:"+BytesTransform.bytes2str(userName);
+			+" userName:"+BytesTransform.bytes2str(userName)
+		    +" framedIpAddress:"+BytesTransform.bytes2str(framedIpAddress);
 		
 		return str;
 	}
