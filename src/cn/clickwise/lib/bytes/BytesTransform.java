@@ -5,7 +5,8 @@ import java.io.DataInputStream;
 
 //byte 数组转换成各种类型的数据
 public class BytesTransform {
-
+    
+	//不足4位的应该从低字节开始置0
 	public static int byteToInt2(byte[] b) {
         /*
 		int mask = 0xff;
