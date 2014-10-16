@@ -21,6 +21,8 @@ public class EasyRadiusClient extends RadiusClient {
 	
 	private ConfigureFactory confFactory;
 	
+	private RadiusCenter rc;
+	
 	
 	@Override
 	public State connect(RadiusCenter rc) {
@@ -86,6 +88,7 @@ public class EasyRadiusClient extends RadiusClient {
 				  {
 					  e.printStackTrace();
 				  }
+				  start(rc);
 			  }
 			}
 			System.out.println("read bytes hn:"+hn);
@@ -226,7 +229,16 @@ public class EasyRadiusClient extends RadiusClient {
 	{
 		RadiusCenter rc=new RadiusCenter("221.231.154.17",9002);
 		EasyRadiusClient erc=new EasyRadiusClient();
+		erc.setRc(rc);
 		erc.start(rc);
+	}
+
+	public RadiusCenter getRc() {
+		return rc;
+	}
+
+	public void setRc(RadiusCenter rc) {
+		this.rc = rc;
 	}
 
 }
