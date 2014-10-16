@@ -80,8 +80,8 @@ public class Record {
 		str+=" code:"+code
 			+" packetIdentifier:"+packetIdentifier
 			+" length:"+length
-			+" userName:"+userName
-			+" authenticator:"+authenticator
+			+" userName:"+userName.trim()
+			//+" authenticator:"+authenticator
 			+" framedIpAddress:"+framedIpAddress
 			+" acctStatusType:"+acctStatusType;
 			
