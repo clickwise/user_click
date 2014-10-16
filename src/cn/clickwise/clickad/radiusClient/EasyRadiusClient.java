@@ -136,14 +136,7 @@ public class EasyRadiusClient extends RadiusClient {
 	    	 }
 	    	 rec.setAuthenticator(authenticatorBuffer);
 	    	 
-	    	 //acctStatusType
-	    	 byte[] acctStatusTypeBuffer=new byte[6];
-	    	 for(k=0;k<6;k++)
-	    	 {
-	    		 acctStatusTypeBuffer[k]=body[j++];
-	    	 }
-	    	 rec.setAcctStatusType(acctStatusTypeBuffer);
-	    
+	    	 //user name
 	    	 unl=BytesTransform.byteToInt2(rec.getLength())-32;
 	    	 System.out.println("unl:"+unl);
 	    	 byte[] userBuffer=new byte[ unl];
@@ -153,6 +146,9 @@ public class EasyRadiusClient extends RadiusClient {
 	    	 }
 	    	 rec.setUserName(userBuffer);
 	    	 
+
+	    
+	    	 //framedIpAddress
 	    	 byte[] framedIpAddressbuffer=new byte[6];
 	    	 for(k=0;k<6;k++)
 	    	 {
@@ -160,6 +156,13 @@ public class EasyRadiusClient extends RadiusClient {
 	    	 }
 	    	 rec.setFramedIpAddress(framedIpAddressbuffer);
 	    	 
+	    	 //acctStatusType
+	    	 byte[] acctStatusTypeBuffer=new byte[6];
+	    	 for(k=0;k<6;k++)
+	    	 {
+	    		 acctStatusTypeBuffer[k]=body[j++];
+	    	 }
+	    	 rec.setAcctStatusType(acctStatusTypeBuffer);
 	    	 
 	    	 System.out.println(rec.toString());
 	    	 
