@@ -10,6 +10,11 @@ import java.net.Socket;
 import cn.clickwise.lib.bytes.BytesTransform;
 import cn.clickwise.lib.time.TimeOpera;
 
+/**
+ * 读取tcp输入流的前n个字节，并将每个字节转换成两位十六进制
+ * @author zkyz
+ *
+ */
 public class ReadHeadTcp {
 	
 	private InputStream sockIn;

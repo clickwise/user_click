@@ -21,6 +21,12 @@ public class EasyConfigureFactory extends ConfigureFactory{
 		return "radius";
 	}
 
+	@Override
+	public long getResetConnectionSuspend() {
+		// TODO Auto-generated method stub
+		return 10000;
+	}
+
 	
 	
 	

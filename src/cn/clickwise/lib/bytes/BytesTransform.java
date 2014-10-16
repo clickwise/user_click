@@ -6,18 +6,9 @@ import java.io.DataInputStream;
 //byte 数组转换成各种类型的数据
 public class BytesTransform {
     
-	//不足4位的应该从低字节开始置0
+	
 	public static int byteToInt2(byte[] b) {
-        /*
-		int mask = 0xff;
-		int temp = 0;
-		int n = 0;
-		for (int i = 0; i < b.length; i++) {
-			n <<= 8;
-			temp = b[i] & mask;
-			n |= temp;
-		}
-		*/
+
 		int i=0;
 		try{
 		ByteArrayInputStream bintput = new ByteArrayInputStream(b);
@@ -58,6 +49,29 @@ public class BytesTransform {
 		return str;
 	}
 	
+	/**
+	 * 补全byte数组至四个字节
+	 * 不足4个字节的应该从低字节开始置0
+	 * @param b
+	 * @return
+	 */
+	public static byte[] completeBytes(byte[] b)
+	{
+		byte[] cb=new byte[4];
+		for(int i=0;i<4-b.length;i++)
+		{
+			cb[i]=0;
+		}
+		
+		for(int i=b.length;i<4;i++)
+		{
+			cb[i]=b[i];
+		}
+		
+		return cb;
+	}
+	
+	/*
 	public static int byteArrayToInt(byte[] b, int offset) {
 	       int value= 0;
 	       for (int i = 0; i < 4; i++) {
@@ -66,5 +80,7 @@ public class BytesTransform {
 	       }
 	       return value;
 	 }
+	 */
+	
 
 }

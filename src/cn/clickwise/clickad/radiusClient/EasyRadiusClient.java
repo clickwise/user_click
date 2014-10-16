@@ -74,6 +74,8 @@ public class EasyRadiusClient extends RadiusClient {
 		PacketBody pb=new PacketBody();
 		
 		try {
+			
+			//读取消息头
 			int hn=-1;
 			while(hn<0)
 			{
@@ -82,7 +84,7 @@ public class EasyRadiusClient extends RadiusClient {
 			  {
 				  try{
 				  System.out.println("sleep ten second!");	  
-				  Thread.sleep(10000);
+				  Thread.sleep(confFactory.getResetConnectionSuspend());
 				  }
 				  catch(Exception e)
 				  {
@@ -91,12 +93,18 @@ public class EasyRadiusClient extends RadiusClient {
 				  start(rc);
 			  }
 			}
-			System.out.println("read bytes hn:"+hn);
-			System.out.println(BytesTransform.bytes2str(head));
+			
+			
+			//System.out.println("read bytes hn:"+hn);
+			//System.out.println(BytesTransform.bytes2str(head));
+			
             ph.setHead(head);
 			ph.parseBytes2Info();
 			rp.setPackHead(ph);
-			System.out.println("ph.length:"+ph.getPacketBodyLength());
+			
+			
+			//读取消息体
+			//System.out.println("ph.length:"+ph.getPacketBodyLength());
 			byte[] body=new byte[ph.getPacketBodyLength()-12];
 			int rn=sockIn.read(body);
 			System.out.println("read bytes:"+rn);
@@ -104,7 +112,7 @@ public class EasyRadiusClient extends RadiusClient {
 			pb.setBody(body);
 			//fos.write(body);
 			rp.setPackBody(pb);
-			parsePacketBody(rp);
+			analysisPacketBody(rp);
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -113,12 +121,14 @@ public class EasyRadiusClient extends RadiusClient {
 		return rp;
 	}
 	
-	//处理消息体
+	/**
+	 * 处理消息体
+	 * @param rp
+	 */
 	public void parsePacketBody(RadiusPacket rp)
 	{
 	     int j=0;
 
-    
 	     byte[] body=rp.getPackBody().getBody();
 	     
 	     int k=0;
@@ -169,7 +179,6 @@ public class EasyRadiusClient extends RadiusClient {
 	    	 rec.setUserName(userBuffer);
 	    	 
 
-	    
 	    	 //framedIpAddress
 	    	 byte[] framedIpAddressbuffer=new byte[6];
 	    	 for(k=0;k<6;k++)
@@ -188,12 +197,89 @@ public class EasyRadiusClient extends RadiusClient {
 	    	 
 	    	 System.out.println(rec.toString());
 	    	 
-	     }
-	     
-	     
-	     
+	     }  
 	}
 
+	/**
+	 * 解析消息体，从消息体解析出code、packetIdentifier、length、authenticator、
+	 * user name、framedIpAddress、acctStatusType的普通形式
+	 * @param rp
+	 */
+	public void analysisPacketBody(RadiusPacket rp)
+	{
+	     int j=0;
+
+	     byte[] body=rp.getPackBody().getBody();
+	     
+	     int k=0;
+	     int unl=0;
+	     
+	     while(j<body.length)
+	     {
+	    	 Recordn rec=new Recordn();
+	    	
+	    	 //code
+	    	 byte[] codeBuffer=new byte[1];
+	    	 codeBuffer[0]=body[j++];
+	    	 rec.setCode(codeBuffer);
+	    	 
+	    	 //packetIdentifier
+	    	 byte[] identifierBuffer=new byte[1];
+	    	 identifierBuffer[0]=body[j++];
+	    	 rec.setPacketIdentifier(identifierBuffer);
+	    	 
+	    	 //length
+	    	 byte[] lengthBuffer=new byte[4];
+	    	 lengthBuffer[0]=0;
+	    	 lengthBuffer[1]=0;
+	    	 for(k=0;k<2;k++)
+	    	 {
+	    		 lengthBuffer[k+2]=body[j++];
+	    	 }
+
+	    	 rec.setLength(lengthBuffer);
+	    	 
+	    	 //authenticator
+	    	 byte[] authenticatorBuffer=new byte[16];
+	    	 for(k=0;k<16;k++)
+	    	 {
+	    		 authenticatorBuffer[k]=body[j++];
+	    	 }
+	    	 rec.setAuthenticator(authenticatorBuffer);
+	    	 
+	    	 //user name
+	    	 unl=BytesTransform.byteToInt2(rec.getLength())-32;
+	    	 //unl=BytesTransform.byteToIntv(rec.getLength())-32;
+	    	 System.out.println("unl:"+unl);
+	    	 byte[] userBuffer=new byte[ unl];
+	    	 for(k=0;k<unl;k++)
+	    	 {
+	    		 userBuffer[k]=body[j++];
+	    	 }
+	    	 rec.setUserName(userBuffer);
+	    	 
+
+	    	 //framedIpAddress
+	    	 byte[] framedIpAddressbuffer=new byte[6];
+	    	 for(k=0;k<6;k++)
+	    	 {
+	    		 framedIpAddressbuffer[k]=body[j++];
+	    	 }
+	    	 rec.setFramedIpAddress(framedIpAddressbuffer);
+	    	 
+	    	 //acctStatusType
+	    	 byte[] acctStatusTypeBuffer=new byte[6];
+	    	 for(k=0;k<6;k++)
+	    	 {
+	    		 acctStatusTypeBuffer[k]=body[j++];
+	    	 }
+	    	 rec.setAcctStatusType(acctStatusTypeBuffer);
+	    	 
+	    	 System.out.println(rec.toString());
+	    	 
+	     }  
+	}
+	
 	@Override
 	public void writePacket(RadiusPacket rp) {
 
