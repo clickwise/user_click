@@ -15,7 +15,7 @@ public class Record {
 	
 	private String userName;
 	
-	private byte[] framedIpAddress;
+	private String framedIpAddress;
 
 	public int getCode() {
 		return code;
@@ -66,11 +66,11 @@ public class Record {
 		this.authenticator = authenticator;
 	}
 
-	public byte[] getFramedIpAddress() {
+	public String getFramedIpAddress() {
 		return framedIpAddress;
 	}
 
-	public void setFramedIpAddress(byte[] framedIpAddress) {
+	public void setFramedIpAddress(String framedIpAddress) {
 		this.framedIpAddress = framedIpAddress;
 	}
 	
@@ -80,9 +80,11 @@ public class Record {
 		str+=" code:"+code
 			+" packetIdentifier:"+packetIdentifier
 			+" length:"+length
+			+" userName:"+userName
 			+" authenticator:"+authenticator
-			+" acctStatusType:"+acctStatusType
-			+" userName:"+userName;
+			+" framedIpAddress:"+framedIpAddress
+			+" acctStatusType:"+acctStatusType;
+			
 		
 		return str;
 	}
