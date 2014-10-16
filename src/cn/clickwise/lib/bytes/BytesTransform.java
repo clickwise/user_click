@@ -16,4 +16,17 @@ public class BytesTransform {
 		return n;
 	}
 
+	public static String bytes2str(byte[] b) {
+		String str = "";
+		for (int i = 0; i < b.length; i++) {
+			int v = b[i] & 0xFF;
+			String hv = Integer.toHexString(v);
+			if (hv.length() == 1) {
+				hv = '0' + hv;
+			}
+			str+=(hv+" ");
+		}
+		return str;
+	}
+
 }

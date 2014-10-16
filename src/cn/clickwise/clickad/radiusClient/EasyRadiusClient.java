@@ -108,44 +108,44 @@ public class EasyRadiusClient extends RadiusClient {
 	     
 	     while(j+32<body.length)
 	     {
-	    	 Record rec=new Record();
+	    	 Recordn rec=new Recordn();
 	    	
 	    	 //code
 	    	 obuffer[0]=body[j++];
-	    	 rec.setCode(BytesTransform.byteToInt2(obuffer));
+	    	 rec.setCode(obuffer);
 	    	 
 	    	 //packetIdentifier
 	    	 obuffer[0]=body[j++];
-	    	 rec.setPacketIdentifier(BytesTransform.byteToInt2(obuffer));
+	    	 rec.setPacketIdentifier(obuffer);
 	    	 
 	    	 //length
 	    	 for(k=0;k<2;k++)
 	    	 {
 	    		 dbuffer[k]=body[j++];
 	    	 }
-	    	 rec.setLength(BytesTransform.byteToInt2(dbuffer));
+	    	 rec.setLength(dbuffer);
 	    	 
 	    	 //authenticator
 	    	 for(k=0;k<16;k++)
 	    	 {
 	    		 stbuffer[k]=body[j++];
 	    	 }
-	    	 rec.setAuthenticator(new String(stbuffer));
+	    	 rec.setAuthenticator(stbuffer);
 	    	 
 	    	 //acctStatusType
 	    	 for(k=0;k<6;k++)
 	    	 {
 	    		 sixbuffer[k]=body[j++];
 	    	 }
-	    	 rec.setAcctStatusType(BytesTransform.byteToInt2(sixbuffer));
+	    	 rec.setAcctStatusType(sixbuffer);
 	    	 System.out.println("rec.length:"+rec.getLength());
-	    	 unl=rec.getLength()-32;
+	    	 unl=BytesTransform.byteToInt2(rec.getLength())-32;
 	    	 byte[] userBuffer=new byte[ unl];
 	    	 for(k=0;k<unl;k++)
 	    	 {
 	    		 userBuffer[k]=body[j++];
 	    	 }
-	    	 rec.setUserName(new String(userBuffer));
+	    	 rec.setUserName(userBuffer);
 	    	 
 	    	 byte[] sixnbuffer=new byte[6];
 	    	 for(k=0;k<6;k++)
