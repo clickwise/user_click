@@ -138,8 +138,9 @@ public class EasyRadiusClient extends RadiusClient {
 	    		 sixbuffer[k]=body[j++];
 	    	 }
 	    	 rec.setAcctStatusType(sixbuffer);
-	    	 System.out.println("rec.length:"+rec.getLength());
+	    
 	    	 unl=BytesTransform.byteToInt2(rec.getLength())-32;
+	    	 System.out.println("unl:"+unl);
 	    	 byte[] userBuffer=new byte[ unl];
 	    	 for(k=0;k<unl;k++)
 	    	 {
