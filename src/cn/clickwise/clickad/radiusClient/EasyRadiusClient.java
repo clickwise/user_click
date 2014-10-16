@@ -79,6 +79,7 @@ public class EasyRadiusClient extends RadiusClient {
 			  if(hn<0)
 			  {
 				  try{
+				  System.out.println("sleep one second!");	  
 				  Thread.sleep(1000);
 				  }
 				  catch(Exception e)
