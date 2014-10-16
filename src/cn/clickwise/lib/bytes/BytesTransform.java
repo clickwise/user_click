@@ -63,9 +63,9 @@ public class BytesTransform {
 			cb[i]=0;
 		}
 		
-		for(int i=b.length;i<4;i++)
+		for(int i=4-b.length;i<4;i++)
 		{
-			cb[i]=b[i-b.length];
+			cb[i]=b[i+b.length-4];
 		}
 		
 		return cb;
