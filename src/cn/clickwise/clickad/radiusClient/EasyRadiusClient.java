@@ -110,7 +110,7 @@ public class EasyRadiusClient extends RadiusClient {
 			pb.setBody(body);
 			// fos.write(body);
 			rp.setPackBody(pb);
-			analysisPacketBody(rp);
+			parsePacketBody(rp);
 
 		} catch (IOException e) {
 			e.printStackTrace();
