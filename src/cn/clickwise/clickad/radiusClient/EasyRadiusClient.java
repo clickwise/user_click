@@ -79,13 +79,7 @@ public class EasyRadiusClient extends RadiusClient {
 			while (hn < 0) {
 				hn = sockIn.read(head);
 				if (hn < 0) {
-					try {
-						System.out.println("sleep ten second!");
-						Thread.sleep(confFactory.getResetConnectionSuspend());
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-					start(rc);
+					restart();
 				}
 			}
 
@@ -98,8 +92,19 @@ public class EasyRadiusClient extends RadiusClient {
 
 			// 读取消息体
 			// System.out.println("ph.length:"+ph.getPacketBodyLength());
+			
+			if(ph.getPacketBodyLength()<12)
+			{
+				restart();	
+			}
+			
 			byte[] body = new byte[ph.getPacketBodyLength() - 12];
 			int rn = sockIn.read(body);
+			if(rn<0)
+			{
+				restart();
+			}
+			
 			System.out.println("read bytes:" + rn);
 			System.out.println(BytesTransform.bytes2str(body));
 			pb.setBody(body);
@@ -159,6 +164,10 @@ public class EasyRadiusClient extends RadiusClient {
 
 			// user name
 			unl = BytesTransform.byteToInt2(rec.getLength()) - 32;
+			if(unl<0)
+			{
+				restart();
+			}
 			// unl=BytesTransform.byteToIntv(rec.getLength())-32;
 			System.out.println("unl:" + unl);
 			byte[] userBuffer = new byte[unl];
@@ -318,6 +327,17 @@ public class EasyRadiusClient extends RadiusClient {
 			writePacket(rp);
 		}
 
+	}
+	
+	public void restart()
+	{
+		try {
+			System.out.println("sleep ten second!");
+			Thread.sleep(confFactory.getResetConnectionSuspend());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		start(rc);
 	}
 
 	public static void main(String[] args) {
