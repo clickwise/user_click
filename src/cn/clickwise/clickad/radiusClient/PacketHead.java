@@ -1,5 +1,7 @@
 package cn.clickwise.clickad.radiusClient;
 
+import cn.clickwise.lib.bytes.BytesTransform;
+
 public class PacketHead {
 
 	private byte[] head;
@@ -39,7 +41,7 @@ public class PacketHead {
 		{
 			fbyte[i]=head[pos++];
 		}	
-		setPacketBodyLength(byteToInt2(fbyte));
+		setPacketBodyLength(BytesTransform.byteToInt2(fbyte));
 		
 		//source ip
 		for(int i=0;i<4;i++)
@@ -60,28 +62,17 @@ public class PacketHead {
 		{
 			dbyte[i]=head[pos++];
 		}
-		setSourcePort(byteToInt2(dbyte));
+		setSourcePort(BytesTransform.byteToInt2(dbyte));
 		
 		//dest port
 		for(int i=0;i<2;i++)
 		{
 			dbyte[i]=head[pos++];
 		}
-		setDestPort(byteToInt2(dbyte));
+		setDestPort(BytesTransform.byteToInt2(dbyte));
 		
 	}
-    public static int byteToInt2(byte[] b) {  
-        
-        int mask=0xff;  
-        int temp=0;  
-        int n=0;  
-        for(int i=0;i<b.length;i++){  
-           n<<=8;  
-           temp=b[i]&mask;  
-           n|=temp;  
-       }  
-      return n;  
-   }  
+     
     
 	public byte[] getHead() {
 		return head;

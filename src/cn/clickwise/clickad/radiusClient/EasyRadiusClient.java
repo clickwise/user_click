@@ -7,6 +7,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 
+import cn.clickwise.lib.bytes.BytesTransform;
 import cn.clickwise.lib.time.TimeOpera;
 
 
@@ -81,12 +82,83 @@ public class EasyRadiusClient extends RadiusClient {
 			pb.setBody(body);
 			//fos.write(body);
 			rp.setPackBody(pb);
+			parsePacketBody(rp);
 			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 		return rp;
+	}
+	
+	//处理消息体
+	public void parsePacketBody(RadiusPacket rp)
+	{
+	     int j=0;
+	     
+	     byte[] obuffer=new byte[1];
+	     byte[] dbuffer=new byte[2];
+	     byte[] stbuffer=new byte[16];
+	     byte[] sixbuffer=new byte[6];
+	     
+	     byte[] body=rp.getPackBody().getBody();
+	     
+	     int k=0;
+	     
+	     while(j<body.length)
+	     {
+	    	 Record rec=new Record();
+	    	
+	    	 //code
+	    	 obuffer[0]=body[j++];
+	    	 rec.setCode(BytesTransform.byteToInt2(obuffer));
+	    	 
+	    	 //packetIdentifier
+	    	 obuffer[0]=body[j++];
+	    	 rec.setPacketIdentifier(BytesTransform.byteToInt2(obuffer));
+	    	 
+	    	 //length
+	    	 for(k=0;k<2;k++)
+	    	 {
+	    		 dbuffer[k]=body[j++];
+	    	 }
+	    	 rec.setLength(BytesTransform.byteToInt2(dbuffer));
+	    	 
+	    	 //authenticator
+	    	 for(k=0;k<16;k++)
+	    	 {
+	    		 stbuffer[k]=body[j++];
+	    	 }
+	    	 rec.setAuthenticator(new String(stbuffer));
+	    	 
+	    	 //acctStatusType
+	    	 for(k=0;k<6;k++)
+	    	 {
+	    		 sixbuffer[k]=body[j++];
+	    	 }
+	    	 rec.setAcctStatusType(BytesTransform.byteToInt2(sixbuffer));
+	    	 
+	    	 byte[] userBuffer=new byte[rec.getLength()];
+	    	 for(k=0;k<rec.getLength();k++)
+	    	 {
+	    		 userBuffer[k]=body[j++];
+	    	 }
+	    	 rec.setUserName(new String(userBuffer));
+	    	 
+	    	 byte[] sixnbuffer=new byte[6];
+	    	 for(k=0;k<6;k++)
+	    	 {
+	    		 sixnbuffer[k]=body[j++];
+	    	 }
+	    	 rec.setFramedIpAddress(sixnbuffer);
+	    	 
+	    	 
+	    	 System.out.println(rec.toString());
+	    	 
+	     }
+	     
+	     
+	     
 	}
 
 	@Override

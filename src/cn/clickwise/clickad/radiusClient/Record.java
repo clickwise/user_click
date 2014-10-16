@@ -1,0 +1,90 @@
+package cn.clickwise.clickad.radiusClient;
+
+
+public class Record {
+
+	private int code;
+	
+	private int packetIdentifier;
+	
+	private int length;
+	
+	private String authenticator;
+	
+	private int acctStatusType;
+	
+	private String userName;
+	
+	private byte[] framedIpAddress;
+
+	public int getCode() {
+		return code;
+	}
+
+	public void setCode(int code) {
+		this.code = code;
+	}
+
+	public int getPacketIdentifier() {
+		return packetIdentifier;
+	}
+
+	public void setPacketIdentifier(int packetIdentifier) {
+		this.packetIdentifier = packetIdentifier;
+	}
+
+	public int getLength() {
+		return length;
+	}
+
+	public void setLength(int length) {
+		this.length = length;
+	}
+
+	public int getAcctStatusType() {
+		return acctStatusType;
+	}
+
+	public void setAcctStatusType(int acctStatusType) {
+		this.acctStatusType = acctStatusType;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+
+	public String getAuthenticator() {
+		return authenticator;
+	}
+
+	public void setAuthenticator(String authenticator) {
+		this.authenticator = authenticator;
+	}
+
+	public byte[] getFramedIpAddress() {
+		return framedIpAddress;
+	}
+
+	public void setFramedIpAddress(byte[] framedIpAddress) {
+		this.framedIpAddress = framedIpAddress;
+	}
+	
+	public String toString()
+	{
+		String str="";
+		str+=" code:"+code
+			+" packetIdentifier:"+packetIdentifier
+			+" length:"+length
+			+" authenticator:"+authenticator
+			+" acctStatusType:"+acctStatusType
+			+" userName:"+userName;
+		
+		return str;
+	}
+	
+}
