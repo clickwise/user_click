@@ -72,7 +72,21 @@ public class EasyRadiusClient extends RadiusClient {
 		PacketBody pb=new PacketBody();
 		
 		try {
-			int hn=sockIn.read(head);
+			int hn=-1;
+			while(hn<0)
+			{
+			  hn=sockIn.read(head);
+			  if(hn<0)
+			  {
+				  try{
+				  Thread.sleep(1000);
+				  }
+				  catch(Exception e)
+				  {
+					  e.printStackTrace();
+				  }
+			  }
+			}
 			System.out.println("read bytes hn:"+hn);
 			System.out.println(BytesTransform.bytes2str(head));
             ph.setHead(head);
