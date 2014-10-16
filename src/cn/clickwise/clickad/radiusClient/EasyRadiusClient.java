@@ -106,7 +106,7 @@ public class EasyRadiusClient extends RadiusClient {
 	     int k=0;
 	     int unl=0;
 	     
-	     while(j<body.length)
+	     while(j+32<body.length)
 	     {
 	    	 Record rec=new Record();
 	    	
