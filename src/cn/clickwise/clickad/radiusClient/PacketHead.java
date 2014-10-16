@@ -41,8 +41,8 @@ public class PacketHead {
 		{
 			fbyte[i]=head[pos++];
 		}	
-		//setPacketBodyLength(BytesTransform.byteToInt2(fbyte));
-		setPacketBodyLength(BytesTransform.byteToIntv(fbyte));
+		setPacketBodyLength(BytesTransform.byteToInt2(fbyte));
+		//setPacketBodyLength(BytesTransform.byteToIntv(fbyte));
 		//source ip
 		for(int i=0;i<4;i++)
 		{

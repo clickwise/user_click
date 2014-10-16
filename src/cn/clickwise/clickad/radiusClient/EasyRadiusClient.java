@@ -158,8 +158,8 @@ public class EasyRadiusClient extends RadiusClient {
 	    	 rec.setAuthenticator(authenticatorBuffer);
 	    	 
 	    	 //user name
-	    	 //unl=BytesTransform.byteToInt2(rec.getLength())-32;
-	    	 unl=BytesTransform.byteToIntv(rec.getLength())-32;
+	    	 unl=BytesTransform.byteToInt2(rec.getLength())-32;
+	    	 //unl=BytesTransform.byteToIntv(rec.getLength())-32;
 	    	 System.out.println("unl:"+unl);
 	    	 byte[] userBuffer=new byte[ unl];
 	    	 for(k=0;k<unl;k++)
