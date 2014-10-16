@@ -95,7 +95,7 @@ public class EasyRadiusClient extends RadiusClient {
 	public void parsePacketBody(RadiusPacket rp)
 	{
 	     int j=0;
-	     
+	     ////remove
 	     byte[] obuffer=new byte[1];
 	     byte[] dbuffer=new byte[2];
 	     byte[] stbuffer=new byte[16];
@@ -111,33 +111,38 @@ public class EasyRadiusClient extends RadiusClient {
 	    	 Recordn rec=new Recordn();
 	    	
 	    	 //code
-	    	 obuffer[0]=body[j++];
-	    	 rec.setCode(obuffer);
+	    	 byte[] codeBuffer=new byte[1];
+	    	 codeBuffer[0]=body[j++];
+	    	 rec.setCode(codeBuffer);
 	    	 
 	    	 //packetIdentifier
-	    	 obuffer[0]=body[j++];
-	    	 rec.setPacketIdentifier(obuffer);
+	    	 byte[] identifierBuffer=new byte[1];
+	    	 identifierBuffer[0]=body[j++];
+	    	 rec.setPacketIdentifier(identifierBuffer);
 	    	 
 	    	 //length
+	    	 byte[] lengthBuffer=new byte[2];
 	    	 for(k=0;k<2;k++)
 	    	 {
-	    		 dbuffer[k]=body[j++];
+	    		 lengthBuffer[k]=body[j++];
 	    	 }
-	    	 rec.setLength(dbuffer);
+	    	 rec.setLength(lengthBuffer);
 	    	 
 	    	 //authenticator
+	    	 byte[] authenticatorBuffer=new byte[16];
 	    	 for(k=0;k<16;k++)
 	    	 {
-	    		 stbuffer[k]=body[j++];
+	    		 authenticatorBuffer[k]=body[j++];
 	    	 }
-	    	 rec.setAuthenticator(stbuffer);
+	    	 rec.setAuthenticator(authenticatorBuffer);
 	    	 
 	    	 //acctStatusType
+	    	 byte[] acctStatusTypeBuffer=new byte[6];
 	    	 for(k=0;k<6;k++)
 	    	 {
-	    		 sixbuffer[k]=body[j++];
+	    		 acctStatusTypeBuffer[k]=body[j++];
 	    	 }
-	    	 rec.setAcctStatusType(sixbuffer);
+	    	 rec.setAcctStatusType(acctStatusTypeBuffer);
 	    
 	    	 unl=BytesTransform.byteToInt2(rec.getLength())-32;
 	    	 System.out.println("unl:"+unl);
@@ -148,12 +153,12 @@ public class EasyRadiusClient extends RadiusClient {
 	    	 }
 	    	 rec.setUserName(userBuffer);
 	    	 
-	    	 byte[] sixnbuffer=new byte[6];
+	    	 byte[] framedIpAddressbuffer=new byte[6];
 	    	 for(k=0;k<6;k++)
 	    	 {
-	    		 sixnbuffer[k]=body[j++];
+	    		 framedIpAddressbuffer[k]=body[j++];
 	    	 }
-	    	 rec.setFramedIpAddress(sixnbuffer);
+	    	 rec.setFramedIpAddress(framedIpAddressbuffer);
 	    	 
 	    	 
 	    	 System.out.println(rec.toString());
