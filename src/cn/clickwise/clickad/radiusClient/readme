@@ -1,4 +1,4 @@
 江苏 radius center的客户端
 读取格式 
-  16字节头： 4字节长度 、4字节源ip、4字节目的ip、2字节网络序源port、2字节网络序目的port
+  16字节头： 4字节长度(包括16字节的头) 、4字节源ip、4字节目的ip、2字节网络序源port、2字节网络序目的port
     消息体：<[1字节code] [1字节packet identifier] [2字节length] [16字节authenticator] [不定长用户账户] [6字节Framed IP Address] [6字节 Accounting Status]>
