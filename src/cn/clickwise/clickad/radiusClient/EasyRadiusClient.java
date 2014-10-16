@@ -117,11 +117,13 @@ public class EasyRadiusClient extends RadiusClient {
 	    	 rec.setPacketIdentifier(identifierBuffer);
 	    	 
 	    	 //length
-	    	 byte[] lengthBuffer=new byte[2];
+	    	 byte[] lengthBuffer=new byte[4];
 	    	 for(k=0;k<2;k++)
 	    	 {
 	    		 lengthBuffer[k]=body[j++];
 	    	 }
+	    	 lengthBuffer[2]=0;
+	    	 lengthBuffer[3]=0;
 	    	 rec.setLength(lengthBuffer);
 	    	 
 	    	 //authenticator

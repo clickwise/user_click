@@ -62,14 +62,14 @@ public class PacketHead {
 		{
 			dbyte[i]=head[pos++];
 		}
-		setSourcePort(BytesTransform.byteToInt2(dbyte));
+		setSourcePort(BytesTransform.byteToIntv(dbyte));
 		
 		//dest port
 		for(int i=0;i<2;i++)
 		{
 			dbyte[i]=head[pos++];
 		}
-		setDestPort(BytesTransform.byteToInt2(dbyte));
+		setDestPort(BytesTransform.byteToIntv(dbyte));
 		
 	}
      
