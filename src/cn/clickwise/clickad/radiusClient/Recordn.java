@@ -97,9 +97,9 @@ public class Recordn {
 			+" packetIdentifier:"+BytesTransform.bytes2str(packetIdentifier)
 			+" length:"+BytesTransform.bytes2str(length)
 			+" authenticator:"+BytesTransform.bytes2str(authenticator)
-			+" acctStatusType:"+BytesTransform.bytes2str(acctStatusType)
 			+" userName:"+BytesTransform.bytes2str(userName)
-		    +" framedIpAddress:"+BytesTransform.bytes2str(framedIpAddress);
+			+" framedIpAddress:"+BytesTransform.bytes2str(framedIpAddress)
+			+" acctStatusType:"+BytesTransform.bytes2str(acctStatusType);
 		
 		return str;
 	}
