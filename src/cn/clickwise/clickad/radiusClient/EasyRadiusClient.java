@@ -95,17 +95,17 @@ public class EasyRadiusClient extends RadiusClient {
 			// System.out.println("ph.length:"+ph.getPacketBodyLength());
 
 			if (ph.getPacketBodyLength() < 12) {
-				System.out.println("body length is below 12");
-				return null;
-				//restart("body length is below 12");
+				//System.out.println("body length is below 12");
+				//return null;
+				restart("body length is below 12");
 			}
 
 			byte[] body = new byte[ph.getPacketBodyLength() - 12];
 			int rn = sockIn.read(body);
 			if (rn < 0) {
-				System.out.println("body length is -1");
-				return null;
-				//restart("body length is -1");
+				//System.out.println("body length is -1");
+				//return null;
+				restart("body length is -1");
 			}
 
 			//System.out.println("read bytes:" + rn);
@@ -170,9 +170,9 @@ public class EasyRadiusClient extends RadiusClient {
 			// user name
 			unl = BytesTransform.byteToInt2(rec.getLength()) - 32;
 			if (unl < 0) {
-				System.out.println("user name length is below zero");
-				return;
-				//restart("user name length is below zero");
+				//System.out.println("user name length is below zero");
+				//return;
+				restart("user name length is below zero");
 			}
 			System.out.println("unl:" + unl);
 
@@ -443,7 +443,7 @@ public class EasyRadiusClient extends RadiusClient {
 
 	public void restart(String message) {
 		try {
-			System.out.println("sleep ten second!");
+			System.out.println(message+"----sleep one second!");
 			Thread.sleep(confFactory.getResetConnectionSuspend());
 		} catch (Exception e) {
 			e.printStackTrace();
