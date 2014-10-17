@@ -104,8 +104,8 @@ public class EasyRadiusClient extends RadiusClient {
 				restart();
 			}
 
-			System.out.println("read bytes:" + rn);
-			System.out.println(BytesTransform.bytes2str(body));
+			//System.out.println("read bytes:" + rn);
+			//System.out.println(BytesTransform.bytes2str(body));
 			pb.setBody(body);
 			// fos.write(body);
 			rp.setPackBody(pb);
@@ -198,81 +198,6 @@ public class EasyRadiusClient extends RadiusClient {
 		}
 	}
 
-	/**
-	 * 解析消息体，userName、Framed IP Address、 Accounting Status没有固定顺序
-	 * 
-	 * @param rp
-	 */
-	public void parsePacketBodyNoUFAOrder(RadiusPacket rp) {
-		int j = 0;
-
-		byte[] body = rp.getPackBody().getBody();
-
-		int k = 0;
-		int unl = 0;
-
-		while (j + 32 < body.length) {
-			Recordn rec = new Recordn();
-
-			// code
-			byte[] codeBuffer = new byte[1];
-			codeBuffer[0] = body[j++];
-			rec.setCode(codeBuffer);
-
-			// packetIdentifier
-			byte[] identifierBuffer = new byte[1];
-			identifierBuffer[0] = body[j++];
-			rec.setPacketIdentifier(identifierBuffer);
-
-			// length
-			byte[] lengthBuffer = new byte[4];
-			lengthBuffer[0] = 0;
-			lengthBuffer[1] = 0;
-			for (k = 0; k < 2; k++) {
-				lengthBuffer[k + 2] = body[j++];
-			}
-			rec.setLength(lengthBuffer);
-
-			// authenticator
-			byte[] authenticatorBuffer = new byte[16];
-			for (k = 0; k < 16; k++) {
-				authenticatorBuffer[k] = body[j++];
-			}
-			rec.setAuthenticator(authenticatorBuffer);
-
-			// user name
-			unl = BytesTransform.byteToInt2(rec.getLength()) - 32;
-			if (unl < 0) {
-				restart();
-			}
-			System.out.println("unl:" + unl);
-			
-
-			// unl=BytesTransform.byteToIntv(rec.getLength())-32;
-			byte[] userBuffer = new byte[unl];
-			for (k = 0; k < unl; k++) {
-				userBuffer[k] = body[j++];
-			}
-			rec.setUserName(userBuffer);
-
-			// framedIpAddress
-			byte[] framedIpAddressbuffer = new byte[6];
-			for (k = 0; k < 6; k++) {
-				framedIpAddressbuffer[k] = body[j++];
-			}
-			rec.setFramedIpAddress(framedIpAddressbuffer);
-
-			// acctStatusType
-			byte[] acctStatusTypeBuffer = new byte[6];
-			for (k = 0; k < 6; k++) {
-				acctStatusTypeBuffer[k] = body[j++];
-			}
-			rec.setAcctStatusType(acctStatusTypeBuffer);
-
-			System.out.println(rec.toString());
-
-		}
-	}
 
 	/**
 	 * 解析消息体，从消息体解析出code、packetIdentifier、length、authenticator、 user
@@ -300,7 +225,7 @@ public class EasyRadiusClient extends RadiusClient {
 		while (j + 44 < body.length) {
 			Record rec = new Record();
 
-			System.out.println(BytesTransform.bytes2str(body));
+			//System.out.println(BytesTransform.bytes2str(body));
 			// code
 			obuffer[3] = body[j++];
 			rec.setCode(BytesTransform.byteToInt2(obuffer));
@@ -314,9 +239,9 @@ public class EasyRadiusClient extends RadiusClient {
 				dbuffer[k + 2] = body[j++];
 			}
 			
-			System.out.println("dbuffer:"+BytesTransform.bytes2str(dbuffer));
+			//System.out.println("dbuffer:"+BytesTransform.bytes2str(dbuffer));
 			rec.setLength(BytesTransform.byteToInt2(dbuffer));
-            System.out.println("rec.len:"+rec.getLength());
+            //System.out.println("rec.len:"+rec.getLength());
 			// authenticator
 			for (k = 0; k < 16; k++) {
 				stbuffer[k] = body[j++];
@@ -329,7 +254,7 @@ public class EasyRadiusClient extends RadiusClient {
 			// System.out.println("unl:"+unl);
 				
 			byte[] ufa=new byte[unl+12];
-			System.out.println("j:"+j+" ufa:"+ufa.length+" unl:"+unl+" body:"+body.length);
+			//System.out.println("j:"+j+" ufa:"+ufa.length+" unl:"+unl+" body:"+body.length);
 			for(k=0;k<ufa.length;k++)
 			{
 				ufa[k]=body[k+j];
@@ -379,7 +304,7 @@ public class EasyRadiusClient extends RadiusClient {
 			//rec.setAcctStatusType(bytes2status(sixbuffer));
 			rec.setAcctStatusType(hexes2status(status));
 			
-			System.out.println(rec.toString());
+			System.out.println(TimeOpera.getCurrentTime()+"---"+rec.toString());
 
 		}
 	}
