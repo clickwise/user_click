@@ -7,6 +7,9 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import cn.clickwise.lib.bytes.BytesTransform;
 import cn.clickwise.lib.string.SSO;
 import cn.clickwise.lib.time.TimeOpera;
@@ -22,6 +25,8 @@ public class EasyRadiusClient extends RadiusClient {
 	private ConfigureFactory confFactory;
 
 	private RadiusCenter rc;
+	
+	private static Logger logger = LoggerFactory.getLogger(EasyRadiusClient.class);
 
 	@Override
 	public State connect(RadiusCenter rc) {
@@ -204,7 +209,7 @@ public class EasyRadiusClient extends RadiusClient {
 					rec.setAcctStatusType(acctStatusTypeBuffer);
 				}
 
-				System.out.println(rec.toString());
+				logger.info(rec.toString());
 
 			}
 		} catch (Exception e) {
