@@ -322,6 +322,7 @@ public class EasyRadiusClient extends RadiusClient {
 			// System.out.println("unl:"+unl);
 				
 			byte[] ufa=new byte[unl+12];
+			System.out.println("j:"+j+" ufa:"+ufa.length+" unl:"+unl+" body:"+body.length);
 			for(k=0;k<ufa.length;k++)
 			{
 				ufa[k]=body[k+j];
