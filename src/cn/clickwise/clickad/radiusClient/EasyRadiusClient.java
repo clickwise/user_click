@@ -335,6 +335,8 @@ public class EasyRadiusClient extends RadiusClient {
 				ufa[k]=body[k+j];
 			}
 			
+			j=j+ufa.length;//结束循环
+			
 			String ufaStr=BytesTransform.bytes2str(ufa);
 			
 		    int ipStart=ufaStr.indexOf("08 06");
