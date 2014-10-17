@@ -290,6 +290,10 @@ public class EasyRadiusClient extends RadiusClient {
 
 		byte[] obuffer = BytesTransform.completeBytes(new byte[1]);
 		byte[] dbuffer = BytesTransform.completeBytes(new byte[2]);
+		for(int t=0;t<dbuffer.length;t++)
+		{
+			dbuffer[t]=0;
+		}
 		byte[] stbuffer = new byte[16];
 		byte[] sixbuffer = new byte[6];
 
@@ -310,7 +314,7 @@ public class EasyRadiusClient extends RadiusClient {
 				dbuffer[k + 2] = body[j++];
 			}
 			rec.setLength(BytesTransform.byteToInt2(dbuffer));
-
+            System.out.println("rec.len:"+rec.getLength());
 			// authenticator
 			for (k = 0; k < 16; k++) {
 				stbuffer[k] = body[j++];
