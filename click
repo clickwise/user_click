@@ -6,7 +6,7 @@ COMMAND=$1
 shift
 JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk-1.7.0.65.x86_64
 JAVA=$JAVA_HOME/bin/java
-CLASSPATH=${CLASSPATH}out/feathouse.jar
+CLASSPATH=${CLASSPATH}run_lib/feathouse.jar
 
 if [ "$COMMAND" = "seg" ] ; then
   CLASS='cn.clickwise.clickad.seg.Segmenter'
