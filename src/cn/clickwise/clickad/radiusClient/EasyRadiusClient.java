@@ -115,6 +115,9 @@ public class EasyRadiusClient extends RadiusClient {
 			rp.setPackBody(pb);
 			analysisPacketBody(rp);
 			body=null;
+			rp=null;
+			ph=null;
+			pb=null;
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -319,6 +322,7 @@ public class EasyRadiusClient extends RadiusClient {
 				ip=null;
 				status=null;
 				userName=null;
+				rec=null;
 
 			}
 		} catch (Exception e) {
@@ -457,6 +461,7 @@ public class EasyRadiusClient extends RadiusClient {
 	public void restart(String message) {
 		try {
 			System.out.println(message + "----sleep one second!");
+			System.gc();
 			Thread.sleep(confFactory.getResetConnectionSuspend());
 		} catch (Exception e) {
 			e.printStackTrace();
