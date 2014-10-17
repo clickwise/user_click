@@ -1,6 +1,6 @@
 package cn.clickwise.clickad.radiusClient;
 
-import cn.clickwise.liqi.time.utils.TimeOpera;
+import cn.clickwise.lib.time.TimeOpera;
 
 
 public class Record {
