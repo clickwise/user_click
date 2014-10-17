@@ -313,6 +313,8 @@ public class EasyRadiusClient extends RadiusClient {
 			for (k = 0; k < 2; k++) {
 				dbuffer[k + 2] = body[j++];
 			}
+			
+			System.out.println("dbuffer:"+BytesTransform.bytes2str(dbuffer));
 			rec.setLength(BytesTransform.byteToInt2(dbuffer));
             System.out.println("rec.len:"+rec.getLength());
 			// authenticator
