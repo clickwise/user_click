@@ -1,5 +1,7 @@
 package cn.clickwise.clickad.radiusClient;
 
+import cn.clickwise.liqi.time.utils.TimeOpera;
+
 
 public class Record {
 
@@ -77,14 +79,16 @@ public class Record {
 	public String toString()
 	{
 		String str="";
+		/*
 		str+=" code:"+code
 			+" packetIdentifier:"+packetIdentifier
 			+" length:"+length
 			+" userName:"+userName.trim()
 			+" framedIpAddress:"+framedIpAddress
 			+" acctStatusType:"+acctStatusType;
+		*/	
+		str=framedIpAddress+"\t"+acctStatusType+"\t"+userName.trim()+"\t"+TimeOpera.getCurrentTime();
 			
-		
 		return str;
 	}
 	

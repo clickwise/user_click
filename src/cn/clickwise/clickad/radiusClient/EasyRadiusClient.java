@@ -320,8 +320,7 @@ public class EasyRadiusClient extends RadiusClient {
 				// rec.setAcctStatusType(bytes2status(sixbuffer));
 				rec.setAcctStatusType(hexes2status(status));
 
-				logger.info(TimeOpera.getCurrentTime() + "---"
-						+ rec.toString());
+				logger.info(rec.toString());
 				ufa=null;
 				ufaStr=null;
 				ip=null;
