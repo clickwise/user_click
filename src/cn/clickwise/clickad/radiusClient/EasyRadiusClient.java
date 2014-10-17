@@ -296,6 +296,7 @@ public class EasyRadiusClient extends RadiusClient {
 		while (j + 44 < body.length) {
 			Record rec = new Record();
 
+			System.out.println(BytesTransform.bytes2str(body));
 			// code
 			obuffer[3] = body[j++];
 			rec.setCode(BytesTransform.byteToInt2(obuffer));
