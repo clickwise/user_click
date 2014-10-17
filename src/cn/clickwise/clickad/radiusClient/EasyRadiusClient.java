@@ -80,7 +80,7 @@ public class EasyRadiusClient extends RadiusClient {
 			while (hn < 0) {
 				hn = sockIn.read(head);
 				if (hn < 0) {
-					restart();
+					restart("head length is -1");
 				}
 			}
 
@@ -95,13 +95,17 @@ public class EasyRadiusClient extends RadiusClient {
 			// System.out.println("ph.length:"+ph.getPacketBodyLength());
 
 			if (ph.getPacketBodyLength() < 12) {
-				restart();
+				System.out.println("body length is below 12");
+				return null;
+				//restart("body length is below 12");
 			}
 
 			byte[] body = new byte[ph.getPacketBodyLength() - 12];
 			int rn = sockIn.read(body);
 			if (rn < 0) {
-				restart();
+				System.out.println("body length is -1");
+				return null;
+				//restart("body length is -1");
 			}
 
 			//System.out.println("read bytes:" + rn);
@@ -166,7 +170,9 @@ public class EasyRadiusClient extends RadiusClient {
 			// user name
 			unl = BytesTransform.byteToInt2(rec.getLength()) - 32;
 			if (unl < 0) {
-				restart();
+				System.out.println("user name length is below zero");
+				return;
+				//restart("user name length is below zero");
 			}
 			System.out.println("unl:" + unl);
 
@@ -426,12 +432,16 @@ public class EasyRadiusClient extends RadiusClient {
 
 			RadiusPacket rp = new RadiusPacket();
 			rp = readPacket();
+			if(rp==null)
+			{
+				continue;
+			}
 			writePacket(rp);
 		}
 
 	}
 
-	public void restart() {
+	public void restart(String message) {
 		try {
 			System.out.println("sleep ten second!");
 			Thread.sleep(confFactory.getResetConnectionSuspend());
