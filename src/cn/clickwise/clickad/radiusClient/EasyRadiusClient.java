@@ -90,7 +90,7 @@ public class EasyRadiusClient extends RadiusClient {
 			ph.setHead(head);
 			ph.parseBytes2Info();
 			rp.setPackHead(ph);
-
+            head=null;
 			// 读取消息体
 			// System.out.println("ph.length:"+ph.getPacketBodyLength());
 
@@ -114,11 +114,12 @@ public class EasyRadiusClient extends RadiusClient {
 			// fos.write(body);
 			rp.setPackBody(pb);
 			analysisPacketBody(rp);
+			body=null;
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+        
 		return rp;
 	}
 
@@ -230,7 +231,6 @@ public class EasyRadiusClient extends RadiusClient {
 			dbuffer[t] = 0;
 		}
 		byte[] stbuffer = new byte[16];
-		byte[] sixbuffer = new byte[6];
 		try {
 
 			while (j + 44 < body.length) {
@@ -314,11 +314,21 @@ public class EasyRadiusClient extends RadiusClient {
 
 				System.out.println(TimeOpera.getCurrentTime() + "---"
 						+ rec.toString());
+				ufa=null;
+				ufaStr=null;
+				ip=null;
+				status=null;
+				userName=null;
 
 			}
 		} catch (Exception e) {
 			restart("error in analysisPacketBody");
 		}
+		
+		body=null;
+		obuffer=null;
+		dbuffer=null;
+		stbuffer=null;
 	}
 
 	public String bytes2ip(byte[] b) {
@@ -338,6 +348,7 @@ public class EasyRadiusClient extends RadiusClient {
 						.completeBytes(ob)));
 			}
 		}
+		ob=null;
 
 		return ip;
 	}
@@ -353,7 +364,7 @@ public class EasyRadiusClient extends RadiusClient {
 		ob[0] = b[5];
 
 		status = (BytesTransform.byteToInt2(BytesTransform.completeBytes(ob)));
-
+        ob=null;
 		return status;
 	}
 
@@ -372,6 +383,7 @@ public class EasyRadiusClient extends RadiusClient {
 				+ Integer.parseInt(tokens[3], 16) + "."
 				+ Integer.parseInt(tokens[4], 16) + "."
 				+ Integer.parseInt(tokens[5], 16);
+		tokens=null;
 		return ip;
 	}
 
@@ -387,6 +399,7 @@ public class EasyRadiusClient extends RadiusClient {
 			return -1;
 		}
 		status = Integer.parseInt(tokens[5], 16);
+		tokens=null;
 		return status;
 	}
 
@@ -405,7 +418,7 @@ public class EasyRadiusClient extends RadiusClient {
 		for (int j = 2; j < tokens.length; j++) {
 			username += ((char) Integer.parseInt(tokens[j], 16));
 		}
-
+        tokens=null;
 		return username;
 	}
 
