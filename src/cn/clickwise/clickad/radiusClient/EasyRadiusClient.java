@@ -340,11 +340,19 @@ public class EasyRadiusClient extends RadiusClient {
 			String ufaStr=BytesTransform.bytes2str(ufa);
 			
 		    int ipStart=ufaStr.indexOf("08 06");
+		    if(ipStart<0)
+		    {
+		    	return;
+		    }
 		    int ipEnd=ipStart+17;
 		    String ip=ufaStr.substring(ipStart, ipEnd);
 		    
 		    
 		    int statusStart=ufaStr.indexOf("28 06");
+		    if(statusStart<0)
+		    {
+		    	return;
+		    }
 		    int statusEnd=statusStart+17;   
 		    String status=ufaStr.substring(statusStart, statusEnd);
 		    
