@@ -51,9 +51,8 @@ public class HiveStatisticByKeysHandler extends Handler{
 			e.printStackTrace();
 		}
 		
-        //COMMAND.exec(HadoopCmd.mkParent(hfkc.getHdfTmpPath()));
-
-			
+        COMMAND.exec(ProxyCommand.pvUvIpByKeys(hskc.getDay(), hskc.getRemoteTmpPath(), hskc.getResultRemotePath()));
+		
 		try {
 			exchange.sendResponseHeaders(200, 0);
 			OutputStream os = exchange.getResponseBody();
