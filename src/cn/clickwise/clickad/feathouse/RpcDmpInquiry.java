@@ -136,6 +136,7 @@ public class RpcDmpInquiry extends DmpInquiry {
 			e.printStackTrace();
 		}
 		
+		//////这个地方可能需要更改
 		//****将此次更新的数据统计写入mysql*******
 		InquiryReceipt receipt=new InquiryReceipt();
 		receipt.setDay(day);
