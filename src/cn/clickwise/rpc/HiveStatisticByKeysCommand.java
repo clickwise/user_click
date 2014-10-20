@@ -30,9 +30,33 @@ public class HiveStatisticByKeysCommand extends Command{
 	public static String writeObject(HiveStatisticByKeysCommand hskc)
 	{
 		String hskcs="";
-
-		
+		hskcs+=(hskc.getKeyPath()+";"+";"+hskc.getDay()+";"+hskc.getRemoteTmpName()+";"+hskc.getRemoteTmpPath()+";"+hskc.getResultName()+";"+hskc.getResultPath()+";"+hskc.getResultRemoteName()+";"+hskc.getResultRemotePath()+";"+hskc.getTmpIdentify());
 		return hskcs;
+	}
+	
+	public static HiveStatisticByKeysCommand readObject(String hfkcs)
+	{
+		HiveStatisticByKeysCommand hskc=new HiveStatisticByKeysCommand();
+	  
+        String[] tokens=hfkcs.split(";");
+        if(tokens.length!=9)
+        {
+		   return null;
+        }
+        else
+        {  
+        	hskc.setKeyPath(tokens[0]);
+        	hskc.setDay(Integer.parseInt(tokens[1]));
+        	hskc.setRemoteTmpName(tokens[2]);
+        	hskc.setRemoteTmpPath(tokens[3]);
+        	hskc.setResultName(tokens[4]);
+        	hskc.setResultPath(tokens[5]);
+        	hskc.setResultRemoteName(tokens[6]);
+        	hskc.setResultRemotePath(tokens[7]);
+        	hskc.setTmpIdentify(tokens[8]);
+        	
+        	return  hskc;
+        }
 	}
 
 	public String getKeyPath() {

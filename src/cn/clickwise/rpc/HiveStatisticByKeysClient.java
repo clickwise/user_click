@@ -10,6 +10,10 @@ import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+/**
+ * method: /hiveStatisticByKeys
+ * @author zkyz
+ */
 public class HiveStatisticByKeysClient extends Client{
 	
 	private HttpURLConnection urlCon;
