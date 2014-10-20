@@ -20,8 +20,9 @@ public class RedisTestArdb {
 		String one_item="ae51f2757a48c0af4c0d0628c78f437f";
 		//String one_item="user:045f0af0387026ac421b9dc873634853";
 		System.out.println("dbsize:"+jedis.dbSize());
-		
-		System.out.println(jedis.get("rtb_query_009_20140927"));
+		jedis.set(one_item, "test_value");
+		//jedis.del(one_item);
+		System.out.println(jedis.get(one_item));
 		//////jedis.zrem(key, members);
 		//jedis.zrange(key, start, end);
 		long start=TimeOpera.getCurrentTimeLong();
