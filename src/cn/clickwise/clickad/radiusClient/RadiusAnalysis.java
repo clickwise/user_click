@@ -6,7 +6,6 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.regex.Pattern;
 
-import cn.clickwise.lib.bytes.BytesTransform;
 import cn.clickwise.lib.string.SSO;
 
 public class RadiusAnalysis {
@@ -31,8 +30,8 @@ public class RadiusAnalysis {
 			return null;
 		}
 		int statusEnd = statusStart + 17;
+		
 		String status = ufaStr.substring(statusStart, statusEnd);
-
 		String userName = ufaStr.replaceFirst(ip, "").replaceFirst(status, "");
 		
 		// byte[] userBuffer = new byte[unl];

@@ -2,8 +2,8 @@ package cn.clickwise.rpc;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.FileWriter;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
@@ -19,6 +19,8 @@ public class HiveStatisticByKeysClient extends Client{
 	private HttpURLConnection urlCon;
 	
 	private HiveStatisticByKeysCommand hskc;
+	
+	private RpcReceipt rpcReceipt;
 	
 	@Override
 	public void connect(Connection con) {
@@ -49,6 +51,8 @@ public class HiveStatisticByKeysClient extends Client{
 		State state = new State();
 		OutputStream outputStream = null;
 
+		rpcReceipt=null;
+		
 		try {
 			FileInputStream fis = new FileInputStream(hskc.getKeyPath());
 			InputStreamReader isr = new InputStreamReader(fis);
@@ -69,10 +73,16 @@ public class HiveStatisticByKeysClient extends Client{
 			osw.close();
 			pw.close();
 
+			ObjectInputStream ois = new ObjectInputStream(urlCon.getInputStream());
+			rpcReceipt = (RpcReceipt) ois.readObject();
+			
+			/*
 			// 读取远程文件
 			BufferedReader resbr = new BufferedReader(new InputStreamReader(
 					urlCon.getInputStream()));
-
+            */
+			
+			/*
 			// 写入本地文件
 			FileWriter resfw = new FileWriter(hskc.getResultPath());
 			PrintWriter respw = new PrintWriter(resfw);
@@ -82,9 +92,12 @@ public class HiveStatisticByKeysClient extends Client{
 				respw.println(resline);
 			}
 
-			resbr.close();
 			resfw.close();
 			respw.close();
+			*/
+			
+			//resbr.close();
+			ois.close();
 
 		} catch (Exception e) {
 			e.printStackTrace();

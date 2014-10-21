@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.URI;
@@ -57,6 +58,10 @@ public class HiveStatisticByKeysHandler extends Handler{
 			exchange.sendResponseHeaders(200, 0);
 			OutputStream os = exchange.getResponseBody();
 
+			//将统计的地区编号、地区、时间、pv、uv、ip等写入Receipt对象
+			ObjectOutputStream oos = new ObjectOutputStream(os);
+			RpcReceipt receipt=new RpcReceipt();
+			
 			File resDir = new File(hskc.getResultRemotePath());
 			File[] subFiles = resDir.listFiles();
 
@@ -71,7 +76,13 @@ public class HiveStatisticByKeysHandler extends Handler{
 
 				String resline = "";
 				while ((resline = resbr.readLine()) != null) {
-					os.write(new String(resline + "\n").getBytes());
+					if(SSO.tioe(resline))
+					{
+						continue;
+					}
+					receipt=line2receipt(resline);
+					oos.writeObject(receipt);
+					//os.write(new String(resline + "\n").getBytes());
 				}
 				resfis.close();
 				resisr.close();
@@ -79,6 +90,7 @@ public class HiveStatisticByKeysHandler extends Handler{
 			}
 			cleanTmpWorkplace(hskc);
 			os.close();
+			oos.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -102,8 +114,12 @@ public class HiveStatisticByKeysHandler extends Handler{
 		if(resultRemote.getName().indexOf(hskc.getTmpIdentify())>-1)
 		{
 			COMMAND.exec(FileCommand.deleteDirectory(resultRemote.getAbsolutePath()));
-		}
-		
+		}	
+	}
+	
+	public RpcReceipt line2receipt(String line)
+	{
+		return null;
 	}
 	
 }
