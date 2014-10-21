@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.util.regex.Pattern;
 
 import cn.clickwise.lib.bytes.BytesTransform;
 import cn.clickwise.lib.string.SSO;
@@ -33,7 +34,7 @@ public class RadiusAnalysis {
 		String status = ufaStr.substring(statusStart, statusEnd);
 
 		String userName = ufaStr.replaceFirst(ip, "").replaceFirst(status, "");
-
+		
 		// byte[] userBuffer = new byte[unl];
 		// for (k = 0; k < unl; k++) {
 		// userBuffer[k] = body[j++];
@@ -54,10 +55,52 @@ public class RadiusAnalysis {
 		// }
 		// rec.setAcctStatusType(bytes2status(sixbuffer));
 		rec.setAcctStatusType(hexes2status(status));
+		
+		if(!(isValidUserName(rec.getUserName())))
+		{
+			return null;
+		}
+		
+		
+		if(!(isValidIp(rec.getFramedIpAddress())))
+		{
+			return null;
+		}
+		
+		if(!(isValidStatus(rec.getAcctStatusType()+"")))
+		{
+			return null;
+		}
 
 		return rec;
 	}
 
+	public boolean isValidUserName(String userName)
+	{
+	   if(Pattern.matches("[a-zA-Z0-9\\+\\=\\/]*", userName))	
+	   {
+		   return true;
+	   }
+	   return false;
+	}
+	
+	public boolean isValidIp(String ip)
+	{
+	   if(Pattern.matches("[0-9\\.]*", ip))	
+	   {
+		   return true;
+	   }
+	   return false;
+	}
+	
+	public boolean isValidStatus(String status)
+	{
+	   if(Pattern.matches("[0-3]", status))	
+	   {
+		   return true;
+	   }
+	   return false;
+	}
 	public String hexs2ip(String hexs) {
 		String ip = "";
 		if (SSO.tioe(hexs)) {
