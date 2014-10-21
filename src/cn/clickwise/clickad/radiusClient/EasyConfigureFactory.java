@@ -24,7 +24,7 @@ public class EasyConfigureFactory extends ConfigureFactory{
 	@Override
 	public long getResetConnectionSuspend() {
 		// TODO Auto-generated method stub
-		return 1000;
+		return 10;
 	}
 
 	
