@@ -118,7 +118,7 @@ public class EasyRadiusClient extends RadiusClient {
 			pb.setBody(body);
 			// fos.write(body);
 			rp.setPackBody(pb);
-			analysisPacketBody(rp);
+			receiveNoAnalysisCompletelyPacketBody(rp);
 			body=null;
 			rp=null;
 			ph=null;
@@ -338,7 +338,132 @@ public class EasyRadiusClient extends RadiusClient {
 		dbuffer=null;
 		stbuffer=null;
 	}
+	
+	/**
+	 * 解析消息体，从消息体解析出code、packetIdentifier、length、authenticator、 user
+	 * name、framedIpAddress、acctStatusType的普通形式
+	 * 
+	 * @param rp
+	 */
+	public void receiveNoAnalysisCompletelyPacketBody(RadiusPacket rp) {
+		int j = 0;
 
+		byte[] body = rp.getPackBody().getBody();
+
+		int k = 0;
+		int unl = 0;
+
+		byte[] obuffer = BytesTransform.completeBytes(new byte[1]);
+		byte[] dbuffer = BytesTransform.completeBytes(new byte[2]);
+		for (int t = 0; t < dbuffer.length; t++) {
+			dbuffer[t] = 0;
+		}
+		byte[] stbuffer = new byte[16];
+		int recLen=0;
+		try {
+
+			while (j + 44 < body.length) {
+				//Record rec = new Record();
+                 
+				// System.out.println(BytesTransform.bytes2str(body));
+				// code
+				obuffer[3] = body[j++];
+				//rec.setCode(BytesTransform.byteToInt2(obuffer));
+
+				// packetIdentifier
+				obuffer[3] = body[j++];
+				//rec.setPacketIdentifier(BytesTransform.byteToInt2(obuffer));
+
+				// length
+				for (k = 0; k < 2; k++) {
+					dbuffer[k + 2] = body[j++];
+				}
+
+				// System.out.println("dbuffer:"+BytesTransform.bytes2str(dbuffer));
+				recLen=BytesTransform.byteToInt2(dbuffer);
+				// System.out.println("rec.len:"+rec.getLength());
+				// authenticator
+				for (k = 0; k < 16; k++) {
+					stbuffer[k] = body[j++];
+				}
+				//rec.setAuthenticator(new String(stbuffer));
+
+				// user name
+				unl = recLen - 32;
+				// unl=BytesTransform.byteToIntv(rec.getLength())-32;
+				// System.out.println("unl:"+unl);
+
+				byte[] ufa = new byte[unl + 12];
+				// System.out.println("j:"+j+" ufa:"+ufa.length+" unl:"+unl+" body:"+body.length);
+				for (k = 0; k < ufa.length; k++) {
+					ufa[k] = body[k + j];
+				}
+
+				j = j + ufa.length;// 结束循环
+				
+				
+                /*
+				String ufaStr = BytesTransform.bytes2str(ufa);
+
+				int ipStart = ufaStr.indexOf("08 06");
+				if (ipStart < 0) {
+					return;
+				}
+				int ipEnd = ipStart + 17;
+				String ip = ufaStr.substring(ipStart, ipEnd);
+
+				int statusStart = ufaStr.indexOf("28 06");
+				if (statusStart < 0) {
+					return;
+				}
+				int statusEnd = statusStart + 17;
+				String status = ufaStr.substring(statusStart, statusEnd);
+
+				String userName = ufaStr.replaceFirst(ip, "").replaceFirst(
+						status, "");
+
+				// byte[] userBuffer = new byte[unl];
+				// for (k = 0; k < unl; k++) {
+				// userBuffer[k] = body[j++];
+				// }
+				// rec.setUserName(new String(userBuffer));
+				rec.setUserName(hexes2username(userName));
+
+				// framedIpAddress
+				// for (k = 0; k < 6; k++) {
+				// sixbuffer[k] = body[j++];
+				// }
+				// rec.setFramedIpAddress(bytes2ip(sixbuffer));
+				rec.setFramedIpAddress(hexs2ip(ip));
+
+				// acctStatusType
+				// for (k = 0; k < 6; k++) {
+				// sixbuffer[k] = body[j++];
+				// }
+				// rec.setAcctStatusType(bytes2status(sixbuffer));
+				rec.setAcctStatusType(hexes2status(status));
+				ufaStr=null;
+			    ip=null;
+				status=null;
+				userName=null;
+				logger.info(rec.toString());
+				*/
+				logger.info(TimeOpera.getCurrentTime()+"\t"+BytesTransform.bytes2str(ufa));
+				ufa=null;
+				//rec=null;
+				
+				
+
+			}
+		} catch (Exception e) {
+			restart("error in analysisPacketBody");
+		}
+		
+		body=null;
+		obuffer=null;
+		dbuffer=null;
+		stbuffer=null;
+	}
 	public String bytes2ip(byte[] b) {
 		String ip = "";
 		if (b.length != 6) {
