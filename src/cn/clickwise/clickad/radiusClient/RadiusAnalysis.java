@@ -112,7 +112,7 @@ public class RadiusAnalysis {
 		return username;
 	}
 
-	public static void main(String[] args) throws Exception{
+	public static void main(String[] args) throws Exception {
 		InputStreamReader isr = new InputStreamReader(System.in);
 		BufferedReader br = new BufferedReader(isr);
 
@@ -127,18 +127,22 @@ public class RadiusAnalysis {
 				if (SSO.tioe(line)) {
 					continue;
 				}
-
-				RecordLight rl = ra.analysis(line);
-				if (rl == null) {
-					continue;
+				try {
+					RecordLight rl = ra.analysis(line);
+					if (rl == null) {
+						continue;
+					}
+					pw.println(rl.toString());
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
-				pw.println(rl.toString());
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		br.close();
 		pw.close();
-		
+
 	}
 }
