@@ -1,5 +1,7 @@
 package cn.clickwise.clickad.radiusClient;
 
+import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,9 +17,12 @@ import cn.clickwise.lib.time.TimeOpera;
 
 /**
  * 轻量级的 radius 数据接收端
- * 
+ * 待修改：
+ *   目标：尽少占用内存
+ *         尽少使用new
+ *         速度尽量快
+ *         步骤尽量少
  * @author zkyz
- * 
  */
 public class LightRadiusClient extends RadiusClientNew {
 
@@ -25,14 +30,41 @@ public class LightRadiusClient extends RadiusClientNew {
 
 	private static int port;
 
-
 	private static Logger logger = LoggerFactory
 			.getLogger(EasyRadiusClient.class);
 
-	private static InputStream sockIn;
+	private InputStream sockIn;
 
-	private static OutputStreamWriter sockOut;
+	private OutputStreamWriter sockOut;
 
+	private byte[] head = new byte[16];
+
+	private byte[] body = new byte[500];
+
+	private RadiusPacket rp = new RadiusPacket();
+	private PacketHead ph = new PacketHead();
+	private PacketBody pb = new PacketBody();
+
+	private byte[] obuffer;
+
+	private byte[] dbuffer;
+
+	private byte[] stbuffer = new byte[16];
+
+	private int hn = -1;
+
+	private int kl = 0;
+
+	private int i = 0;
+
+	private ByteArrayInputStream bintput;
+
+	private DataInputStream dintput;
+
+	public void init() {
+		obuffer = BytesTransform.completeBytes(new byte[1]);
+		dbuffer = BytesTransform.completeBytes(new byte[2]);
+	}
 
 	@Override
 	public State connect(RadiusCenter rc) {
@@ -44,7 +76,7 @@ public class LightRadiusClient extends RadiusClientNew {
 			OutputStream outputStream = sock.getOutputStream();
 
 			sockOut = new OutputStreamWriter(outputStream);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -61,27 +93,24 @@ public class LightRadiusClient extends RadiusClientNew {
 	@Override
 	public RadiusPacket readPacket() throws Exception {
 		// TODO Auto-generated method stub
-		byte[] head = new byte[16];
+		// head = new byte[16];
 
-		RadiusPacket rp = new RadiusPacket();
-		PacketHead ph = new PacketHead();
-		PacketBody pb = new PacketBody();
+		// ////RadiusPacket rp = new RadiusPacket();
+		// ///PacketHead ph = new PacketHead();
+		// ///PacketBody pb = new PacketBody();
 
 		// 读取消息头
-		int hn = -1;
-		int kl=0;
+		hn = -1;
+		kl = 0;
 		while (hn < 0) {
-			try{
-			hn = sockIn.read(head);
-			kl++;
+			try {
+				hn = sockIn.read(head);
+				kl++;
+			} catch (Exception e) {
+
 			}
-			catch(Exception e)
-			{
-				
-			}
-			if(kl>5)
-			{
-                System.out.println("reconnect to the server");
+			if (kl > 5) {
+				System.out.println("reconnect to the server");
 				throw new Exception();
 			}
 		}
@@ -97,10 +126,12 @@ public class LightRadiusClient extends RadiusClientNew {
 		// System.out.println("ph.length:"+ph.getPacketBodyLength());
 		if (ph.getPacketBodyLength() < 12) {
 			return null;
-		
+
 		}
-		byte[] body = new byte[ph.getPacketBodyLength() - 12];
-		int rn = sockIn.read(body);
+
+		// ////byte[] body = new byte[ph.getPacketBodyLength() - 12];
+
+		int rn = sockIn.read(body, 0, ph.getPacketBodyLength() - 12);
 		if (rn < 0) {
 			return null;
 		}
@@ -110,11 +141,11 @@ public class LightRadiusClient extends RadiusClientNew {
 		pb.setBody(body);
 		// fos.write(body);
 		rp.setPackBody(pb);
-		receiveNoAnalysisCompletelyPacketBody(rp);
-		body = null;
-		rp = null;
-		ph = null;
-		pb = null;
+		receiveNoAnalysisCompletelyPacketBody(rp, ph.getPacketBodyLength() - 12);
+		// ////body = null;
+		// ////rp = null;
+		// ////ph = null;
+		// ////pb = null;
 
 		return rp;
 	}
@@ -131,24 +162,25 @@ public class LightRadiusClient extends RadiusClientNew {
 	 * 
 	 * @param rp
 	 */
-	public void receiveNoAnalysisCompletelyPacketBody(RadiusPacket rp)
+	public void receiveNoAnalysisCompletelyPacketBody(RadiusPacket rp, int blen)
 			throws Exception {
 		int j = 0;
 
-		byte[] body = rp.getPackBody().getBody();
+		// ////byte[] body = rp.getPackBody().getBody();
 
 		int k = 0;
 		int unl = 0;
 
-		byte[] obuffer = BytesTransform.completeBytes(new byte[1]);
-		byte[] dbuffer = BytesTransform.completeBytes(new byte[2]);
+		// ////byte[] obuffer = BytesTransform.completeBytes(new byte[1]);
+		// ///byte[] dbuffer = BytesTransform.completeBytes(new byte[2]);
+
 		for (int t = 0; t < dbuffer.length; t++) {
 			dbuffer[t] = 0;
 		}
-		byte[] stbuffer = new byte[16];
+		// ////byte[] stbuffer = new byte[16];
 		int recLen = 0;
 
-		while (j + 44 < body.length) {
+		while (j + 44 < blen) {
 			// Record rec = new Record();
 
 			// System.out.println(BytesTransform.bytes2str(body));
@@ -178,11 +210,10 @@ public class LightRadiusClient extends RadiusClientNew {
 			unl = recLen - 32;
 			// unl=BytesTransform.byteToIntv(rec.getLength())-32;
 			// System.out.println("unl:"+unl);
-            if((unl+12)<0)
-            {
-            	 return;
-            }
-             
+			if ((unl + 12) < 0) {
+				return;
+			}
+
 			byte[] ufa = new byte[unl + 12];
 			// System.out.println("j:"+j+" ufa:"+ufa.length+" unl:"+unl+" body:"+body.length);
 			for (k = 0; k < ufa.length; k++) {
@@ -198,10 +229,10 @@ public class LightRadiusClient extends RadiusClientNew {
 
 		}
 
-		body = null;
-		obuffer = null;
-		dbuffer = null;
-		stbuffer = null;
+		// ////body = null;
+		// ////obuffer = null;
+		// ////dbuffer = null;
+		// ////stbuffer = null;
 	}
 
 	public String getIp() {
@@ -251,7 +282,20 @@ public class LightRadiusClient extends RadiusClientNew {
 		}
 
 	}
-	
+
+	public void byteToInt2(byte[] b) {
+
+		try {
+			bintput.reset();
+			bintput = new ByteArrayInputStream(b);
+			dintput = new DataInputStream(bintput);
+			i = dintput.readInt();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
 	public static void main(String[] args) {
 		RadiusCenter rc = new RadiusCenter("221.231.154.17", 9002);
 		LightRadiusClient lrc = new LightRadiusClient();
