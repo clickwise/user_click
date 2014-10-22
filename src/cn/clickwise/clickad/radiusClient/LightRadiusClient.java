@@ -88,9 +88,15 @@ public class LightRadiusClient extends RadiusClientNew {
 		head = null;
 		// 读取消息体
 		// System.out.println("ph.length:"+ph.getPacketBodyLength());
-
+		if (ph.getPacketBodyLength() < 12) {
+			return null;
+		
+		}
 		byte[] body = new byte[ph.getPacketBodyLength() - 12];
 		int rn = sockIn.read(body);
+		if (rn < 0) {
+			return null;
+		}
 
 		// System.out.println("read bytes:" + rn);
 		// System.out.println(BytesTransform.bytes2str(body));
@@ -165,7 +171,11 @@ public class LightRadiusClient extends RadiusClientNew {
 			unl = recLen - 32;
 			// unl=BytesTransform.byteToIntv(rec.getLength())-32;
 			// System.out.println("unl:"+unl);
-
+            if((unl+12)<0)
+            {
+            	 return;
+            }
+             
 			byte[] ufa = new byte[unl + 12];
 			// System.out.println("j:"+j+" ufa:"+ufa.length+" unl:"+unl+" body:"+body.length);
 			for (k = 0; k < ufa.length; k++) {
