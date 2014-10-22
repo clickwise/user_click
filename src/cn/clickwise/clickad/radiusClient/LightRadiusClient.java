@@ -70,7 +70,13 @@ public class LightRadiusClient extends RadiusClientNew {
 		// 读取消息头
 		int hn = -1;
 		while (hn < 0) {
+			try{
 			hn = sockIn.read(head);
+			}
+			catch(Exception e)
+			{
+				
+			}
 		}
 
 		// System.out.println("read bytes hn:"+hn);
