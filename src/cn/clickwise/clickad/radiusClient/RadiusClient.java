@@ -25,7 +25,6 @@ public abstract class RadiusClient {
 	 */
 	public abstract RadiusPacket readPacket();
 	
-	
 	public Socket getSock() {
 		return sock;
 	}

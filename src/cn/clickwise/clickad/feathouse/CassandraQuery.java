@@ -113,11 +113,11 @@ public class CassandraQuery extends DataQuery {
 			//System.out.println("key:"+key.key+"  results.size:"+results.size());
 			for (ColumnOrSuperColumn result : results) {
 				Column column = result.column;
-				System.out.println("key:"+key.key+" value:"+(new String(column.getValue(), UTF8)).toString());
+				//System.out.println("key:"+key.key+" value:"+(new String(column.getValue(), UTF8)).toString());
 				recordList.add(new Record(key.key, new String(
 						column.getValue(), UTF8)));
-				System.out.println("key:"+key+" value:"+(new String(
-						column.getValue(), UTF8)).toString());
+				//System.out.println("key:"+key+" value:"+(new String(
+				//		column.getValue(), UTF8)).toString());
 			}
 			
 			logQuery(key);
@@ -163,6 +163,7 @@ public class CassandraQuery extends DataQuery {
 	State logUnknownUid(Key key) {
 		
 		State state=new State();
+		
 	    supervisor.println(key.key);
 	    //supervisor.flush();
 		state.setStatValue(StateValue.Normal);

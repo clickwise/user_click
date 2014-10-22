@@ -46,6 +46,7 @@ public class EasyRadiusClient extends RadiusClient {
 					+ confFactory.getPcapFile());
 
 			state.setStatValue(StateValue.Normal);
+			
 		} catch (Exception e) {
 			state.setStatValue(StateValue.Error);
 			e.printStackTrace();
@@ -339,10 +340,10 @@ public class EasyRadiusClient extends RadiusClient {
 		stbuffer=null;
 	}
 	
+	
 	/**
 	 * 解析消息体，从消息体解析出code、packetIdentifier、length、authenticator、 user
 	 * name、framedIpAddress、acctStatusType的普通形式
-	 * 
 	 * @param rp
 	 */
 	public void receiveNoAnalysisCompletelyPacketBody(RadiusPacket rp) {
@@ -358,6 +359,7 @@ public class EasyRadiusClient extends RadiusClient {
 		for (int t = 0; t < dbuffer.length; t++) {
 			dbuffer[t] = 0;
 		}
+		
 		byte[] stbuffer = new byte[16];
 		int recLen=0;
 		try {
@@ -451,9 +453,7 @@ public class EasyRadiusClient extends RadiusClient {
 				logger.info(TimeOpera.getCurrentTime()+"\t"+BytesTransform.bytes2str(ufa));
 				ufa=null;
 				//rec=null;
-				
-				
-
+							
 			}
 		} catch (Exception e) {
 			restart("error in analysisPacketBody");
@@ -464,6 +464,7 @@ public class EasyRadiusClient extends RadiusClient {
 		dbuffer=null;
 		stbuffer=null;
 	}
+	
 	public String bytes2ip(byte[] b) {
 		String ip = "";
 		if (b.length != 6) {
@@ -603,6 +604,7 @@ public class EasyRadiusClient extends RadiusClient {
 		EasyRadiusClient erc = new EasyRadiusClient();
 		erc.setRc(rc);
 		erc.start(rc);
+		
 	}
 
 	public RadiusCenter getRc() {

@@ -4,7 +4,11 @@ import java.net.InetSocketAddress;
 
 import com.sun.net.httpserver.HttpServer;
 
-
+/**
+ * 接收RTB传过来的用户数据查询请求，
+ * 查询cassandra数据库，返回结果
+ * @author zkyz
+ */
 public class QueryEasyServer extends Server{
 
 	private Configuration conf;
