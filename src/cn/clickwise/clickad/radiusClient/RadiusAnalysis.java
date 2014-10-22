@@ -100,6 +100,7 @@ public class RadiusAnalysis {
 	   }
 	   return false;
 	}
+	
 	public String hexs2ip(String hexs) {
 		String ip = "";
 		if (SSO.tioe(hexs)) {

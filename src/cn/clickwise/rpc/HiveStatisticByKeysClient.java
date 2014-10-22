@@ -51,7 +51,7 @@ public class HiveStatisticByKeysClient extends Client{
 		State state = new State();
 		OutputStream outputStream = null;
 
-		rpcReceipt=null;
+		setRpcReceipt(null);
 		
 		try {
 			FileInputStream fis = new FileInputStream(hskc.getKeyPath());
@@ -74,7 +74,7 @@ public class HiveStatisticByKeysClient extends Client{
 			pw.close();
 
 			ObjectInputStream ois = new ObjectInputStream(urlCon.getInputStream());
-			rpcReceipt = (RpcReceipt) ois.readObject();
+			setRpcReceipt((RpcReceipt) ois.readObject());
 			
 			/*
 			// 读取远程文件
@@ -128,6 +128,14 @@ public class HiveStatisticByKeysClient extends Client{
 
 	public void setHskc(HiveStatisticByKeysCommand hskc) {
 		this.hskc = hskc;
+	}
+
+	public RpcReceipt getRpcReceipt() {
+		return rpcReceipt;
+	}
+
+	public void setRpcReceipt(RpcReceipt rpcReceipt) {
+		this.rpcReceipt = rpcReceipt;
 	}
 
 }
