@@ -79,9 +79,9 @@ public class LightRadiusClient extends RadiusClientNew {
 			{
 				
 			}
-			if(kl>10)
+			if(kl>5)
 			{
-
+                System.out.println("reconnect to the server");
 				throw new Exception();
 			}
 		}
@@ -232,6 +232,7 @@ public class LightRadiusClient extends RadiusClientNew {
 
 					if (TimeOpera.getCurrentTimeLong() - startTime > 4000) {
 						startTime = TimeOpera.getCurrentTimeLong();
+						System.out.println("send the heart beat");
 						sendHeartbeat();
 					}
 
