@@ -137,6 +137,10 @@ public class QueueRecordPond extends RecordPond {
 					//System.out.println("record:"+record);
 					RecordLight rl = radiusAnalysis.analysis(record);
 					//System.out.println("rl:"+rl.toString());
+					if(rl==null)
+					{
+						continue;
+					}
 					parsedRecordWriter.println(rl.toString());
 				} catch (Exception e) {
 					e.printStackTrace();
