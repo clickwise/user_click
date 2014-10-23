@@ -7,11 +7,23 @@ package cn.clickwise.clickad.radiusClient;
  */
 public abstract class RecordPond {
 	
+	/**
+	 * 向记录池存入record
+	 * @param record
+	 */
 	public abstract void add2Pond(String record);
 	
+	/**
+	 * 从记录池取record
+	 * @return
+	 */
 	public abstract String pollFromPond();
 	
-	
+	/**
+	 * 启动线程从记录池取record并彻底解析
+	 * @param threadNum
+	 */
+	public abstract void startConsume(int threadNum);
 	
 	
 	

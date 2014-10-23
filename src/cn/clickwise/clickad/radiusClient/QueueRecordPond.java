@@ -17,7 +17,6 @@ public class QueueRecordPond extends RecordPond {
 
 	@Override
 	public synchronized void add2Pond(String record) {
-		// TODO Auto-generated method stub
 		queue.add(record);
 	}
 
@@ -36,7 +35,16 @@ public class QueueRecordPond extends RecordPond {
 		return nextElement;
 	}
 
-
+	@Override
+	public void startConsume(int threadNum) {
+		for (int i = 0; i <10; i++) {
+			FieldResolve fr = new FieldResolve();
+			Thread consumeThread = new Thread(fr);
+			consumeThread.start();
+		}
+		
+	}
+	
 	/**
 	 * 每天00:00重启解析线程
 	 * 
@@ -119,8 +127,8 @@ public class QueueRecordPond extends RecordPond {
 			parsedRecordWriter.println(rl.toString());
 		}
 		
-		
-
 	}
+
+
 
 }
