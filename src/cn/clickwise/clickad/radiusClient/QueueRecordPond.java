@@ -24,14 +24,10 @@ public class QueueRecordPond extends RecordPond {
 	@Override
 	public synchronized String pollFromPond() {
 		String nextElement = "";
-		synchronized (queue) {
-
 			if (!queue.isEmpty()) {
 
 				nextElement = queue.poll();
-
 			}
-		}
 
 		return nextElement;
 	}
