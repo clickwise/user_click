@@ -645,6 +645,7 @@ public class ConcurrentProcessRadiusClient extends RadiusClient{
 	
 	public void startPond(int threadNum)
 	{
+		System.out.println("in startPond");
 		queuePond.startConsume(threadNum);
 	}
 	
