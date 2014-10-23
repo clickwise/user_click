@@ -38,7 +38,7 @@ public class QueueRecordPond extends RecordPond {
 
 	@Override
 	public void startConsume(int threadNum) {
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < threadNum; i++) {
 			FieldResolve fr = new FieldResolve();
 			Thread consumeThread = new Thread(fr);
 			consumeThread.start();
@@ -134,6 +134,7 @@ public class QueueRecordPond extends RecordPond {
 					if (SSO.tioe(record)) {
 						Thread.sleep(10);
 					}
+					System.out.println("record:"+record);
 					RecordLight rl = radiusAnalysis.analysis(record);
 					System.out.println("rl:"+rl.toString());
 					parsedRecordWriter.println(rl.toString());

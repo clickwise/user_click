@@ -584,7 +584,6 @@ public class ConcurrentProcessRadiusClient extends RadiusClient{
 	public void start(RadiusCenter rc) {
 
 		connect(rc);
-		queuePond.startConsume(5);
 		
 		long startTime = TimeOpera.getCurrentTimeLong();
 		while (true) {
@@ -644,11 +643,17 @@ public class ConcurrentProcessRadiusClient extends RadiusClient{
 	}
 	*/
 	
+	public void startPond(int threadNum)
+	{
+		queuePond.startConsume(threadNum);
+	}
+	
 	public static void main(String[] args) {
 		RadiusCenter rc = new RadiusCenter("221.231.154.17", 9002);
 		ConcurrentProcessRadiusClient cprc = new ConcurrentProcessRadiusClient();
 		cprc.setRc(rc);
 		cprc.start(rc);
+		cprc.startPond(5);
 		
 	}
 
