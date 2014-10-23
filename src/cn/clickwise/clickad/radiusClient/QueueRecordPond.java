@@ -72,16 +72,21 @@ public class QueueRecordPond extends RecordPond {
 			if (!(tempDir.exists())) {
 				tempDir.mkdirs();
 			}
+			System.out.println("todayPcapDir:"+todayPcapDir);
 
 			// 该解析线程写入的本地日志文件
 			String todayPresentThreadPcapFile = todayPcapDir + "/radiusInfo_"+TimeOpera.getTodayStr()
 					+ "-"+current.getName().replaceAll("Thread\\-", "") + ".log";
+			System.out.println("todayPresentThreadPcapFile:"+todayPresentThreadPcapFile);
+			
 			File tempFile = new File(todayPresentThreadPcapFile);
 
 			try {
 				// 关闭上一个打开的parsedRecordWriter
-				parsedRecordWriter.close();
-
+				if(parsedRecordWriter!=null)
+				{
+				  parsedRecordWriter.close();
+				}
 				// 打开新一天的parsedRecordWriter
 				parsedRecordWriter = new PrintWriter(new FileWriter(tempFile));
 
@@ -94,7 +99,7 @@ public class QueueRecordPond extends RecordPond {
 		public void init() {
 
 			confFactory = ConfigureFactoryInstantiate.getConfigureFactory();
-			initLogFiles();
+			//initLogFiles();
 
 			Calendar cal = Calendar.getInstance();
 			// 每天定点执行
@@ -130,6 +135,7 @@ public class QueueRecordPond extends RecordPond {
 						Thread.sleep(10);
 					}
 					RecordLight rl = radiusAnalysis.analysis(record);
+					System.out.println("rl:"+rl.toString());
 					parsedRecordWriter.println(rl.toString());
 				} catch (Exception e) {
 					e.printStackTrace();

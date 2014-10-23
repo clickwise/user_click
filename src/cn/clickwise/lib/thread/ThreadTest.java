@@ -1,5 +1,11 @@
 package cn.clickwise.lib.thread;
 
+import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import cn.clickwise.lib.time.TimeOpera;
+
 public class ThreadTest {
 
 	synchronized private static void printThreadInfo(Thread current)
@@ -47,11 +53,25 @@ public class ThreadTest {
 	}
 
 	public static void main(String[] args) {
+		/*
 		for (int i = 0; i <10; i++) {
 			SubThread st = new SubThread();
 			Thread serverThread = new Thread(st);
 			serverThread.start();
 		}
+		*/
+		Calendar cal = Calendar.getInstance();
+		// 每天定点执行
+		cal.set(Calendar.HOUR_OF_DAY, 17);
+		cal.set(Calendar.MINUTE, 37);
+		cal.set(Calendar.SECOND, 30);
+		Timer timer = new Timer();
+		timer.schedule(new TimerTask() {
+			public void run() {
+				System.out.println("test1");
+			}
+		}, cal.getTime(), TimeOpera.PERIOD_DAY);
+		System.out.println("test2");
 	}
 
 }
