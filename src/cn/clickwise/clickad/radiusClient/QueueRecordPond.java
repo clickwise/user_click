@@ -41,7 +41,6 @@ public class QueueRecordPond extends RecordPond {
 		for (int i = 0; i < threadNum; i++) {
 			FieldResolve fr = new FieldResolve();
 			Thread consumeThread = new Thread(fr);
-			System.out.println("start thread :"+consumeThread.getName());
 			consumeThread.start();
 		}
 
@@ -64,7 +63,6 @@ public class QueueRecordPond extends RecordPond {
 		 * 每天00:00定时执行该方法
 		 */
 		public void initLogFiles() {
-			System.out.println("in initLogFiles");
 			Thread current = Thread.currentThread();
 
 			// 解析后的record 该天应该存入的文件夹
@@ -74,12 +72,12 @@ public class QueueRecordPond extends RecordPond {
 			if (!(tempDir.exists())) {
 				tempDir.mkdirs();
 			}
-			System.out.println("todayPcapDir:"+todayPcapDir);
+			//System.out.println("todayPcapDir:"+todayPcapDir);
 
 			// 该解析线程写入的本地日志文件
 			String todayPresentThreadPcapFile = todayPcapDir + "/radiusInfo_"+TimeOpera.getTodayStr()
 					+ "-"+current.getName().replaceAll("Thread\\-", "") + ".log";
-			System.out.println("todayPresentThreadPcapFile:"+todayPresentThreadPcapFile);
+			//System.out.println("todayPresentThreadPcapFile:"+todayPresentThreadPcapFile);
 			
 			File tempFile = new File(todayPresentThreadPcapFile);
 
@@ -99,7 +97,6 @@ public class QueueRecordPond extends RecordPond {
 		}
 
 		public void init() {
-			System.out.println("in init");
 			confFactory = ConfigureFactoryInstantiate.getConfigureFactory();
 			//initLogFiles();
 
@@ -119,7 +116,6 @@ public class QueueRecordPond extends RecordPond {
 		@Override
 		public void run() {
 
-			System.out.println("in run");
 			init();
 			parseHexRecord();
 		}
@@ -131,7 +127,6 @@ public class QueueRecordPond extends RecordPond {
 		 */
 		public void parseHexRecord() {
 
-			System.out.println("in parseHexRecord");
 			while (true) {
 				try {
 					String record = pollFromPond();
@@ -139,9 +134,9 @@ public class QueueRecordPond extends RecordPond {
 						Thread.sleep(10);
 						continue;
 					}
-					System.out.println("record:"+record);
+					//System.out.println("record:"+record);
 					RecordLight rl = radiusAnalysis.analysis(record);
-					System.out.println("rl:"+rl.toString());
+					//System.out.println("rl:"+rl.toString());
 					parsedRecordWriter.println(rl.toString());
 				} catch (Exception e) {
 					e.printStackTrace();
