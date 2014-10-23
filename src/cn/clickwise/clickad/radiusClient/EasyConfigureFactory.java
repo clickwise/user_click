@@ -6,7 +6,7 @@ public class EasyConfigureFactory extends ConfigureFactory{
 	@Override
 	public String getPcapDirectory() {
 		// TODO Auto-generated method stub
-		return "logs/";
+		return "parsedLogs/";
 	}
 
 	@Override
