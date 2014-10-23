@@ -34,7 +34,7 @@ public class ConcurrentProcessRadiusClient extends RadiusClient{
 	
 	private static Logger logger = LoggerFactory.getLogger(EasyRadiusClient.class);
 	
-	private Queue queue=new ConcurrentLinkedQueue();
+	//private Queue queue=new ConcurrentLinkedQueue();
 
 	@Override
 	public State connect(RadiusCenter rc) {
@@ -44,6 +44,7 @@ public class ConcurrentProcessRadiusClient extends RadiusClient{
 		confFactory = ConfigureFactoryInstantiate.getConfigureFactory();
 
 		try {
+			
 			sock = new Socket(rc.getIp(), rc.getPort());
 			sockIn = sock.getInputStream();
 
@@ -607,7 +608,7 @@ public class ConcurrentProcessRadiusClient extends RadiusClient{
 		start(rc);
 	}
 	
-	
+	/*
 	public String getFromQueue()
 	{
 		String nextElement="";
@@ -635,7 +636,7 @@ public class ConcurrentProcessRadiusClient extends RadiusClient{
 		}
 		
 	}
-	
+	*/
 	
 	public static void main(String[] args) {
 		RadiusCenter rc = new RadiusCenter("221.231.154.17", 9002);

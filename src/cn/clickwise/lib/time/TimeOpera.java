@@ -17,11 +17,11 @@ import cn.clickwise.lib.string.SSO;
 public class TimeOpera {
 
 	
-	private static final long PERIOD_DAY = 24 * 60 * 60 * 1000;
+	public static final long PERIOD_DAY = 24 * 60 * 60 * 1000;
 
-	private static final long PERIOD_MINUTE = 60 * 1000;
+	public static final long PERIOD_MINUTE = 60 * 1000;
 
-	private static final long PERIOD_HOUR = 60 * 60 * 1000;
+	public static final long PERIOD_HOUR = 60 * 60 * 1000;
 	
 	public static int formatDay(Date date)
 	{

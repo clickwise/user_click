@@ -27,10 +27,10 @@ public class ThreadTest {
 			
 		    double rand=Math.random();
 		    System.out.println("rand:"+rand);
-		    for(int i=0;i<1000000*rand;i++)
-		    {
-		    	System.out.println("thread:"+current.getId()+"  i:"+i);
-		    }
+		   // for(int i=0;i<1000000*rand;i++)
+		   // {
+		   // 	System.out.println("thread:"+current.getId()+"  i:"+i);
+		   // }
 			/*
 			System.out.println(current.getPriority());
 			System.out.println(current.getName());
