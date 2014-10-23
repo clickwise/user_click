@@ -13,27 +13,29 @@ import cn.clickwise.lib.time.TimeOpera;
 
 public class QueueRecordPond extends RecordPond {
 
-	private static Queue queue = new ConcurrentLinkedQueue();
+	private static Queue<String> queue = new ConcurrentLinkedQueue<String>();
 
 	@Override
 	public synchronized void add2Pond(String record) {
 		// TODO Auto-generated method stub
-
+		queue.add(record);
 	}
 
 	@Override
 	public synchronized String pollFromPond() {
-		// TODO Auto-generated method stub
-		return null;
+		String nextElement="";
+		synchronized(queue) {
+
+		    if(!queue.isEmpty()) {
+
+		       nextElement=queue.poll();
+
+		    }
+		}
+		
+		return nextElement;
 	}
 
-	public static Queue getQueue() {
-		return queue;
-	}
-
-	public static void setQueue(Queue queue) {
-		QueueRecordPond.queue = queue;
-	}
 
 	/**
 	 * 每天00:00重启解析线程
@@ -41,11 +43,7 @@ public class QueueRecordPond extends RecordPond {
 	 * @author zkyz
 	 */
 	private class FieldResolve implements Runnable {
-		/**
-		 * 该解析线程写入的本地日志文件
-		 */
-		private String threadPcapFile;
-
+	
 		private ConfigureFactory confFactory;
 
 		private PrintWriter parsedRecordWriter;
@@ -66,6 +64,7 @@ public class QueueRecordPond extends RecordPond {
 				tempDir.mkdirs();
 			}
 
+			// 该解析线程写入的本地日志文件	 
 			String todayPresentThreadPcapFile = todayPcapDir + "/"
 					+ current.getName() + "_radius.txt";
 			File tempFile = new File(todayPresentThreadPcapFile);
