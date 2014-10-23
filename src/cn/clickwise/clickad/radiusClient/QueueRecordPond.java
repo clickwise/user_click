@@ -17,7 +17,7 @@ public class QueueRecordPond extends RecordPond {
 	private static Queue<String> queue = new ConcurrentLinkedQueue<String>();
 
 	@Override
-	public synchronized void add2Pond(String record) {
+	public void add2Pond(String record) {
 		queue.add(record);
 	}
 
