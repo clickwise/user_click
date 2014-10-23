@@ -653,8 +653,9 @@ public class ConcurrentProcessRadiusClient extends RadiusClient{
 		RadiusCenter rc = new RadiusCenter("221.231.154.17", 9002);
 		ConcurrentProcessRadiusClient cprc = new ConcurrentProcessRadiusClient();
 		cprc.setRc(rc);
-		cprc.start(rc);
 		cprc.startPond(5);
+		cprc.start(rc);
+	
 		
 	}
 
