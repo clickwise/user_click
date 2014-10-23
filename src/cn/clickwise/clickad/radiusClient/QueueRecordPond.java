@@ -137,6 +137,7 @@ public class QueueRecordPond extends RecordPond {
 					String record = pollFromPond();
 					if (SSO.tioe(record)) {
 						Thread.sleep(10);
+						continue;
 					}
 					System.out.println("record:"+record);
 					RecordLight rl = radiusAnalysis.analysis(record);
