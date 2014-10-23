@@ -34,6 +34,8 @@ public class ConcurrentProcessRadiusClient extends RadiusClient{
 	
 	private static Logger logger = LoggerFactory.getLogger(EasyRadiusClient.class);
 	
+	private QueueRecordPond queuePond=new QueueRecordPond();
+	
 	//private Queue queue=new ConcurrentLinkedQueue();
 
 	@Override
@@ -458,7 +460,9 @@ public class ConcurrentProcessRadiusClient extends RadiusClient{
 				userName=null;
 				logger.info(rec.toString());
 				*/
-				logger.info(TimeOpera.getCurrentTime()+"\t"+BytesTransform.bytes2str(ufa));
+				String rawRecord=TimeOpera.getCurrentTime()+"\t"+BytesTransform.bytes2str(ufa);
+				logger.info(rawRecord);
+				queuePond.add2Pond(rawRecord);
 				ufa=null;
 				//rec=null;
 							
@@ -580,6 +584,8 @@ public class ConcurrentProcessRadiusClient extends RadiusClient{
 	public void start(RadiusCenter rc) {
 
 		connect(rc);
+		queuePond.startConsume(5);
+		
 		long startTime = TimeOpera.getCurrentTimeLong();
 		while (true) {
 			if (TimeOpera.getCurrentTimeLong() - startTime > 4000) {

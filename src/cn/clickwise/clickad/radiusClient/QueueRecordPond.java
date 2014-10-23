@@ -9,6 +9,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import cn.clickwise.lib.string.SSO;
 import cn.clickwise.lib.time.TimeOpera;
 
 public class QueueRecordPond extends RecordPond {
@@ -22,41 +23,41 @@ public class QueueRecordPond extends RecordPond {
 
 	@Override
 	public synchronized String pollFromPond() {
-		String nextElement="";
-		synchronized(queue) {
+		String nextElement = "";
+		synchronized (queue) {
 
-		    if(!queue.isEmpty()) {
+			if (!queue.isEmpty()) {
 
-		       nextElement=queue.poll();
+				nextElement = queue.poll();
 
-		    }
+			}
 		}
-		
+
 		return nextElement;
 	}
 
 	@Override
 	public void startConsume(int threadNum) {
-		for (int i = 0; i <10; i++) {
+		for (int i = 0; i < 10; i++) {
 			FieldResolve fr = new FieldResolve();
 			Thread consumeThread = new Thread(fr);
 			consumeThread.start();
 		}
-		
+
 	}
-	
+
 	/**
 	 * 每天00:00重启解析线程
 	 * 
 	 * @author zkyz
 	 */
 	private class FieldResolve implements Runnable {
-	
+
 		private ConfigureFactory confFactory;
 
 		private PrintWriter parsedRecordWriter;
-		
-		private RadiusAnalysis radiusAnalysis=new RadiusAnalysis();
+
+		private RadiusAnalysis radiusAnalysis = new RadiusAnalysis();
 
 		/**
 		 * 每天00:00定时执行该方法
@@ -72,7 +73,7 @@ public class QueueRecordPond extends RecordPond {
 				tempDir.mkdirs();
 			}
 
-			// 该解析线程写入的本地日志文件	 
+			// 该解析线程写入的本地日志文件
 			String todayPresentThreadPcapFile = todayPcapDir + "/"
 					+ current.getName() + "_radius.txt";
 			File tempFile = new File(todayPresentThreadPcapFile);
@@ -105,7 +106,7 @@ public class QueueRecordPond extends RecordPond {
 				public void run() {
 					initLogFiles();
 				}
-			}, cal.getTime(), TimeOpera.PERIOD_DAY);	
+			}, cal.getTime(), TimeOpera.PERIOD_DAY);
 		}
 
 		@Override
@@ -116,19 +117,27 @@ public class QueueRecordPond extends RecordPond {
 		}
 
 		/**
-		 * 继续解析未完全解析的用户记录
-		 * 每天记录的格式如下：
-		 * 2014-10-23 12:00:00     01 1a 68 6f 54 62 39 6d 38 6b 56 4b 39 63 4d 43 67 67 4b 55 53 33 78 77 3d 3d 08 06 72 ee e8 2d 28 06 00 00 00 01
+		 * 继续解析未完全解析的用户记录 每天记录的格式如下： 2014-10-23 12:00:00 01 1a 68 6f 54 62 39 6d
+		 * 38 6b 56 4b 39 63 4d 43 67 67 4b 55 53 33 78 77 3d 3d 08 06 72 ee e8
+		 * 2d 28 06 00 00 00 01
 		 */
-		public void parseHexRecord()
-		{
-			String record=pollFromPond();
-			RecordLight rl = radiusAnalysis.analysis(record);
-			parsedRecordWriter.println(rl.toString());
+		public void parseHexRecord() {
+
+			while (true) {
+				try {
+					String record = pollFromPond();
+					if (SSO.tioe(record)) {
+						Thread.sleep(10);
+					}
+					RecordLight rl = radiusAnalysis.analysis(record);
+					parsedRecordWriter.println(rl.toString());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+			}
 		}
-		
+
 	}
-
-
 
 }
