@@ -74,8 +74,8 @@ public class QueueRecordPond extends RecordPond {
 			}
 
 			// 该解析线程写入的本地日志文件
-			String todayPresentThreadPcapFile = todayPcapDir + "/"
-					+ current.getName() + "_radius.txt";
+			String todayPresentThreadPcapFile = todayPcapDir + "/radiusInfo_"+TimeOpera.getTodayStr()
+					+ "-"+current.getName().replaceAll("Thread\\-", "") + ".log";
 			File tempFile = new File(todayPresentThreadPcapFile);
 
 			try {

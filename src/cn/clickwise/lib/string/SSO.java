@@ -338,6 +338,9 @@ public class SSO {
 		 */
 		String source = "铜仁市";
 		System.out.println(source.charAt(source.length() - 1));
+		
+		String str="Thread-7";
+		System.out.println("str:"+str.replaceAll("Thread\\-", ""));
 
 	}
 
