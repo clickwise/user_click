@@ -22,7 +22,7 @@ public class QueueRecordPond extends RecordPond {
 	}
 
 	@Override
-	public synchronized String pollFromPond() {
+	public String pollFromPond() {
 		String nextElement = "";
 			if (!queue.isEmpty()) {
 
