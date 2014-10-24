@@ -169,7 +169,7 @@ public class QueueRecordPond extends RecordPond {
 						Thread.sleep((long)(10*Math.random()));
 						continue;
 					}
-					if(zeroCount>1000)
+					if(zeroCount>100)
 					{
 						Thread current=Thread.currentThread();
 						current.stop();
