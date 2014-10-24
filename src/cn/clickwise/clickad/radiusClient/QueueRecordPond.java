@@ -24,10 +24,9 @@ public class QueueRecordPond extends RecordPond {
 	@Override
 	public String pollFromPond() {
 		String nextElement = "";
-			if (!queue.isEmpty()) {
-
-				nextElement = queue.poll();
-			}
+		System.out.println("queue.size:"+queue.size());
+		nextElement = queue.poll();
+			
 
 		return nextElement;
 	}
