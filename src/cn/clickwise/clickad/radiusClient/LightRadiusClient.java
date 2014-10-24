@@ -191,7 +191,7 @@ public class LightRadiusClient extends RadiusClientNew {
 
 			// System.out.println("dbuffer:"+BytesTransform.bytes2str(dbuffer));
 			// ////recLen = BytesTransform.byteToInt2(dbuffer);
-			recLen = byteToInt2(dbuffer);
+			recLen = BytesTransform.byteToInt2(dbuffer);
 			// System.out.println("rec.len:"+rec.getLength());
 			// authenticator
 			for (k = 0; k < 16; k++) {
@@ -288,7 +288,8 @@ public class LightRadiusClient extends RadiusClientNew {
 			// bintput.reset();
 			// bintput = new ByteArrayInputStream(b);
 			// dintput = new DataInputStream(bintput);
-			dintput.reset();
+			bintput.reset();
+			bintput.read(b);
 			dintput.read(b);
 			i = dintput.readInt();
 		} catch (Exception e) {
@@ -298,6 +299,15 @@ public class LightRadiusClient extends RadiusClientNew {
 		return i;
 
 	}
+	
+	public int byteArrayToInt(byte[] b, int offset) {
+	       int value= 0;
+	       for (int i = 0; i < 4; i++) {
+	           int shift= (4 - 1 - i) * 8;
+	           value +=(b[i + offset] & 0x000000FF) << shift;
+	       }
+	       return value;
+	 }
 
 	public static void main(String[] args) {
 		RadiusCenter rc = new RadiusCenter("221.231.154.17", 9002);
