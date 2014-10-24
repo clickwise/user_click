@@ -83,7 +83,7 @@ public class ConcurrentProcessRadiusClient extends RadiusClient{
 
 	@Override
 	public RadiusPacket readPacket() {
-		System.out.println("read new packet");
+		//System.out.println("read new packet");
 		// TODO Auto-generated method stub
 		byte[] head = new byte[16];
 
@@ -129,7 +129,7 @@ public class ConcurrentProcessRadiusClient extends RadiusClient{
 				return null;
 			}
 
-			System.out.println("begin read body");
+			//System.out.println("begin read body");
 			// System.out.println("read bytes:" + rn);
 			// System.out.println(BytesTransform.bytes2str(body));
 			pb.setBody(body);
@@ -614,11 +614,13 @@ public class ConcurrentProcessRadiusClient extends RadiusClient{
 			System.out.println(message + "----sleep one second!");
 			System.gc();
 			Thread.sleep(confFactory.getResetConnectionSuspend());
+			connect(rc);
+			Thread.sleep(2);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		//start(rc);
-		connect(rc);
+
 	}
 	
 	/*
