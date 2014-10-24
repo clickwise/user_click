@@ -8,6 +8,7 @@ import java.util.Queue;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.regex.Pattern;
 
 import cn.clickwise.lib.string.SSO;
 import cn.clickwise.lib.time.TimeOpera;
@@ -58,6 +59,11 @@ public class QueueRecordPond extends RecordPond {
 		}
 		
 		if(record.length()>500)
+		{
+			return false;
+		}
+		
+		if(!(Pattern.matches("[0-9a-fA-F ]*", record)))
 		{
 			return false;
 		}
