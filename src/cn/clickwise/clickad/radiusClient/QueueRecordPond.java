@@ -18,7 +18,7 @@ public class QueueRecordPond extends RecordPond {
 
 	@Override
 	public void add2Pond(String record) {
-		queue.add(record);
+		queue.offer(record);
 	}
 
 	@Override
@@ -27,7 +27,6 @@ public class QueueRecordPond extends RecordPond {
 		System.out.println("queue.size:"+queue.size());
 		nextElement = queue.poll();
 			
-
 		return nextElement;
 	}
 
@@ -126,7 +125,7 @@ public class QueueRecordPond extends RecordPond {
 				try {
 					String record = pollFromPond();
 					if (SSO.tioe(record)) {
-						Thread.sleep(10);
+						Thread.sleep((long)(10*Math.random()));
 						continue;
 					}
 					//System.out.println("record:"+record);
