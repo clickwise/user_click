@@ -29,10 +29,13 @@ public class ThreadTest {
 		public void run() {
  
 			Thread current = Thread.currentThread();
-			printThreadInfo(current);
+			//printThreadInfo(current);
 			
 		    double rand=Math.random();
-		    System.out.println("rand:"+rand);
+		    while(true){
+		    	
+		    }
+		    //System.out.println("rand:"+rand);
 		   // for(int i=0;i<1000000*rand;i++)
 		   // {
 		   // 	System.out.println("thread:"+current.getId()+"  i:"+i);
@@ -53,13 +56,15 @@ public class ThreadTest {
 	}
 
 	public static void main(String[] args) {
-		/*
-		for (int i = 0; i <10; i++) {
+		
+		for (int i = 0; i <5; i++) {
 			SubThread st = new SubThread();
 			Thread serverThread = new Thread(st);
+			serverThread.setDaemon(true);
 			serverThread.start();
 		}
-		*/
+		
+		/*
 		Calendar cal = Calendar.getInstance();
 		// 每天定点执行
 		cal.set(Calendar.HOUR_OF_DAY, 17);
@@ -71,6 +76,7 @@ public class ThreadTest {
 				System.out.println("test1");
 			}
 		}, cal.getTime(), TimeOpera.PERIOD_DAY);
+		*/
 		System.out.println("test2");
 	}
 
