@@ -83,6 +83,7 @@ public class ConcurrentProcessRadiusClient extends RadiusClient{
 
 	@Override
 	public RadiusPacket readPacket() {
+		System.out.println("read new packet");
 		// TODO Auto-generated method stub
 		byte[] head = new byte[16];
 
@@ -116,6 +117,7 @@ public class ConcurrentProcessRadiusClient extends RadiusClient{
 				// System.out.println("body length is below 12");
 				// return null;
 				restart("body length is below 12");
+				return null;
 			}
 
 			byte[] body = new byte[ph.getPacketBodyLength() - 12];
@@ -124,8 +126,10 @@ public class ConcurrentProcessRadiusClient extends RadiusClient{
 				// System.out.println("body length is -1");
 				// return null;
 				restart("body length is -1");
+				return null;
 			}
 
+			System.out.println("begin read body");
 			// System.out.println("read bytes:" + rn);
 			// System.out.println(BytesTransform.bytes2str(body));
 			pb.setBody(body);
@@ -138,6 +142,7 @@ public class ConcurrentProcessRadiusClient extends RadiusClient{
 			pb=null;
 
 		} catch (IOException e) {
+			
 			e.printStackTrace();
 		}
         
@@ -196,6 +201,7 @@ public class ConcurrentProcessRadiusClient extends RadiusClient{
 					// System.out.println("user name length is below zero");
 					// return;
 					restart("user name length is below zero");
+				    return;
 				}
 				System.out.println("unl:" + unl);
 
