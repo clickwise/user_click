@@ -18,6 +18,10 @@ public class QueueRecordPond extends RecordPond {
 
 	@Override
 	public void add2Pond(String record) {
+		if(isValidRecord(record))
+		{
+			return;
+		}
 		System.out.println("record:"+record);
 		queue.offer(record);
 	}
@@ -39,6 +43,26 @@ public class QueueRecordPond extends RecordPond {
 			consumeThread.start();
 		}
 
+	}
+	
+	public boolean isValidRecord(String record)
+	{
+		int ipStart = record.indexOf("08 06");
+		if (ipStart < 0) {
+			return false;
+		}
+
+		int statusStart = record.indexOf("28 06");
+		if (statusStart < 0) {
+			return false;
+		}
+		
+		if(record.length()>500)
+		{
+			return false;
+		}
+		
+		return true;
 	}
 
 	/**
