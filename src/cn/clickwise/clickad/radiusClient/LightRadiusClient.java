@@ -300,6 +300,7 @@ public class LightRadiusClient extends RadiusClientNew {
 	public static void main(String[] args) {
 		RadiusCenter rc = new RadiusCenter("221.231.154.17", 9002);
 		LightRadiusClient lrc = new LightRadiusClient();
+		lrc.init();
 		lrc.start(rc);
 	}
 
