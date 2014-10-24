@@ -610,7 +610,8 @@ public class ConcurrentProcessRadiusClient extends RadiusClient{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		start(rc);
+		//start(rc);
+		connect(rc);
 	}
 	
 	/*
