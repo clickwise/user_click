@@ -98,6 +98,7 @@ public class ConcurrentProcessRadiusClient extends RadiusClient{
 				hn = sockIn.read(head);
 				if (hn < 0) {
 					restart("head length is -1");
+					return null;
 				}
 			}
 
