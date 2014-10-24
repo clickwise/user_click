@@ -18,6 +18,7 @@ public class QueueRecordPond extends RecordPond {
 
 	@Override
 	public void add2Pond(String record) {
+		System.out.println("record:"+record);
 		queue.offer(record);
 	}
 
