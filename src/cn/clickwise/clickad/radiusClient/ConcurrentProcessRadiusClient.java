@@ -90,6 +90,7 @@ public class ConcurrentProcessRadiusClient extends RadiusClient{
 		RadiusPacket rp = new RadiusPacket();
 		PacketHead ph = new PacketHead();
 		PacketBody pb = new PacketBody();
+		byte[] body=null;
 
 		try {
 
@@ -99,6 +100,9 @@ public class ConcurrentProcessRadiusClient extends RadiusClient{
 				hn = sockIn.read(head);
 				if (hn < 0) {
 					restart("head length is -1");
+					rp=null;
+					ph=null;
+					pb=null;
 					return null;
 				}
 			}
@@ -117,15 +121,22 @@ public class ConcurrentProcessRadiusClient extends RadiusClient{
 				// System.out.println("body length is below 12");
 				// return null;
 				restart("body length is below 12");
+				rp=null;
+				ph=null;
+				pb=null;
 				return null;
 			}
 
-			byte[] body = new byte[ph.getPacketBodyLength() - 12];
+		     body = new byte[ph.getPacketBodyLength() - 12];
 			int rn = sockIn.read(body);
 			if (rn < 0) {
 				// System.out.println("body length is -1");
 				// return null;
 				restart("body length is -1");
+				body=null;
+				rp=null;
+				ph=null;
+				pb=null;
 				return null;
 			}
 
@@ -142,7 +153,10 @@ public class ConcurrentProcessRadiusClient extends RadiusClient{
 			pb=null;
 
 		} catch (IOException e) {
-			
+			body=null;
+			rp=null;
+			ph=null;
+			pb=null;
 			e.printStackTrace();
 		}
         
