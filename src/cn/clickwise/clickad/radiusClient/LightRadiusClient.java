@@ -16,12 +16,8 @@ import cn.clickwise.lib.bytes.BytesTransform;
 import cn.clickwise.lib.time.TimeOpera;
 
 /**
- * 轻量级的 radius 数据接收端
- * 待修改：
- *   目标：尽少占用内存
- *         尽少使用new
- *         速度尽量快
- *         步骤尽量少
+ * 轻量级的 radius 数据接收端 待修改： 目标：尽少占用内存 尽少使用new 速度尽量快 步骤尽量少
+ * 
  * @author zkyz
  */
 public class LightRadiusClient extends RadiusClientNew {
@@ -50,12 +46,6 @@ public class LightRadiusClient extends RadiusClientNew {
 	private byte[] dbuffer;
 
 	private byte[] stbuffer = new byte[16];
-
-	private int hn = -1;
-
-	private int kl = 0;
-
-	private int i = 0;
 
 	private ByteArrayInputStream bintput;
 
@@ -100,8 +90,8 @@ public class LightRadiusClient extends RadiusClientNew {
 		// ///PacketBody pb = new PacketBody();
 
 		// 读取消息头
-		hn = -1;
-		kl = 0;
+		int hn = -1;
+		int kl = 0;
 		while (hn < 0) {
 			try {
 				hn = sockIn.read(head);
@@ -198,7 +188,8 @@ public class LightRadiusClient extends RadiusClientNew {
 			}
 
 			// System.out.println("dbuffer:"+BytesTransform.bytes2str(dbuffer));
-			recLen = BytesTransform.byteToInt2(dbuffer);
+			// ////recLen = BytesTransform.byteToInt2(dbuffer);
+			recLen = byteToInt2(dbuffer);
 			// System.out.println("rec.len:"+rec.getLength());
 			// authenticator
 			for (k = 0; k < 16; k++) {
@@ -255,6 +246,11 @@ public class LightRadiusClient extends RadiusClientNew {
 	public void start(RadiusCenter rc) {
 
 		while (true) {
+			try {
+				Thread.sleep(10);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			connect(rc);
 			long startTime = TimeOpera.getCurrentTimeLong();
 
@@ -283,16 +279,21 @@ public class LightRadiusClient extends RadiusClientNew {
 
 	}
 
-	public void byteToInt2(byte[] b) {
+	public int byteToInt2(byte[] b) {
 
+		int i = 0;
 		try {
-			bintput.reset();
-			bintput = new ByteArrayInputStream(b);
-			dintput = new DataInputStream(bintput);
+			// bintput.reset();
+			// bintput = new ByteArrayInputStream(b);
+			// dintput = new DataInputStream(bintput);
+			dintput.reset();
+			dintput.read(b);
 			i = dintput.readInt();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
+		return i;
 
 	}
 
