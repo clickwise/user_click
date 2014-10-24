@@ -23,14 +23,14 @@ public class QueueRecordPond extends RecordPond {
 		{
 			return;
 		}
-		System.out.println("record:"+record);
+		//System.out.println("record:"+record);
 		queue.offer(record);
 	}
 
 	@Override
 	public String pollFromPond() {
 		String nextElement = "";
-		System.out.println("queue.size:"+queue.size());
+		//System.out.println("queue.size:"+queue.size());
 		nextElement = queue.poll();
 			
 		return nextElement;
