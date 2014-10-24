@@ -16,6 +16,7 @@ import cn.clickwise.lib.time.TimeOpera;
 public class QueueRecordPond extends RecordPond {
 
 	private static Queue<String> queue = new ConcurrentLinkedQueue<String>();
+	private static int zeroCount=0;
 
 	@Override
 	public void add2Pond(String record) {
@@ -30,6 +31,15 @@ public class QueueRecordPond extends RecordPond {
 	@Override
 	public String pollFromPond() {
 		String nextElement = "";
+		int queueSize=queue.size();
+		if(queueSize!=0)
+		{
+			zeroCount=0;
+		}
+		else
+		{
+			zeroCount++;
+		}
 		//System.out.println("queue.size:"+queue.size());
 		nextElement = queue.poll();
 			
@@ -159,6 +169,12 @@ public class QueueRecordPond extends RecordPond {
 						Thread.sleep((long)(10*Math.random()));
 						continue;
 					}
+					if(zeroCount>1000)
+					{
+						Thread current=Thread.currentThread();
+						current.stop();
+					}
+					
 					//System.out.println("record:"+record);
 					RecordLight rl = radiusAnalysis.analysis(record);
 					//System.out.println("rl:"+rl.toString());
