@@ -31,7 +31,9 @@ public class QueueRecordPond extends RecordPond {
 	@Override
 	public String pollFromPond() {
 		String nextElement = "";
+		/*
 		int queueSize=queue.size();
+		
 		if(queueSize!=0)
 		{
 			zeroCount=0;
@@ -40,6 +42,7 @@ public class QueueRecordPond extends RecordPond {
 		{
 			zeroCount++;
 		}
+		*/
 		//System.out.println("queue.size:"+queue.size());
 		nextElement = queue.poll();
 			
@@ -51,6 +54,7 @@ public class QueueRecordPond extends RecordPond {
 		for (int i = 0; i < threadNum; i++) {
 			FieldResolve fr = new FieldResolve();
 			Thread consumeThread = new Thread(fr);
+			consumeThread.setDaemon(true);
 			consumeThread.start();
 		}
 
@@ -169,12 +173,13 @@ public class QueueRecordPond extends RecordPond {
 						Thread.sleep((long)(10*Math.random()));
 						continue;
 					}
+					/*
 					if(zeroCount>100)
 					{
 						Thread current=Thread.currentThread();
 						current.stop();
 					}
-					
+					*/
 					//System.out.println("record:"+record);
 					RecordLight rl = radiusAnalysis.analysis(record);
 					//System.out.println("rl:"+rl.toString());
