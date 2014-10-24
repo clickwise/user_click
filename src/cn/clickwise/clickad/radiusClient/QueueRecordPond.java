@@ -125,7 +125,7 @@ public class QueueRecordPond extends RecordPond {
 				try {
 					String record = pollFromPond();
 					if (SSO.tioe(record)) {
-						Thread.sleep((long)(10*Math.random()));
+						//Thread.sleep((long)(10*Math.random()));
 						continue;
 					}
 					//System.out.println("record:"+record);
