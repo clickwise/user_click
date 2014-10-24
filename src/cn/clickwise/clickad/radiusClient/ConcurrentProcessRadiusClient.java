@@ -615,7 +615,7 @@ public class ConcurrentProcessRadiusClient extends RadiusClient{
 			System.gc();
 			Thread.sleep(confFactory.getResetConnectionSuspend());
 			connect(rc);
-			Thread.sleep(2);
+			//Thread.sleep(2);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
