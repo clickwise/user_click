@@ -54,6 +54,8 @@ public class LightRadiusClient extends RadiusClientNew {
 	public void init() {
 		obuffer = BytesTransform.completeBytes(new byte[1]);
 		dbuffer = BytesTransform.completeBytes(new byte[2]);
+		bintput = new ByteArrayInputStream(dbuffer);
+		dintput = new DataInputStream(bintput);
 	}
 
 	@Override
