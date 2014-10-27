@@ -392,6 +392,7 @@ public class ConcurrentProcessRadiusClient extends RadiusClient{
 		}
 		
 		byte[] stbuffer = new byte[16];
+		byte[] ufa=null;
 		int recLen=0;
 		try {
 
@@ -426,7 +427,7 @@ public class ConcurrentProcessRadiusClient extends RadiusClient{
 				// unl=BytesTransform.byteToIntv(rec.getLength())-32;
 				// System.out.println("unl:"+unl);
 
-				byte[] ufa = new byte[unl + 12];
+				ufa = new byte[unl + 12];
 				// System.out.println("j:"+j+" ufa:"+ufa.length+" unl:"+unl+" body:"+body.length);
 				for (k = 0; k < ufa.length; k++) {
 					ufa[k] = body[k + j];
@@ -489,8 +490,14 @@ public class ConcurrentProcessRadiusClient extends RadiusClient{
 							
 			}
 		} catch (Exception e) {
+			ufa=null;
+			body=null;
+			obuffer=null;
+			dbuffer=null;
+			stbuffer=null;
 			restart("error in analysisPacketBody");
 		}
+
 		
 		body=null;
 		obuffer=null;
