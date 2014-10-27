@@ -147,6 +147,9 @@ public class ConcurrentProcessRadiusClient extends RadiusClient{
 			// fos.write(body);
 			rp.setPackBody(pb);
 			receiveNoAnalysisCompletelyPacketBody(rp);
+			
+			rp.destroy();
+
 			body=null;
 			rp=null;
 			ph=null;

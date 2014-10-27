@@ -26,4 +26,9 @@ public class RadiusPacket {
 		this.packBody = packBody;
 	}
 	
+	public void destroy()
+	{
+		packHead.destroy();
+		packBody.destroy();
+	}
 }

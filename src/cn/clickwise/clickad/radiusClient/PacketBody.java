@@ -23,4 +23,8 @@ public class PacketBody {
 		this.body = body;
 	}
 	
+	public void destroy()
+	{
+		body=null;
+	}
 }

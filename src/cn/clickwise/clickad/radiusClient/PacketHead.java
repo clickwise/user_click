@@ -123,4 +123,11 @@ public class PacketHead {
 	}
 	
 	
+	public void destroy()
+	{
+		head=null;
+		sourceIp=null;
+		destIp=null;
+	}
+	
 }
