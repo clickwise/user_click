@@ -18,9 +18,10 @@ public class RedisOnlineDatabase extends OnlineDatabase {
 	@Override
 	public void update(RecordLight rec) {
 
-		//if (rec.getFramedIpAddress() == null || rec.getUserName() == null) {
-		//	return;
-		//}
+		if(rec.getFramedIpAddress()==null||rec.getUserName()==null)
+		{
+			return;
+		}
 		if (rec.getAcctStatusType() == 1)// 上线
 		{
 			jedis.set(rec.getFramedIpAddress(), rec.getUserName());
@@ -31,29 +32,22 @@ public class RedisOnlineDatabase extends OnlineDatabase {
 			jedis.del(rec.getUserName());
 		} else if (rec.getAcctStatusType() == 3)// 心跳
 		{
-			jedis.set(rec.getFramedIpAddress(), rec.getUserName());
-			jedis.set(rec.getUserName(), rec.getFramedIpAddress());
-			
-			/*
 			String oldUserName = jedis.get(rec.getFramedIpAddress());
 			String oldIp = jedis.get(rec.getUserName());
 
 			// ip对应的用户名是否发生变化
-			if ((oldUserName == null)
-					|| (!(oldUserName.equals(rec.getUserName())))) {
+			if ((oldUserName==null)||(!(oldUserName.equals(rec.getUserName())))) {
 				jedis.set(rec.getFramedIpAddress(), rec.getUserName());
 			} else {
 
 			}
 
 			// 用户名对应的ip是否发生变化
-			if ((oldIp == null) || (!(oldIp.equals(rec.getFramedIpAddress())))) {
+			if ((oldIp==null)||(!(oldIp.equals(rec.getFramedIpAddress())))) {
 				jedis.set(rec.getUserName(), rec.getFramedIpAddress());
 			} else {
 
 			}
-			*/
-			
 		}
 	}
 
