@@ -611,7 +611,7 @@ public class ConcurrentEasyRadiusClient extends RadiusClient{
 		RadiusCenter rc = new RadiusCenter("221.231.154.17", 9002);
 		ConcurrentEasyRadiusClient cerc = new ConcurrentEasyRadiusClient();
 		cerc.setRc(rc);
-		cerc.startPond(5);
+		cerc.startPond(3);
 		cerc.start(rc);
 		
 	}

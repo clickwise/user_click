@@ -9,8 +9,8 @@ public class RedisTestOrigin {
 		Jedis jedis = new Jedis("180.96.26.203", 6379, 1000);// redis服务器地址
 		jedis.select(10);
 		jedis.ping();
-		jedis.set("md5_cb696edca40ed45e4533dc6c12cd5d30", "单肩");
-		System.out.println(jedis.get("md5_cb696edca40ed45e4533dc6c12cd5d30"));
+		//jedis.set("md5_cb696edca40ed45e4533dc6c12cd5d30", "单肩");
+		System.out.println(jedis.get("121.239.235.40"));
 		
 		
 	}

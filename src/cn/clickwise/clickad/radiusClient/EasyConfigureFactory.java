@@ -30,7 +30,7 @@ public class EasyConfigureFactory extends ConfigureFactory{
 	@Override
 	public RedisCenter getRedisCenter() {
 		
-		return new RedisCenter("180.96.26.203",6379,"10");
+		return new RedisCenter("127.0.0.1",6379,"10");
 	}
 
 	@Override
