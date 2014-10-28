@@ -127,7 +127,7 @@ public class QueueRecordPond extends RecordPond {
 				  parsedRecordWriter.close();
 				}
 				// 打开新一天的parsedRecordWriter
-				parsedRecordWriter = new PrintWriter(new FileWriter(tempFile));
+				parsedRecordWriter = new PrintWriter(new FileWriter(tempFile,true));
 
 			} catch (Exception e) {
 				e.printStackTrace();
