@@ -21,7 +21,7 @@ public class RedisOnlineDatabase extends OnlineDatabase {
 	@Override
 	public void connectJedis(Jedis jedis) {
 		this.jedis=jedis;
-		this.jedis.ping();
+		//this.jedis.ping();
 		
 	}
 
@@ -32,6 +32,7 @@ public class RedisOnlineDatabase extends OnlineDatabase {
 		{
 			return;
 		}
+		
 		if (rec.getAcctStatusType() == 1)// 上线
 		{
 			jedis.set(rec.getFramedIpAddress(), rec.getUserName());

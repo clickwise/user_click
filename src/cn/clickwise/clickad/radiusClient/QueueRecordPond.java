@@ -63,6 +63,7 @@ public class QueueRecordPond extends RecordPond {
 
 	@Override
 	public void startConsume(int threadNum) {
+		initForParse();
 		for (int i = 0; i < threadNum; i++) {
 			FieldResolve fr = new FieldResolve();
 			Thread consumeThread = new Thread(fr);
