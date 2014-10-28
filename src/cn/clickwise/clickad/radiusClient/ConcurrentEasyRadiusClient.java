@@ -15,6 +15,7 @@ import cn.clickwise.lib.string.SSO;
 import cn.clickwise.lib.time.TimeOpera;
 
 public class ConcurrentEasyRadiusClient extends RadiusClient{
+	
 	private InputStream sockIn;
 
 	private OutputStreamWriter sockOut;
