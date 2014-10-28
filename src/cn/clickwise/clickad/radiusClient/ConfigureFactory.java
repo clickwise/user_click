@@ -27,4 +27,7 @@ public abstract class ConfigureFactory {
 	 */
 	public abstract long getResetConnectionSuspend();
 	
+	public abstract RedisCenter getRedisCenter();
+	
+	public abstract OnlineDatabase getOnlineDatabase();
 }

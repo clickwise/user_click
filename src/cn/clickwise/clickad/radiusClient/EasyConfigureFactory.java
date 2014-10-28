@@ -27,6 +27,18 @@ public class EasyConfigureFactory extends ConfigureFactory{
 		return 10;
 	}
 
+	@Override
+	public RedisCenter getRedisCenter() {
+		
+		return new RedisCenter("180.96.26.203",6379,"10");
+	}
+
+	@Override
+	public OnlineDatabase getOnlineDatabase() {
+	
+		return new RedisOnlineDatabase();
+	}
+
 	
 	
 	

@@ -1,29 +1,20 @@
 package cn.clickwise.clickad.radiusClient;
 
-/**
- * 在线数据库存储用户账户、ip的当前状态
- * @author zkyz
- */
-public abstract class OnlineDatabase {
-
+public class RedisCenter {
+	
 	private String ip;
 	
 	private int port;
 	
 	private String database;
 	
+	public RedisCenter(String ip,int port,String database)
+	{
+		this.setIp(ip);
+		this.setPort(port);
+		this.setDatabase(database);
+	}
 
-	/**
-	 * 连接数据库
-	 */
-	public abstract void connect(RedisCenter rc);
-	
-	/**
-	 * 根据rec的类型更新在线数据库
-	 */
-	public abstract void update(RecordLight rec);
-	
-	
 	public String getIp() {
 		return ip;
 	}

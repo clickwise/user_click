@@ -97,7 +97,8 @@ public class QueueRecordPond extends RecordPond {
 		private PrintWriter parsedRecordWriter;
 
 		private RadiusAnalysis radiusAnalysis = new RadiusAnalysis();
-
+		
+		private OnlineDatabase onlineDB=null;
 		/**
 		 * 每天00:00定时执行该方法
 		 */
@@ -132,6 +133,9 @@ public class QueueRecordPond extends RecordPond {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			
+			onlineDB=confFactory.getOnlineDatabase();
+			onlineDB.connect(confFactory.getRedisCenter());
 
 		}
 
@@ -188,6 +192,7 @@ public class QueueRecordPond extends RecordPond {
 						continue;
 					}
 					parsedRecordWriter.println(rl.toString());
+					onlineDB.update(rl);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
