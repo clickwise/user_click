@@ -18,6 +18,7 @@ public class RedisOnlineDatabase extends OnlineDatabase {
 	@Override
 	public void update(RecordLight rec) {
 
+		System.out.println(rec.toString());
 		if (rec.getFramedIpAddress() == null || rec.getUserName() == null) {
 			return;
 		}
