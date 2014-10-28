@@ -21,6 +21,7 @@ public class RedisOnlineDatabase extends OnlineDatabase {
 	@Override
 	public void connectJedis(Jedis jedis) {
 		this.jedis=jedis;
+		this.jedis.ping();
 		
 	}
 

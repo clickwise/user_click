@@ -27,7 +27,7 @@ public class QueueRecordPond extends RecordPond {
 	
     public void initForParse()
     {
-    	pool = new JedisPool(new JedisPoolConfig(), "localhost",6379);
+    	pool = new JedisPool(new JedisPoolConfig(), "127.0.0.1",6379);
     }
 	
 	@Override
