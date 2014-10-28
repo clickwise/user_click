@@ -17,6 +17,8 @@ public class QueueRecordPond extends RecordPond {
 
 	private static Queue<String> queue = new ConcurrentLinkedQueue<String>();
 	private static int zeroCount=0;
+	private OnlineDatabase onlineDB=null;
+	private static ConfigureFactory confFactory;
 
 	@Override
 	public void add2Pond(String record) {
@@ -51,6 +53,11 @@ public class QueueRecordPond extends RecordPond {
 
 	@Override
 	public void startConsume(int threadNum) {
+		
+		confFactory = ConfigureFactoryInstantiate.getConfigureFactory();
+		onlineDB=confFactory.getOnlineDatabase();
+		onlineDB.connect(confFactory.getRedisCenter());
+		
 		for (int i = 0; i < threadNum; i++) {
 			FieldResolve fr = new FieldResolve();
 			Thread consumeThread = new Thread(fr);
@@ -84,6 +91,11 @@ public class QueueRecordPond extends RecordPond {
 		
 		return true;
 	}
+	
+	public synchronized void updatePond(RecordLight rl)
+	{
+		onlineDB.update(rl);
+	}
 
 	/**
 	 * 每天00:00重启解析线程
@@ -92,13 +104,12 @@ public class QueueRecordPond extends RecordPond {
 	 */
 	private class FieldResolve implements Runnable {
 
-		private ConfigureFactory confFactory;
+		//private ConfigureFactory confFactory;
 
 		private PrintWriter parsedRecordWriter;
 
 		private RadiusAnalysis radiusAnalysis = new RadiusAnalysis();
 		
-		private OnlineDatabase onlineDB=null;
 		/**
 		 * 每天00:00定时执行该方法
 		 */
@@ -134,13 +145,10 @@ public class QueueRecordPond extends RecordPond {
 				e.printStackTrace();
 			}
 			
-			onlineDB=confFactory.getOnlineDatabase();
-			onlineDB.connect(confFactory.getRedisCenter());
 
 		}
 
 		public void init() {
-			confFactory = ConfigureFactoryInstantiate.getConfigureFactory();
 			//initLogFiles();
 
 			Calendar cal = Calendar.getInstance();
@@ -192,7 +200,8 @@ public class QueueRecordPond extends RecordPond {
 						continue;
 					}
 					parsedRecordWriter.println(rl.toString());
-					onlineDB.update(rl);
+					updatePond(rl);
+					//onlineDB.update(rl);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

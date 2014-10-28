@@ -18,10 +18,9 @@ public class RedisOnlineDatabase extends OnlineDatabase {
 	@Override
 	public void update(RecordLight rec) {
 
-		System.out.println(rec.toString());
-		if (rec.getFramedIpAddress() == null || rec.getUserName() == null) {
-			return;
-		}
+		//if (rec.getFramedIpAddress() == null || rec.getUserName() == null) {
+		//	return;
+		//}
 		if (rec.getAcctStatusType() == 1)// 上线
 		{
 			jedis.set(rec.getFramedIpAddress(), rec.getUserName());
@@ -32,6 +31,10 @@ public class RedisOnlineDatabase extends OnlineDatabase {
 			jedis.del(rec.getUserName());
 		} else if (rec.getAcctStatusType() == 3)// 心跳
 		{
+			jedis.set(rec.getFramedIpAddress(), rec.getUserName());
+			jedis.set(rec.getUserName(), rec.getFramedIpAddress());
+			
+			/*
 			String oldUserName = jedis.get(rec.getFramedIpAddress());
 			String oldIp = jedis.get(rec.getUserName());
 
@@ -49,6 +52,8 @@ public class RedisOnlineDatabase extends OnlineDatabase {
 			} else {
 
 			}
+			*/
+			
 		}
 	}
 
