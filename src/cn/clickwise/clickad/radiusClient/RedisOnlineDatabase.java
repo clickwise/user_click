@@ -30,8 +30,28 @@ public class RedisOnlineDatabase extends OnlineDatabase{
 		}
 		else if(rec.getAcctStatusType()==3)//心跳
 		{
-			jedis.set(rec.getFramedIpAddress(), rec.getUserName());
+			String oldUserName=jedis.get(rec.getFramedIpAddress());
+			String oldIp=jedis.get(rec.getUserName());
+			
+			//ip对应的用户名是否发生变化
+			if(!(oldUserName.equals(rec.getUserName())))
+			{
+			  jedis.set(rec.getFramedIpAddress(), rec.getUserName());
+			}
+			else
+			{
+				
+			}
+			
+			//用户名对应的ip是否发生变化
+			if(!(oldIp.equals(rec.getFramedIpAddress())))
+			{
 			jedis.set(rec.getUserName(), rec.getFramedIpAddress());
+			}
+			else
+			{
+				
+			}
 		}
 	}
 
