@@ -1,10 +1,13 @@
 package cn.clickwise.clickad.radiusClient;
 
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 
 public class RedisOnlineDatabase extends OnlineDatabase {
 
 	private Jedis jedis = null;
+	
+	private JedisPool pool;
 
 	@Override
 	public void connect(RedisCenter rc) {
@@ -13,6 +16,12 @@ public class RedisOnlineDatabase extends OnlineDatabase {
 		jedis.select(Integer.parseInt(rc.getDatabase()));
 		jedis.ping();
 
+	}
+	
+	@Override
+	public void connectJedis(Jedis jedis) {
+		this.jedis=jedis;
+		
 	}
 
 	@Override
@@ -50,5 +59,21 @@ public class RedisOnlineDatabase extends OnlineDatabase {
 			}
 		}
 	}
+
+	public void finalize()
+	{
+		  pool.returnResource(jedis);
+		  pool.destroy();
+	}
+
+	public JedisPool getPool() {
+		return pool;
+	}
+
+	public void setPool(JedisPool pool) {
+		this.pool = pool;
+	}
+
+
 
 }

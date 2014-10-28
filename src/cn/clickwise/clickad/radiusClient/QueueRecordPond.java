@@ -10,14 +10,26 @@ import java.util.TimerTask;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.regex.Pattern;
 
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.JedisPoolConfig;
+
 import cn.clickwise.lib.string.SSO;
 import cn.clickwise.lib.time.TimeOpera;
 
 public class QueueRecordPond extends RecordPond {
 
 	private static Queue<String> queue = new ConcurrentLinkedQueue<String>();
+	
 	private static int zeroCount=0;
-
+	
+	private JedisPool pool;
+	
+    public void initForParse()
+    {
+    	pool = new JedisPool(new JedisPoolConfig(), "localhost",6379);
+    }
+	
 	@Override
 	public void add2Pond(String record) {
 		if(isValidRecord(record))
@@ -135,7 +147,10 @@ public class QueueRecordPond extends RecordPond {
 			}
 			
 			onlineDB=confFactory.getOnlineDatabase();
-			onlineDB.connect(confFactory.getRedisCenter());
+			onlineDB.setPool(pool);
+			Jedis jedisInstance=pool.getResource();
+			onlineDB.connectJedis(jedisInstance);
+			//onlineDB.connect(confFactory.getRedisCenter());
 
 		}
 
