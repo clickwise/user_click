@@ -94,7 +94,8 @@ public class CumulateQueryManager {
 
 			}
 			*/
-			queryPvUvStatistics();
+			//queryPvUvStatistics();
+			queryPvUvStatisticsFile();
 		}
 
 		// 从queryLog统计不同地区查询的Uv量，并将结果写入mysql
@@ -102,8 +103,7 @@ public class CumulateQueryManager {
 			
 			int day = TimeOpera.getToday();
 			HashMap<String, HashMap<String, Integer>> areaUser = new HashMap<String, HashMap<String, Integer>>();
-			
-			
+						
 			try {
 				FileReader fr = new FileReader(
 						queryLogDirectory.getQueryLogByDay(day));
@@ -155,6 +155,108 @@ public class CumulateQueryManager {
 
     				receipt.setUv(areaDayUVIdentity.getValue().size());
     				receipt.setPv(pv);             	
+    				receipt.setReceiptId(System.currentTimeMillis() + "");
+    				mysql.updateStatistics(receipt, table, codeArea);
+                }
+		
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+		// 从queryLog统计不同地区查询的Uv量，并将结果写入mysql
+		public void queryPvUvStatisticsFile() {
+			
+			int day = TimeOpera.getToday();
+			
+			//地区用户存储结构，第一个key是地区，第二个key是用户
+			HashMap<String, HashMap<String, Integer>> areaUser = new HashMap<String, HashMap<String, Integer>>();
+			
+			//地区ip存储结构，第一个key是地区，第二个key是ip
+			HashMap<String, HashMap<String, Integer>> areaIp = new HashMap<String, HashMap<String, Integer>>();
+			
+			try {
+				FileReader fr = new FileReader(
+						queryLogDirectory.getQueryLogByDay(day));
+				BufferedReader br = new BufferedReader(fr);
+                String line="";
+                
+                String[] tokens=null;
+                String uid="";
+                String area="";
+                String ip="";
+                
+                //统计uv
+                while((line=br.readLine())!=null)
+                {
+                	if(SSO.tioe(line))
+                	{
+                		continue;
+                	}
+                	line=line.trim();
+                	
+                	tokens=line.split("\001");
+                	if(tokens.length!=3)
+                	{
+                		continue;
+                	}
+                	
+                	uid=tokens[0];
+                	area=tokens[1];
+                	ip=tokens[2];
+                	
+            		String areaDayUVIdentity = KeyOpera.areaCodeDayKeyUV(day,KeyOpera.getAreaCodeFromUid(line));
+            		
+            		if(!(areaUser.containsKey(areaDayUVIdentity)))
+            		{
+            			areaUser.put(areaDayUVIdentity, new HashMap<String,Integer>());
+            			areaUser.get(areaDayUVIdentity).put(uid, 1);
+            			
+              			areaIp.put(areaDayUVIdentity, new HashMap<String,Integer>());
+            			areaIp.get(areaDayUVIdentity).put(ip, 1);
+            		}
+            		else
+            		{
+            			if(!(areaUser.get(areaDayUVIdentity).containsKey(uid)))
+            			{
+            				areaUser.get(areaDayUVIdentity).put(uid, 1);
+            			}
+            			
+              			if(!(areaIp.get(areaDayUVIdentity).containsKey(ip)))
+            			{
+            				areaIp.get(areaDayUVIdentity).put(ip, 1);
+            			}
+            			
+            		}
+            		
+                }
+				
+                String codeOfArea="";         
+                String areaDayPVIdentity="";
+                
+                for(Map.Entry<String, HashMap<String,Integer>> areaDayUVIdentity: areaUser.entrySet())
+                {
+    				QueryReceipt receipt = new QueryReceipt();
+    				receipt.setDay(day);
+    				codeOfArea=KeyOpera.getCodeOfAreaFromAreaDayKeyUV(areaDayUVIdentity.getKey());	
+    				receipt.setCodeOfArea(codeOfArea);
+    				
+    				//获取pv
+    				areaDayPVIdentity=KeyOpera.areaCodeDayKeyPV(day, codeOfArea);
+    				String counted_str = jedis.get(areaDayPVIdentity);
+    				
+    				int pv = 0;
+    				if (counted_str != null) {
+    					pv = Integer.parseInt(counted_str);
+    				} else {
+    					continue;
+    				}
+
+    				receipt.setUv(areaDayUVIdentity.getValue().size());
+    				HashMap<String,Integer> ipAreaDay=areaIp.get(areaDayUVIdentity.getKey());
+    				receipt.setPv(ipAreaDay.size());  
+    				
     				receipt.setReceiptId(System.currentTimeMillis() + "");
     				mysql.updateStatistics(receipt, table, codeArea);
                 }
