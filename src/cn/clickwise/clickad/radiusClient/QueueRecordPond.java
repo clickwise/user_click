@@ -208,7 +208,7 @@ public class QueueRecordPond extends RecordPond {
 					{
 						continue;
 					}
-					parsedRecordWriter.println("ti="+ti+" "+rl.toString());
+					parsedRecordWriter.println(rl.toString());
 					onlineDB.update(rl);
 				} catch (Exception e) {
 					e.printStackTrace();
