@@ -117,7 +117,7 @@ public class CassandraQuery extends DataQuery {
 				public void run() {
 					initLogFiles();
 				}
-			}, cal.getTime(), TimeOpera.PERIOD_DAY);
+			}, cal.getTime(), TimeOpera.PERIOD_HOUR);
 
 			state.setStatValue(StateValue.Normal);
 

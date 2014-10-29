@@ -56,27 +56,27 @@ public class ThreadTest {
 	}
 
 	public static void main(String[] args) {
-		
+		/*
 		for (int i = 0; i <5; i++) {
 			SubThread st = new SubThread();
 			Thread serverThread = new Thread(st);
 			serverThread.setDaemon(true);
 			serverThread.start();
 		}
+		*/
 		
-		/*
 		Calendar cal = Calendar.getInstance();
 		// 每天定点执行
-		cal.set(Calendar.HOUR_OF_DAY, 17);
-		cal.set(Calendar.MINUTE, 37);
+		//cal.set(Calendar.HOUR_OF_DAY, 17);
+		cal.set(Calendar.MINUTE, 15);
 		cal.set(Calendar.SECOND, 30);
 		Timer timer = new Timer();
 		timer.schedule(new TimerTask() {
 			public void run() {
 				System.out.println("test1");
 			}
-		}, cal.getTime(), TimeOpera.PERIOD_DAY);
-		*/
+		}, cal.getTime(), TimeOpera.PERIOD_HOUR);
+		
 		System.out.println("test2");
 	}
 
