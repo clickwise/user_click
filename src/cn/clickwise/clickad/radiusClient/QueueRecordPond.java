@@ -186,14 +186,8 @@ public class QueueRecordPond extends RecordPond {
 		 */
 		public void parseHexRecord() {
 
-			int ti=0;
 			while (true) {
-				ti++;
-				if(ti>1000)
-				{
-					Thread ct=Thread.currentThread();
-					ct.stop();
-				}
+
 				try {
 					String record = pollFromPond();
 					if (SSO.tioe(record)) {

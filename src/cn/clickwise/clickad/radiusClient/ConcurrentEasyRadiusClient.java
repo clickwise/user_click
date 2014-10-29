@@ -29,6 +29,8 @@ public class ConcurrentEasyRadiusClient extends RadiusClient{
 	private static Logger logger = LoggerFactory.getLogger(EasyRadiusClient.class);
 	
 	private QueueRecordPond queuePond=new QueueRecordPond();
+	
+	private static int ti=0;
 
 	@Override
 	public State connect(RadiusCenter rc) {
@@ -350,7 +352,12 @@ public class ConcurrentEasyRadiusClient extends RadiusClient{
 	 */
 	public void receiveNoAnalysisCompletelyPacketBody(RadiusPacket rp) {
 		int j = 0;
-
+		ti++;
+		System.out.println("ti="+ti);
+		if(ti>10000)
+		{
+			Thread.currentThread().stop();
+		}
 		byte[] body = rp.getPackBody().getBody();
 
 		int k = 0;
