@@ -63,13 +63,14 @@ public class CassandraQuery extends DataQuery {
 		try {
 			missesDirectory = new MissesDirectory();
 			FileWriter fw = new FileWriter(
-					missesDirectory.getMissesByDay(TimeOpera.getToday()), true);
+					missesDirectory.getMissesByDay(TimeOpera.getToday()) + "_"
+							+ TimeOpera.getHour(), true);
 			supervisor = new PrintWriter(fw);
 
 			queryLogDirectory = new QueryLogDirectory();
 			FileWriter qlfw = new FileWriter(
-					queryLogDirectory.getQueryLogByDay(TimeOpera.getToday()),
-					true);
+					queryLogDirectory.getQueryLogByDay(TimeOpera.getToday())
+							+ "_" + TimeOpera.getHour(), true);
 			querySupervisor = new PrintWriter(qlfw);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -105,10 +106,10 @@ public class CassandraQuery extends DataQuery {
 			 * (queryLogDirectory.getQueryLogByDay(TimeOpera.getToday()),true);
 			 * querySupervisor=new PrintWriter(qlfw);
 			 */
-			
+
 			Calendar cal = Calendar.getInstance();
 			// 每天定点执行
-			cal.set(Calendar.HOUR_OF_DAY, 0);
+			// cal.set(Calendar.HOUR_OF_DAY, 0);
 			cal.set(Calendar.MINUTE, 0);
 			cal.set(Calendar.SECOND, 30);
 			Timer timer = new Timer();
@@ -117,7 +118,7 @@ public class CassandraQuery extends DataQuery {
 					initLogFiles();
 				}
 			}, cal.getTime(), TimeOpera.PERIOD_DAY);
-			
+
 			state.setStatValue(StateValue.Normal);
 
 		} catch (Exception e) {
