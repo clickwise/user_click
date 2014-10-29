@@ -8,7 +8,10 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.apache.cassandra.thrift.Column;
 import org.apache.cassandra.thrift.ColumnOrSuperColumn;
@@ -40,27 +43,44 @@ public class CassandraQuery extends DataQuery {
 
 	private ColumnParent cp = null;
 
-	//统计不同地区用户查询数
+	// 统计不同地区用户查询数
 	private Jedis jedis = null;
-	
+
 	private MissesDirectory missesDirectory;
-	
+
 	private ConfigureFactory confFactory;
-	
+
 	private QueryLogDirectory queryLogDirectory;
-	
-	//记录未查到用户的uid
-	private PrintWriter supervisor=null;
-	
-	private PrintWriter querySupervisor=null;
+
+	// 记录未查到用户的uid
+	private PrintWriter supervisor = null;
+
+	private PrintWriter querySupervisor = null;
 
 	static Logger logger = LoggerFactory.getLogger(CassandraQuery.class);
+
+	public void initLogFiles() {
+		try {
+			missesDirectory = new MissesDirectory();
+			FileWriter fw = new FileWriter(
+					missesDirectory.getMissesByDay(TimeOpera.getToday()), true);
+			supervisor = new PrintWriter(fw);
+
+			queryLogDirectory = new QueryLogDirectory();
+			FileWriter qlfw = new FileWriter(
+					queryLogDirectory.getQueryLogByDay(TimeOpera.getToday()),
+					true);
+			querySupervisor = new PrintWriter(qlfw);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	public State connect(Connection con) {
 		State state = new State();
 		confFactory = ConfigureFactoryInstantiate.getConfigureFactory();
-		
+
 		try {
 			TTransport tr = new TSocket(con.getHost(), con.getPort());
 			TFramedTransport tf = new TFramedTransport(tr);
@@ -70,18 +90,33 @@ public class CassandraQuery extends DataQuery {
 			client.set_keyspace(con.getKeySpace());
 			setCp(new ColumnParent(con.getCfName()));
 
-			ArdbConfigure ardbConf=confFactory.getArdbConfigure();
-						
-			jedis = new Jedis(ardbConf.getHost() ,ardbConf.getPort(), 10000);
+			ArdbConfigure ardbConf = confFactory.getArdbConfigure();
+
+			jedis = new Jedis(ardbConf.getHost(), ardbConf.getPort(), 10000);
 			jedis.select(ardbConf.getDb());
+			/*
+			 * missesDirectory=new MissesDirectory(); FileWriter fw=new
+			 * FileWriter
+			 * (missesDirectory.getMissesByDay(TimeOpera.getToday()),true);
+			 * supervisor=new PrintWriter(fw);
+			 * 
+			 * queryLogDirectory=new QueryLogDirectory(); FileWriter qlfw=new
+			 * FileWriter
+			 * (queryLogDirectory.getQueryLogByDay(TimeOpera.getToday()),true);
+			 * querySupervisor=new PrintWriter(qlfw);
+			 */
 			
-			missesDirectory=new MissesDirectory();
-			FileWriter fw=new FileWriter(missesDirectory.getMissesByDay(TimeOpera.getToday()),true);
-			supervisor=new PrintWriter(fw);
-					
-			queryLogDirectory=new QueryLogDirectory();			
-			FileWriter qlfw=new FileWriter(queryLogDirectory.getQueryLogByDay(TimeOpera.getToday()),true);
-			querySupervisor=new PrintWriter(qlfw);
+			Calendar cal = Calendar.getInstance();
+			// 每天定点执行
+			cal.set(Calendar.HOUR_OF_DAY, 0);
+			cal.set(Calendar.MINUTE, 0);
+			cal.set(Calendar.SECOND, 30);
+			Timer timer = new Timer();
+			timer.schedule(new TimerTask() {
+				public void run() {
+					initLogFiles();
+				}
+			}, cal.getTime(), TimeOpera.PERIOD_DAY);
 			
 			state.setStatValue(StateValue.Normal);
 
@@ -95,7 +130,7 @@ public class CassandraQuery extends DataQuery {
 
 	@Override
 	public List<Record> queryUid(Key key) {
-     
+
 		List<Record> recordList = new ArrayList<Record>();
 		SlicePredicate predicate = new SlicePredicate();
 		SliceRange sliceRange = new SliceRange();
@@ -103,32 +138,31 @@ public class CassandraQuery extends DataQuery {
 		sliceRange.setFinish(new byte[0]);
 		predicate.setSlice_range(sliceRange);
 		ByteBuffer sendBuffer = null;
-		
+
 		try {
 
 			sendBuffer = ByteBuffer.wrap(key.key.getBytes(UTF8));
 			List<ColumnOrSuperColumn> results = client.get_slice(sendBuffer,
 					cp, predicate, CL.ONE);
 
-			//System.out.println("key:"+key.key+"  results.size:"+results.size());
+			// System.out.println("key:"+key.key+"  results.size:"+results.size());
 			for (ColumnOrSuperColumn result : results) {
 				Column column = result.column;
-				//System.out.println("key:"+key.key+" value:"+(new String(column.getValue(), UTF8)).toString());
+				// System.out.println("key:"+key.key+" value:"+(new
+				// String(column.getValue(), UTF8)).toString());
 				recordList.add(new Record(key.key, new String(
 						column.getValue(), UTF8)));
-				//System.out.println("key:"+key+" value:"+(new String(
-				//		column.getValue(), UTF8)).toString());
+				// System.out.println("key:"+key+" value:"+(new String(
+				// column.getValue(), UTF8)).toString());
 			}
-			
+
 			logQuery(key);
-			//记录日志和统计
-			resetStatistics(key);	
-			if(results.size()==0)
-			{
-			  logUnknownUid(key);	
+			// 记录日志和统计
+			resetStatistics(key);
+			if (results.size() == 0) {
+				logUnknownUid(key);
 			}
-			
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -146,8 +180,8 @@ public class CassandraQuery extends DataQuery {
 	State resetStatistics(Key key) {
 		State state = new State();
 		int counted = 0;
-		String areaDayIdentity = KeyOpera.areaCodeDayKeyPV(TimeOpera.getToday(),
-				KeyOpera.getAreaCodeFromUid(key.key));
+		String areaDayIdentity = KeyOpera.areaCodeDayKeyPV(
+				TimeOpera.getToday(), KeyOpera.getAreaCodeFromUid(key.key));
 		String counted_str = jedis.get(areaDayIdentity);
 		if (counted_str != null) {
 			counted = Integer.parseInt(counted_str);
@@ -161,21 +195,21 @@ public class CassandraQuery extends DataQuery {
 
 	@Override
 	State logUnknownUid(Key key) {
-		
-		State state=new State();
-		
-	    supervisor.println(key.key);
-	    //supervisor.flush();
+
+		State state = new State();
+
+		supervisor.println(key.key);
+		// supervisor.flush();
 		state.setStatValue(StateValue.Normal);
-		
+
 		return state;
 	}
-	
+
 	@Override
 	State logQuery(Key key) {
-		State state=new State();
-		querySupervisor.println(key.key+"\001"+key.area+"\001"+key.ip);
-              //  supervisor.flush();
+		State state = new State();
+		querySupervisor.println(key.key + "\001" + key.area + "\001" + key.ip);
+		// supervisor.flush();
 		return state;
 	}
 
@@ -187,16 +221,14 @@ public class CassandraQuery extends DataQuery {
 		this.cp = cp;
 	}
 
-	public PrintWriter getSupervisor()
-	{
-	    return supervisor;	
+	public PrintWriter getSupervisor() {
+		return supervisor;
 	}
-	
-	public void setSupervisor(PrintWriter supervisor)
-	{
-		this.supervisor=supervisor;
+
+	public void setSupervisor(PrintWriter supervisor) {
+		this.supervisor = supervisor;
 	}
-	
+
 	public static void main(String[] args) {
 		if (args.length != 1) {
 			System.err.println("Usage:[host]");
@@ -211,62 +243,39 @@ public class CassandraQuery extends DataQuery {
 		con.setKeySpace("userstore");
 		con.setColumnName("title");
 		cq.connect(con);
-		Key key=new Key("476cb38e3aace0ad5129a147643d8bc3009");
+		Key key = new Key("476cb38e3aace0ad5129a147643d8bc3009");
 		List<Record> result = cq.queryUid(key);
-        cq.getSupervisor().close();
-        cq.getQuerySupervisor().close();
-        
+		cq.getSupervisor().close();
+		cq.getQuerySupervisor().close();
+
 		/*
-		InputStreamReader isr = new InputStreamReader(System.in);
-		BufferedReader br = new BufferedReader(isr);
-
-		OutputStreamWriter osw = new OutputStreamWriter(System.out);
-		PrintWriter pw = new PrintWriter(osw);
-
-		String line = "";
-
-		try {
-			long total_time = 0;
-			long query_count = 0;
-			while ((line = br.readLine()) != null) {
-				// if(Math.random()<0.98)
-				// {
-				// continue;
-				// }
-				if (SSO.tioe(line)) {
-					continue;
-				}
-				line = line.trim();
-				try {
-					Key key = new Key(line);
-					long start = TimeOpera.getCurrentTimeLong();
-					List<Record> result = cq.queryUid(key);
-					long end = TimeOpera.getCurrentTimeLong();
-					total_time += (end - start);
-					query_count++;
-
-					System.out.println("Use time:" + (end - start) + " ms");
-
-					for (int i = 0; i < result.size(); i++) {
-						System.out.println(result.get(i).toString());
-					}
-
-				} catch (Exception e) {
-					Thread.sleep(1000);
-				}
-				// pw.println(seg.segAnsi(line));
-			}
-			System.out.println("average query time:"
-					+ ((double) total_time / (double) query_count));
-			isr.close();
-			osw.close();
-			br.close();
-			pw.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		*/
-		
+		 * InputStreamReader isr = new InputStreamReader(System.in);
+		 * BufferedReader br = new BufferedReader(isr);
+		 * 
+		 * OutputStreamWriter osw = new OutputStreamWriter(System.out);
+		 * PrintWriter pw = new PrintWriter(osw);
+		 * 
+		 * String line = "";
+		 * 
+		 * try { long total_time = 0; long query_count = 0; while ((line =
+		 * br.readLine()) != null) { // if(Math.random()<0.98) // { // continue;
+		 * // } if (SSO.tioe(line)) { continue; } line = line.trim(); try { Key
+		 * key = new Key(line); long start = TimeOpera.getCurrentTimeLong();
+		 * List<Record> result = cq.queryUid(key); long end =
+		 * TimeOpera.getCurrentTimeLong(); total_time += (end - start);
+		 * query_count++;
+		 * 
+		 * System.out.println("Use time:" + (end - start) + " ms");
+		 * 
+		 * for (int i = 0; i < result.size(); i++) {
+		 * System.out.println(result.get(i).toString()); }
+		 * 
+		 * } catch (Exception e) { Thread.sleep(1000); } //
+		 * pw.println(seg.segAnsi(line)); }
+		 * System.out.println("average query time:" + ((double) total_time /
+		 * (double) query_count)); isr.close(); osw.close(); br.close();
+		 * pw.close(); } catch (Exception e) { e.printStackTrace(); }
+		 */
 
 	}
 
@@ -285,7 +294,5 @@ public class CassandraQuery extends DataQuery {
 	public void setQueryLogDirectory(QueryLogDirectory queryLogDirectory) {
 		this.queryLogDirectory = queryLogDirectory;
 	}
-
-
 
 }

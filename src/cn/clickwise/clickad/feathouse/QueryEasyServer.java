@@ -29,6 +29,9 @@ public class QueryEasyServer extends Server{
 		con.setCfName(cassConf.getCfName());
 		con.setKeySpace(cassConf.getKeySpace());
 		con.setColumnName(cassConf.getColumnName());
+		
+		//cassandraQuery 在启动的时候应该同时启动一个定时器，获取
+		//更新cq.getQuerySupervisor()
 		cq.connect(con);
 		
 		//conf=confFactory.getConfigure();
