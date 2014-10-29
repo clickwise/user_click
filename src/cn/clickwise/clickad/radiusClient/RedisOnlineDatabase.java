@@ -64,6 +64,7 @@ public class RedisOnlineDatabase extends OnlineDatabase {
 
 	public void finalize()
 	{
+		  System.exit(0);
 		  pool.returnResource(jedis);
 		  pool.destroy();
 	}
