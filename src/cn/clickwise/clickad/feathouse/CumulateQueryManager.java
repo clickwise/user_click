@@ -209,7 +209,7 @@ public class CumulateQueryManager {
                 	ip=tokens[2];
                 	
             		String areaDayUVIdentity = KeyOpera.areaCodeDayKeyUV(day,KeyOpera.getAreaCodeFromUid(line));
-            		
+            		//System.out.println("areaDayUVIdentity:"+areaDayUVIdentity);
             		if(!(areaUser.containsKey(areaDayUVIdentity)))
             		{
             			areaUser.put(areaDayUVIdentity, new HashMap<String,Integer>());
@@ -242,10 +242,13 @@ public class CumulateQueryManager {
     				QueryReceipt receipt = new QueryReceipt();
     				receipt.setDay(day);
     				codeOfArea=KeyOpera.getCodeOfAreaFromAreaDayKeyUV(areaDayUVIdentity.getKey());	
+    				System.out.println("areaDayUVIdentity.key:"+areaDayUVIdentity.getKey());
+    				System.out.println("codeOfArea:"+codeOfArea);
     				receipt.setCodeOfArea(codeOfArea);
     				
     				//获取pv
     				areaDayPVIdentity=KeyOpera.areaCodeDayKeyPV(day, codeOfArea);
+    				System.out.println("areaDayPVIdentity:"+areaDayPVIdentity);
     				String counted_str = jedis.get(areaDayPVIdentity);
     				
     				int pv = 0;
