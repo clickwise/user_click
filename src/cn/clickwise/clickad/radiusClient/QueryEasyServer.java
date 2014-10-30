@@ -17,6 +17,7 @@ public class QueryEasyServer extends Server{
 
 	
 	private ConfigureFactory confFactory;
+	private int serverPort=0;
 	
 	public void init()
 	{
@@ -77,8 +78,17 @@ public class QueryEasyServer extends Server{
 		}
 		
 		QueryEasyServer es=new QueryEasyServer();
+		es.setServerPort(Integer.parseInt(args[0]));
 		Thread easyThread = new Thread(es);
 		easyThread.start();
+	}
+
+	public int getServerPort() {
+		return serverPort;
+	}
+
+	public void setServerPort(int serverPort) {
+		this.serverPort = serverPort;
 	}
 
 
