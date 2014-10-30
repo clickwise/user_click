@@ -140,6 +140,7 @@ public class CumulateQueryManager {
     				QueryReceipt receipt = new QueryReceipt();
     				receipt.setDay(day);
     				System.out.println("areaDayUVIdentity.key:"+areaDayUVIdentity.getKey());
+    				
     				codeOfArea=KeyOpera.getCodeOfAreaFromAreaDayKeyUV(areaDayUVIdentity.getKey());	
     				receipt.setCodeOfArea(codeOfArea);
     				
