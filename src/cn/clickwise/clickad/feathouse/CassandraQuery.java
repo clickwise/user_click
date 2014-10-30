@@ -62,15 +62,30 @@ public class CassandraQuery extends DataQuery {
 	public void initLogFiles() {
 		try {
 			missesDirectory = new MissesDirectory();
+			
+			//file suffix with hour
+			/*
 			FileWriter fw = new FileWriter(
 					missesDirectory.getMissesByDay(TimeOpera.getToday()) + "_"
 							+ TimeOpera.getHour(), true);
+			*/
+			
+			FileWriter fw = new FileWriter(
+					missesDirectory.getMissesByDay(TimeOpera.getToday()), true);
 			supervisor = new PrintWriter(fw);
 
 			queryLogDirectory = new QueryLogDirectory();
+			
+			//file suffix with hour
+			/*
 			FileWriter qlfw = new FileWriter(
 					queryLogDirectory.getQueryLogByDay(TimeOpera.getToday())
 							+ "_" + TimeOpera.getHour(), true);
+			*/
+			
+			FileWriter qlfw = new FileWriter(
+					queryLogDirectory.getQueryLogByDay(TimeOpera.getToday()), true);
+			
 			querySupervisor = new PrintWriter(qlfw);
 		} catch (Exception e) {
 			e.printStackTrace();
