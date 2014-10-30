@@ -48,12 +48,15 @@ public class QueryEasyServer extends Server{
 		{
 			hs.createContext(contexts[i].getName(), handlers[i]);
 		}
+		hs.setExecutor(null);
+		hs.start();
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
 		}
 		
+	
 		
 	}
 	
