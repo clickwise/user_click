@@ -36,7 +36,6 @@ public class QueryEasyServer extends Server {
 					confFactory.getRedisPort(), 1000);// redis服务器地址
 			jedis.ping();
 
-			System.out.println(jedis.get("49.84.32.216"));
 			for (int i = 0; i < handlers.length; i++) {
 				handlers[i].setJedis(jedis);
 			}

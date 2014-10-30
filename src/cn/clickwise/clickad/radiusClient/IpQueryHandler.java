@@ -14,7 +14,7 @@ import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 
 public class IpQueryHandler extends Handler{
-	static Logger logger = LoggerFactory.getLogger(UserQueryHandler.class);
+	static Logger logger = LoggerFactory.getLogger(IpQueryHandler.class);
 
 	@Override
 	public void handle(HttpExchange exchange) throws IOException {
@@ -45,7 +45,7 @@ public class IpQueryHandler extends Handler{
           uid="none";	
         }
         
-		resultstr+=(ip.toString()+"\n");
+		resultstr+=(uid.toString()+"\n");
 		
 
 		exchange.sendResponseHeaders(200, (long)(resultstr.getBytes().length));
