@@ -26,7 +26,7 @@ public class QueryEasyServer extends Server {
 
 		try {
 			HttpServer hs = HttpServer.create(
-					new InetSocketAddress(confFactory.getServerPort()), 0);
+					new InetSocketAddress(serverPort), 0);
 
 			Context[] contexts = null;
 			Handler[] handlers = null;
