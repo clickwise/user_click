@@ -1,5 +1,7 @@
 package cn.clickwise.clickad.radiusClient;
 
+
+
 public abstract class ConfigureFactory {
 
 	/**
@@ -30,4 +32,17 @@ public abstract class ConfigureFactory {
 	public abstract RedisCenter getRedisCenter();
 	
 	public abstract OnlineDatabase getOnlineDatabase();
+	
+	
+    public abstract Context[] getContext();
+    
+    public abstract Handler[] getHandler();
+    
+    public abstract int getServerPort();
+    
+    public abstract int getRedisPort();
+    
+    public abstract int getRedisDB();
+    
+    public abstract String getRedisIp();
 }

@@ -1,6 +1,8 @@
 package cn.clickwise.clickad.radiusClient;
 
 
+
+
 public class EasyConfigureFactory extends ConfigureFactory{
 
 	@Override
@@ -40,6 +42,52 @@ public class EasyConfigureFactory extends ConfigureFactory{
 	}
 
 	
-	
+	@Override
+	public Context[] getContext() {
+
+		Context c=new Context("/queryUser");
+		Context c1=new Context("/queryIp");
+		
+		Context[] cs=new Context[2];
+		
+		cs[0]=c;
+        cs[1]=c1;
+		
+		return cs;
+	}
+
+	@Override
+	public Handler[] getHandler() {             
+        Handler[] chs=new Handler[2];
+        
+        chs[0]=new UserQueryHandler();
+        chs[1]=new IpQueryHandler();
+ 
+		return chs;
+	}
+
+	@Override
+	public int getServerPort() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getRedisPort() {
+		
+		return 6379;
+	}
+
+	@Override
+	public int getRedisDB() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public String getRedisIp() {
+		// TODO Auto-generated method stub
+		return "127.0.0.1";
+	}
 	
 }
