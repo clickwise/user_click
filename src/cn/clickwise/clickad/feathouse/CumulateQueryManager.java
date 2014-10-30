@@ -250,7 +250,11 @@ public class CumulateQueryManager {
     				{
     					continue;
     				}
-    				codeOfArea=KeyOpera.getCodeOfAreaFromAreaDayKeyUV(areaDayUVIdentity.getKey());	
+    				codeOfArea=KeyOpera.getCodeOfAreaFromAreaDayKeyUV(areaDayUVIdentity.getKey());
+    				if(SSO.tioe(codeOfArea))
+    				{
+    					continue;
+    				}
     				System.out.println("areaDayUVIdentity.key:"+areaDayUVIdentity.getKey());
     				System.out.println("codeOfArea:"+codeOfArea);
     				receipt.setCodeOfArea(codeOfArea);
