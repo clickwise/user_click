@@ -10,7 +10,7 @@ public class RedisTestOrigin {
 		//jedis.select(10);
 		jedis.ping();
 		//jedis.set("md5_cb696edca40ed45e4533dc6c12cd5d30", "单肩");
-		System.out.println(jedis.get("49.84.32.216"));
+		System.out.println(jedis.get("iHtEieImICyxtpYu4+ugwQ=="));
 		//222.187.184.103 1       iHtEieImICyxtpYu4+ugwQ==        2014-10-28 18:25:17
 		
 	}
