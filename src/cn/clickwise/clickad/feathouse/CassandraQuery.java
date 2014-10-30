@@ -124,7 +124,7 @@ public class CassandraQuery extends DataQuery {
 
 			Calendar cal = Calendar.getInstance();
 			// 每天定点执行
-			// cal.set(Calendar.HOUR_OF_DAY, 0);
+			cal.set(Calendar.HOUR_OF_DAY, 0);
 			cal.set(Calendar.MINUTE, 0);
 			cal.set(Calendar.SECOND, 30);
 			Timer timer = new Timer();
@@ -132,7 +132,7 @@ public class CassandraQuery extends DataQuery {
 				public void run() {
 					initLogFiles();
 				}
-			}, cal.getTime(), TimeOpera.PERIOD_HOUR);
+			}, cal.getTime(), TimeOpera.PERIOD_DAY);
 
 			state.setStatValue(StateValue.Normal);
 
