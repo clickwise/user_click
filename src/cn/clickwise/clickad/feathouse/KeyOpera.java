@@ -7,6 +7,8 @@ import java.nio.charset.CharsetDecoder;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import cn.clickwise.lib.string.SSO;
+
 /**
  * 用户名的系列操作
  * 
@@ -20,7 +22,13 @@ public class KeyOpera {
 	}
 	
 	public static String getAreaCodeFromUid(String uid) {
+		
+		if(SSO.tioe(uid))
+		{
+			return "";
+		}
 	
+		uid=uid.trim();
 		if(uid.length()!=35)
 		{
 			return "";

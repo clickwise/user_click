@@ -208,7 +208,12 @@ public class CumulateQueryManager {
                 	area=tokens[1];
                 	ip=tokens[2];
                 	
-            		String areaDayUVIdentity = KeyOpera.areaCodeDayKeyUV(day,KeyOpera.getAreaCodeFromUid(line));
+            		String areaDayUVIdentity = KeyOpera.areaCodeDayKeyUV(day,KeyOpera.getAreaCodeFromUid(uid));
+            		if(SSO.tioe(areaDayUVIdentity))
+            		{
+            			continue;
+            		}
+            		
             		//System.out.println("areaDayUVIdentity:"+areaDayUVIdentity);
             		if(!(areaUser.containsKey(areaDayUVIdentity)))
             		{
