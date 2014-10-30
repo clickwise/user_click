@@ -58,6 +58,15 @@ public class HiveStatisticByKeysCommand extends Command{
         	return  hskc;
         }
 	}
+	
+	public void initRandomFileName()
+	{
+		setRemoteTmpName(tmpIdentify+"_"+day+".txt");
+		setRemoteTmpPath("/tmp/"+tmpIdentify+"_"+day+".txt");
+		setResultRemoteName(tmpIdentify+"_info_"+day);
+		setResultRemotePath("/tmp/"+tmpIdentify+"_info_"+day);
+		
+	}
 
 	public String getKeyPath() {
 		return keyPath;
@@ -79,7 +88,7 @@ public class HiveStatisticByKeysCommand extends Command{
 		return remoteTmpName;
 	}
 
-	public void setRemoteTmpName(String remoteTmpName) {
+	private void setRemoteTmpName(String remoteTmpName) {
 		this.remoteTmpName = remoteTmpName;
 	}
 
@@ -87,7 +96,7 @@ public class HiveStatisticByKeysCommand extends Command{
 		return remoteTmpPath;
 	}
 
-	public void setRemoteTmpPath(String remoteTmpPath) {
+	private void setRemoteTmpPath(String remoteTmpPath) {
 		this.remoteTmpPath = remoteTmpPath;
 	}
 
@@ -111,7 +120,7 @@ public class HiveStatisticByKeysCommand extends Command{
 		return resultRemoteName;
 	}
 
-	public void setResultRemoteName(String resultRemoteName) {
+	private void setResultRemoteName(String resultRemoteName) {
 		this.resultRemoteName = resultRemoteName;
 	}
 
@@ -119,7 +128,7 @@ public class HiveStatisticByKeysCommand extends Command{
 		return resultRemotePath;
 	}
 
-	public void setResultRemotePath(String resultRemotePath) {
+	private void setResultRemotePath(String resultRemotePath) {
 		this.resultRemotePath = resultRemotePath;
 	}
 

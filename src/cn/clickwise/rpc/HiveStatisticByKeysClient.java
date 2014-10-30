@@ -105,6 +105,7 @@ public class HiveStatisticByKeysClient extends Client{
 		return state;
 	}
 
+	/*
 	public static void initRandomFileName(String tmpIdentify,int day,HiveStatisticByKeysCommand hskc)
 	{
 		hskc.setRemoteTmpName(tmpIdentify+"_"+day+".txt");
@@ -113,6 +114,7 @@ public class HiveStatisticByKeysClient extends Client{
 		hskc.setResultRemotePath("/tmp/"+tmpIdentify+"_info_"+day);
 		
 	}
+	*/
 	
 	public HttpURLConnection getUrlCon() {
 		return urlCon;
@@ -137,5 +139,31 @@ public class HiveStatisticByKeysClient extends Client{
 	public void setRpcReceipt(RpcReceipt rpcReceipt) {
 		this.rpcReceipt = rpcReceipt;
 	}
+	
+	public static void main(String[] args)
+	{
+		HiveStatisticByKeysClient hskc=new HiveStatisticByKeysClient();
+		
+		Connection con=new Connection();
+		con.setHost("112.67.253.101");
+		con.setPort(2733);
+		con.setMethod("/hiveStatisticByKeys");
+		
+		HiveStatisticByKeysCommand hskcmd=new HiveStatisticByKeysCommand();
+		String tmpIdentify="remote_keys_statistics";
+		int day=20140926;
+		hskcmd.setDay(day);
+		hskcmd.setTmpIdentify(tmpIdentify);
+		hskcmd.setKeyPath("temp/test_cookie_statistic.txt");
+		hskcmd.setResultName("local_user_info_satistic.txt");
+		hskcmd.setResultPath("temp/local_user_info_satistic.txt");
+		hskcmd.initRandomFileName();
+		
+		hskc.setHskc(hskcmd);
+		hskc.connect(con);
+		hskc.execute(hskcmd);
+		
+	}
+	
 
 }
