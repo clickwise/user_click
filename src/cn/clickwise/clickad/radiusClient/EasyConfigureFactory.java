@@ -69,7 +69,7 @@ public class EasyConfigureFactory extends ConfigureFactory{
 	@Override
 	public int getServerPort() {
 		// TODO Auto-generated method stub
-		return 0;
+		return 6555;
 	}
 
 	@Override
