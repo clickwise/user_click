@@ -142,7 +142,7 @@ public class TimeOpera {
 	public static int getYesterday()
 	{
 		long ctime=System.currentTimeMillis();
-		ctime=ctime-PERIOD_DAY;
+		ctime=ctime-11*PERIOD_DAY;
 		SimpleDateFormat sdf= new SimpleDateFormat("yyyyMMdd");
 		Date dt = new Date(ctime);	
 	
