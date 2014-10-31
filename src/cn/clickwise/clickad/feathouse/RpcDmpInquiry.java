@@ -181,11 +181,11 @@ public class RpcDmpInquiry extends DmpInquiry {
 	
 	public static void main(String[] args)
 	{
-		int day=20141009;
+		int day=20141029;
 		RpcDmpInquiry rdi=new RpcDmpInquiry();
 		rdi.setDay(day);
 		rdi.init();
-		
+		/*
 		Dmp dmp=new Dmp();
 		dmp.setName("hn_101");
 		dmp.setArea(new Area("hn","009"));
@@ -193,7 +193,18 @@ public class RpcDmpInquiry extends DmpInquiry {
 		dmp.setUserFeatureTableName("auser_cates_keys");
 		dmp.setUidFieldName("uid");
 		dmp.setTmpIdentify("remote_cookie");
-		
+		*/
+		Dmp dmp=new Dmp();
+		dmp=new Dmp();
+		dmp.setName("浙江DX");
+		dmp.setArea(new Area("浙江DX","030"));
+		dmp.setHost("192.168.10.38");
+		dmp.setUserFeatureTableName("auser_cates_keys");
+		dmp.setUidFieldName("uid");
+		dmp.setTmpIdentify("remote_cookie");
+	    dmp.setRpcPort(2733);
+	    dmp.setDmpInquiryMethod("/hiveFetchTable");
+	    
 		/*
 		String keyFile="temp/test_cookie.txt";
 		String recordFile="temp/local_user_info.txt";
