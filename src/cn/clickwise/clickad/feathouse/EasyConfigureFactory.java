@@ -44,7 +44,7 @@ public class EasyConfigureFactory extends ConfigureFactory{
 	public Dmp[] getDmps() {
 		// TODO Auto-generated method stub
 		
-		Dmp[] dmps=new Dmp[1];
+		Dmp[] dmps=new Dmp[2];
 		dmps[0]=new Dmp();
 		dmps[0].setName("海南DX");
 		dmps[0].setArea(new Area("海南DX","009"));
@@ -54,7 +54,17 @@ public class EasyConfigureFactory extends ConfigureFactory{
 		dmps[0].setTmpIdentify("remote_cookie");
 	    dmps[0].setRpcPort(2733);
 	    dmps[0].setDmpInquiryMethod("/hiveFetchTable");
-		
+	    
+	    
+		dmps[1]=new Dmp();
+		dmps[1].setName("浙江DX");
+		dmps[1].setArea(new Area("浙江DX","030"));
+		dmps[1].setHost("192.168.10.38");
+		dmps[1].setUserFeatureTableName("auser_cates_keys");
+		dmps[1].setUidFieldName("uid");
+		dmps[1].setTmpIdentify("remote_cookie");
+	    dmps[1].setRpcPort(2733);
+	    dmps[1].setDmpInquiryMethod("/hiveFetchTable");
 		
 		return dmps;
 	}
