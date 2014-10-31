@@ -88,7 +88,8 @@ public class RpcDmpInquiry extends DmpInquiry {
 			hftcmd.setResultPath(confFactory.getRecordFileDirectory()+ recordFile);
 			HiveFetchTableClient.initRandomFileName(confFactory.getTmpIdentify(), day, hftcmd);
 			hftcmd.setQueryType(confFactory.getQueryType());
-			hftcmd.setAreaCode(Integer.parseInt(dmps[i].getArea().getAreaCode()));
+			System.out.println("codea:"+dmps[i].getArea().getAreaCode());
+			hftcmd.setAreaCode(dmps[i].getArea().getAreaCode());
 			hftc.connect(conrpc);
 			hftc.execute(hftcmd);		
 		}
@@ -233,7 +234,7 @@ public class RpcDmpInquiry extends DmpInquiry {
 		hftcmd.setResultPath("temp/"+recordFile);
 		HiveFetchTableClient.initRandomFileName(tmpIdentify, day, hftcmd);
 		hftcmd.setQueryType(1);
-		hftcmd.setAreaCode(030);
+		hftcmd.setAreaCode("030");
 		hftc.connect(conrpc);
 		hftc.execute(hftcmd);
 		

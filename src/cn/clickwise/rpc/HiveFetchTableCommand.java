@@ -30,7 +30,7 @@ public class HiveFetchTableCommand extends Command{
     
     private String tmpIdentify;
 
-    private int areaCode;
+    private String areaCode;
 
 
 	public int getDay() {
@@ -105,11 +105,11 @@ public class HiveFetchTableCommand extends Command{
 		this.queryType = queryType;
 	}
 
-	public int getAreaCode() {
+	public String getAreaCode() {
 		return areaCode;
 	}
 
-	public void setAreaCode(int areaCode) {
+	public void setAreaCode(String areaCode) {
 		this.areaCode = areaCode;
 	}
 	

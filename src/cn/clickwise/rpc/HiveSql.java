@@ -32,7 +32,7 @@ public class HiveSql {
 	public static String getSql(HiveFetchTableCommand hftc) {
 		String sql = "";
 
-		if (hftc.getAreaCode() != 030) {
+		if (hftc.getAreaCode().equals("030")) {
 
 			if (hftc.getQueryType() == 0)// 只返回Key Field
 			{
