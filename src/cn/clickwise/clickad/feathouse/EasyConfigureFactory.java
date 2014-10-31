@@ -98,7 +98,11 @@ public class EasyConfigureFactory extends ConfigureFactory{
 	public Record string2Record(String recordString) {
 		
 		String[] tokens=recordString.split("\001");
-		if(tokens.length<5)
+		if(tokens.length<3)
+		{
+			tokens=recordString.split("\t");
+		}
+		if(tokens.length<3)
 		{
 			return null;
 		}
