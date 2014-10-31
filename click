@@ -4,7 +4,8 @@
 source /etc/profile
 COMMAND=$1
 shift
-JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk-1.7.0.65.x86_64
+#JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk-1.7.0.65.x86_64
+source /etc/profile
 JAVA=$JAVA_HOME/bin/java
 CLASSPATH=${CLASSPATH}run_lib/feathouse.jar
 
