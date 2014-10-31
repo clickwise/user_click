@@ -50,7 +50,7 @@ public class CumulateQueryManager {
 		table = confFactory.getQueryTable();
 
 		Calendar calendar = Calendar.getInstance();
-		calendar.set(Calendar.HOUR_OF_DAY, 2);
+		//calendar.set(Calendar.HOUR_OF_DAY, 2);
 		calendar.set(Calendar.MINUTE, 0);
 		calendar.set(Calendar.SECOND, 0);
 		long ctime = System.currentTimeMillis();
@@ -58,7 +58,8 @@ public class CumulateQueryManager {
 		// Date date=TimeOpera.getCurrentTime()
 		Timer timer = new Timer();
 		CumulateQuery cq = new CumulateQuery();
-		timer.schedule(cq, date, PERIOD_MINUTE);
+		timer.schedule(cq, date, PERIOD_HOUR);
+		
 	}
 
 	// 累加当天的查询统计
