@@ -1,10 +1,7 @@
 package cn.clickwise.clickad.feathouse;
 
-import java.io.BufferedReader;
-import java.io.File;
+
 import java.io.FileWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -30,7 +27,6 @@ import org.slf4j.LoggerFactory;
 
 import redis.clients.jedis.Jedis;
 
-import cn.clickwise.lib.string.SSO;
 import cn.clickwise.lib.time.TimeOpera;
 
 public class CassandraQuery extends DataQuery {
