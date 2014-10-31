@@ -181,7 +181,7 @@ public class RpcDmpInquiry extends DmpInquiry {
 	
 	public static void main(String[] args)
 	{
-		int day=20141029;
+		int day=20141020;
 		RpcDmpInquiry rdi=new RpcDmpInquiry();
 		rdi.setDay(day);
 		rdi.init();
@@ -230,7 +230,7 @@ public class RpcDmpInquiry extends DmpInquiry {
 		hftcmd.setResultPath("temp/"+recordFile);
 		HiveFetchTableClient.initRandomFileName(tmpIdentify, day, hftcmd);
 		hftcmd.setQueryType(1);
-		
+		hftcmd.setAreaCode(030);
 		hftc.connect(conrpc);
 		hftc.execute(hftcmd);
 		
