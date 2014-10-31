@@ -67,6 +67,11 @@ public class CassandraStore extends DataStore {
 		// Clock clock=new Clock(System.currentTimeMillis());
 		ByteBuffer sendBuffer = null;
 		try {
+			if(SSO.tioe(rec.getKey()))
+			{
+				return null;
+			}
+			
 			sendBuffer = ByteBuffer.wrap(rec.getKey().getBytes(UTF8));
 	        //////String columnName = KeyOpera.getTimeColunm();
 			String columnName = day+"";
