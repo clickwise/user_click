@@ -214,7 +214,7 @@ public class RpcDmpInquiry extends DmpInquiry {
 		HiveFetchTableClient hftc=new HiveFetchTableClient();
 		
 		cn.clickwise.rpc.Connection conrpc=new cn.clickwise.rpc.Connection();
-		conrpc.setHost("112.67.253.101");
+		conrpc.setHost("192.168.10.38");
 		conrpc.setPort(2733);
 		conrpc.setMethod("/hiveFetchTable");
 		
