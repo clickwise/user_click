@@ -5,18 +5,16 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.HashMap;
 
-import cn.clickwise.lib.file.FileReaderUtil;
-import cn.clickwise.liqi.file.uitls.FileToArray;
 
 
 public class FilterHost {
 
 	public void filter(int field_index,int field_num, String separator, String input,
 			String host, String output) {
-		String[] hosts = FileToArray.fileToDimArr(input);
+	
 		try {
+			String[] hosts = FileToArray.fileToDimArr(input);
 			BufferedReader br = new BufferedReader(new InputStreamReader(
 					new FileInputStream(input)));
 			PrintWriter pw=new PrintWriter(new FileWriter(output));
