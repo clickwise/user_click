@@ -42,11 +42,13 @@ public class FilterHost {
 					if((key.indexOf(hosts[j].trim()))>-1)
 					{
 						isIn=true;
+						break;
 					}
 				}
 	
 				if(isIn==true)
 				{
+					System.out.println("sel line:"+line);
 					pw.println(line);
 				}
 				
