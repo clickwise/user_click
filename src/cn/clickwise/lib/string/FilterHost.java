@@ -14,7 +14,7 @@ public class FilterHost {
 			String host, String output) {
 	
 		try {
-			String[] hosts = FileToArray.fileToDimArr(input);
+			String[] hosts = FileToArray.fileToDimArr(host);
 			BufferedReader br = new BufferedReader(new InputStreamReader(
 					new FileInputStream(input)));
 			PrintWriter pw=new PrintWriter(new FileWriter(output));
@@ -30,7 +30,7 @@ public class FilterHost {
 					continue;
 				}
 				key=tokens[field_index];
-				System.out.println("key:"+key);
+				//System.out.println("key:"+key);
 				if(SSO.tioe(key))
 				{
 					continue;
@@ -48,7 +48,7 @@ public class FilterHost {
 	
 				if(isIn==true)
 				{
-					System.out.println("sel line:"+line);
+					//System.out.println("sel line:"+line);
 					pw.println(line);
 				}
 				
