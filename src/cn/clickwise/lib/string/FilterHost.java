@@ -30,6 +30,7 @@ public class FilterHost {
 					continue;
 				}
 				key=tokens[field_index];
+				System.out.println("key:"+key);
 				if(SSO.tioe(key))
 				{
 					continue;
@@ -38,7 +39,7 @@ public class FilterHost {
 				boolean isIn=false;
 				for(int j=0;j<hosts.length;j++)
 				{
-					if((key.indexOf(hosts[j]))>-1)
+					if((key.indexOf(hosts[j].trim()))>-1)
 					{
 						isIn=true;
 					}
