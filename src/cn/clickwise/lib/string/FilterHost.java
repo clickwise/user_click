@@ -7,8 +7,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.HashMap;
 
-import org.jmlp.file.utils.FileReaderUtil;
-import org.jmlp.str.basic.SSO;
+import cn.clickwise.lib.file.FileReaderUtil;
+
 
 public class FilterHost {
 
