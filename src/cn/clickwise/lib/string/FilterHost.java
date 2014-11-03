@@ -8,13 +8,14 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 
 import cn.clickwise.lib.file.FileReaderUtil;
+import cn.clickwise.liqi.file.uitls.FileToArray;
 
 
 public class FilterHost {
 
 	public void filter(int field_index,int field_num, String separator, String input,
 			String host, String output) {
-		HashMap<String, String> hostMap = FileReaderUtil.file2Hash(host);
+		String[] hosts = FileToArray.fileToDimArr(input);
 		try {
 			BufferedReader br = new BufferedReader(new InputStreamReader(
 					new FileInputStream(input)));
@@ -36,7 +37,16 @@ public class FilterHost {
 					continue;
 				}
 				
-				if(hostMap.containsKey(key))
+				boolean isIn=false;
+				for(int j=0;j<hosts.length;j++)
+				{
+					if((key.indexOf(hosts[j]))>-1)
+					{
+						isIn=true;
+					}
+				}
+	
+				if(isIn==true)
 				{
 					pw.println(line);
 				}
