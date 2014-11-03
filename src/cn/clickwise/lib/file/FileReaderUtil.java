@@ -9,7 +9,8 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.HashMap;
 
-import cn.clickwise.liqi.str.basic.SSO;
+import cn.clickwise.lib.string.SSO;
+
 
 public class FileReaderUtil {
 	
