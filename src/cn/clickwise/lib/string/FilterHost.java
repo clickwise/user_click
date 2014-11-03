@@ -10,7 +10,7 @@ import java.io.PrintWriter;
 
 public class FilterHost {
 
-	public void filter(int field_index,int field_num, String separator, String input,
+	public void filter(int field_num,int field_index, String separator, String input,
 			String host, String output) {
 	
 		try {
