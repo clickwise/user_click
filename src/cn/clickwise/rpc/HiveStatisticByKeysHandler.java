@@ -23,21 +23,21 @@ public class HiveStatisticByKeysHandler extends Handler{
 	public void handle(HttpExchange exchange) throws IOException {
 		URI uri = exchange.getRequestURI();
 		System.out.println("uri:" + uri);
-		HiveStatisticByKeysCommand hskc = HiveStatisticByKeysCommand.readObject(SSO
+		HiveStatisticByKeysCommand hfkc = HiveStatisticByKeysCommand.readObject(SSO
 				.afterStr(uri.toString(), "method="));
-		complie(hskc, exchange);
-		
+		complie(hfkc, exchange);
+
 	}
 
 	public void complie(Command cmd, HttpExchange exchange) {
 
-		HiveStatisticByKeysCommand hskc = (HiveStatisticByKeysCommand) cmd;
+		HiveStatisticByKeysCommand hfkc = (HiveStatisticByKeysCommand) cmd;
 
 		InputStream is = exchange.getRequestBody();
 		InputStreamReader isr = new InputStreamReader(is);
 		BufferedReader br = new BufferedReader(isr);
 		try {
-			FileWriter fw = new FileWriter(hskc.getRemoteTmpPath());
+			FileWriter fw = new FileWriter(hfkc.getRemoteTmpPath());
 			PrintWriter pw = new PrintWriter(fw);
 
 			String line = "";
@@ -52,17 +52,21 @@ public class HiveStatisticByKeysHandler extends Handler{
 			e.printStackTrace();
 		}
 		
-        COMMAND.exec(ProxyCommand.pvUvIpByKeys(hskc.getDay(), hskc.getRemoteTmpPath(), hskc.getResultRemotePath()));
+        COMMAND.exec(HadoopCmd.mkParent(hfkc.getHdfTmpPath()));
+		COMMAND.exec(HadoopCmd.load2hdfs(hfkc.getRemoteTmpPath(), hfkc.getHdfTmpPath()));
+		
+		/*
+		COMMAND.exec(HiveSql.createTable(hfkc));
+		COMMAND.exec(HiveSql.dropOld(hfkc));
+		COMMAND.exec(HiveSql.load2hive(hfkc));
+		COMMAND.exec(HiveSql.getSql(hfkc));
+		*/
 		
 		try {
 			exchange.sendResponseHeaders(200, 0);
 			OutputStream os = exchange.getResponseBody();
 
-			//将统计的地区编号、地区、时间、pv、uv、ip等写入Receipt对象
-			ObjectOutputStream oos = new ObjectOutputStream(os);
-			RpcReceipt receipt=new RpcReceipt();
-			
-			File resDir = new File(hskc.getResultRemotePath());
+			File resDir = new File(hfkc.getResultRemotePath());
 			File[] subFiles = resDir.listFiles();
 
 			for (int j = 0; j < subFiles.length; j++) {
@@ -76,50 +80,39 @@ public class HiveStatisticByKeysHandler extends Handler{
 
 				String resline = "";
 				while ((resline = resbr.readLine()) != null) {
-					if(SSO.tioe(resline))
-					{
-						continue;
-					}
-					receipt=line2receipt(resline);
-					oos.writeObject(receipt);
-					//os.write(new String(resline + "\n").getBytes());
+					os.write(new String(resline + "\n").getBytes());
 				}
 				resfis.close();
 				resisr.close();
 				resbr.close();
 			}
-			cleanTmpWorkplace(hskc);
+			cleanTmpWorkplace(hfkc);
 			os.close();
-			oos.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 	}
 	
-	public void cleanTmpWorkplace(HiveStatisticByKeysCommand hskc)
+	public void cleanTmpWorkplace(HiveStatisticByKeysCommand hfkc)
 	{
-		if(SSO.tioe(hskc.getTmpIdentify()))
+		if(SSO.tioe(hfkc.getTmpIdentify()))
 		{
 			return;
 		}
-		File remoteTmp=new File(hskc.getRemoteTmpPath());
+		File remoteTmp=new File(hfkc.getRemoteTmpPath());
 		
-		if(remoteTmp.getName().indexOf(hskc.getTmpIdentify())>-1)
+		if(remoteTmp.getName().indexOf(hfkc.getTmpIdentify())>-1)
 		{
 			remoteTmp.delete();
 		}
 		
-		File resultRemote=new File(hskc.getResultRemotePath());
-		if(resultRemote.getName().indexOf(hskc.getTmpIdentify())>-1)
+		File resultRemote=new File(hfkc.getResultRemotePath());
+		if(resultRemote.getName().indexOf(hfkc.getTmpIdentify())>-1)
 		{
 			COMMAND.exec(FileCommand.deleteDirectory(resultRemote.getAbsolutePath()));
-		}	
-	}
-	
-	public RpcReceipt line2receipt(String line)
-	{
-		return null;
+		}
+		
 	}
 	
 }
