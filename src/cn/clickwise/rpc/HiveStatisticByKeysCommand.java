@@ -11,6 +11,8 @@ public class HiveStatisticByKeysCommand extends Command{
 	    
 	    private String keyFieldName;
 	    
+	    private String ipFieldName;
+	    
 	    //key存储的hive表名
 	    private String keyTableName;
 	    
@@ -222,5 +224,13 @@ public class HiveStatisticByKeysCommand extends Command{
 
 		public void setAreaCode(String areaCode) {
 			this.areaCode = areaCode;
+		}
+
+		public String getIpFieldName() {
+			return ipFieldName;
+		}
+
+		public void setIpFieldName(String ipFieldName) {
+			this.ipFieldName = ipFieldName;
 		}
 }
