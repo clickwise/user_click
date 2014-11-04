@@ -39,6 +39,8 @@ public class HiveFetchTableHandler extends Handler{
 	public void complie(Command cmd, HttpExchange exchange) 
 	{
 		HiveFetchTableCommand hftc=(HiveFetchTableCommand)cmd;
+		
+		System.out.println("hftc:"+hftc.toString());
 	
 		COMMAND.exec(HiveSql.getSql(hftc));
 		

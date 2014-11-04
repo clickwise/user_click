@@ -133,8 +133,8 @@ public class HiveStatisticByKeysClient extends Client{
 		int day=20141103;
 		hfkc.setDay(day);
 		hfkc.setTmpIdentify(tmpIdentify);
-		hfkc.setKeyName("test_cookie.txt");
-		hfkc.setKeyPath("temp/test_cookie.txt");
+		hfkc.setKeyName("ttt.txt");
+		hfkc.setKeyPath("temp/ttt.txt");
 		
 		hfkc.setTableName("astat");
 		hfkc.setKeyFieldName("user_id");

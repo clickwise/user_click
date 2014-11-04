@@ -113,4 +113,11 @@ public class HiveFetchTableCommand extends Command{
 		this.areaCode = areaCode;
 	}
 	
+	public String toString()
+	{
+		String str="";
+		str=str+tableName+";"+queryType+";"+day+";"+keyFieldName+";"+resultName+";"+resultPath+";"+resultRemoteName+";"+resultRemotePath+";"+tmpIdentify+";"+areaCode;
+		return str;
+	}
+	
 }
