@@ -19,6 +19,16 @@ public class HiveSql {
 		return hive + "\"" + sql + "\"";
 	}
 
+	public static String createTableStatistic(HiveStatisticByKeysCommand hfkc) {
+		String sql = "";
+		sql = " use clickwise; CREATE TABLE IF NOT EXISTS "
+				+ hfkc.getKeyTableName()
+				+ "("
+				+ hfkc.getKeyFieldName()
+				+ " string) PARTITIONED BY(dt STRING,dp string) ROW FORMAT DELIMITED FIELDS TERMINATED BY '\001' LINES TERMINATED BY '\n';";
+		return hive + "\"" + sql + "\"";
+	}
+
 	public static String getSql(HiveFetchByKeysCommand hfkc) {
 		String sql = "";
 		sql = "use clickwise; INSERT OVERWRITE LOCAL DIRECTORY '"
@@ -29,10 +39,24 @@ public class HiveSql {
 		return hive + "\"" + sql + "\"";
 	}
 
+	/**
+	 * 这个方法不同于getSql
+	 * @param hfkc
+	 * @return
+	 */
+	public static String getSqlStatistic(HiveStatisticByKeysCommand hfkc) {
+		String sql = "";
+		sql = "use clickwise; INSERT OVERWRITE LOCAL DIRECTORY '"
+				+ hfkc.getResultRemotePath() + "' SELECT *  FROM "
+				+ hfkc.getTableName() + " a JOIN " + hfkc.getKeyTableName()
+				+ " b  ON  a." + hfkc.getKeyFieldName() + "=b."
+				+ hfkc.getKeyFieldName() + " where a.dt=" + hfkc.getDay() + ";";
+		return hive + "\"" + sql + "\"";
+	}
+	
 	public static String getSql(HiveFetchTableCommand hftc) {
 		String sql = "";
 
-	
 		if (!((hftc.getAreaCode().trim()).equals("030"))) {
 
 			if (hftc.getQueryType() == 0)// 只返回Key Field
@@ -76,6 +100,13 @@ public class HiveSql {
 				+ "  DROP PARTITION (dt='" + hfkc.getDay() + "');";
 		return hive + "\"" + cmd + "\"";
 	}
+	
+	public static String dropOldStatistic(HiveStatisticByKeysCommand  hfkc) {
+		String cmd = "";
+		cmd = "use clickwise;ALTER TABLE " + hfkc.getKeyTableName()
+				+ "  DROP PARTITION (dt='" + hfkc.getDay() + "');";
+		return hive + "\"" + cmd + "\"";
+	}
 
 	public static String load2hive(HiveFetchByKeysCommand hfkc) {
 		String cmd = "";
@@ -85,4 +116,11 @@ public class HiveSql {
 		return hive + "\"" + cmd + "\"";
 	}
 
+	public static String load2hiveStatistic(HiveStatisticByKeysCommand hfkc) {
+		String cmd = "";
+		cmd = "use clickwise; load data inpath '" + hfkc.getHdfTmpPath()
+				+ "' overwrite into table " + hfkc.getKeyTableName()
+				+ " partition(dt=" + hfkc.getDay() + ",dp='part1');";
+		return hive + "\"" + cmd + "\"";
+	}
 }

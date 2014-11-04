@@ -55,12 +55,11 @@ public class HiveStatisticByKeysHandler extends Handler{
         COMMAND.exec(HadoopCmd.mkParent(hfkc.getHdfTmpPath()));
 		COMMAND.exec(HadoopCmd.load2hdfs(hfkc.getRemoteTmpPath(), hfkc.getHdfTmpPath()));
 		
-		/*
-		COMMAND.exec(HiveSql.createTable(hfkc));
-		COMMAND.exec(HiveSql.dropOld(hfkc));
-		COMMAND.exec(HiveSql.load2hive(hfkc));
-		COMMAND.exec(HiveSql.getSql(hfkc));
-		*/
+		COMMAND.exec(HiveSql.createTableStatistic(hfkc));
+		COMMAND.exec(HiveSql.dropOldStatistic(hfkc));
+		COMMAND.exec(HiveSql.load2hiveStatistic(hfkc));
+		COMMAND.exec(HiveSql.getSqlStatistic(hfkc));
+		
 		
 		try {
 			exchange.sendResponseHeaders(200, 0);
