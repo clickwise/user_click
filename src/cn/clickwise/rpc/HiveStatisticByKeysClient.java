@@ -124,24 +124,24 @@ public class HiveStatisticByKeysClient extends Client{
 	{
 		HiveStatisticByKeysClient ec=new HiveStatisticByKeysClient();
 		Connection con=new Connection();
-		con.setHost("192.168.110.186");
+		con.setHost("112.67.253.101");
 		con.setPort(2733);
-		con.setMethod("/hiveFetchByKeys");
+		con.setMethod("/hiveStatisticByKeys");
 		
 		HiveStatisticByKeysCommand hfkc=new HiveStatisticByKeysCommand();
-		String tmpIdentify="remote_cookie";
-		int day=20140512;
+		String tmpIdentify="remote_statistic";
+		int day=20141103;
 		hfkc.setDay(day);
 		hfkc.setTmpIdentify(tmpIdentify);
 		hfkc.setKeyName("test_cookie.txt");
 		hfkc.setKeyPath("temp/test_cookie.txt");
 		
-		hfkc.setTableName("user_se_keywords_day_ad");
-		hfkc.setKeyFieldName("cookie");
-		hfkc.setKeyTableName("remote_cookie");
+		hfkc.setTableName("astat");
+		hfkc.setKeyFieldName("user_id");
+		hfkc.setKeyTableName("statistic_keys");
 			
-		hfkc.setResultName("local_user_info.txt");
-		hfkc.setResultPath("temp/local_user_info.txt");
+		hfkc.setResultName("local_user_statistic.txt");
+		hfkc.setResultPath("temp/local_user_statistic.txt");
 		hfkc.initRandomFileName();
 	
 		ec.setHfkc(hfkc);
