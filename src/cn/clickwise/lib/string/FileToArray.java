@@ -3,11 +3,7 @@ package cn.clickwise.lib.string;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 /**
@@ -27,7 +23,6 @@ public class FileToArray {
 		  FileReader fr=new FileReader(new File(input_file));
 		  BufferedReader br=new BufferedReader(fr);
 		  String line="";
-
 
 		  String field_info="";
 		  String field="";

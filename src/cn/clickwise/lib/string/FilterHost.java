@@ -22,6 +22,8 @@ public class FilterHost {
 			String line="";
 			String[] tokens=null;
 			String key="";
+		
+			
 			while((line=br.readLine())!=null)
 			{
 				tokens=line.split(separator);
