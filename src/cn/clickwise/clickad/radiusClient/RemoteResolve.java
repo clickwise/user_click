@@ -106,6 +106,7 @@ public class RemoteResolve {
 				  int len=sockIn.readInt();
 				  if(len<0)
 				  {
+					  Thread.sleep(10);
 					  continue;
 				  }
 				  String str="";
@@ -113,12 +114,12 @@ public class RemoteResolve {
 				  {
 					  str+=sockIn.readChar();
 				  }
-				  System.out.println("len:"+len+" str:"+str);
+				 // System.out.println("len:"+len+" str:"+str);
 				  queuePond.add2Pond(str);
 				}
 				catch(Exception e)
 				{
-					e.printStackTrace();
+					//e.printStackTrace();
 				}
 			}
 			
