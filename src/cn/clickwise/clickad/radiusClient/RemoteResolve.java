@@ -109,7 +109,7 @@ public class RemoteResolve {
 				  {
 					  str+=sockIn.readChar();
 				  }
-				  
+				  System.out.println("len:"+len+" str:"+str);
 				  queuePond.add2Pond(str);
 				}
 				catch(Exception e)
