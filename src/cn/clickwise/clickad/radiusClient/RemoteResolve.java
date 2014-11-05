@@ -109,18 +109,19 @@ public class RemoteResolve {
 
 			int c=0;
 			while (true) {
-				c++;
-				if(c%100==0)
-				{
-				  	System.out.println("Thread ["+Thread.currentThread().getName()+"] is running");
-				}
-				
+
 				try {
 					int len = sockIn.readInt();
 					if (len < 0) {
 						// Thread.sleep(1);
 						continue;
 					}
+					c++;
+					if(c%100000==0)
+					{
+					  	System.out.println("Thread ["+Thread.currentThread().getName()+"] is running");
+					}
+					
 					String str = "";
 					for (int j = 0; j < len; j++) {
 						str += sockIn.readChar();
