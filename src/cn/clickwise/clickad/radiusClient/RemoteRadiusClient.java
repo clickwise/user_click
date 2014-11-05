@@ -14,22 +14,31 @@ import cn.clickwise.lib.bytes.BytesTransform;
 import cn.clickwise.lib.string.SSO;
 import cn.clickwise.lib.time.TimeOpera;
 
-public class ConcurrentEasyRadiusClient extends RadiusClient{
-	
+/**
+ * 将未完全解析的传到另一台机器上处理
+ * @author zkyz
+ */
+public class RemoteRadiusClient extends RadiusClient{
+
 	private InputStream sockIn;
 
 	private OutputStreamWriter sockOut;
 
 	private FileOutputStream fos;
 
+	private Socket resolveSock;
+	
+	private InputStream resolveSockIn;
+	
+	private OutputStreamWriter resolveSockOut;
+	
 	private ConfigureFactory confFactory;
 
 	private RadiusCenter rc;
 	
+	private ResolveCenter rece;
+	
 	private static Logger logger = LoggerFactory.getLogger(EasyRadiusClient.class);
-	
-	private QueueRecordPond queuePond=new QueueRecordPond();
-	
 
 	@Override
 	public State connect(RadiusCenter rc) {
@@ -57,6 +66,28 @@ public class ConcurrentEasyRadiusClient extends RadiusClient{
 
 		return state;
 	}
+	
+	public State connectResolve(ResolveCenter rece)
+	{
+		State state = new State();
+		
+		try{
+			resolveSock=new Socket(rece.getIp(),rece.getPort());
+			resolveSockIn=resolveSock.getInputStream();
+			
+			OutputStream outputStream = resolveSock.getOutputStream();
+			
+			resolveSockOut = new OutputStreamWriter(outputStream);
+			
+		    state.setStatValue(StateValue.Normal);	
+		}catch(Exception e)
+		{
+			state.setStatValue(StateValue.Error);
+			e.printStackTrace();
+		}
+				
+		return state;
+	}
 
 	@Override
 	public State sendHeartbeat() {
@@ -65,7 +96,6 @@ public class ConcurrentEasyRadiusClient extends RadiusClient{
 
 		try {
 			sockOut.write(Heartbeat.heartbeat);
-			
 			state.setStatValue(StateValue.Normal);
 		} catch (IOException e) {
 			state.setStatValue(StateValue.Error);
@@ -454,10 +484,7 @@ public class ConcurrentEasyRadiusClient extends RadiusClient{
 				userName=null;
 				logger.info(rec.toString());
 				*/
-				String rawRecord=TimeOpera.getCurrentTime()+"\t"+BytesTransform.bytes2str(ufa);
-				
-				logger.info(rawRecord);
-				queuePond.add2Pond(rawRecord);
+				logger.info(TimeOpera.getCurrentTime()+"\t"+BytesTransform.bytes2str(ufa));
 				ufa=null;
 				//rec=null;
 							
@@ -470,11 +497,6 @@ public class ConcurrentEasyRadiusClient extends RadiusClient{
 		obuffer=null;
 		dbuffer=null;
 		stbuffer=null;
-	}
-	
-	public void startPond(int threadNum)
-	{
-		queuePond.startConsume(threadNum);
 	}
 	
 	public String bytes2ip(byte[] b) {
@@ -613,10 +635,9 @@ public class ConcurrentEasyRadiusClient extends RadiusClient{
 
 	public static void main(String[] args) {
 		RadiusCenter rc = new RadiusCenter("221.231.154.17", 9002);
-		ConcurrentEasyRadiusClient cerc = new ConcurrentEasyRadiusClient();
-		cerc.setRc(rc);
-		cerc.startPond(3);
-		cerc.start(rc);
+		EasyRadiusClient erc = new EasyRadiusClient();
+		erc.setRc(rc);
+		erc.start(rc);
 		
 	}
 
@@ -627,4 +648,38 @@ public class ConcurrentEasyRadiusClient extends RadiusClient{
 	public void setRc(RadiusCenter rc) {
 		this.rc = rc;
 	}
+
+	public InputStream getResolveSockIn() {
+		return resolveSockIn;
+	}
+
+	public void setResolveSockIn(InputStream resolveSockIn) {
+		this.resolveSockIn = resolveSockIn;
+	}
+
+	public OutputStreamWriter getResolveSockOut() {
+		return resolveSockOut;
+	}
+
+	public void setResolveSockOut(OutputStreamWriter resolveSockOut) {
+		this.resolveSockOut = resolveSockOut;
+	}
+
+	public ResolveCenter getRece() {
+		return rece;
+	}
+
+	public void setRece(ResolveCenter rece) {
+		this.rece = rece;
+	}
+
+	public Socket getResolveSock() {
+		return resolveSock;
+	}
+
+	public void setResolveSock(Socket resolveSock) {
+		this.resolveSock = resolveSock;
+	}
+
+
 }
