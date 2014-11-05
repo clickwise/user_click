@@ -106,7 +106,7 @@ public class RemoteResolve {
 				  int len=sockIn.readInt();
 				  if(len<0)
 				  {
-					  Thread.sleep(10);
+					  //Thread.sleep(1);
 					  continue;
 				  }
 				  String str="";
