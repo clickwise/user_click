@@ -35,14 +35,16 @@ public class RemoteResolve {
 					ServerThread st = new ServerThread(connectFromClient);
 					Thread t = new Thread(st);
 					t.setDaemon(true);
-					System.out.println("start thread " + tn);
+					System.out.println("start thread :" + t.getName());
 					t.start();
 					startedThread.add(t);
 					if(tn>5)
 					{
 						for(int j=0;j<startedThread.size()-5;j++)
 						{
+							System.out.println("stop thread :"+startedThread.get(j).getName());
 							startedThread.get(j).stop();
+							startedThread.remove(j);
 						}
 					}
 				} catch (Exception e) {
@@ -55,6 +57,7 @@ public class RemoteResolve {
 		}
 
 	}
+	
 
 	public void startPond(int threadNum) {
 		queuePond.startConsume(threadNum);
@@ -104,7 +107,14 @@ public class RemoteResolve {
 		@Override
 		public void run() {
 
+			int c=0;
 			while (true) {
+				c++;
+				if(c%100==0)
+				{
+				  	System.out.println("Thread ["+Thread.currentThread().getName()+"] is running");
+				}
+				
 				try {
 					int len = sockIn.readInt();
 					if (len < 0) {
