@@ -104,6 +104,10 @@ public class RemoteResolve {
 			{
 				try{
 				  int len=sockIn.readInt();
+				  if(len<0)
+				  {
+					  continue;
+				  }
 				  String str="";
 				  for(int j=0;j<len;j++)
 				  {

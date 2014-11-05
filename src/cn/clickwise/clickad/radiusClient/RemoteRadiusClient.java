@@ -493,11 +493,13 @@ public class RemoteRadiusClient extends RadiusClient{
 				String rawRecord=TimeOpera.getCurrentTime()+"\t"+BytesTransform.bytes2str(ufa);
 				logger.info(rawRecord);
 				resolveSockOut.writeInt(rawRecord.length());
+				/*
 				for(int m=0;m<rawRecord.length();m++)
 				{
 					resolveSockOut.writeChar(rawRecord.charAt(m));	
 				}
-				//resolveSockOut.write(rawRecord);
+				*/
+				resolveSockOut.writeChars(rawRecord);
 				ufa=null;
 				//rec=null;
 							
