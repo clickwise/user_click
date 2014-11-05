@@ -33,7 +33,7 @@ public class RemoteEasyResolve {
 					}
 					Thread.sleep(10);
 					
-					statRead();
+					statRead(connectFromClient);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -89,13 +89,7 @@ public class RemoteEasyResolve {
 
 	}
 
-	public Socket getConnectFromClient() {
-		return connectFromClient;
-	}
 
-	public void setConnectFromClient(Socket connectFromClient) {
-		this.connectFromClient = connectFromClient;
-	}
 
 	public DataInputStream getSockIn() {
 		return sockIn;
