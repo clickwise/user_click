@@ -24,7 +24,7 @@ public class RemoteResolve {
 	public void init()
 	{
 		setConfFactory(ConfigureFactoryInstantiate.getConfigureFactory());
-		
+		startPond(3);
 		try{
 			ServerSocket sk = new ServerSocket(confFactory.getRSPort()); 
 			Socket connectFromClient = null; 
@@ -44,7 +44,7 @@ public class RemoteResolve {
 			e.printStackTrace();
 		}
 		
-		startPond(3);
+	
 		
 		
 	}
@@ -119,6 +119,13 @@ public class RemoteResolve {
 			}
 			
 		}
+		
+	}
+	
+	public static void main(String[] args)
+	{
+		RemoteResolve rs=new RemoteResolve();
+		rs.init();
 		
 	}
 	
