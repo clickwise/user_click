@@ -7,7 +7,7 @@ import java.net.Socket;
 
 public class RemoteEasyResolve {
 
-	private Socket connectFromClient;
+	//private Socket connectFromClient;
 
 	private ConfigureFactory confFactory;
 
@@ -20,14 +20,11 @@ public class RemoteEasyResolve {
 		startPond(3);
 		try {
 			ServerSocket sk = new ServerSocket(confFactory.getRSPort());
-			
+		
 
 			while (true) {
 				try {
-					if(connectFromClient!=null)
-					{
-						connectFromClient.close();
-					}
+					Socket connectFromClient=null;
 					connectFromClient = sk.accept();
 					if(connectFromClient==null)
 					{
