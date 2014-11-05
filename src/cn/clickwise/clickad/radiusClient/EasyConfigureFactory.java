@@ -89,5 +89,11 @@ public class EasyConfigureFactory extends ConfigureFactory{
 		// TODO Auto-generated method stub
 		return "127.0.0.1";
 	}
+
+	@Override
+	public int getRSPort() {
+		// TODO Auto-generated method stub
+		return 2535;
+	}
 	
 }

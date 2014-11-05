@@ -1,5 +1,6 @@
 package cn.clickwise.clickad.radiusClient;
 
+import java.io.DataOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,7 +31,7 @@ public class RemoteRadiusClient extends RadiusClient{
 	
 	private InputStream resolveSockIn;
 	
-	private OutputStreamWriter resolveSockOut;
+	private DataOutputStream resolveSockOut;
 	
 	private ConfigureFactory confFactory;
 
@@ -44,7 +45,7 @@ public class RemoteRadiusClient extends RadiusClient{
 	public State connect(RadiusCenter rc) {
 
 		State state = new State();
-
+		
 		confFactory = ConfigureFactoryInstantiate.getConfigureFactory();
 
 		try {
@@ -67,19 +68,24 @@ public class RemoteRadiusClient extends RadiusClient{
 		return state;
 	}
 	
-	public State connectResolve(ResolveCenter rece)
+	public State connectResolve()
 	{
 		State state = new State();
 		
 		try{
+			if(resolveSock!=null)
+			{
+				resolveSock.close();
+			}
 			resolveSock=new Socket(rece.getIp(),rece.getPort());
 			resolveSockIn=resolveSock.getInputStream();
 			
 			OutputStream outputStream = resolveSock.getOutputStream();
 			
-			resolveSockOut = new OutputStreamWriter(outputStream);
+			setResolveSockOut(new DataOutputStream(outputStream));
 			
 		    state.setStatValue(StateValue.Normal);	
+		    
 		}catch(Exception e)
 		{
 			state.setStatValue(StateValue.Error);
@@ -484,7 +490,11 @@ public class RemoteRadiusClient extends RadiusClient{
 				userName=null;
 				logger.info(rec.toString());
 				*/
-				logger.info(TimeOpera.getCurrentTime()+"\t"+BytesTransform.bytes2str(ufa));
+				String rawRecord=TimeOpera.getCurrentTime()+"\t"+BytesTransform.bytes2str(ufa);
+				logger.info(rawRecord);
+				resolveSockOut.writeInt(rawRecord.length());
+				resolveSockOut.writeChars(rawRecord);
+				//resolveSockOut.write(rawRecord);
 				ufa=null;
 				//rec=null;
 							
@@ -605,6 +615,7 @@ public class RemoteRadiusClient extends RadiusClient{
 	public void start(RadiusCenter rc) {
 
 		connect(rc);
+		connectResolve();
 		long startTime = TimeOpera.getCurrentTimeLong();
 		while (true) {
 			if (TimeOpera.getCurrentTimeLong() - startTime > 4000) {
@@ -635,7 +646,9 @@ public class RemoteRadiusClient extends RadiusClient{
 
 	public static void main(String[] args) {
 		RadiusCenter rc = new RadiusCenter("221.231.154.17", 9002);
-		EasyRadiusClient erc = new EasyRadiusClient();
+		ResolveCenter rece=new ResolveCenter("180.96.26.204",2535);
+		RemoteRadiusClient erc = new RemoteRadiusClient();
+		erc.setRece(rece);
 		erc.setRc(rc);
 		erc.start(rc);
 		
@@ -657,13 +670,7 @@ public class RemoteRadiusClient extends RadiusClient{
 		this.resolveSockIn = resolveSockIn;
 	}
 
-	public OutputStreamWriter getResolveSockOut() {
-		return resolveSockOut;
-	}
 
-	public void setResolveSockOut(OutputStreamWriter resolveSockOut) {
-		this.resolveSockOut = resolveSockOut;
-	}
 
 	public ResolveCenter getRece() {
 		return rece;
@@ -679,6 +686,14 @@ public class RemoteRadiusClient extends RadiusClient{
 
 	public void setResolveSock(Socket resolveSock) {
 		this.resolveSock = resolveSock;
+	}
+
+	public DataOutputStream getResolveSockOut() {
+		return resolveSockOut;
+	}
+
+	public void setResolveSockOut(DataOutputStream resolveSockOut) {
+		this.resolveSockOut = resolveSockOut;
 	}
 
 

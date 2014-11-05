@@ -45,4 +45,6 @@ public abstract class ConfigureFactory {
     public abstract int getRedisDB();
     
     public abstract String getRedisIp();
+    
+    public abstract int getRSPort();
 }

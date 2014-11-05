@@ -115,6 +115,19 @@ public class StrTest {
 		return arr_str;
 	}
 	
+	public static void charInt()
+	{
+	      int a=1320942;
+	      Integer i=new Integer(a);
+	      System.out.println(Integer.toHexString(a));
+	      
+	      char[] cc=(new String(a+"")).toCharArray();
+	      System.out.println("cc.len:"+cc.length);
+	      char c=(char)a;
+	      int b=c;
+	      System.out.println("b="+b);
+	}
+	
 	public static void main(String[] args) throws Exception
 	{
 		/*
@@ -137,9 +150,12 @@ public class StrTest {
 			
 		}
 		*/
+		/*
 		double ran=Math.random();
 		String a="d|adb";
 		System.out.println(a);
 		System.out.println(jsonTest1());
+		*/
+		 charInt();
 	}
 }
