@@ -29,7 +29,13 @@ public class RemoteEasyResolve {
 						connectFromClient.close();
 					}
 					connectFromClient = sk.accept();
+					if(connectFromClient==null)
+					{
+						Thread.sleep(1000);
+						continue;
+					}
 					Thread.sleep(10);
+					
 					statRead();
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -57,7 +63,7 @@ public class RemoteEasyResolve {
 					for (int j = 0; j < len; j++) {
 						str += sockIn.readChar();
 					}
-					//System.out.println("len:"+len+" str:"+str);
+					System.out.println("len:"+len+" str:"+str);
 					queuePond.add2Pond(str);
 				} catch (Exception e) {
 					//e.printStackTrace();
