@@ -57,10 +57,10 @@ public class RemoteEasyResolve {
 					for (int j = 0; j < len; j++) {
 						str += sockIn.readChar();
 					}
-					System.out.println("len:"+len+" str:"+str);
+					//System.out.println("len:"+len+" str:"+str);
 					queuePond.add2Pond(str);
 				} catch (Exception e) {
-					e.printStackTrace();
+					//e.printStackTrace();
 				}
 			}
 		} catch (Exception e) {
