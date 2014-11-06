@@ -193,7 +193,7 @@ public class HiveStatisticByKeysCommand extends Command{
 	        	 hfkc.setResultRemoteName(tokens[12]);
 	        	 hfkc.setResultRemotePath(tokens[13]);
 	        	 hfkc.setTmpIdentify(tokens[14]);
-	        	 hfkc.setTmpIdentify(tokens[15]);
+	        	 hfkc.setAreaCode(tokens[15]);
 	        	return  hfkc;
 	        }
 		}
