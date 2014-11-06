@@ -11,6 +11,9 @@ import java.util.TimerTask;
 
 import cn.clickwise.lib.string.SSO;
 import cn.clickwise.lib.time.TimeOpera;
+import cn.clickwise.rpc.Connection;
+import cn.clickwise.rpc.HiveStatisticByKeysClient;
+import cn.clickwise.rpc.HiveStatisticByKeysCommand;
 
 import redis.clients.jedis.Jedis;
 
@@ -290,7 +293,51 @@ public class CumulateQueryManager {
 		 */
 		public void queryPvUvIpDmps()
 		{
+			int day = TimeOpera.getToday();
 			
+			try {
+				FileReader fr = new FileReader(
+						queryLogDirectory.getQueryLogByDay(day));
+				BufferedReader br = new BufferedReader(fr);
+				
+				
+				
+				
+				
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+			
+			
+			
+			
+			HiveStatisticByKeysClient ec=new HiveStatisticByKeysClient();
+			Connection con=new Connection();
+			con.setHost("112.67.253.101");
+			con.setPort(2733);
+			con.setMethod("/hiveStatisticByKeys");
+			
+			HiveStatisticByKeysCommand hfkc=new HiveStatisticByKeysCommand();
+			String tmpIdentify="remote_statistic";
+			hfkc.setDay(day);
+			hfkc.setTmpIdentify(tmpIdentify);
+			hfkc.setKeyName("ttt.txt");
+			hfkc.setKeyPath("temp/ttt.txt");
+			
+			hfkc.setTableName("astat");
+			hfkc.setKeyFieldName("user_id");
+			hfkc.setIpFieldName("sip");
+			hfkc.setKeyTableName("statistic_keys");
+			hfkc.setAreaCode("009");
+			hfkc.setResultName("local_user_statistic.txt");
+			hfkc.setResultPath("temp/local_user_statistic.txt");
+			hfkc.initRandomFileName();
+		
+			ec.setHfkc(hfkc);
+			ec.connect(con);
+			ec.execute(hfkc);
 			
 			
 			

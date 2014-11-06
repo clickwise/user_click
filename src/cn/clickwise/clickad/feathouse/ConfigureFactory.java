@@ -75,4 +75,18 @@ public abstract class ConfigureFactory {
     public abstract int getQueryType();
     
     public abstract String getDmpRecordFile(int day,Dmp dmp);
+    
+    /**
+     * RTB查询的uid，按地区分开存储的文件夹
+     * @return
+     */
+    public abstract String getDmpUidDirectories();
+    
+    /**
+     * RTB查询的uid, 该dmp、该天对应的文件
+     * @param day
+     * @param dmp
+     * @return
+     */
+    public abstract String getDmpUidFile(int day,Dmp dmp);
 }
