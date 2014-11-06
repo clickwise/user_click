@@ -67,6 +67,8 @@ public abstract class ConfigureFactory {
     
     public abstract String getTmpIdentify();
     
+    public abstract String getStatisticTmpIdentify();
+    
     //取回用户特征文件的前缀
     public abstract String getRecordFilePrefix();
     

@@ -263,6 +263,12 @@ public class EasyConfigureFactory extends ConfigureFactory{
 		return null;
 	}
 
+	@Override
+	public String getStatisticTmpIdentify() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 	
 

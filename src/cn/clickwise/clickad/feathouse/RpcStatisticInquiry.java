@@ -3,14 +3,20 @@ package cn.clickwise.clickad.feathouse;
 import cn.clickwise.rpc.HiveStatisticByKeysClient;
 import cn.clickwise.rpc.HiveStatisticByKeysCommand;
 
+public class RpcStatisticInquiry extends StatisticInquiry {
 
-public class RpcStatisticInquiry extends StatisticInquiry{
+	private ConfigureFactory confFactory = null;
+
+	public RpcStatisticInquiry() {
+		confFactory = ConfigureFactoryInstantiate.getConfigureFactory();
+
+	}
 
 	@Override
 	public StatisticStruct getDmpStatistic(Dmp dmp) {
-		
-		int day=100;
-		
+
+		int day = 100;
+
 		HiveStatisticByKeysClient ec = new HiveStatisticByKeysClient();
 		cn.clickwise.rpc.Connection con = new cn.clickwise.rpc.Connection();
 		con.setHost(dmp.getHost());
@@ -18,16 +24,16 @@ public class RpcStatisticInquiry extends StatisticInquiry{
 		con.setMethod(dmp.getDmpStatisticMethod());
 
 		HiveStatisticByKeysCommand hfkc = new HiveStatisticByKeysCommand();
-		
-		String tmpIdentify = "remote_statistic";
 		hfkc.setDay(day);
-		hfkc.setTmpIdentify(tmpIdentify);
-		hfkc.setKeyName("ttt.txt");
-		hfkc.setKeyPath("temp/ttt.txt");
+		hfkc.setTmpIdentify(confFactory.getStatisticTmpIdentify());
 
-		hfkc.setTableName("astat");
-		hfkc.setKeyFieldName("user_id");
-		hfkc.setIpFieldName("sip");
+		hfkc.setKeyName(confFactory.getDmpUidFile(day, dmp));
+		hfkc.setKeyPath(confFactory.getDmpUidDirectory() + "/"
+				+ confFactory.getDmpUidFile(day, dmp));
+
+		hfkc.setTableName(dmp.getSourceTableName());
+		hfkc.setKeyFieldName(dmp.getSourceUidFieldName());
+		hfkc.setIpFieldName(dmp.getSourceIpFieldName());
 		hfkc.setKeyTableName("statistic_keys");
 		hfkc.setAreaCode("009");
 		hfkc.setResultName("local_user_statistic.txt");
@@ -37,8 +43,7 @@ public class RpcStatisticInquiry extends StatisticInquiry{
 		ec.setHfkc(hfkc);
 		ec.connect(con);
 		ec.execute(hfkc);
-		
-		
+
 		return null;
 	}
 

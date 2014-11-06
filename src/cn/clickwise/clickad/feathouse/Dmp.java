@@ -27,6 +27,11 @@ public class Dmp {
 	
 	private String dmpStatisticMethod;
 	
+	private String sourceTableName;
+	
+	private String sourceUidFieldName;
+	
+	private String sourceIpFieldName;
 	
 	public String getName() {
 		return name;
@@ -83,6 +88,24 @@ public class Dmp {
 	}
 	public void setDmpStatisticMethod(String dmpStatisticMethod) {
 		this.dmpStatisticMethod = dmpStatisticMethod;
+	}
+	public String getSourceTableName() {
+		return sourceTableName;
+	}
+	public void setSourceTableName(String sourceTableName) {
+		this.sourceTableName = sourceTableName;
+	}
+	public String getSourceUidFieldName() {
+		return sourceUidFieldName;
+	}
+	public void setSourceUidFieldName(String sourceUidFieldName) {
+		this.sourceUidFieldName = sourceUidFieldName;
+	}
+	public String getSourceIpFieldName() {
+		return sourceIpFieldName;
+	}
+	public void setSourceIpFieldName(String sourceIpFieldName) {
+		this.sourceIpFieldName = sourceIpFieldName;
 	}
 	
 }
