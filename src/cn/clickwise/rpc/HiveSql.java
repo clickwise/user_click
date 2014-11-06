@@ -50,7 +50,7 @@ public class HiveSql {
 
 		if (!((hfkc.getAreaCode().trim()).equals("030"))) {// 非浙江
 			//sql = "use clickwise; INSERT OVERWRITE LOCAL DIRECTORY '/home/clickwise/lq/statistic_keys/"+hfkc.getDay()+"' SELECT a.dt,'"+hfkc.getAreaCode()+"',count(1), count(distinct user_id), count(distinct sip) FROM astat a JOIN statistic_keys b  ON  a.user_id=b.uid where a.user_id IS NOT NULL and b.uid IS NOT NULL and b.dt=20141103 and a.dt=20141103   group by a.dt,'009';";
-			sql = "use clickwise; INSERT OVERWRITE LOCAL DIRECTORY '"+hfkc.getResultRemotePath()+"' SELECT a.dt,'"+hfkc.getAreaCode()+"',count(1), count(distinct "+hfkc.getKeyFieldName()+"), count(distinct "+hfkc.getIpFieldName()+") FROM "+hfkc.getTableName()+" a JOIN "+hfkc.getKeyTableName()+" b  ON  a."+hfkc.getKeyFieldName()+"=b."+hfkc.getKeyFieldName()+" where a."+hfkc.getKeyFieldName()+" IS NOT NULL and b."+hfkc.getKeyFieldName()+" IS NOT NULL and b.dt="+hfkc.getDay()+" and a.dt="+hfkc.getDay()+" group by a.dt,'"+hfkc.getAreaCode()+"';";
+			sql = "use clickwise; INSERT OVERWRITE LOCAL DIRECTORY '"+hfkc.getResultRemotePath()+"' SELECT a.dt,'"+hfkc.getAreaCode()+"',count(1), count(distinct a."+hfkc.getKeyFieldName()+"), count(distinct a."+hfkc.getIpFieldName()+") FROM "+hfkc.getTableName()+" a JOIN "+hfkc.getKeyTableName()+" b  ON  a."+hfkc.getKeyFieldName()+"=b."+hfkc.getKeyFieldName()+" where a."+hfkc.getKeyFieldName()+" IS NOT NULL and b."+hfkc.getKeyFieldName()+" IS NOT NULL and b.dt="+hfkc.getDay()+" and a.dt="+hfkc.getDay()+" group by a.dt,'"+hfkc.getAreaCode()+"';";
             System.out.println("statistic sql:"+sql);
 		} else {// 浙江
 
