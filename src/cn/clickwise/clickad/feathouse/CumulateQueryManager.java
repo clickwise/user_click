@@ -284,6 +284,19 @@ public class CumulateQueryManager {
 				e.printStackTrace();
 			}
 		}
+		
+		/**
+		 * 统计RTB和各dmp能够对上的用户pv,ip,uv等信息
+		 */
+		public void queryPvUvIpDmps()
+		{
+			
+			
+			
+			
+			
+		}
+		
 
 	}
 

@@ -24,14 +24,14 @@ import com.sun.net.httpserver.HttpExchange;
 public class UserQueryHandler extends Handler {
 
 	
-	static Logger logger = LoggerFactory.getLogger(UserQueryHandler.class);
+	//static Logger logger = LoggerFactory.getLogger(UserQueryHandler.class);
 
 	@Override
 	public void handle(HttpExchange exchange) throws IOException {
 		// TODO Auto-generated method stub
 		URI uri = exchange.getRequestURI();
 		System.out.println("uri:" + uri);
-		logger.info(TimeOpera.getToday()+" uri:" + uri);
+		//logger.info(TimeOpera.getToday()+" uri:" + uri);
 		String uid=SSO.afterStr(uri.toString(), "uid=");
 		query(uid,exchange);
 	}

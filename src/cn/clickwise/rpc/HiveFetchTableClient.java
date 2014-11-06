@@ -103,7 +103,7 @@ public class HiveFetchTableClient extends Client{
 		
 		HiveFetchTableCommand hftcmd=new HiveFetchTableCommand();
 		String tmpIdentify="remote_table_cookie";
-		int day=20141102;
+		int day=20141103;
 		hftcmd.setDay(day);
 		hftcmd.setTmpIdentify(tmpIdentify);
 		
@@ -112,6 +112,7 @@ public class HiveFetchTableClient extends Client{
 		
 		hftcmd.setResultName("local_user_table_info.txt");
 		hftcmd.setResultPath("temp/local_user_table_info.txt");
+		hftcmd.setAreaCode("009");
 		HiveFetchTableClient.initRandomFileName(tmpIdentify, day, hftcmd);
 		hftcmd.setQueryType(1);
 		

@@ -14,14 +14,14 @@ import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 
 public class IpQueryHandler extends Handler{
-	static Logger logger = LoggerFactory.getLogger(IpQueryHandler.class);
+	//static Logger logger = LoggerFactory.getLogger(IpQueryHandler.class);
 
 	@Override
 	public void handle(HttpExchange exchange) throws IOException {
 		// TODO Auto-generated method stub
 		URI uri = exchange.getRequestURI();
 		System.out.println("uri:" + uri);
-		logger.info(TimeOpera.getToday()+" uri:" + uri);
+		//logger.info(TimeOpera.getToday()+" uri:" + uri);
 		String ip=SSO.afterStr(uri.toString(), "ip=");
 		query(ip,exchange);
 	}
