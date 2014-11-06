@@ -232,7 +232,7 @@ public class EasyConfigureFactory extends ConfigureFactory{
 	}
 
 	@Override
-	public String getDmpUidDirectories() {	
+	public String getDmpUidDirectory() {	
 		
 		return "dmpUid";
 	}

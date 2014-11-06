@@ -82,7 +82,7 @@ public abstract class ConfigureFactory {
      * RTB查询的uid，按地区分开存储的文件夹
      * @return
      */
-    public abstract String getDmpUidDirectories();
+    public abstract String getDmpUidDirectory();
     
     /**
      * RTB查询的uid, 该dmp、该天对应的文件
