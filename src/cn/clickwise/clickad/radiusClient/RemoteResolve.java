@@ -6,6 +6,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * server 端 接收另一台机器传过来的未完全解析的包， 进行解析并存入redis中
  * 
@@ -20,6 +23,7 @@ public class RemoteResolve {
 	private static QueueRecordPond queuePond = new QueueRecordPond();
 	
 	private ArrayList<Thread> startedThread=new ArrayList<Thread>();
+	
 
 	public void init() {
 		setConfFactory(ConfigureFactoryInstantiate.getConfigureFactory());

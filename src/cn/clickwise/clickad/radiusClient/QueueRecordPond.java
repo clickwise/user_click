@@ -10,6 +10,9 @@ import java.util.TimerTask;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.regex.Pattern;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -24,6 +27,8 @@ public class QueueRecordPond extends RecordPond {
 	private static int zeroCount=0;
 	
 	private JedisPool pool;
+	
+	private static Logger logger = LoggerFactory.getLogger(QueueRecordPond.class);
 	
     public void initForParse()
     {
@@ -209,6 +214,7 @@ public class QueueRecordPond extends RecordPond {
 						continue;
 					}
 					//parsedRecordWriter.println(rl.toString());
+					logger.info(rl.toString());
 					onlineDB.update(rl);
 				} catch (Exception e) {
 					e.printStackTrace();
