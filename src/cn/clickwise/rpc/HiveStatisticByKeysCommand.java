@@ -212,7 +212,7 @@ public class HiveStatisticByKeysCommand extends Command{
 			setRemoteTmpName(tmpIdentify+"_"+day+".txt");
 			setRemoteTmpPath("/tmp/"+tmpIdentify+"_"+day+".txt");
 			setHdfTmpName(tmpIdentify+"_hdfs_"+day);
-			setHdfTmpPath("/user/"+tmpIdentify+"/"+tmpIdentify+"_hdfs_"+day);
+			setHdfTmpPath("/user/clickwise/"+tmpIdentify+"/"+tmpIdentify+"_hdfs_"+day);
 			setResultRemoteName(tmpIdentify+"_info_"+day);
 			setResultRemotePath("/tmp/"+tmpIdentify+"_info_"+day);
 			

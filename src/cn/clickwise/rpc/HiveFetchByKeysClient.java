@@ -93,7 +93,7 @@ public class HiveFetchByKeysClient extends Client {
 		hfkc.setRemoteTmpName(tmpIdentify+"_"+day+".txt");
 		hfkc.setRemoteTmpPath("/tmp/"+tmpIdentify+"_"+day+".txt");
 		hfkc.setHdfTmpName(tmpIdentify+"_hdfs_"+day);
-		hfkc.setHdfTmpPath("/user/"+tmpIdentify+"/"+tmpIdentify+"_hdfs_"+day);
+		hfkc.setHdfTmpPath("/user/clickwise/"+tmpIdentify+"/"+tmpIdentify+"_hdfs_"+day);
 		hfkc.setResultRemoteName(tmpIdentify+"_info_"+day);
 		hfkc.setResultRemotePath("/tmp/"+tmpIdentify+"_info_"+day);
 		
