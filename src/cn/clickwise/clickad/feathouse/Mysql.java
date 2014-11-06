@@ -118,6 +118,15 @@ public class Mysql {
 		return state;
 	}
 
+	public State updateDmpStatistics(StatisticStruct receipt, Table table,
+			Map<String, String> codeArea) {
+		State state = new State();
+
+
+		
+		return state;
+	}
+	
 	public State select(Receipt receipt, Table table,
 			Map<String, String> codeArea) {
 		String sql = "select *  from " + table.getName() + " where area_code='"

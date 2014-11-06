@@ -350,9 +350,6 @@ public class CumulateQueryManager {
 				{
 					StatisticStruct stt=rsi.getDmpStatistic(confFactory.getDmpByArea(d.getKey())); 	
 					
-					
-					
-					
 				}
 				
 				
