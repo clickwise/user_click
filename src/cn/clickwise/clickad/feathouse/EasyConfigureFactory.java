@@ -55,6 +55,7 @@ public class EasyConfigureFactory extends ConfigureFactory{
 		dmps[0].setTmpIdentify("remote_cookie");
 	    dmps[0].setRpcPort(2733);
 	    dmps[0].setDmpInquiryMethod("/hiveFetchTable");
+	    dmps[0].setDmpStatisticMethod("/hiveStatisticByKeys");
 	    
 		dmps[1]=new Dmp();
 		dmps[1].setName("海南DX");
@@ -65,7 +66,7 @@ public class EasyConfigureFactory extends ConfigureFactory{
 		dmps[1].setTmpIdentify("remote_cookie");
 	    dmps[1].setRpcPort(2733);
 	    dmps[1].setDmpInquiryMethod("/hiveFetchTable");
-	    
+	    dmps[1].setDmpStatisticMethod("/hiveStatisticByKeys");
 	   
 		return dmps;
 	}

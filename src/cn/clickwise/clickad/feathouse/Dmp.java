@@ -25,6 +25,9 @@ public class Dmp {
 	//dmp取数据临时文件名称的部分标识，用来给临时文件命名
 	private String tmpIdentify;
 	
+	private String dmpStatisticMethod;
+	
+	
 	public String getName() {
 		return name;
 	}
@@ -74,6 +77,12 @@ public class Dmp {
 	}
 	public void setArea(Area area) {
 		this.area = area;
+	}
+	public String getDmpStatisticMethod() {
+		return dmpStatisticMethod;
+	}
+	public void setDmpStatisticMethod(String dmpStatisticMethod) {
+		this.dmpStatisticMethod = dmpStatisticMethod;
 	}
 	
 }
