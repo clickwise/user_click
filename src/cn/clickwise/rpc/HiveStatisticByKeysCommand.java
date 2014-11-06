@@ -163,7 +163,7 @@ public class HiveStatisticByKeysCommand extends Command{
 			String hfkcs="";
 			hfkcs+=(hfkc.getKeyName()+";"+hfkc.getKeyPath()+";"+hfkc.getTableName()+";"+hfkc.getKeyFieldName()+";"+hfkc.getKeyTableName()
 					+";"+hfkc.getDay()+";"+hfkc.getRemoteTmpName()+";"+hfkc.getRemoteTmpPath()+";"+hfkc.getTableName()+";"+hfkc.getHdfTmpPath()
-					+";"+hfkc.getResultName()+";"+hfkc.getResultPath()+";"+hfkc.getResultRemoteName()+";"+hfkc.getResultRemotePath()+";"+hfkc.getTmpIdentify()+";"+hfkc.getAreaCode());
+					+";"+hfkc.getResultName()+";"+hfkc.getResultPath()+";"+hfkc.getResultRemoteName()+";"+hfkc.getResultRemotePath()+";"+hfkc.getTmpIdentify()+";"+hfkc.getAreaCode())+";"+hfkc.getIpFieldName();
 			return hfkcs;
 		}
 		
@@ -172,7 +172,7 @@ public class HiveStatisticByKeysCommand extends Command{
 			HiveStatisticByKeysCommand hfkc=new HiveStatisticByKeysCommand();
 		  
 	        String[] tokens=hfkcs.split(";");
-	        if(tokens.length!=16)
+	        if(tokens.length!=17)
 	        {
 			   return null;
 	        }
@@ -194,6 +194,7 @@ public class HiveStatisticByKeysCommand extends Command{
 	        	 hfkc.setResultRemotePath(tokens[13]);
 	        	 hfkc.setTmpIdentify(tokens[14]);
 	        	 hfkc.setAreaCode(tokens[15]);
+	        	 hfkc.setIpFieldName(tokens[16]);
 	        	return  hfkc;
 	        }
 		}
