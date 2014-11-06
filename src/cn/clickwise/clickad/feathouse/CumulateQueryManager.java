@@ -163,6 +163,7 @@ public class CumulateQueryManager {
     				receipt.setPv(pv);             	
     				receipt.setReceiptId(System.currentTimeMillis() + "");
     				mysql.updateStatistics(receipt, table, codeArea);
+    				
                 }
 		
 			} catch (Exception e) {
@@ -298,8 +299,48 @@ public class CumulateQueryManager {
 			try {
 				FileReader fr = new FileReader(
 						queryLogDirectory.getQueryLogByDay(day));
-				BufferedReader br = new BufferedReader(fr);
+				BufferedReader br = new BufferedReader(fr);				
+				String line="";
 				
+				HashMap<String,String> activeDmps=new HashMap<String,String>();
+	            String uid="";
+	            String area="";
+	            String ip="";
+	            String[] tokens=null;
+	                
+	            String tempAC="";//temp area code
+	            
+				while((line=br.readLine())!=null)
+				{
+                	if(SSO.tioe(line))
+                	{
+                		continue;
+                	}
+					
+                	line=line.trim();
+                	
+                	tokens=line.split("\001");
+                	if(tokens.length!=3)
+                	{
+                		continue;
+                	}
+                	
+                	uid=tokens[0];
+                	area=tokens[1];
+                	ip=tokens[2];
+                	
+                	tempAC=KeyOpera.getAreaCodeFromUid(uid);
+                	if(!(activeDmps.containsKey(tempAC)))
+                	{
+                		activeDmps.put(tempAC, tempAC);
+                		
+                		
+                	}
+
+                	
+                	
+                	
+				}
 				
 				
 				
@@ -310,9 +351,7 @@ public class CumulateQueryManager {
 				e.printStackTrace();
 			}
 			
-			
-			
-			
+				
 			HiveStatisticByKeysClient ec=new HiveStatisticByKeysClient();
 			Connection con=new Connection();
 			con.setHost("112.67.253.101");

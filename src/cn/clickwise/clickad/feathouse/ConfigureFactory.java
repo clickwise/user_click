@@ -70,6 +70,8 @@ public abstract class ConfigureFactory {
     //取回用户特征文件的前缀
     public abstract String getRecordFilePrefix();
     
+    public abstract String getUidFilePrefix();
+    
     public abstract String getRecordFileDirectory();
 	
     public abstract int getQueryType();
@@ -89,4 +91,6 @@ public abstract class ConfigureFactory {
      * @return
      */
     public abstract String getDmpUidFile(int day,Dmp dmp);
+    
+    public abstract Dmp getDmpByAreaCode(String areaCode);
 }

@@ -66,9 +66,7 @@ public class EasyConfigureFactory extends ConfigureFactory{
 	    dmps[1].setRpcPort(2733);
 	    dmps[1].setDmpInquiryMethod("/hiveFetchTable");
 	    
-	    
-
-		
+	   
 		return dmps;
 	}
 
@@ -120,7 +118,7 @@ public class EasyConfigureFactory extends ConfigureFactory{
 		}
 		value=value.trim();
 		Record record=new Record(key,value);
-		// TODO Auto-generated method stub
+
 		return record;
 	}
 
@@ -156,7 +154,7 @@ public class EasyConfigureFactory extends ConfigureFactory{
 
 	@Override
 	public File getQueryLogDirectory() {
-		// TODO Auto-generated method stub
+
 		return new File("queryUid");
 	}
 
@@ -199,25 +197,31 @@ public class EasyConfigureFactory extends ConfigureFactory{
 
 	@Override
 	public String getTmpIdentify() {
-		// TODO Auto-generated method stub
+
 		return "remote_table_cookie";
 	}
 
 	@Override
 	public String getRecordFilePrefix() {
-		// TODO Auto-generated method stub
+
 		return "user_info_";
 	}
 
 	@Override
 	public String getRecordFileDirectory() {
-		// TODO Auto-generated method stub
+
 		return "temp/";
 	}
 
 	@Override
+	public String getUidFilePrefix() {
+
+		return "uid_";
+	}
+	
+	@Override
 	public int getQueryType() {
-		// TODO Auto-generated method stub
+
 		return 1;
 	}
 
@@ -226,6 +230,38 @@ public class EasyConfigureFactory extends ConfigureFactory{
 		
 		return getRecordFilePrefix() + day+"_"+dmp.getArea().getAreaCode() + ".txt";
 	}
+
+	@Override
+	public String getDmpUidDirectories() {	
+		
+		return "dmpUid";
+	}
+
+	@Override
+	public String getDmpUidFile(int day, Dmp dmp) {	
+		// TODO Auto-generated method stub
+		
+		return null;
+	}
+
+	@Override
+	public Dmp getDmpByAreaCode(String areaCode) {
+		
+		Dmp[] dmps=getDmps();
+		Dmp dmp=null;
+		
+		for(int i=0;i<dmps.length;i++)
+		{
+		  dmp=dmps[i];
+		  if((dmp.getArea().getAreaCode()).equals(areaCode))
+		  {
+			  return dmp;
+		  }
+		}
+		
+		return null;
+	}
+
 	
 	
 
