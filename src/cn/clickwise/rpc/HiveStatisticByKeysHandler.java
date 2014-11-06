@@ -58,6 +58,7 @@ public class HiveStatisticByKeysHandler extends Handler{
 		COMMAND.exec(HiveSql.createTableStatistic(hfkc));
 		COMMAND.exec(HiveSql.dropOldStatistic(hfkc));
 		COMMAND.exec(HiveSql.load2hiveStatistic(hfkc));
+		System.out.println("exec sql:"+HiveSql.getSqlStatistic(hfkc));
 		COMMAND.exec(HiveSql.getSqlStatistic(hfkc));
 		
 		

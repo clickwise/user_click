@@ -139,7 +139,7 @@ public class HiveStatisticByKeysClient extends Client{
 		hfkc.setTableName("astat");
 		hfkc.setKeyFieldName("user_id");
 		hfkc.setKeyTableName("statistic_keys");
-			
+		hfkc.setAreaCode("009");
 		hfkc.setResultName("local_user_statistic.txt");
 		hfkc.setResultPath("temp/local_user_statistic.txt");
 		hfkc.initRandomFileName();
