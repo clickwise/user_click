@@ -328,6 +328,10 @@ public class CumulateQueryManager {
 
 					if (!(activeDmps.containsKey(tempAC))) {
 						Dmp admp = confFactory.getDmpByAreaCode(tempAC);
+						if(admp==null)
+						{
+							continue;
+						}
 						String afile = confFactory.getDmpUidDirectory() + "/"
 								+ confFactory.getDmpUidFile(day, admp);
 						activeDmps.put(tempAC, afile);
