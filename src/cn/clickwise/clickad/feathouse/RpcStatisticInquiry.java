@@ -55,7 +55,7 @@ public class RpcStatisticInquiry extends StatisticInquiry {
 		System.out.println("ponit 6");
 		String[] statistic_lines = null;
 		try {
-			statistic_lines = FileToArray.fileToDimArr(confFactory
+			statistic_lines = FileToArray.fileToDimArr(confFactory.getDmpStatisticResultDirectory()+"/"+confFactory
 					.getDmpStatisticResultFile(day, dmp));
 		} catch (Exception e) {
 			e.printStackTrace();
