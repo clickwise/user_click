@@ -33,6 +33,7 @@ public class Connection {
 		str="host:"+host+" port:"+port+" method:"+method;
 		return str;
 		
+		
 	}
 	
 }
