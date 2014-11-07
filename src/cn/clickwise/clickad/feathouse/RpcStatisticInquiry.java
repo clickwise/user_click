@@ -42,7 +42,7 @@ public class RpcStatisticInquiry extends StatisticInquiry {
 		System.out.println("ponit 4");
 		hfkc.setAreaCode(dmp.getArea().getAreaCode());
 		hfkc.setResultName(confFactory.getDmpStatisticResultFile(day, dmp));
-		hfkc.setResultPath(confFactory.getDmpStatisticResultFile(day, dmp));
+		hfkc.setResultPath(confFactory.getDmpStatisticResultDirectory()+"/"+confFactory.getDmpStatisticResultFile(day, dmp));
 		hfkc.initRandomFileName();
 		System.out.println("ponit 5");
 		System.out.println("con:"+con.toString());
@@ -64,6 +64,7 @@ public class RpcStatisticInquiry extends StatisticInquiry {
 			return null;
 		}
 
+		System.out.println("line 0:"+statistic_lines[0]);
 		sst = confFactory.string2StatisticResult(statistic_lines[0]);
 
 		return sst;

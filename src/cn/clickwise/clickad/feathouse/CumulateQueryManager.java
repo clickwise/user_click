@@ -393,6 +393,7 @@ public class CumulateQueryManager {
 					}
 					System.out.println("process area:"+tempDmp.getArea().getAreaCode());
 					StatisticStruct stt=rsi.getDmpStatistic(confFactory.getDmpByAreaCode(d.getKey()),day); 	
+					mysql.updateDmpStatistics(stt, new Table("InquiryReceipts"), codeArea);
 					
 				}
 				
