@@ -348,7 +348,7 @@ public class CumulateQueryManager {
 				RpcStatisticInquiry rsi=new RpcStatisticInquiry();
 				for(Map.Entry<String, String> d:activeDmps.entrySet())
 				{
-					StatisticStruct stt=rsi.getDmpStatistic(confFactory.getDmpByArea(d.getKey())); 	
+					StatisticStruct stt=rsi.getDmpStatistic(confFactory.getDmpByArea(d.getKey()),day); 	
 					
 				}
 				

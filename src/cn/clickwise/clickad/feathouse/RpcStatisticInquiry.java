@@ -1,5 +1,6 @@
 package cn.clickwise.clickad.feathouse;
 
+import cn.clickwise.lib.string.FileToArray;
 import cn.clickwise.rpc.HiveStatisticByKeysClient;
 import cn.clickwise.rpc.HiveStatisticByKeysCommand;
 
@@ -13,9 +14,9 @@ public class RpcStatisticInquiry extends StatisticInquiry {
 	}
 
 	@Override
-	public StatisticStruct getDmpStatistic(Dmp dmp) {
+	public StatisticStruct getDmpStatistic(Dmp dmp,int day) {
 
-		int day = 100;
+		StatisticStruct sst=new StatisticStruct();
 
 		HiveStatisticByKeysClient ec = new HiveStatisticByKeysClient();
 		cn.clickwise.rpc.Connection con = new cn.clickwise.rpc.Connection();
@@ -34,17 +35,32 @@ public class RpcStatisticInquiry extends StatisticInquiry {
 		hfkc.setTableName(dmp.getSourceTableName());
 		hfkc.setKeyFieldName(dmp.getSourceUidFieldName());
 		hfkc.setIpFieldName(dmp.getSourceIpFieldName());
-		hfkc.setKeyTableName("statistic_keys");
-		hfkc.setAreaCode("009");
-		hfkc.setResultName("local_user_statistic.txt");
-		hfkc.setResultPath("temp/local_user_statistic.txt");
+		hfkc.setKeyTableName(dmp.getKeyTableName());
+		hfkc.setAreaCode(dmp.getArea().getAreaCode());
+		hfkc.setResultName(confFactory.getDmpStatisticResultFile(day, dmp));
+		hfkc.setResultPath(confFactory.getDmpStatisticResultFile(day, dmp));
 		hfkc.initRandomFileName();
 
 		ec.setHfkc(hfkc);
 		ec.connect(con);
 		ec.execute(hfkc);
 
-		return null;
+		String[] statistic_lines=null;
+		try{
+		statistic_lines=FileToArray.fileToDimArr(confFactory.getDmpStatisticResultFile(day, dmp));
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		if(statistic_lines==null||statistic_lines.length!=1)
+		{
+			return null;
+		}
+		
+		sst=confFactory.string2StatisticResult(statistic_lines[0]);
+		
+		return sst;
 	}
 
 }

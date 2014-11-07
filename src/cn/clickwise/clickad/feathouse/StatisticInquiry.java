@@ -8,7 +8,7 @@ package cn.clickwise.clickad.feathouse;
  */
 public abstract class StatisticInquiry {
 
-	public abstract StatisticStruct getDmpStatistic(Dmp dmp);
+	public abstract StatisticStruct getDmpStatistic(Dmp dmp,int day);
 	
 	
 }

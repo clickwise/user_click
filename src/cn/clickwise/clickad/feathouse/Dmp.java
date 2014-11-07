@@ -33,6 +33,8 @@ public class Dmp {
 	
 	private String sourceIpFieldName;
 	
+	private String keyTableName;
+	
 	public String getName() {
 		return name;
 	}
@@ -106,6 +108,12 @@ public class Dmp {
 	}
 	public void setSourceIpFieldName(String sourceIpFieldName) {
 		this.sourceIpFieldName = sourceIpFieldName;
+	}
+	public String getKeyTableName() {
+		return keyTableName;
+	}
+	public void setKeyTableName(String keyTableName) {
+		this.keyTableName = keyTableName;
 	}
 	
 }

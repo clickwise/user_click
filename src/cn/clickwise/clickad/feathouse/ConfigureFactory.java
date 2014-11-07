@@ -95,4 +95,15 @@ public abstract class ConfigureFactory {
     public abstract String getDmpUidFile(int day,Dmp dmp);
     
     public abstract Dmp getDmpByAreaCode(String areaCode);
+    
+    public abstract String getDmpStatisticDirectory();
+    
+    public abstract String getDmpStatisticFile(int day,Dmp dmp);
+    
+    public abstract String getDmpStatisticResultDirectory();
+    
+    public abstract String getDmpStatisticResultFile(int day,Dmp dmp);
+    
+    public abstract StatisticStruct string2StatisticResult(String statistic_line);
+    
 }

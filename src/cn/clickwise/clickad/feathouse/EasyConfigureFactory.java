@@ -3,6 +3,7 @@ package cn.clickwise.clickad.feathouse;
 import java.io.File;
 import java.util.Properties;
 import cn.clickwise.lib.file.PropertiesUtil;
+import cn.clickwise.lib.string.SSO;
 
 
 public class EasyConfigureFactory extends ConfigureFactory{
@@ -56,6 +57,11 @@ public class EasyConfigureFactory extends ConfigureFactory{
 	    dmps[0].setRpcPort(2733);
 	    dmps[0].setDmpInquiryMethod("/hiveFetchTable");
 	    dmps[0].setDmpStatisticMethod("/hiveStatisticByKeys");
+	    dmps[0].setSourceTableName("astat");
+	    dmps[0].setSourceUidFieldName("user_id");
+	    dmps[0].setSourceIpFieldName("sip");
+	    dmps[0].setKeyTableName("statistic_keys");
+	    
 	    
 		dmps[1]=new Dmp();
 		dmps[1].setName("海南DX");
@@ -67,6 +73,11 @@ public class EasyConfigureFactory extends ConfigureFactory{
 	    dmps[1].setRpcPort(2733);
 	    dmps[1].setDmpInquiryMethod("/hiveFetchTable");
 	    dmps[1].setDmpStatisticMethod("/hiveStatisticByKeys");
+	    dmps[1].setSourceTableName("astat");
+	    dmps[1].setSourceUidFieldName("user_id");
+	    dmps[1].setSourceIpFieldName("sip");
+	    dmps[1].setKeyTableName("statistic_keys");
+	    
 	   
 		return dmps;
 	}
@@ -244,7 +255,31 @@ public class EasyConfigureFactory extends ConfigureFactory{
 		
 		return null;
 	}
+	
+	@Override
+	public String getDmpStatisticDirectory() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
+	@Override
+	public String getDmpStatisticFile(int day, Dmp dmp) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getDmpStatisticResultDirectory() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getDmpStatisticResultFile(int day, Dmp dmp) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	@Override
 	public Dmp getDmpByAreaCode(String areaCode) {
 		
@@ -266,10 +301,35 @@ public class EasyConfigureFactory extends ConfigureFactory{
 	@Override
 	public String getStatisticTmpIdentify() {
 		// TODO Auto-generated method stub
-		return null;
+		return "remote_statistic";
 	}
 
-	
-	
+	@Override
+	public StatisticStruct string2StatisticResult(String statistic_line) {
+		
+		StatisticStruct sst=new StatisticStruct();
+		
+		String[] tokens=null;
+		if(SSO.tioe(statistic_line))
+		{
+			return null;
+		}
+		
+		statistic_line=statistic_line.trim();		
+		tokens=statistic_line.split("\001");
+		
+		if(tokens.length!=5)
+		{
+			return null;
+		}
+		
+		sst.setPv(Integer.parseInt(tokens[2]));
+		sst.setUv(Integer.parseInt(tokens[3]));
+		sst.setIp(Integer.parseInt(tokens[4]));
+		
+		return sst;
+	}
+
+
 
 }
