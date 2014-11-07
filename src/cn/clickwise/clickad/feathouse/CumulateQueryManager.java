@@ -290,7 +290,7 @@ public class CumulateQueryManager {
 
 			try {
 				FileReader fr = new FileReader(
-						queryLogDirectory.getQueryLogByDay(TimeOpera.getToday()));
+						queryLogDirectory.getQueryLogByDay(day));
 				BufferedReader br = new BufferedReader(fr);
 				String line = "";
 
