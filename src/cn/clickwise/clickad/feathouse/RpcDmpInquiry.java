@@ -142,6 +142,7 @@ public class RpcDmpInquiry extends DmpInquiry {
 		
 		//////这个地方可能需要更改
 		//****将此次更新的数据统计写入mysql*******
+		/*
 		InquiryReceipt receipt=new InquiryReceipt();
 		receipt.setDay(day);
 		receipt.setDmp(dmp);
@@ -149,7 +150,8 @@ public class RpcDmpInquiry extends DmpInquiry {
 		receipt.setPv(uv);
 		receipt.setReceiptId(System.currentTimeMillis()+"");	
 		resetStatistics(receipt);
-				
+		*/
+		
         state.setStatValue(StateValue.Normal);
 		return state;
 	}
