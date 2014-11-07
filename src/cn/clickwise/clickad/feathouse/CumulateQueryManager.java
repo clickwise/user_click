@@ -306,13 +306,17 @@ public class CumulateQueryManager {
 
 				HashMap<String,Dmp> existDmps=new  HashMap<String,Dmp>();
 				
-				
+				int ci=0;
 				while ((line = br.readLine()) != null) {
 					
 					if (SSO.tioe(line)) {
 						continue;
 					}
-
+                    ci++;
+                    if(ci%1000==1)
+                    {
+                    	System.out.println("ci="+ci);
+                    }
 					line = line.trim();
 
 					tokens = line.split("\001");
@@ -370,6 +374,10 @@ public class CumulateQueryManager {
 
 				}
 				
+				for(Map.Entry<String, PrintWriter> pw:activeDmpPWs.entrySet())
+				{
+					pw.getValue().close();
+				}
 				
 				RpcStatisticInquiry rsi=new RpcStatisticInquiry();
 				for(Map.Entry<String, String> d:activeDmps.entrySet())
