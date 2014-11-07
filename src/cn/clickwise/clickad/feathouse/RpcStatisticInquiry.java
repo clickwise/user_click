@@ -48,7 +48,9 @@ public class RpcStatisticInquiry extends StatisticInquiry {
 		System.out.println("con:"+con.toString());
 		System.out.println("hfkc:"+HiveStatisticByKeysCommand.writeObject(hfkc));
 		ec.setHfkc(hfkc);
+		
 		ec.connect(con);
+		System.out.println("connected");
 		ec.execute(hfkc);
 		System.out.println("ponit 6");
 		String[] statistic_lines = null;
