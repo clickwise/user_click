@@ -23,28 +23,31 @@ public class RpcStatisticInquiry extends StatisticInquiry {
 		con.setHost(dmp.getHost());
 		con.setPort(dmp.getRpcPort());
 		con.setMethod(dmp.getDmpStatisticMethod());
-
+        
+        System.out.println("ponit 1");
+        
 		HiveStatisticByKeysCommand hfkc = new HiveStatisticByKeysCommand();
 		hfkc.setDay(day);
 		hfkc.setTmpIdentify(confFactory.getStatisticTmpIdentify());
-
+		System.out.println("ponit 2");
 		hfkc.setKeyName(confFactory.getDmpUidFile(day, dmp));
 		hfkc.setKeyPath(confFactory.getDmpUidDirectory() + "/"
 				+ confFactory.getDmpUidFile(day, dmp));
-
+		System.out.println("ponit 3");
 		hfkc.setTableName(dmp.getSourceTableName());
 		hfkc.setKeyFieldName(dmp.getSourceUidFieldName());
 		hfkc.setIpFieldName(dmp.getSourceIpFieldName());
 		hfkc.setKeyTableName(dmp.getKeyTableName());
+		System.out.println("ponit 4");
 		hfkc.setAreaCode(dmp.getArea().getAreaCode());
 		hfkc.setResultName(confFactory.getDmpStatisticResultFile(day, dmp));
 		hfkc.setResultPath(confFactory.getDmpStatisticResultFile(day, dmp));
 		hfkc.initRandomFileName();
-
+		System.out.println("ponit 5");
 		ec.setHfkc(hfkc);
 		ec.connect(con);
 		ec.execute(hfkc);
-
+		System.out.println("ponit 6");
 		String[] statistic_lines = null;
 		try {
 			statistic_lines = FileToArray.fileToDimArr(confFactory
