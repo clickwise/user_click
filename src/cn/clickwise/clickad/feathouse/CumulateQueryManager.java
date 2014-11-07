@@ -94,6 +94,7 @@ public class CumulateQueryManager {
 			 */
 			// queryPvUvStatistics();
 			queryPvUvStatisticsFile();
+			queryPvUvIpDmps();
 		}
 
 		// 从queryLog统计不同地区查询的Uv量，并将结果写入mysql
