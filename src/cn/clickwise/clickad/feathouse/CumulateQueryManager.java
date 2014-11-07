@@ -374,6 +374,8 @@ public class CumulateQueryManager {
 
 				}
 				
+				System.out.println("read log file done");
+				
 				for(Map.Entry<String, PrintWriter> pw:activeDmpPWs.entrySet())
 				{
 					pw.getValue().close();
