@@ -17,9 +17,10 @@ public class RpcStatisticInquiry extends StatisticInquiry {
 	public StatisticStruct getDmpStatistic(Dmp dmp, int day) {
 
 		StatisticStruct sst = new StatisticStruct();
-
+		 System.out.println("ponit 0");
 		HiveStatisticByKeysClient ec = new HiveStatisticByKeysClient();
 		cn.clickwise.rpc.Connection con = new cn.clickwise.rpc.Connection();
+		 System.out.println("ponit 01");
 		con.setHost(dmp.getHost());
 		con.setPort(dmp.getRpcPort());
 		con.setMethod(dmp.getDmpStatisticMethod());
