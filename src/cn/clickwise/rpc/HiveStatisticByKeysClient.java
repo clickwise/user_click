@@ -28,7 +28,7 @@ public class HiveStatisticByKeysClient extends Client{
 			URL url = new URL("http://" + con.getHost() + ":" + con.getPort()
 					+ con.getMethod() + "?method="
 					+ HiveStatisticByKeysCommand.writeObject(hfkc));
-
+            System.out.println("re url:"+url);
 			urlCon = (HttpURLConnection) url.openConnection();
 			urlCon.setDoOutput(true);
 			urlCon.setDoInput(true);
