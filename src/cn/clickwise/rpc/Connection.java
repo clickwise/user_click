@@ -27,4 +27,12 @@ public class Connection {
 		this.method = method;
 	}
 	
+	public String toString()
+	{
+		String str="";
+		str="host:"+host+" port:"+port+" method:"+method;
+		return str;
+		
+	}
+	
 }

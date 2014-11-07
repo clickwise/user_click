@@ -234,4 +234,6 @@ public class HiveStatisticByKeysCommand extends Command{
 		public void setIpFieldName(String ipFieldName) {
 			this.ipFieldName = ipFieldName;
 		}
+		
+
 }

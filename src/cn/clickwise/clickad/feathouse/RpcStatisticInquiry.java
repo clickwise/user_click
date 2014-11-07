@@ -45,6 +45,8 @@ public class RpcStatisticInquiry extends StatisticInquiry {
 		hfkc.setResultPath(confFactory.getDmpStatisticResultFile(day, dmp));
 		hfkc.initRandomFileName();
 		System.out.println("ponit 5");
+		System.out.println("con:"+con.toString());
+		System.out.println("hfkc:"+HiveStatisticByKeysCommand.writeObject(hfkc));
 		ec.setHfkc(hfkc);
 		ec.connect(con);
 		ec.execute(hfkc);
