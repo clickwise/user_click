@@ -43,12 +43,13 @@ public class EasyConfigureFactory extends ConfigureFactory {
 	public Dmp[] getDmps() {
 		// TODO Auto-generated method stub
 
-		Dmp[] dmps = new Dmp[2];
-
+		Dmp[] dmps = new Dmp[1];
+       
+        
 		dmps[0] = new Dmp();
-		dmps[0].setName("浙江DX");
-		dmps[0].setArea(new Area("浙江DX", "030"));
-		dmps[0].setHost("192.168.10.38");
+		dmps[0].setName("海南DX");
+		dmps[0].setArea(new Area("海南DX", "009"));
+		dmps[0].setHost("112.67.253.101");
 		dmps[0].setUserFeatureTableName("auser_cates_keys");
 		dmps[0].setUidFieldName("uid");
 		dmps[0].setTmpIdentify("remote_cookie");
@@ -60,10 +61,11 @@ public class EasyConfigureFactory extends ConfigureFactory {
 		dmps[0].setSourceIpFieldName("sip");
 		dmps[0].setKeyTableName("statistic_keys");
 
+		/*
 		dmps[1] = new Dmp();
-		dmps[1].setName("海南DX");
-		dmps[1].setArea(new Area("海南DX", "009"));
-		dmps[1].setHost("112.67.253.101");
+		dmps[1].setName("浙江DX");
+		dmps[1].setArea(new Area("浙江DX", "030"));
+		dmps[1].setHost("192.168.10.38");
 		dmps[1].setUserFeatureTableName("auser_cates_keys");
 		dmps[1].setUidFieldName("uid");
 		dmps[1].setTmpIdentify("remote_cookie");
@@ -74,7 +76,7 @@ public class EasyConfigureFactory extends ConfigureFactory {
 		dmps[1].setSourceUidFieldName("user_id");
 		dmps[1].setSourceIpFieldName("sip");
 		dmps[1].setKeyTableName("statistic_keys");
-
+		*/
 		return dmps;
 	}
 
