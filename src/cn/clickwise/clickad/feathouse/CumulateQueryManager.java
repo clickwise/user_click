@@ -296,7 +296,7 @@ public class CumulateQueryManager {
 
 				HashMap<String, String> activeDmps = new HashMap<String, String>();
 				HashMap<String, PrintWriter> activeDmpPWs = new HashMap<String, PrintWriter>();
-
+				
 				String uid = "";
 				String area = "";
 				String ip = "";
@@ -304,6 +304,9 @@ public class CumulateQueryManager {
 
 				String tempAC = "";// temp area code
 
+				HashMap<String,Dmp> existDmps=new  HashMap<String,Dmp>();
+				
+				
 				while ((line = br.readLine()) != null) {
 					
 					if (SSO.tioe(line)) {
@@ -327,15 +330,31 @@ public class CumulateQueryManager {
 					}
 
 					if (!(activeDmps.containsKey(tempAC))) {
-						Dmp admp = confFactory.getDmpByAreaCode(tempAC);
+						/*
+						Dmp admp=existDmps.get(tempAC);
+					    if(admp==null)
+					    {
+					    	Dmp aadmp = confFactory.getDmpByAreaCode(tempAC);
+						  if(admp==null)
+						  {
+							  continue;
+						  }
+						  else
+						  {
+							  existDmps.put(tempAC, aadmp);
+						  }
+					    }
 						if(admp==null)
 						{
 							continue;
 						}
+						*/	
 						String afile = confFactory.getDmpUidDirectory() + "/"
-								+ confFactory.getDmpUidFile(day, admp);
+								+ confFactory.getEasyDmpUidFile(day, tempAC);
 						activeDmps.put(tempAC, afile);
 						try {
+							
+							
 							activeDmpPWs.put(tempAC, new PrintWriter(
 									new FileWriter(afile)));
 							activeDmpPWs.get(tempAC).println(uid);
@@ -343,6 +362,8 @@ public class CumulateQueryManager {
 							e.printStackTrace();
 						}
 
+						
+						
 					} else {
 						activeDmpPWs.get(tempAC).println(uid);
 					}
@@ -358,6 +379,7 @@ public class CumulateQueryManager {
 					{
 						continue;
 					}
+					System.out.println("process area:"+tempDmp.getArea().getAreaCode());
 					StatisticStruct stt=rsi.getDmpStatistic(confFactory.getDmpByArea(d.getKey()),day); 	
 					
 				}

@@ -258,6 +258,13 @@ public class EasyConfigureFactory extends ConfigureFactory {
 				+ ".txt";
 	}
 	
+	@Override
+	public String getEasyDmpUidFile(int day, String areaCode) {
+		// TODO Auto-generated method stub
+		return getDmpUidPrefix() + day + "_" + areaCode
+				+ ".txt";
+	}
+	
 	 /*
 	@Override
 	public String getDmpStatisticDirectory() {
@@ -337,6 +344,8 @@ public class EasyConfigureFactory extends ConfigureFactory {
 
 		return sst;
 	}
+
+
 
 
 

@@ -96,6 +96,8 @@ public abstract class ConfigureFactory {
      */
     public abstract String getDmpUidFile(int day,Dmp dmp);
     
+    public abstract String getEasyDmpUidFile(int day,String areaCode);
+    
     public abstract Dmp getDmpByAreaCode(String areaCode);
     
   //  public abstract String getDmpStatisticDirectory();
