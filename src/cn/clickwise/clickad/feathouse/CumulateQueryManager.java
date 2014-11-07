@@ -285,11 +285,11 @@ public class CumulateQueryManager {
 		 */
 		public void queryPvUvIpDmps() {
 			
-			int day = TimeOpera.getToday();
+			int day = TimeOpera.getYesterday();
 
 			try {
 				FileReader fr = new FileReader(
-						queryLogDirectory.getQueryLogByDay(day));
+						queryLogDirectory.getQueryLogByDay(TimeOpera.getToday()));
 				BufferedReader br = new BufferedReader(fr);
 				String line = "";
 

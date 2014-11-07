@@ -80,6 +80,8 @@ public abstract class ConfigureFactory {
     
     public abstract String getDmpRecordFile(int day,Dmp dmp);
     
+    
+    public abstract String getDmpUidPrefix();
     /**
      * RTB查询的uid，按地区分开存储的文件夹
      * @return
@@ -96,9 +98,11 @@ public abstract class ConfigureFactory {
     
     public abstract Dmp getDmpByAreaCode(String areaCode);
     
-    public abstract String getDmpStatisticDirectory();
+  //  public abstract String getDmpStatisticDirectory();
     
-    public abstract String getDmpStatisticFile(int day,Dmp dmp);
+   // public abstract String getDmpStatisticFile(int day,Dmp dmp);
+    
+    public abstract String getDmpSResultPrefix();
     
     public abstract String getDmpStatisticResultDirectory();
     

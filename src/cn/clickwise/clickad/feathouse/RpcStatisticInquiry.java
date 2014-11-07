@@ -14,9 +14,9 @@ public class RpcStatisticInquiry extends StatisticInquiry {
 	}
 
 	@Override
-	public StatisticStruct getDmpStatistic(Dmp dmp,int day) {
+	public StatisticStruct getDmpStatistic(Dmp dmp, int day) {
 
-		StatisticStruct sst=new StatisticStruct();
+		StatisticStruct sst = new StatisticStruct();
 
 		HiveStatisticByKeysClient ec = new HiveStatisticByKeysClient();
 		cn.clickwise.rpc.Connection con = new cn.clickwise.rpc.Connection();
@@ -45,21 +45,19 @@ public class RpcStatisticInquiry extends StatisticInquiry {
 		ec.connect(con);
 		ec.execute(hfkc);
 
-		String[] statistic_lines=null;
-		try{
-		statistic_lines=FileToArray.fileToDimArr(confFactory.getDmpStatisticResultFile(day, dmp));
-		}
-		catch(Exception e)
-		{
+		String[] statistic_lines = null;
+		try {
+			statistic_lines = FileToArray.fileToDimArr(confFactory
+					.getDmpStatisticResultFile(day, dmp));
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		if(statistic_lines==null||statistic_lines.length!=1)
-		{
+		if (statistic_lines == null || statistic_lines.length != 1) {
 			return null;
 		}
-		
-		sst=confFactory.string2StatisticResult(statistic_lines[0]);
-		
+
+		sst = confFactory.string2StatisticResult(statistic_lines[0]);
+
 		return sst;
 	}
 

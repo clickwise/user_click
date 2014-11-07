@@ -11,6 +11,10 @@ public class StatisticStruct {
 	private int uv=0;
 	
 	private int ip=0;
+	
+	private String codeOfArea;
+	
+	private int day;
 
 	public int getPv() {
 		return pv;
@@ -34,6 +38,22 @@ public class StatisticStruct {
 
 	public void setIp(int ip) {
 		this.ip = ip;
+	}
+
+	public String getCodeOfArea() {
+		return codeOfArea;
+	}
+
+	public void setCodeOfArea(String codeOfArea) {
+		this.codeOfArea = codeOfArea;
+	}
+
+	public int getDay() {
+		return day;
+	}
+
+	public void setDay(int day) {
+		this.day = day;
 	}
 	
 	

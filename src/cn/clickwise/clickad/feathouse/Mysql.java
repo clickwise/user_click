@@ -122,7 +122,30 @@ public class Mysql {
 			Map<String, String> codeArea) {
 		State state = new State();
 
+		String sql = "delete from  " + table.getName() + " where area_code='"
+				+ receipt.getCodeOfArea() + "' and date=" + receipt.getDay()
+				+ ";";
 
+		System.out.println("sql:" + sql);
+
+		try {
+			stmt.executeUpdate(sql);
+
+			sql = "insert into  " + table.getName()
+					+ "(area_code,area,date,pv,uv) values('"
+		            + receipt.getCodeOfArea() + "','"
+					+ codeArea.get(receipt.getCodeOfArea()) + "',"
+					+ receipt.getDay() + "," + receipt.getIp() + ","
+					+ receipt.getUv() + ");";
+
+			stmt.executeUpdate(sql);
+
+			state.setStatValue(StateValue.Normal);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			state.setStatValue(StateValue.Error);
+		}
+		System.out.println("sql:" + sql);
 		
 		return state;
 	}
