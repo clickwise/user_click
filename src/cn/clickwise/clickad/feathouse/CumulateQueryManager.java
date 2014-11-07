@@ -312,11 +312,15 @@ public class CumulateQueryManager {
 					if (SSO.tioe(line)) {
 						continue;
 					}
+					
+					/*
                     ci++;
                     if(ci%1000==1)
                     {
                     	System.out.println("ci="+ci);
                     }
+                    */
+					
 					line = line.trim();
 
 					tokens = line.split("\001");
