@@ -43,7 +43,7 @@ public class EasyConfigureFactory extends ConfigureFactory {
 	public Dmp[] getDmps() {
 		// TODO Auto-generated method stub
 
-		Dmp[] dmps = new Dmp[1];
+		Dmp[] dmps = new Dmp[2];
        
         
 		dmps[0] = new Dmp();
@@ -61,7 +61,7 @@ public class EasyConfigureFactory extends ConfigureFactory {
 		dmps[0].setSourceIpFieldName("sip");
 		dmps[0].setKeyTableName("statistic_keys");
 
-		/*
+		
 		dmps[1] = new Dmp();
 		dmps[1].setName("浙江DX");
 		dmps[1].setArea(new Area("浙江DX", "030"));
@@ -76,7 +76,7 @@ public class EasyConfigureFactory extends ConfigureFactory {
 		dmps[1].setSourceUidFieldName("user_id");
 		dmps[1].setSourceIpFieldName("sip");
 		dmps[1].setKeyTableName("statistic_keys");
-		*/
+		
 		return dmps;
 	}
 

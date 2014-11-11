@@ -22,8 +22,7 @@ import cn.clickwise.sort.SortStrArray;
 /**
  * 从语料库中分析单词的统计特征
  * 
- * @author zkyz
- * 
+ * @author zkyz 
  */
 public class CorpusDump {
 

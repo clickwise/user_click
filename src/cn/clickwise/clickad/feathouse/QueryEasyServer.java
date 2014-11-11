@@ -105,6 +105,7 @@ public class QueryEasyServer extends Server{
 		es.setConf(conf);
 		Thread easyThread = new Thread(es);
 		easyThread.start();
+		
 	}
 
 
