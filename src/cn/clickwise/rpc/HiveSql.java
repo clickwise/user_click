@@ -111,6 +111,7 @@ public class HiveSql {
 						+ ";";
 			}
 		} else {
+			
 			if (hftc.getQueryType() == 0)// 只返回Key Field
 			{
 				sql = " INSERT OVERWRITE LOCAL DIRECTORY '"
@@ -141,11 +142,9 @@ public class HiveSql {
 	public static String dropOldStatistic(HiveStatisticByKeysCommand hfkc) {
 		String cmd = "";
 		if (!((hfkc.getAreaCode().trim()).equals("030"))) {
-		cmd = "use clickwise;ALTER TABLE " + hfkc.getKeyTableName()
-				+ "  DROP PARTITION (dt='" + hfkc.getDay() + "');";
-		}
-		else
-		{
+			cmd = "use clickwise;ALTER TABLE " + hfkc.getKeyTableName()
+					+ "  DROP PARTITION (dt='" + hfkc.getDay() + "');";
+		} else {
 			cmd = "ALTER TABLE " + hfkc.getKeyTableName()
 					+ "  DROP PARTITION (dt='" + hfkc.getDay() + "');";
 		}
@@ -163,12 +162,10 @@ public class HiveSql {
 	public static String load2hiveStatistic(HiveStatisticByKeysCommand hfkc) {
 		String cmd = "";
 		if (!((hfkc.getAreaCode().trim()).equals("030"))) {
-		cmd = "use clickwise; load data inpath '" + hfkc.getHdfTmpPath()
-				+ "' overwrite into table " + hfkc.getKeyTableName()
-				+ " partition(dt=" + hfkc.getDay() + ",dp='part1');";
-		}
-		else
-		{
+			cmd = "use clickwise; load data inpath '" + hfkc.getHdfTmpPath()
+					+ "' overwrite into table " + hfkc.getKeyTableName()
+					+ " partition(dt=" + hfkc.getDay() + ",dp='part1');";
+		} else {
 			cmd = " load data inpath '" + hfkc.getHdfTmpPath()
 					+ "' overwrite into table " + hfkc.getKeyTableName()
 					+ " partition(dt=" + hfkc.getDay() + ",dp='part1');";
