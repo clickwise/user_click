@@ -12,8 +12,8 @@ public class SegmentUdf extends UDF {
 
         } catch (Exception e) {
 
+        	
             return null;
-
         }
 
     }
