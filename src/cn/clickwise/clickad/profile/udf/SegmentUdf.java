@@ -4,6 +4,8 @@ import org.apache.hadoop.hive.ql.exec.UDF;
 
 public class SegmentUdf extends UDF {
 	
+	
+	
     public String evaluate(String str) {
 
         try {

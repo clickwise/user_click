@@ -3,7 +3,6 @@ package cn.clickwise.user_click.seg;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Properties;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
@@ -17,7 +16,6 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.NullOutputFormat;
 import org.apache.hadoop.util.GenericOptionsParser;
 
-import cn.clickwise.liqi.file.uitls.FileReaderUtil;
 import cn.clickwise.liqi.file.uitls.JarFileReader;
 import cn.clickwise.liqi.str.basic.SSO;
 
