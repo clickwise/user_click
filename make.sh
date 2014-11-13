@@ -24,8 +24,10 @@ then
  cp out/mytool.jar cassandra_lib
  rm rpc_lib/mytool.jar
  rm radius_lib/mytool.jar
+ rm hive_lib/mytool.jar
  cp out/mytool.jar rpc_lib
  cp out/mytool.jar radius_lib
+ cp out/mytool.jar hive_lib
 else
  OPT=2
 fi
@@ -68,3 +70,17 @@ then
 else
  OPT=3
 fi
+
+
+if [ $1 = "profile" ]
+then
+ rm -rf profile_src/cn
+ cd src
+ cp -r --parents cn/clickwise/clickad/profile ../profile_src
+ cd ..
+ echo "build radius";
+ $ANT_BUILD -buildfile build_profile.xml
+else
+ OPT=3
+fi
+
