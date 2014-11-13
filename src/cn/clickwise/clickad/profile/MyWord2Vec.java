@@ -4,8 +4,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
 
-import com.ansj.vec.Learn;
-import com.ansj.vec.Word2VEC;
+import cn.clickwise.clickad.profile.com.ansj.vec.Learn;
+import cn.clickwise.clickad.profile.com.ansj.vec.Word2VEC;
+
+
 
 public class MyWord2Vec {
 
