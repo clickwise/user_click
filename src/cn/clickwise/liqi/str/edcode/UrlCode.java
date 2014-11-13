@@ -67,7 +67,7 @@ public class UrlCode {
 		String de_str="";
 		
 		
-		code_str="%E6%A2%A6%E5%B9%BB%E8%A5%BF%E6%B8%B8%E5%8F%8C%E5%9F%8E%E8%AE%B0";
+		code_str="%E5%BD%A1%E9%9A%8F%E5%A5%B9%E7%BB%88%E8%80%81%E4%B8%B6";
 		de_str=UrlCode.getDecodeUrl(code_str);
 		System.out.println("de_str:"+de_str);
 		
