@@ -28,25 +28,6 @@ public class MyWord2Vec {
 			e.printStackTrace();
 		}
 
-		Word2VEC vec = new Word2VEC();
-		try {
-			vec.loadJavaModel(model);
-			String inputWord = "";
-			System.out.println("输入一个单词：");
-			BufferedReader br = new BufferedReader(new InputStreamReader(
-					System.in));
-			while ((inputWord = br.readLine()) != null
-					&& (!(inputWord.equals("exit")))) {
-				System.out.println("read word:" + inputWord);
-				for (int i = 0; i < 100; i++) {
-					System.out.println(vec.distance(inputWord));
-				}
-				System.out.println("输入一个单词：");
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 }
