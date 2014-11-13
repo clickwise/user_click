@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Set;
 
 import com.ansj.vec.domain.WordEntry;
@@ -47,6 +49,22 @@ public class SimilarWords {
 		return sws;
 	}
 	
+	public String setWords(Set<WordEntry> sws)
+	{
+		String str="";
+		WordEntry we=null;
+		Iterator<WordEntry> it=sws.iterator();
+		ArrayList<String> list=new ArrayList<String>();
+		while(it.hasNext())
+		{
+			we=it.next();
+			list.add(we.toString());
+		}
+		
+		
+		return "["+SSO.implode(list, ",")+"]";
+	}
+	
 	/**
 	 * 读取输入流，每一行计算出相关词，结果写到输出
 	 */
@@ -65,7 +83,7 @@ public class SimilarWords {
 			    {
 			    	continue;
 			    }
-				pw.println(line+"\001"+sws);
+				pw.println(line+"\001"+setWords(sws));
 			}
 			
 			br.close();
