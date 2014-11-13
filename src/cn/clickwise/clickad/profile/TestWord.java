@@ -22,9 +22,9 @@ public class TestWord {
 			while ((inputWord = br.readLine()) != null
 					&& (!(inputWord.equals("exit")))) {
 				System.out.println("read word:" + inputWord);
-				for (int i = 0; i < 100; i++) {
-					System.out.println(vec.distance(inputWord));
-				}
+			
+			    System.out.println(vec.distance(inputWord));
+				
 				System.out.println("输入一个单词：");
 			}
 
