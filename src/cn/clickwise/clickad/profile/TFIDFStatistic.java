@@ -53,11 +53,10 @@ public class TFIDFStatistic {
 		public void setCount(double count) {
 			this.count = count;
 		}
-		
-		public String toString()
-		{
-			String str="";	
-			str=word+":"+count;
+
+		public String toString() {
+			String str = "";
+			str = word + ":" + count;
 			return str;
 		}
 
@@ -119,7 +118,7 @@ public class TFIDFStatistic {
 			whs = docs.get(i);
 			for (Map.Entry<String, Word> w : whs.entrySet()) {
 				if (!(idfs.containsKey(w.getKey()))) {
-					idfs.put(w.getKey(), new Word(w.getKey(),1));
+					idfs.put(w.getKey(), new Word(w.getKey(), 1));
 				} else {
 					idfs.get(w.getKey()).setCount(
 							idfs.get(w.getKey()).getCount() + 1);
@@ -148,12 +147,26 @@ public class TFIDFStatistic {
 			for (int i = 0; i < docs.size(); i++) {
 				whs = docs.get(i);
 				for (Map.Entry<String, Word> w : whs.entrySet()) {
-                    pw.print(w.getValue().toString()+" ");
+					pw.print(w.getValue().toString() + " ");
 				}
 				pw.println();
 			}
-			pw.close();	
-			
+			pw.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void printIDF(String outFile) {
+		try {
+			PrintWriter pw = new PrintWriter(new FileWriter(outFile));
+			for (Map.Entry<String, Word> w : idfs.entrySet()) {
+				pw.println(w.getValue().toString() + " ");
+			}
+
+			pw.close();
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -174,24 +187,26 @@ public class TFIDFStatistic {
 	public void setIdfs(Map<String, Word> idfs) {
 		this.idfs = idfs;
 	}
-	
-	public static void main(String[] args)
-	{
-		if(args.length!=2)
-		{
-			System.err.println("Usage:<input> <output>");
+
+	public static void main(String[] args) {
+		if (args.length != 2) {
+			System.err.println("Usage:<input> <idf or tfidf :0 or 1> <output>");
 			System.exit(1);
 		}
-		
-		String input=args[0];
-		String output=args[1];
-		
-		TFIDFStatistic tfidf=new TFIDFStatistic();
+
+		String input = args[0];
+		int type = Integer.parseInt(args[1]);
+		String output = args[2];
+
+		TFIDFStatistic tfidf = new TFIDFStatistic();
 		tfidf.readDocument(input);
 		tfidf.IDFStatistic();
-		tfidf.TFIDFStatistic();
-		tfidf.printTFIDF(output);
-		
+		if (type == 1) {
+			tfidf.TFIDFStatistic();
+			tfidf.printTFIDF(output);
+		} else if (type == 0) {
+			tfidf.printIDF(output);
+		}
 	}
 
 }
