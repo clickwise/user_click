@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import cn.clickwise.clickad.profile.com.ansj.vec.Word2VEC;
 
 public class TestWord {
+	
 	public static void main(String[] args) {
 		if (args.length != 1) {
 			System.err.println("Usage:<model>");
