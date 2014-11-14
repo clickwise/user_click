@@ -18,7 +18,7 @@ public class TFIDFStatistic {
 
 	private ArrayList<HashMap<String,Word>> docs=new ArrayList<HashMap<String,Word>>();
 	
-	private Map<String, Integer> idfs = new HashMap<String, Integer>();
+	private Map<String, Word> idfs = new HashMap<String, Word>();
 
 	private class Word {
 
@@ -83,23 +83,22 @@ public class TFIDFStatistic {
 		
 		return added;
 	}
-	/**
-	 * 统计单词的IDF值
-	 */
-	public void IDFStatistic(String segments) {
-
+	
+	public void readDocument(String segments)
+	{
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(segments));
 			String line = "";
 			HashMap<String,Word> whs=null;
 			
 			while ((line = br.readLine()) != null) {
+				
               whs=line2words(line);
               if(whs==null)
               {
             	  continue;
               }
-              docs.add(whs);
+              docs.add(whs);  
 			}
 			
 			br.close();
@@ -107,6 +106,29 @@ public class TFIDFStatistic {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * 统计单词的IDF值
+	 */
+	public void IDFStatistic(String segments) {
+         
+		HashMap<String,Word> whs=null;
+		for(int i=0;i<docs.size();i++)
+		{
+			whs=docs.get(i);
+            for(Map.Entry<String, Word> w:whs.entrySet())
+            {
+          	  if(!(idfs.containsKey(w.getKey())))
+          	  {
+          		  idfs.put(w.getKey(), new Word(w.getKey()));
+          	  }
+          	  else{
+          		  idfs.get(w.getKey()).setCount(idfs.get(w.getKey()).getCount()+1);
+          	  }
+            }
+		}
+
 
 	}
 	public ArrayList<HashMap<String,Word>>  getDocs() {
@@ -115,10 +137,10 @@ public class TFIDFStatistic {
 	public void setDocs(ArrayList<HashMap<String,Word>>  docs) {
 		this.docs = docs;
 	}
-	public Map<String, Integer> getIdfs() {
+	public Map<String, Word>  getIdfs() {
 		return idfs;
 	}
-	public void setIdfs(Map<String, Integer> idfs) {
+	public void setIdfs(Map<String, Word>  idfs) {
 		this.idfs = idfs;
 	}
 
