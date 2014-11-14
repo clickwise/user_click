@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import cn.clickwise.lib.string.SSO;
+
 /**
  * 输入分词后的文件，输出TFIDF统计结果
  * 
@@ -14,7 +16,7 @@ import java.util.Map;
  */
 public class TFIDFStatistic {
 
-	private ArrayList<ArrayList<Word>> docs=new ArrayList<ArrayList<Word>>();
+	private ArrayList<HashMap<String,Word>> docs=new ArrayList<HashMap<String,Word>>();
 	
 	private Map<String, Integer> idfs = new HashMap<String, Integer>();
 
@@ -52,12 +54,34 @@ public class TFIDFStatistic {
 
 	}
 
-	public ArrayList<Word> line2words(String line)
+	public HashMap<String,Word> line2words(String line)
 	{
+		if(SSO.tioe(line))
+		{
+			return null;
+		}
+		
 		HashMap<String,Word> added=new HashMap<String,Word>();
+		String[] tokens=line.split("\\s+");
+		String t="";
+		for(int i=0;i<tokens.length;i++)
+		{
+			t=tokens[i];
+			if(SSO.tioe(t))
+			{
+				continue;
+			}
+			if(!(added.containsKey(t)))
+			{
+				added.put(t, new Word(t,1));
+			}
+			else
+			{
+				(added.get(t)).setCount((added.get(t).getCount())+1);
+			}
+		}
 		
-		
-		return null;
+		return added;
 	}
 	/**
 	 * 统计单词的IDF值
@@ -66,20 +90,29 @@ public class TFIDFStatistic {
 
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(segments));
-			String word = "";
-			while ((word = br.readLine()) != null) {
-
+			String line = "";
+			HashMap<String,Word> whs=null;
+			
+			while ((line = br.readLine()) != null) {
+              whs=line2words(line);
+              if(whs==null)
+              {
+            	  continue;
+              }
+              docs.add(whs);
 			}
+			
+			br.close();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 	}
-	public ArrayList<ArrayList<Word>> getDocs() {
+	public ArrayList<HashMap<String,Word>>  getDocs() {
 		return docs;
 	}
-	public void setDocs(ArrayList<ArrayList<Word>> docs) {
+	public void setDocs(ArrayList<HashMap<String,Word>>  docs) {
 		this.docs = docs;
 	}
 	public Map<String, Integer> getIdfs() {
