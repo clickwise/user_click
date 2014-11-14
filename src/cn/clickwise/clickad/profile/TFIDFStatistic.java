@@ -148,7 +148,7 @@ public class TFIDFStatistic {
 			for (int i = 0; i < docs.size(); i++) {
 				whs = docs.get(i);
 				for (Map.Entry<String, Word> w : whs.entrySet()) {
-                    pw.println(w.getValue().toString()+" ");
+                    pw.print(w.getValue().toString()+" ");
 				}
 				pw.println();
 			}
@@ -188,8 +188,8 @@ public class TFIDFStatistic {
 		
 		TFIDFStatistic tfidf=new TFIDFStatistic();
 		tfidf.readDocument(input);
-		tfidf.IDFStatistic();
-		tfidf.TFIDFStatistic();
+		//tfidf.IDFStatistic();
+		//tfidf.TFIDFStatistic();
 		tfidf.printTFIDF(output);
 		
 	}
