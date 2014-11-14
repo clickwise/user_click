@@ -119,7 +119,7 @@ public class TFIDFStatistic {
 			whs = docs.get(i);
 			for (Map.Entry<String, Word> w : whs.entrySet()) {
 				if (!(idfs.containsKey(w.getKey()))) {
-					idfs.put(w.getKey(), new Word(w.getKey()));
+					idfs.put(w.getKey(), new Word(w.getKey(),1));
 				} else {
 					idfs.get(w.getKey()).setCount(
 							idfs.get(w.getKey()).getCount() + 1);
@@ -188,8 +188,8 @@ public class TFIDFStatistic {
 		
 		TFIDFStatistic tfidf=new TFIDFStatistic();
 		tfidf.readDocument(input);
-		//tfidf.IDFStatistic();
-		//tfidf.TFIDFStatistic();
+		tfidf.IDFStatistic();
+		tfidf.TFIDFStatistic();
 		tfidf.printTFIDF(output);
 		
 	}
