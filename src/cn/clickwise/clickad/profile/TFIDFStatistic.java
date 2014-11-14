@@ -189,7 +189,7 @@ public class TFIDFStatistic {
 	}
 
 	public static void main(String[] args) {
-		if (args.length != 2) {
+		if (args.length != 3) {
 			System.err.println("Usage:<input> <idf or tfidf :0 or 1> <output>");
 			System.exit(1);
 		}
