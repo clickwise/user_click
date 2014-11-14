@@ -58,11 +58,11 @@ public class SimilarWords {
 		while(it.hasNext())
 		{
 			we=it.next();
-			list.add(we.toString());
+			list.add(we.name);
 		}
 		
 		
-		return "["+SSO.implode(list, ",")+"]";
+		return "["+SSO.implode(list, " ")+"]";
 	}
 	
 	/**
