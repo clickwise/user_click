@@ -17,7 +17,43 @@ import cn.clickwise.lib.string.SSO;
  */
 public class SelectDict {
 
-	private HashMap<String, String> wordHash = new HashMap<String, String>();
+	private HashMap<String, WORD> wordHash = new HashMap<String, WORD>();
+	
+	private class WORD{
+		
+		private String w;
+		
+		private int count;
+
+		public WORD(String w,int count)
+		{
+			this.w=w;
+			this.count=count;
+		}
+		public String getW() {
+			return w;
+		}
+
+		public void setW(String w) {
+			this.w = w;
+		}
+
+		public int getCount() {
+			return count;
+		}
+
+		public void setCount(int count) {
+			this.count = count;
+		}
+		
+		public String toString()
+		{
+			String str="";
+			str=w+" "+count;
+			return str;
+		}
+		
+	}
 
 	public void selectLine(String line) {
 		String[] fields = line.split("\001");
@@ -34,7 +70,11 @@ public class SelectDict {
 		}
 
 		if (!(wordHash.containsKey(word))) {
-			wordHash.put(word, "1");
+			wordHash.put(word, new WORD(word,1));
+		}
+		else
+		{
+			wordHash.get(word).setCount((wordHash.get(word).getCount())+1);
 		}
 
 		String[] tokens = text.split("\\s+");
@@ -49,7 +89,11 @@ public class SelectDict {
 				continue;
 			}
 			if (!(wordHash.containsKey(token))) {
-				wordHash.put(token, "1");
+				wordHash.put(token, new WORD(token,1));
+			}
+			else
+			{
+				wordHash.get(token).setCount((wordHash.get(token).getCount())+1);
 			}
 		}
 
@@ -95,7 +139,7 @@ public class SelectDict {
 	{
 		try{
 			PrintWriter pw=new PrintWriter(new FileWriter(output));
-			for(Map.Entry<String, String> m:wordHash.entrySet())
+			for(Map.Entry<String, WORD> m:wordHash.entrySet())
 			{
 				pw.println(m.getKey());
 			}
@@ -111,9 +155,9 @@ public class SelectDict {
 	{
 		try{
 			PrintWriter pw=new PrintWriter(new OutputStreamWriter(System.out));
-			for(Map.Entry<String, String> m:wordHash.entrySet())
+			for(Map.Entry<String, WORD> m:wordHash.entrySet())
 			{
-				pw.println(m.getKey());
+				pw.println(m.getValue().toString());
 			}
 			pw.close();
 		}
