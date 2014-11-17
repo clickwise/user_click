@@ -9,7 +9,6 @@ import java.util.Iterator;
 import java.util.Set;
 
 import com.ansj.vec.domain.WordEntry;
-
 import cn.clickwise.clickad.profile.com.ansj.vec.Word2VEC;
 import cn.clickwise.lib.string.SSO;
 
