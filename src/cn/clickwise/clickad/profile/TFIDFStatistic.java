@@ -12,9 +12,7 @@ import cn.clickwise.lib.string.SSO;
 
 /**
  * 输入分词后的文件，输出TFIDF统计结果
- * 
  * @author zkyz
- * 
  */
 public class TFIDFStatistic {
 
@@ -207,6 +205,7 @@ public class TFIDFStatistic {
 		} else if (type == 0) {
 			tfidf.printIDF(output);
 		}
+		
 	}
 
 }
