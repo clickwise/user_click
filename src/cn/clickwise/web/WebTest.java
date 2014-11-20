@@ -123,6 +123,7 @@ public class WebTest {
 			int k = 0;
 
 			while ((qud.getCount() < urllist.size())) {
+				try{
 				Thread.sleep(10);
 				qud.add2Pond(urllist.get(k));
 				if ((k <( urllist.size()-1))) {
@@ -131,6 +132,11 @@ public class WebTest {
 				if(k==( urllist.size()-1))
 				{
 					Thread.sleep(1000);
+				}
+				}
+				catch(Exception e)
+				{
+					e.printStackTrace();
 				}
 			}
 
