@@ -225,6 +225,56 @@ public class Fetcher {
 		return source;
 	}
 	
+	public String getSourceUserProxy(String url) {
+		String source = "";
+		HttpClient httpclient = new DefaultHttpClient();
+
+		double ran = Math.random();
+		String[] proxy_hosts = { "122.72.111.98",
+				"122.72.11.129", "122.72.11.130", "122.72.11.131",
+				"122.72.11.132", "122.72.99.2", "122.72.99.3", "122.72.99.4",
+				"122.72.99.8" };
+		int rani = -1;
+		rani = (int) (ran * 9);
+
+		HttpHost proxy = new HttpHost(proxy_hosts[rani], 80, "http");
+		httpclient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,
+				proxy);
+		httpclient.getParams().setParameter(
+				CoreConnectionPNames.CONNECTION_TIMEOUT, 1000);
+
+		url = url.trim();
+		if ((url == null) || (url.length() < 5)) {
+			return "";
+		}
+		if (url.indexOf("http") < 0) {
+			url = "http://" + url;
+		}
+
+		String con = "";
+
+		try {
+			HttpGet httpget = new HttpGet(url);
+
+			HttpResponse response = httpclient.execute(httpget);
+			HttpEntity entity = response.getEntity();
+			InputStream inSm = entity.getContent();
+			InputStreamReader isr = new InputStreamReader(inSm);
+			BufferedReader br = new BufferedReader(isr);
+			String line = "";
+			con = "";
+			while ((line = br.readLine()) != null) {
+				con += (line + "\n");
+			}
+			source = con;
+			// source=entity.getContent();
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return source;
+	}
+	
 	/**
 	 * 获取标题
 	 * @param url
@@ -281,9 +331,9 @@ public class Fetcher {
 		WebAbstract wa=new WebAbstract();
 		try {
 
-			//////String content=fetcher.getSourceEasyProxy(url,getProxy());
-			//////doc=Jsoup.parse(content);
-			doc = Jsoup.connect(url).get();
+			String content=getSourceUserProxy(url);
+			doc=Jsoup.parse(content);
+			//doc = Jsoup.connect(url).get();
 			if(doc==null)
 			{
 				return null;
