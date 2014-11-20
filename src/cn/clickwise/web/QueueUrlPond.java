@@ -85,11 +85,11 @@ public class QueueUrlPond extends UrlPond {
 		@Override
 		public void run() {
 			init();
-			parseUrl();
+			parseWord();
 
 		}
 
-		public void parseUrl() {
+		public void parseWord() {
 
 			String url = "";
 
@@ -105,12 +105,12 @@ public class QueueUrlPond extends UrlPond {
 
 					incrCount();
 					if (SSO.tioe(url)) {
-						Thread.sleep(10);
+						Thread.sleep((long) (10 * Math.random()));
 						continue;
 					}
 					
-					
-					System.err.println("fetch url:"+url);
+				
+					System.out.println("fetch url:"+url);
 					wa = fetcher.getAbstract(url);
 					if (wa == null) {
 						continue;

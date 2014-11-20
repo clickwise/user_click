@@ -567,15 +567,11 @@ public class Fetcher {
 	{
 		Document doc=null;
 		WebAbstract wa=new WebAbstract();
-		InputStream is=null;
 		try {
-            /*
-			String content=getSource(url,false);
-			doc=Jsoup.parse(content);
-		    */
-			is=getSourceInputStream(url,false);
-			doc=Jsoup.parse(is, "utf-8","");
-			//doc = Jsoup.connect(url).timeout(20000).get();
+
+			//String content=getSource(url,false);
+			//doc=Jsoup.parse(content);
+			doc = Jsoup.connect(url).timeout(20000).get();
 			if(doc==null)
 			{
 				return null;
