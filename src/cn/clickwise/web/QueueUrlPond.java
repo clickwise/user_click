@@ -110,7 +110,7 @@ public class QueueUrlPond extends UrlPond {
 					}
 					
 					incrCount();
-					System.out.println("fetch url:"+url);
+					System.err.println("fetch url:"+url);
 					wa = fetcher.getAbstract(url);
 					if (wa == null) {
 						continue;
