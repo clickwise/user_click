@@ -25,9 +25,11 @@ then
  rm rpc_lib/mytool.jar
  rm radius_lib/mytool.jar
  rm hive_lib/mytool.jar
+ rm web_lib/mytool.jar
  cp out/mytool.jar rpc_lib
  cp out/mytool.jar radius_lib
  cp out/mytool.jar hive_lib
+ cp out/mytool.jar web_lib
 else
  OPT=2
 fi
@@ -80,6 +82,19 @@ then
  cd ..
  echo "build radius";
  $ANT_BUILD -buildfile build_profile.xml
+else
+ OPT=3
+fi
+
+
+if [ $1 = "web" ]
+then
+ rm -rf web_src/cn
+ cd src
+ cp -r --parents cn/clickwise/web ../web_src
+ cd ..
+ echo "build web";
+ $ANT_BUILD -buildfile build_web.xml
 else
  OPT=3
 fi
