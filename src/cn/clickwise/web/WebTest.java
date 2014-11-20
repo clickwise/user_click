@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Set;
 
 import org.jsoup.Jsoup;
@@ -111,13 +112,24 @@ public class WebTest {
 
 			QueueUrlPond qud=new QueueUrlPond();
 			qud.startConsume(threadNum);
+			ArrayList<String> urllist=new ArrayList<String>();
+			
 			while ((line = br.readLine()) != null) {
 				System.err.println("add line:"+line);
 				if(SSO.tioe(line))
 				{
 					continue;
 				}
-				qud.add2Pond(line);
+				urllist.add(line);
+				
+			}
+			
+			int k=0;
+			
+			while((k<urllist.size())||(qud.getCount()<urllist.size()))
+			{
+				k++;
+				qud.add2Pond(urllist.get(k));
 			}
 
 			br.close();

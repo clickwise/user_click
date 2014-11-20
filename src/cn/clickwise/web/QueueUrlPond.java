@@ -9,6 +9,13 @@ public class QueueUrlPond extends UrlPond {
 
 	private static Queue<String> queue = new ConcurrentLinkedQueue<String>();
 
+	private int count;
+	
+	synchronized  private  void incrCount()
+	{
+		setCount(getCount() + 1);
+	}
+	
 	@Override
 	public void add2Pond(String url) {
 
@@ -50,6 +57,14 @@ public class QueueUrlPond extends UrlPond {
 		System.out.println(content);
 	}
 
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
 	private class UrlResolve implements Runnable {
 
 		private ConfigureFactory confFactory;
@@ -86,7 +101,7 @@ public class QueueUrlPond extends UrlPond {
 					// Thread.sleep(getSleepTime());
 
 					url = pollFromPond();
-
+					incrCount();
 					 System.out.println("fetch url:"+url);
 					if (SSO.tioe(url)) {
 						Thread.sleep((long) (10 * Math.random()));
@@ -106,7 +121,7 @@ public class QueueUrlPond extends UrlPond {
 					
 					printContent(content);
 				} catch (Exception e) {
-
+					incrCount();
 					e.printStackTrace();
 				}
 			}
