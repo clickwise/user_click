@@ -12,16 +12,14 @@ import org.jsoup.nodes.Document;
 
 import cn.clickwise.lib.string.SSO;
 
-
 public class WebTest {
 
 	private Fetcher fetcher;
 
-	public WebTest()
-	{
-	  init();	
+	public WebTest() {
+		init();
 	}
-	
+
 	public void init() {
 		fetcher = new Fetcher();
 	}
@@ -78,12 +76,11 @@ public class WebTest {
 			// Set<WordEntry> sws=null;
 			WebAbstract wa = new WebAbstract();
 			while ((line = br.readLine()) != null) {
-				if(SSO.tioe(line))
-				{
+				if (SSO.tioe(line)) {
 					continue;
 				}
-				
-				System.err.println("fetching url:"+line);
+
+				System.err.println("fetching url:" + line);
 				wa = fetcher.getAbstract(line);
 				if (wa == null) {
 					continue;
@@ -110,36 +107,35 @@ public class WebTest {
 					System.in));
 			String line = "";
 
-			QueueUrlPond qud=new QueueUrlPond();
+			QueueUrlPond qud = new QueueUrlPond();
 			qud.startConsume(threadNum);
-			ArrayList<String> urllist=new ArrayList<String>();
-			
+			ArrayList<String> urllist = new ArrayList<String>();
+
 			while ((line = br.readLine()) != null) {
-				System.err.println("add line:"+line);
-				if(SSO.tioe(line))
-				{
+				System.err.println("add line:" + line);
+				if (SSO.tioe(line)) {
 					continue;
 				}
 				urllist.add(line);
-				
+
 			}
-			
-			int k=0;
-			
-			while((k<urllist.size())||(qud.getCount()<urllist.size()))
-			{	
+
+			int k = 0;
+
+			while ((qud.getCount() < urllist.size())) {
 				qud.add2Pond(urllist.get(k));
-				k++;
+				if ((k < urllist.size())) {
+					k++;
+				}
 			}
 
 			br.close();
-	
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void main(String[] args) {
 
 		if (args.length != 1) {
@@ -148,19 +144,16 @@ public class WebTest {
 			System.exit(1);
 		}
 
-		int opt=0;
-		opt=Integer.parseInt(args[0]);
-		
+		int opt = 0;
+		opt = Integer.parseInt(args[0]);
+
 		/*
-		String url = "http://club.autohome.com.cn";
-		// WebTest wt=new WebTest();
-		// System.out.println(wt.getTitle(url));
-		Fetcher f = new Fetcher();
-		System.out.println(f.getAbstract(url).toString());
-		*/
-		WebTest wt=new WebTest();
+		 * String url = "http://club.autohome.com.cn"; // WebTest wt=new
+		 * WebTest(); // System.out.println(wt.getTitle(url)); Fetcher f = new
+		 * Fetcher(); System.out.println(f.getAbstract(url).toString());
+		 */
+		WebTest wt = new WebTest();
 		wt.pageMulInOut(opt);
-		
 
 	}
 
