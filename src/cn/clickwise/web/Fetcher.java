@@ -331,9 +331,9 @@ public class Fetcher {
 		WebAbstract wa=new WebAbstract();
 		try {
 
-			String content=getSourceUserProxy(url);
-			doc=Jsoup.parse(content);
-			//doc = Jsoup.connect(url).get();
+			//String content=getSourceUserProxy(url);
+			//doc=Jsoup.parse(content);
+			doc = Jsoup.connect(url).get();
 			if(doc==null)
 			{
 				return null;
