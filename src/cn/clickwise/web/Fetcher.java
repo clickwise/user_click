@@ -367,6 +367,7 @@ public class Fetcher {
 			HttpResponse response = httpclient.execute(httpget);
 			HttpEntity entity = response.getEntity();
 			
+			/*
 			Pattern charset_pat=Pattern.compile("(?:(?:charset)|(?:CHARSET))=([^\">]*)");
 			String charset="";
 			Header type_head = null;
@@ -423,7 +424,8 @@ public class Fetcher {
                      source=ds+con;
 				}
 			}
-
+			*/
+			source=entity.toString();
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}			
