@@ -124,7 +124,7 @@ public class WebTest {
 
 			while ((qud.getCount() < urllist.size())) {
 				qud.add2Pond(urllist.get(k));
-				if ((k < urllist.size())) {
+				if ((k <( urllist.size()-1))) {
 					k++;
 				}
 			}
