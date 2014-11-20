@@ -367,7 +367,7 @@ public class Fetcher {
 			HttpResponse response = httpclient.execute(httpget);
 			HttpEntity entity = response.getEntity();
 			
-			
+			/*
 			Pattern charset_pat=Pattern.compile("(?:(?:charset)|(?:CHARSET))=([^\">]*)");
 			String charset="";
 			Header type_head = null;
@@ -426,6 +426,124 @@ public class Fetcher {
 			}
 			
 			//source=entity.getContent();
+			*/
+			
+			
+			String content="";
+			BufferedReader br=new BufferedReader(new InputStreamReader(entity.getContent()));
+			String line="";
+			while((line=br.readLine())!=null)
+			{
+				content=content+line;
+			}
+			source=content;
+			
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}			
+		return source;
+	}
+	
+	public static InputStream getSourceInputStream(String url,boolean useProxy)
+	{
+		InputStream sourceis=null;
+		HttpClient httpclient = new DefaultHttpClient();
+
+		
+		if(useProxy==true)
+		{
+		  double ran = Math.random();
+	      String[] proxy_arr= { 
+				"122.72.111.98", "122.72.76.132",
+				 "122.72.11.129", "122.72.11.130",
+				"122.72.11.131", "122.72.11.132", "122.72.99.2", "122.72.99.3",
+				"122.72.99.4", "122.72.99.8" };
+	    
+
+		  int rani = -1;
+		  rani = (int) (ran * (proxy_arr.length));
+		  HttpHost proxy = new HttpHost(proxy_arr[rani], 80, "http");
+		  httpclient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,
+				proxy);
+		}
+		
+		httpclient.getParams().setParameter(HttpMethodParams.USER_AGENT,"Mozilla/5.0 (Windows NT 5.1; rv:14.0) Gecko/20100101 Firefox/14.0.1"); 	
+		httpclient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT,  60000);//连接时间20s
+		httpclient.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT,  60000);
+		httpclient.getParams().setParameter("http.socket.timeout",60000);
+
+		httpclient.getParams().setParameter("http.connection.timeout",60000);
+
+		httpclient.getParams().setParameter("http.connection-manager.timeout",60000);
+
+		String con = "";
+		
+		try {
+			HttpGet httpget = new HttpGet(url);
+
+			HttpResponse response = httpclient.execute(httpget);
+			HttpEntity entity = response.getEntity();
+			
+			/*
+			Pattern charset_pat=Pattern.compile("(?:(?:charset)|(?:CHARSET))=([^\">]*)");
+			String charset="";
+			Header type_head = null;
+			type_head=response.getFirstHeader("Content-Type");
+			
+			String thlv=type_head.getValue().toString().toLowerCase();
+			Matcher charset_mat=charset_pat.matcher(thlv);
+			//System.out.println("Content-Type:"+thlv);
+			
+			if(thlv.indexOf("text/html")<0)
+			{
+				System.err.println("["+url+"] 不是普通网页");
+				return "";
+			}
+			
+			if(charset_mat.find())
+			{
+				charset=charset_mat.group(1);
+			}
+			charset=charset.trim();
+			//System.out.println("charset1:"+charset);
+			
+			charset=charset.trim();
+			
+			
+			byte[] bytes = new byte[1024];
+			InputStream is = entity.getContent();
+			is.read(bytes);
+			String us = new String(bytes);
+			String ds="";
+			if(charset.equals(""))
+			{
+				charset_pat=Pattern.compile("<(?:(?:meta)|(?:META)|(?:Meta))[^<>]*?(?:(?:charset)|(?:CHARSET))=([^\">]*)[^<>]*?>");
+				charset_mat=charset_pat.matcher(us.toLowerCase());
+				//System.out.println("us:"+us);
+				if(charset_mat.find())
+				{
+					charset=charset_mat.group(1);
+				}
+				//System.out.println("charset2:"+charset);
+				ds=new String(bytes,charset);
+			}
+					
+			
+			// 获取响应状态
+			int statusCode = response.getStatusLine().getStatusCode();
+			if (statusCode == HttpStatus.SC_OK) {
+				// 获取响应实体
+				entity = response.getEntity();
+				if (entity != null) {
+
+					 con = EntityUtils.toString(entity,charset);
+					//con = EntityUtils.toString(entity);
+                     source=ds+con;
+				}
+			}
+			
+			//source=entity.getContent();
+			*/
 			
 			/*
 			String content="";
@@ -437,22 +555,27 @@ public class Fetcher {
 			}
 			source=content;
 			*/
+			sourceis=entity.getContent();
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}			
-		return source;
+		return sourceis;
 	}
-	
+  
 	
 	public WebAbstract getAbstract(String url)
 	{
 		Document doc=null;
 		WebAbstract wa=new WebAbstract();
+		InputStream is=null;
 		try {
-
-			//String content=getSource(url,false);
-			//doc=Jsoup.parse(content);
-			doc = Jsoup.connect(url).timeout(20000).get();
+            /*
+			String content=getSource(url,false);
+			doc=Jsoup.parse(content);
+		    */
+			is=getSourceInputStream(url,false);
+			doc=Jsoup.parse(is, "utf-8","");
+			//doc = Jsoup.connect(url).timeout(20000).get();
 			if(doc==null)
 			{
 				return null;
