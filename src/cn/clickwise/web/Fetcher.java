@@ -7,6 +7,7 @@ import java.net.URLEncoder;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
@@ -326,34 +327,38 @@ public class Fetcher {
 		return doc.title();
 	}
 	
-	public String getSourceCode(String url)
+	public static String getSource(String url,boolean useProxy)
 	{
 		String source="";
 		HttpClient httpclient = new DefaultHttpClient();
 
-		/*
-		double ran = Math.random();
-	    String[] proxy_hosts = { 
+		
+		if(useProxy==true)
+		{
+		  double ran = Math.random();
+	      String[] proxy_arr= { 
 				"122.72.111.98", "122.72.76.132",
 				 "122.72.11.129", "122.72.11.130",
 				"122.72.11.131", "122.72.11.132", "122.72.99.2", "122.72.99.3",
 				"122.72.99.4", "122.72.99.8" };
-		int rani = -1;
-		rani = (int) (ran * 10);
-		HttpHost proxy = new HttpHost(proxy_hosts[rani], 80, "http");
-		httpclient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,
+	    
+
+		  int rani = -1;
+		  rani = (int) (ran * (proxy_arr.length));
+		  HttpHost proxy = new HttpHost(proxy_arr[rani], 80, "http");
+		  httpclient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,
 				proxy);
-		 httpclient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT,1000);
-		*/
-		
-		url = url.trim();
-		if ((url == null) || (url.length() < 5)) {
-			return "";
-		}
-		if (url.indexOf("http") < 0) {
-			url = "http://" + url;
 		}
 		
+		httpclient.getParams().setParameter(HttpMethodParams.USER_AGENT,"Mozilla/5.0 (Windows NT 5.1; rv:14.0) Gecko/20100101 Firefox/14.0.1"); 	
+		httpclient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT,  60000);//连接时间20s
+		httpclient.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT,  60000);
+		httpclient.getParams().setParameter("http.socket.timeout",60000);
+
+		httpclient.getParams().setParameter("http.connection.timeout",60000);
+
+		httpclient.getParams().setParameter("http.connection-manager.timeout",60000);
+
 		String con = "";
 		
 		try {
@@ -420,10 +425,11 @@ public class Fetcher {
 			}
 
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			System.err.println(e.getMessage());
 		}			
 		return source;
 	}
+	
 	
 	public WebAbstract getAbstract(String url)
 	{
@@ -431,7 +437,7 @@ public class Fetcher {
 		WebAbstract wa=new WebAbstract();
 		try {
 
-			String content=getSourceCode(url);
+			String content=getSource(url,false);
 			doc=Jsoup.parse(content);
 			//doc = Jsoup.connect(url).get();
 			if(doc==null)
