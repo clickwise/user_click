@@ -14,6 +14,11 @@ public class WebTest {
 
 	private Fetcher fetcher;
 
+	public WebTest()
+	{
+	  init();	
+	}
+	
 	public void init() {
 		fetcher = new Fetcher();
 	}
