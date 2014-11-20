@@ -425,7 +425,16 @@ public class Fetcher {
 				}
 			}
 			*/
-			source=entity.toString();
+			//source=entity.getContent();
+			
+			String content="";
+			BufferedReader br=new BufferedReader(new InputStreamReader(entity.getContent()));
+			String line="";
+			while((line=br.readLine())!=null)
+			{
+				content=content+line;
+			}
+			source=content;
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}			
