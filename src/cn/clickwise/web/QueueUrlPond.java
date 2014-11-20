@@ -55,6 +55,7 @@ public class QueueUrlPond extends UrlPond {
 	private synchronized void printContent(String content)
 	{
 		System.out.println(content);
+		System.out.flush();
 	}
 
 	public int getCount() {
