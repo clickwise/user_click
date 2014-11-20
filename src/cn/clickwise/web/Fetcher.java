@@ -367,7 +367,7 @@ public class Fetcher {
 			HttpResponse response = httpclient.execute(httpget);
 			HttpEntity entity = response.getEntity();
 			
-			/*
+			
 			Pattern charset_pat=Pattern.compile("(?:(?:charset)|(?:CHARSET))=([^\">]*)");
 			String charset="";
 			Header type_head = null;
@@ -424,9 +424,10 @@ public class Fetcher {
                      source=ds+con;
 				}
 			}
-			*/
+			
 			//source=entity.getContent();
 			
+			/*
 			String content="";
 			BufferedReader br=new BufferedReader(new InputStreamReader(entity.getContent()));
 			String line="";
@@ -435,6 +436,7 @@ public class Fetcher {
 				content=content+line;
 			}
 			source=content;
+			*/
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}			
@@ -448,9 +450,9 @@ public class Fetcher {
 		WebAbstract wa=new WebAbstract();
 		try {
 
-			String content=getSource(url,false);
-			doc=Jsoup.parse(content);
-			//doc = Jsoup.connect(url).get();
+			//String content=getSource(url,false);
+			//doc=Jsoup.parse(content);
+			doc = Jsoup.connect(url).timeout(20000).get();
 			if(doc==null)
 			{
 				return null;
@@ -459,7 +461,7 @@ public class Fetcher {
 			wa.setTitle(doc.title());
 			wa.setKeywords(doc.head().select("meta[name=keywords]").attr("content"));
 			wa.setDescription(doc.head().select("meta[name=description]").attr("content"));
-
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
