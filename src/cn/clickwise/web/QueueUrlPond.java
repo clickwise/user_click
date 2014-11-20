@@ -11,6 +11,8 @@ public class QueueUrlPond extends UrlPond {
 
 	private int count;
 	
+	private int allCount;
+	
 	synchronized  private  void incrCount()
 	{
 		setCount(getCount() + 1);
@@ -49,9 +51,22 @@ public class QueueUrlPond extends UrlPond {
 			consumeThread.setDaemon(true);
 			consumeThread.start();
 		}
-
+		waitForComplete();
 	}
 	
+	public void waitForComplete()
+	{
+		while(getCount()<allCount)
+		{
+			try{
+			Thread.sleep(1000);
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
+	}
 	private synchronized void printContent(String content)
 	{
 		System.out.println(content);
@@ -64,6 +79,14 @@ public class QueueUrlPond extends UrlPond {
 
 	public void setCount(int count) {
 		this.count = count;
+	}
+
+	public int getAllCount() {
+		return allCount;
+	}
+
+	public void setAllCount(int allCount) {
+		this.allCount = allCount;
 	}
 
 	private class UrlResolve implements Runnable {

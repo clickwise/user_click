@@ -121,11 +121,11 @@ public class WebTest {
 			}
 
 			int k = 0;
-
+			qud.setAllCount(urllist.size());
 			while ((qud.getCount() < urllist.size())) {
 				try{
-				Thread.sleep(10);
 				qud.add2Pond(urllist.get(k));
+				Thread.sleep(10);
 				if ((k <( urllist.size()-1))) {
 					k++;
 				}
