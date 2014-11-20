@@ -275,6 +275,7 @@ public class Fetcher {
 		return source;
 	}
 	
+	
 	/**
 	 * 获取标题
 	 * @param url
@@ -325,15 +326,114 @@ public class Fetcher {
 		return doc.title();
 	}
 	
+	public String getSourceCode(String url)
+	{
+		String source="";
+		HttpClient httpclient = new DefaultHttpClient();
+
+		/*
+		double ran = Math.random();
+	    String[] proxy_hosts = { 
+				"122.72.111.98", "122.72.76.132",
+				 "122.72.11.129", "122.72.11.130",
+				"122.72.11.131", "122.72.11.132", "122.72.99.2", "122.72.99.3",
+				"122.72.99.4", "122.72.99.8" };
+		int rani = -1;
+		rani = (int) (ran * 10);
+		HttpHost proxy = new HttpHost(proxy_hosts[rani], 80, "http");
+		httpclient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,
+				proxy);
+		 httpclient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT,1000);
+		*/
+		
+		url = url.trim();
+		if ((url == null) || (url.length() < 5)) {
+			return "";
+		}
+		if (url.indexOf("http") < 0) {
+			url = "http://" + url;
+		}
+		
+		String con = "";
+		
+		try {
+			HttpGet httpget = new HttpGet(url);
+
+			HttpResponse response = httpclient.execute(httpget);
+			HttpEntity entity = response.getEntity();
+			
+			Pattern charset_pat=Pattern.compile("(?:(?:charset)|(?:CHARSET))=([^\">]*)");
+			String charset="";
+			Header type_head = null;
+			type_head=response.getFirstHeader("Content-Type");
+			
+			String thlv=type_head.getValue().toString().toLowerCase();
+			Matcher charset_mat=charset_pat.matcher(thlv);
+			//System.out.println("Content-Type:"+thlv);
+			
+			if(thlv.indexOf("text/html")<0)
+			{
+				System.err.println("["+url+"] 不是普通网页");
+				return "";
+			}
+			
+			if(charset_mat.find())
+			{
+				charset=charset_mat.group(1);
+			}
+			charset=charset.trim();
+			//System.out.println("charset1:"+charset);
+			
+			charset=charset.trim();
+			
+			
+			byte[] bytes = new byte[1024];
+			InputStream is = entity.getContent();
+			is.read(bytes);
+			String us = new String(bytes);
+			String ds="";
+			if(charset.equals(""))
+			{
+				charset_pat=Pattern.compile("<(?:(?:meta)|(?:META)|(?:Meta))[^<>]*?(?:(?:charset)|(?:CHARSET))=([^\">]*)[^<>]*?>");
+				charset_mat=charset_pat.matcher(us.toLowerCase());
+				//System.out.println("us:"+us);
+				if(charset_mat.find())
+				{
+					charset=charset_mat.group(1);
+				}
+				//System.out.println("charset2:"+charset);
+				ds=new String(bytes,charset);
+			}
+					
+			
+			// 获取响应状态
+			int statusCode = response.getStatusLine().getStatusCode();
+			if (statusCode == HttpStatus.SC_OK) {
+				// 获取响应实体
+				entity = response.getEntity();
+				if (entity != null) {
+
+					 con = EntityUtils.toString(entity,charset);
+					//con = EntityUtils.toString(entity);
+                     source=ds+con;
+				}
+			}
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}			
+		return source;
+	}
+	
 	public WebAbstract getAbstract(String url)
 	{
 		Document doc=null;
 		WebAbstract wa=new WebAbstract();
 		try {
 
-			//String content=getSourceUserProxy(url);
-			//doc=Jsoup.parse(content);
-			doc = Jsoup.connect(url).get();
+			String content=getSourceCode(url);
+			doc=Jsoup.parse(content);
+			//doc = Jsoup.connect(url).get();
 			if(doc==null)
 			{
 				return null;
