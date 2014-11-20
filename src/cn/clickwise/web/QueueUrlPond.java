@@ -101,13 +101,15 @@ public class QueueUrlPond extends UrlPond {
 					// Thread.sleep(getSleepTime());
 
 					url = pollFromPond();
-					incrCount();
-					 System.out.println("fetch url:"+url);
+
+			
 					if (SSO.tioe(url)) {
 						Thread.sleep((long) (10 * Math.random()));
 						continue;
 					}
-
+					
+					incrCount();
+					System.out.println("fetch url:"+url);
 					wa = fetcher.getAbstract(url);
 					if (wa == null) {
 						continue;
