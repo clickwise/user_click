@@ -127,6 +127,10 @@ public class WebTest {
 				if ((k <( urllist.size()-1))) {
 					k++;
 				}
+				if(k==( urllist.size()-1))
+				{
+					Thread.sleep(1000);
+				}
 			}
 
 			br.close();
