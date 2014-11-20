@@ -103,6 +103,30 @@ public class WebTest {
 		}
 	}
 
+	public void pageMulInOut(int threadNum) {
+		try {
+			BufferedReader br = new BufferedReader(new InputStreamReader(
+					System.in));
+			String line = "";
+
+			QueueUrlPond qud=new QueueUrlPond();
+			qud.startConsume(threadNum);
+			while ((line = br.readLine()) != null) {
+				if(SSO.tioe(line))
+				{
+					continue;
+				}
+				qud.add2Pond(line);
+			}
+
+			br.close();
+	
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public static void main(String[] args) {
 
 		if (args.length != 1) {
@@ -122,7 +146,7 @@ public class WebTest {
 		System.out.println(f.getAbstract(url).toString());
 		*/
 		WebTest wt=new WebTest();
-		wt.pageInOut(opt);
+		wt.pageMulInOut(opt);
 		
 
 	}
