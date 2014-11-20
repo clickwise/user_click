@@ -87,7 +87,7 @@ public class QueueUrlPond extends UrlPond {
 
 					url = pollFromPond();
 
-					// System.out.println("fetch word:"+word);
+					 System.out.println("fetch url:"+url);
 					if (SSO.tioe(url)) {
 						Thread.sleep((long) (10 * Math.random()));
 						continue;

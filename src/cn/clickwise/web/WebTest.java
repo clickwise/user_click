@@ -112,6 +112,7 @@ public class WebTest {
 			QueueUrlPond qud=new QueueUrlPond();
 			qud.startConsume(threadNum);
 			while ((line = br.readLine()) != null) {
+				System.err.println("add line:"+line);
 				if(SSO.tioe(line))
 				{
 					continue;
