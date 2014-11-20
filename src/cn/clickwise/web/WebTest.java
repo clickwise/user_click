@@ -9,6 +9,8 @@ import java.util.Set;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import cn.clickwise.lib.string.SSO;
+
 
 public class WebTest {
 
@@ -75,6 +77,12 @@ public class WebTest {
 			// Set<WordEntry> sws=null;
 			WebAbstract wa = new WebAbstract();
 			while ((line = br.readLine()) != null) {
+				if(SSO.tioe(line))
+				{
+					continue;
+				}
+				
+				System.err.println("fetching url:"+line);
 				wa = fetcher.getAbstract(line);
 				if (wa == null) {
 					continue;
