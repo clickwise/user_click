@@ -1,6 +1,7 @@
 package cn.clickwise.clickad.profile;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
@@ -84,11 +85,14 @@ public class FilePredict {
 			separator = args[2].trim();
 			outputSeparator = separator.trim();
 		}
+		
+		String file="host_content.txt";
 
 		System.err.println("fieldNum:"+fieldNum+" keyFieldIndex:"+keyFieldIndex+" sep:"+args[2]);
 		FilePredict fp = new FilePredict();
 		System.err.println("finishing init");
-		InputStreamReader isr = new InputStreamReader(System.in);
+		try {
+		InputStreamReader isr = new InputStreamReader(new FileInputStream(file));
 		BufferedReader br = new BufferedReader(isr);
 
 		OutputStreamWriter osw = new OutputStreamWriter(System.out);
@@ -97,7 +101,7 @@ public class FilePredict {
 		String line = "";
 		String[] fields = null;
 
-		try {
+		
 			while ((line = br.readLine()) != null) {
 
 				try {

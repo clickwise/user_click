@@ -17,7 +17,7 @@ public class DictProfilePredict extends ProfilePredict {
 	public void loadOneDict(String key, String file) {
 
 		MapCount<String> mc = new MapCount<String>();
-
+		
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(file));
 
@@ -42,7 +42,7 @@ public class DictProfilePredict extends ProfilePredict {
 
 	@Override
 	public void loadKnowledge() {
-
+		confFactory=ConfigureFactoryInstantiate.getConfigureFactory();
 		for (Map.Entry<String, String> m : confFactory.getVariousMapFile()
 				.entrySet()) {
 			loadOneDict(m.getKey(), m.getValue());
