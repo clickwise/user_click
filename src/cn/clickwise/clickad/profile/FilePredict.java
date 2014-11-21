@@ -33,9 +33,9 @@ public class FilePredict {
 
 		Profile pro = null;
 		try {
-			System.err.println("origin line:"+line);
+			System.out.println("origin line:"+line);
 			seg = sd.double_seg(line);
-			System.err.println("seg line:"+seg);
+			System.out.println("seg line:"+seg);
 			pro = dpp.predict(new User(seg));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -107,7 +107,7 @@ public class FilePredict {
 			while ((line = br.readLine()) != null) {
 
 				try {
-					System.err.println("process line :" + line);
+					System.out.println("process line :" + line);
 					System.err.flush();
 					fields = line.split(separator);
 					if (fields.length != fieldNum) {
