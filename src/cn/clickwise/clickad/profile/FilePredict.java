@@ -98,6 +98,7 @@ public class FilePredict {
 		try {
 			while ((line = br.readLine()) != null) {
 
+				System.err.println("process line :"+line);
 				fields = line.split(separator);
 				if (fields.length != fieldNum) {
 					continue;
