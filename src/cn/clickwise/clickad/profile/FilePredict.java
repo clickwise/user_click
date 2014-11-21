@@ -14,6 +14,11 @@ public class FilePredict {
 
 	private ProfilePredict dpp = null;
 
+	public FilePredict()
+	{
+	  init();	
+	}
+	
 	public void init() {
 		sd = new SetDouble();
 		sd.init_first();
