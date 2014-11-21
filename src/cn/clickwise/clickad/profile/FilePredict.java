@@ -5,12 +5,12 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 
-import org.jmlp.str.app.SetDouble;
+import org.jmlp.str.app.SetJar;
 
 
 public class FilePredict {
 
-	private SetDouble sd = null;
+	private SetJar sd = null;
 
 	private ProfilePredict dpp = null;
 
@@ -20,7 +20,7 @@ public class FilePredict {
 	}
 	
 	public void init() {
-		sd = new SetDouble();
+		sd = new SetJar();
 		sd.init_first();
 		sd.init_second();
 
