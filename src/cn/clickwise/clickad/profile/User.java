@@ -6,4 +6,16 @@ package cn.clickwise.clickad.profile;
  */
 public class User {
 
+	private String keyText="";
+
+	public String getKeyText() {
+		return keyText;
+	}
+
+	public void setKeyText(String keyText) {
+		this.keyText = keyText;
+	}
+	
+	
+	
 }
