@@ -34,6 +34,7 @@ public class FilePredict {
 		Profile pro = null;
 		try {
 			seg = sd.double_seg(line);
+			System.err.println("seg line:"+seg);
 			pro = dpp.predict(new User(seg));
 		} catch (Exception e) {
 			e.printStackTrace();
