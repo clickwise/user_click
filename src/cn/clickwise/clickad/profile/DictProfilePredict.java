@@ -77,6 +77,7 @@ public class DictProfilePredict extends ProfilePredict {
 	public Profile predict(User user) {
 
 		Map<String, Integer> possibles = new HashMap<String, Integer>();
+		
 		for (Map.Entry<String, MapCount<String>> m : variousMapDict.entrySet()) {
 			possibles.put(m.getKey(), 0);
 		}
