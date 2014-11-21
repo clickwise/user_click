@@ -58,6 +58,7 @@ public class DictProfilePredict extends ProfilePredict {
 			possibles.put(m.getKey(), 0);
 		}
 
+		System.err.println("predict user:"+user.getKeyText());
 		String[] words = user.getKeyText().split("\\s+");
 		String word = "";
 
