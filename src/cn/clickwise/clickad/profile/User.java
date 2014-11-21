@@ -7,6 +7,11 @@ package cn.clickwise.clickad.profile;
 public class User {
 
 	private String keyText="";
+	
+	public User(String keyText)
+	{
+		this.keyText=keyText;
+	}
 
 	public String getKeyText() {
 		return keyText;

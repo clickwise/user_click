@@ -36,5 +36,13 @@ public class Profile {
 		this.income = income;
 	}
 	
+	public String toString()
+	{
+		String str="";
+		
+		str="gender:"+gender+" "+"age:"+age+" income:"+income;
+				
+		return str;
+	}
 	
 }

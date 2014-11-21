@@ -18,7 +18,8 @@ import java.util.TreeSet;
 
 import org.ansj.util.MatrixUtil;
 
-import com.ansj.vec.domain.WordEntry;
+import cn.clickwise.clickad.profile.com.ansj.vec.domain.WordEntry;
+
 
 public class Word2VEC {
 

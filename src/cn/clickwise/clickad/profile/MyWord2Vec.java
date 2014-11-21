@@ -1,11 +1,8 @@
 package cn.clickwise.clickad.profile;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.InputStreamReader;
 
 import cn.clickwise.clickad.profile.com.ansj.vec.Learn;
-import cn.clickwise.clickad.profile.com.ansj.vec.Word2VEC;
 
 
 
