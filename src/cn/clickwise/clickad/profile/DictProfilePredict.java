@@ -50,6 +50,29 @@ public class DictProfilePredict extends ProfilePredict {
 
 	}
 
+	public Word[] words2Words(String[] words)
+	{
+		MapCount<String> mc=new MapCount<String>();
+		String w="";
+		for(int i=0;i<words.length;i++)
+		{
+			w=words[i];
+			if(SSO.tioe(w)){
+				continue;
+			}
+			w=w.trim();
+			mc.add(w);
+		}
+		
+		Word[] ws=new Word[mc.get().size()];
+		int index=0;
+		for(Map.Entry<String, Integer> m:mc.get().entrySet())
+		{
+		 	ws[index]=new Word(m.getKey(),m.getValue());
+		}
+	
+		return ws;
+	}
 	@Override
 	public Profile predict(User user) {
 
@@ -60,24 +83,25 @@ public class DictProfilePredict extends ProfilePredict {
 
 		System.err.println("predict user:"+user.getKeyText());
 		String[] words = user.getKeyText().split("\\s+");
-		String word = "";
+		//String word = "";
 
-		for (int i = 0; i < words.length; i++) {
+		Word[] ws=words2Words(words);
+		Word w=null;
+		for (int i = 0; i < ws.length; i++) {
 			
-			word = words[i];
-			if (SSO.tioe(word)) {
+			w = ws[i];
+			if (SSO.tioe(w.getWord())) {
 				continue;
 			}
 
 			for (Map.Entry<String, MapCount<String>> m : variousMapDict.entrySet()) {
-				
-				if((m.getValue().get()).containsKey(word))
+				if(!((m.getValue().get()).containsKey(w.getWord())))
 				{
-					possibles.put(m.getKey(), possibles.get(word)+1);
+					possibles.put(m.getKey(), 0);
 				}
-				else
+				if((m.getValue().get()).containsKey(w.getWord()))
 				{
-					possibles.put(m.getKey(), 1);
+					possibles.put(m.getKey(), possibles.get(m.getKey())+w.getValue());
 				}
 			}
 			
