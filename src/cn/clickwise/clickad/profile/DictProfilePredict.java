@@ -19,6 +19,7 @@ public class DictProfilePredict extends ProfilePredict {
 		MapCount<String> mc = new MapCount<String>();
 		
 		try {
+			
 			BufferedReader br = new BufferedReader(new FileReader(file));
 
 			String line = "";
