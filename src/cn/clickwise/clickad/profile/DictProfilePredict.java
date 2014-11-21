@@ -42,6 +42,7 @@ public class DictProfilePredict extends ProfilePredict {
 
 	@Override
 	public void loadKnowledge() {
+		
 		confFactory=ConfigureFactoryInstantiate.getConfigureFactory();
 		for (Map.Entry<String, String> m : confFactory.getVariousMapFile()
 				.entrySet()) {
@@ -73,6 +74,7 @@ public class DictProfilePredict extends ProfilePredict {
 	
 		return ws;
 	}
+	
 	@Override
 	public Profile predict(User user) {
 
