@@ -31,7 +31,7 @@ public class DictProfilePredict extends ProfilePredict {
 			}
 
 			br.close();
-
+            System.out.println("key:"+key+" mc:"+mc.get().size());
 			variousMapDict.put(key, mc);
 
 		} catch (Exception e) {
