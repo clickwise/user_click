@@ -87,6 +87,7 @@ public class DictProfilePredict extends ProfilePredict {
 
 		Word[] ws=words2Words(words);
 		Word w=null;
+		int oc=0;
 		for (int i = 0; i < ws.length; i++) {
 			
 			w = ws[i];
@@ -101,7 +102,10 @@ public class DictProfilePredict extends ProfilePredict {
 				}
 				if((m.getValue().get()).containsKey(w.getWord()))
 				{
-					possibles.put(m.getKey(), possibles.get(m.getKey())+w.getValue());
+					System.out.println("mkey:"+m.getKey()+" word:"+w.getWord());
+					oc=possibles.get(m.getKey())+w.getValue();
+					System.out.println("oc:"+oc);
+					possibles.put(m.getKey(), oc);
 				}
 			}
 			
