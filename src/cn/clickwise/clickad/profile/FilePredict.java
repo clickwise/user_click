@@ -87,7 +87,7 @@ public class FilePredict {
 
 		System.err.println("fieldNum:"+fieldNum+" keyFieldIndex:"+keyFieldIndex+" sep:"+args[2]);
 		FilePredict fp = new FilePredict();
-
+		System.err.println("finishing init");
 		InputStreamReader isr = new InputStreamReader(System.in);
 		BufferedReader br = new BufferedReader(isr);
 
@@ -102,6 +102,7 @@ public class FilePredict {
 
 				try {
 					System.err.println("process line :" + line);
+					System.err.flush();
 					fields = line.split(separator);
 					if (fields.length != fieldNum) {
 						continue;
