@@ -82,6 +82,8 @@ then
  cd ..
  echo "build radius";
  $ANT_BUILD -buildfile build_profile.xml
+  rm lib/profile.jar
+ cp out/profile.jar lib
 else
  OPT=3
 fi
