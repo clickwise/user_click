@@ -267,7 +267,6 @@ public class Sampler {
 			System.exit(1);
 		}
 		
-		PosTagger posTagger=new PosTagger("chinese-nodistsim.tagger");
 		
 		//输入的字段个数用
 		int fieldNum=0;
