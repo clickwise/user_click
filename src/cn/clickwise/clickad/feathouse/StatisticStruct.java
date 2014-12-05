@@ -56,5 +56,11 @@ public class StatisticStruct {
 		this.day = day;
 	}
 	
+	public String toString()
+	{
+		String str="<codeOfArea:"+codeOfArea+" day:"+day+" pv:"+pv+" uv:"+uv+" ip:"+ip+">";
+		return str;
+	}
+	
 	
 }
