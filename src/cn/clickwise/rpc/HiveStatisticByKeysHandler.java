@@ -11,6 +11,7 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.URI;
+import java.util.ArrayList;
 
 import cn.clickwise.lib.linux.COMMAND;
 import cn.clickwise.lib.string.SSO;
@@ -69,6 +70,7 @@ public class HiveStatisticByKeysHandler extends Handler{
 			File resDir = new File(hfkc.getResultRemotePath());
 			File[] subFiles = resDir.listFiles();
 
+			ArrayList<String> resList=new ArrayList<String>();
 			for (int j = 0; j < subFiles.length; j++) {
 				if(!(FileName.isValidResult(subFiles[j])))
 				{
@@ -80,8 +82,19 @@ public class HiveStatisticByKeysHandler extends Handler{
 
 				String resline = "";
 				while ((resline = resbr.readLine()) != null) {
-					os.write(new String(resline + "\n").getBytes());
+					if(SSO.tioe(resline))
+					{
+						continue;
+					}
+					resList.add(resline);
 				}
+				String resContent="";
+				for(int i=0;i<resList.size();i++)
+				{
+					resContent=resContent+resList.get(i)+"\n";
+				}
+				resContent=resContent.trim();
+				os.write(new String(resContent + "\n").getBytes());
 				resfis.close();
 				resisr.close();
 				resbr.close();
