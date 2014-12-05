@@ -86,7 +86,7 @@ public class HiveStatisticByKeysHandler extends Handler{
 				resisr.close();
 				resbr.close();
 			}
-			cleanTmpWorkplace(hfkc);
+			//cleanTmpWorkplace(hfkc);
 			os.close();
 		} catch (Exception e) {
 			e.printStackTrace();
