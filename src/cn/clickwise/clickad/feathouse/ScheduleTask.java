@@ -90,8 +90,14 @@ public class ScheduleTask {
 		Dmp[] dmps = confFactory.getDmps();
 		for (int i = 0; i < dmps.length; i++) {
 			try{
-			rdi.writeRecFile2DataStore(new File(confFactory.getRecordFileDirectory() + confFactory.getDmpRecordFile(day, dmps[i])), con,
-					dmps[i],day);//用户特征数据写入cassandra
+			File dmpRecFile=new File(confFactory.getRecordFileDirectory() + confFactory.getDmpRecordFile(day, dmps[i]));
+			if(!(dmpRecFile.exists()))
+			{
+				continue;
+			}
+			//rdi.writeRecFile2DataStore(new File(confFactory.getRecordFileDirectory() + confFactory.getDmpRecordFile(day, dmps[i])), con,
+			//		dmps[i],day);//用户特征数据写入cassandra
+			rdi.writeRecFile2DataStore(dmpRecFile, con,dmps[i],day);//用户特征数据写入cassandra
 			}
 			catch(Exception e)
 			{
