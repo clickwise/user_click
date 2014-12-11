@@ -80,12 +80,23 @@ public class ScheduleTask {
 		*/
 		
 		//从各dmp取回用户特征数据存入本地文件
+		try{
 		rdi.fetchFromAllDmps(day);
-			
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 		Dmp[] dmps = confFactory.getDmps();
 		for (int i = 0; i < dmps.length; i++) {
+			try{
 			rdi.writeRecFile2DataStore(new File(confFactory.getRecordFileDirectory() + confFactory.getDmpRecordFile(day, dmps[i])), con,
 					dmps[i],day);//用户特征数据写入cassandra
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
 		}
 		
 		
