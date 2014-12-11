@@ -97,6 +97,7 @@ public class ScheduleTask {
 			}
 			//rdi.writeRecFile2DataStore(new File(confFactory.getRecordFileDirectory() + confFactory.getDmpRecordFile(day, dmps[i])), con,
 			//		dmps[i],day);//用户特征数据写入cassandra
+			System.out.println("i="+i+" "+dmpRecFile.getAbsolutePath());
 			rdi.writeRecFile2DataStore(dmpRecFile, con,dmps[i],day);//用户特征数据写入cassandra
 			}
 			catch(Exception e)

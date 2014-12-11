@@ -55,14 +55,17 @@ public class RpcStatisticInquiry extends StatisticInquiry {
 		System.out.println("ponit 6");
 		String[] statistic_lines = null;
 		try {
-			statistic_lines = FileToArray.fileToDimArr(confFactory.getDmpStatisticResultDirectory()+"/"+confFactory
-					.getDmpStatisticResultFile(day, dmp));
+			String resFile=confFactory.getDmpStatisticResultDirectory()+"/"+confFactory
+					.getDmpStatisticResultFile(day, dmp);
+			System.out.println("resFile:"+resFile);
+			statistic_lines = FileToArray.fileToDimArr(resFile);
+			if (statistic_lines == null || statistic_lines.length != 1) {
+				return null;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		if (statistic_lines == null || statistic_lines.length != 1) {
-			return null;
-		}
+
 
 		System.out.println("line 0:"+statistic_lines[0]);
 		sst = confFactory.string2StatisticResult(statistic_lines[0]);
