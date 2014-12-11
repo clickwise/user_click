@@ -59,7 +59,7 @@ public class RpcStatisticInquiry extends StatisticInquiry {
 					.getDmpStatisticResultFile(day, dmp);
 			System.out.println("resFile:"+resFile);
 			statistic_lines = FileToArray.fileToDimArr(resFile);
-			if (statistic_lines == null || statistic_lines.length != 1) {
+			if (statistic_lines == null || statistic_lines.length < 1) {
 				return null;
 			}
 		} catch (Exception e) {
