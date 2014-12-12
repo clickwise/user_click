@@ -294,6 +294,30 @@ public class SSO {
 		responseArr[1] = responseSplitVal;
 		return responseArr;
 	}
+    public static ArrayList<String> ngram(String word)
+    {
+ 
+    	ArrayList<String> ngrams=new ArrayList<String>();
+       	if(word.length()<=2)
+    	{
+    	  ngrams.add(word);
+    	  return ngrams;
+    	}
+       	
+    	int i=0;
+    	int j=2;
+    	String gram="";
+    	for(i=0;i<word.length()-2;i++)
+    	{
+    		for(j=i+2;j<=word.length();j++)
+    		{
+    			gram=word.substring(i,j);
+    			ngrams.add(gram);
+    		}
+    	}
+    	
+    	return ngrams;
+    }
 
 	public static void main(String[] args) {
 		/*
@@ -336,12 +360,19 @@ public class SSO {
 		 * String source="乡村爱情圆舞曲48"; String find="48"; String replace="";
 		 * System.out.println(replaceLast(source,find,replace));
 		 */
+		/*
 		String source = "铜仁市";
 		System.out.println(source.charAt(source.length() - 1));
 		
 		String str="Thread-7";
 		System.out.println("str:"+str.replaceAll("Thread\\-", ""));
-
+        */
+		String source="中";
+		ArrayList<String> list=ngram(source);
+		for(int i=0;i<list.size();i++)
+		{
+			System.out.println("i="+i+" "+list.get(i));
+		}
 	}
 
 }
