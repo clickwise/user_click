@@ -344,4 +344,6 @@ public class Sampler {
 		sampler.train2sample(fieldNum, sampleFieldIndex,labelFieldIndex, separator, outputSeparator, gendict, genlabeldict, gensample, docs);
 		
 	}
+	
+	
 }
