@@ -49,6 +49,7 @@ public class Sampler {
 	}
 	
 	public void getDictsAndLabels(int field_num,int sample_field_index,int label_field_index,String separator,ArrayList<String> docs){
+		
 		String line="";
 		String[] fields=null;
 		String label="";

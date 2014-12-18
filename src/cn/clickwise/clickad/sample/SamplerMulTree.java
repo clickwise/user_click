@@ -29,7 +29,7 @@ public class SamplerMulTree {
 	/**
 	 * 建立每个标记的各层索引，索引是在其父节点各子节点中的编号
 	 */
-	private HashMap<String,HashMap<String,HashMap<String,Integer>>> labelDicts;
+	private HashMap<String,HashMap<String,HashMap<String,String>>> labelDicts;
 	
 	/**
 	 * 词典索引
@@ -44,12 +44,13 @@ public class SamplerMulTree {
 	public SamplerMulTree(){
 		dictCounts=new MapCount<String>();
 		labelCounts=new MapCount<String>();
-		labelDicts=new HashMap<String,HashMap<String,HashMap<String,Integer>>>();
+		labelDicts=new HashMap<String,HashMap<String,HashMap<String,String>>>();
 		dicts=new HashMap<String,Integer>();
 		labels=new HashMap<String,Integer>();
 	}
 	
 	public void getDictsAndLabels(int field_num,int sample_field_index,int label_field_index,String separator,ArrayList<String> docs){
+		
 		String line="";
 		String[] fields=null;
 		String label="";
@@ -59,6 +60,11 @@ public class SamplerMulTree {
 		int dict_index = 1;
 		int label_index = 1;
 		String token="";
+		
+		String[] cates=null;
+		String fcate="";
+		String scate="";
+		String tcate="";
 		
 		for(int i=0;i<docs.size();i++)
 		{
@@ -82,7 +88,18 @@ public class SamplerMulTree {
 		    {
 		    	labels.put(label, label_index++);
 		    }
-		    
+		
+		    cates=label.split("\\|");
+		    if(cates.length!=3)
+		    {
+		    	continue;
+		    }
+		    fcate=cates[0].trim();
+		    scate=cates[1].trim();
+		    tcate=cates[2].trim();
+		   
+		    	
+		    	
 		    if(SSO.tioe(text))
 		    {
 		    	continue;
@@ -346,11 +363,11 @@ public class SamplerMulTree {
 		
 	}
 
-	public HashMap<String,HashMap<String,HashMap<String,Integer>>> getLabelDicts() {
+	public HashMap<String,HashMap<String,HashMap<String,String>>> getLabelDicts() {
 		return labelDicts;
 	}
 
-	public void setLabelDicts(HashMap<String,HashMap<String,HashMap<String,Integer>>> labelDicts) {
+	public void setLabelDicts(HashMap<String,HashMap<String,HashMap<String,String>>> labelDicts) {
 		this.labelDicts = labelDicts;
 	}
 
