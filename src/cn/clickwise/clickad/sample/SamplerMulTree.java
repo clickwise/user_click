@@ -97,9 +97,25 @@ public class SamplerMulTree {
 		    fcate=cates[0].trim();
 		    scate=cates[1].trim();
 		    tcate=cates[2].trim();
-		   
+		    
+		    if(!(labelDicts.containsKey(fcate)))
+		    {
+		    	labelDicts.put(fcate, new HashMap<String,HashMap<String,String>>());
+		    	if(!(labelDicts.get(fcate).containsKey(scate)))
+		    	{
+		    		labelDicts.get(fcate).put(scate, new HashMap<String,String>());
+		    	}
 		    	
+		    	if(!(labelDicts.get(fcate).get(scate).containsKey(tcate)))
+		    	{
+		    		labelDicts.get(fcate).get(scate).put(tcate, labelDicts.get(fcate).size()+1+"|"+labelDicts.get(fcate).get(scate).size()+1+"|"+labelDicts.get(fcate).get(scate).get(tcate)+1);
+		    	}   	
+		    }
+		    else
+		    {
 		    	
+		    }
+		    
 		    if(SSO.tioe(text))
 		    {
 		    	continue;
