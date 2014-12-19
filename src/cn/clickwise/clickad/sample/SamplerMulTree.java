@@ -106,7 +106,7 @@ public class SamplerMulTree {
 			  {
 			    if (!(labelDicts.get(fcate).get(scate).containsKey(tcate))) {
 			    	
-				   labelDicts.get(fcate).get(scate).put(tcate,(labelDicts.size()+1)+"|"+(labelDicts.get(fcate).size()+ 1)+ "|"+ (labelDicts.get(fcate).get(scate).size()+ 1));
+				   labelDicts.get(fcate).get(scate).put(tcate,(labelDicts.size())+"|"+(labelDicts.get(fcate).size())+ "|"+ (labelDicts.get(fcate).get(scate).size()+ 1));
 				   
 			    }
 			  }
