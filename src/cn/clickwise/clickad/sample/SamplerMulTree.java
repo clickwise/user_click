@@ -185,61 +185,7 @@ public class SamplerMulTree {
 		return res;
 	}
 
-	public void train2sample(int field_num, int sample_field_index,
-			int label_field_index, String separator, String outputSeparator,
-			String gendict, String genlabeldict, String gensample,
-			ArrayList<String> docs) {
-		getDictsAndLabels(field_num, sample_field_index, label_field_index,
-				separator, docs);
-
-		String line = "";
-		String[] fields = null;
-		String label = "";
-		String text = "";
-		PrintWriter gspw = null;
-		try {
-			gspw = new PrintWriter(new FileWriter(gensample));
-			int labelIndex = 0;
-			String forsample = "";
-
-			for (int i = 0; i < docs.size(); i++) {
-				line = docs.get(i);
-				fields = line.split(separator);
-				if (fields.length != field_num) {
-					continue;
-				}
-
-				label = fields[label_field_index];
-				text = fields[sample_field_index];
-				if (SSO.tioe(label)) {
-					continue;
-				}
-				label = label.trim();
-				labelIndex = 0;
-				labelIndex = labels.get(label);
-				if (labelIndex < 1) {
-					continue;
-				}
-
-				if (SSO.tioe(text)) {
-					continue;
-				}
-				text = text.trim();
-				forsample = get_word_id(text);
-				if (SSO.tioe(forsample)) {
-					continue;
-				}
-				forsample = forsample.trim();
-				gspw.println(labelIndex + outputSeparator + forsample);
-			}
-			gspw.close();
-			printDicts(gendict, outputSeparator);
-			printLabelDicts(genlabeldict, outputSeparator);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
+	
 
 	public void train2mulsample(int field_num, int sample_field_index,
 			int label_field_index, String separator, String outputSeparator,
@@ -332,17 +278,7 @@ public class SamplerMulTree {
 		}
 	}
 
-	public void printLabelDicts(String genlabeldict, String outputSeparator) {
-		try {
-			PrintWriter glpw = new PrintWriter(new FileWriter(genlabeldict));
-			for (Map.Entry<String, Integer> e : labels.entrySet()) {
-				glpw.println(e.getKey() + outputSeparator + e.getValue());
-			}
-			glpw.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+
 	
 	public void printMulLabelDicts(String genlabeldict, String outputSeparator) {
 		try {
