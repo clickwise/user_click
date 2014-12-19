@@ -236,7 +236,7 @@ public class SamplerMulTree {
 				fcate=cates[0].trim();
 				scate=cates[1].trim();
 				tcate=cates[2].trim();
-				labelIndexStr=labelDicts.get(fcate).get(scate).get(tcate);
+				labelIndexStr=labelDicts.get(fcate).get(scate).get(tcate)+outputSeparator+labelDicts.size()+"|"+labelDicts.get(fcate).size()+"|"+labelDicts.get(fcate).get(scate).size();
 				/*
 				labelIndex = 0;
 				labelIndex = labels.get(label);
