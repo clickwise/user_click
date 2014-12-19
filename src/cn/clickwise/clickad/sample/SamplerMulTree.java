@@ -290,7 +290,7 @@ public class SamplerMulTree {
 				{
 					for(Map.Entry<String, String> e3:e2.getValue().entrySet())
 					{
-						glpw.println(e3.getValue()+"\001"+labelDicts.size()+"|"+e1.getValue().size()+"|"+e2.getValue().size());
+						glpw.println(e3.getValue()+"\001"+labelDicts.size()+"|"+e1.getValue().size()+"|"+e2.getValue().size()+"\001"+e1.getKey()+"|"+e2.getKey()+"|"+e3.getKey());
 					}
 				}	
 			}
