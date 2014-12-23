@@ -110,7 +110,6 @@ public class SampleMulLevel {
 			if(level_num>2)
 			{
 			 tcate = scate+"_"+cates[2].trim();
-			 tcate = cates[2].trim();
 			}
 			if(level_num>0)
 			{
@@ -266,7 +265,6 @@ public class SampleMulLevel {
 				if(level_num>2)
 				{
 				 tcate = scate+"_"+cates[2].trim();
-				 tcate = cates[2].trim();
 				 label=fcate+"|"+scate+"|"+tcate;
 				}
 				
