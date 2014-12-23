@@ -1,0 +1,415 @@
+<?xml version="1.0" ?>
+<project default="jar" name="profile">
+    <!-- 工程目录结构
+    project
+        |-bin
+        |-src
+        |-lib
+        |-out
+        |-build.xml
+    -->
+    <property name="lib.dir" value="hive_lib"/>
+    <property name="src.dir" value="profile_src"/>
+    <property name="classes.dir" value="bin"/>
+    <property name="output.dir" value="out"/>
+    <property name="jarname" value="profile.jar"/>
+    <!-- 第三方jar包的路径 -->
+    <path id="lib-classpath">
+        <fileset dir="${lib.dir}">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+    
+    <!-- 1. 初始化工作，如创建目录等 -->
+    <target name="init">
+        <mkdir dir="${classes.dir}"/>
+        <mkdir dir="${output.dir}"/>
+    </target>
+
+    <!-- 2. 编译 -->
+    <target name="compile" depends="init">
+        <javac srcdir="${src.dir}" destdir="${classes.dir}">
+            <compilerarg line="-encoding UTF-8"/>
+            <classpath refid="lib-classpath"/>
+            <exclude name="**/bigdata/" />            
+        </javac>
+    </target>
+
+  
+
+    <!-- 3. 打包jar文件 -->
+    <target name="jar" depends="compile">
+
+       
+
+        <unzip src="${lib.dir}/ant-contrib-1.0b3.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+        <unzip src="${lib.dir}/antlr-runtime-3.0.1.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+        <unzip src="${lib.dir}/asm-3.1.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+        <unzip src="${lib.dir}/commons-cli-1.2.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+        <unzip src="${lib.dir}/commons-codec-1.3.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+        <unzip src="${lib.dir}/commons-collections-3.2.1.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+
+        <unzip src="${lib.dir}/commons-dbcp-1.4.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+
+        <unzip src="${lib.dir}/commons-lang-2.4.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+        <unzip src="${lib.dir}/commons-logging-1.0.4.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+        <unzip src="${lib.dir}/commons-logging-api-1.0.4.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+        <unzip src="${lib.dir}/commons-pool-1.5.4.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+        <unzip src="${lib.dir}/datanucleus-connectionpool-2.0.3.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+
+        <unzip src="${lib.dir}/datanucleus-core-2.0.3.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+
+        <unzip src="${lib.dir}/datanucleus-enhancer-2.0.3.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+        <unzip src="${lib.dir}/datanucleus-rdbms-2.0.3.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+
+        <unzip src="${lib.dir}/derby.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+        <unzip src="${lib.dir}/guava-r06.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+
+        <unzip src="${lib.dir}/hbase-0.89.0-SNAPSHOT.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+        <unzip src="${lib.dir}/hbase-0.89.0-SNAPSHOT-tests.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+
+        <unzip src="${lib.dir}/hive-anttasks-0.7.0.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+        <unzip src="${lib.dir}/hive-cli-0.7.0.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+
+        <unzip src="${lib.dir}/hive-common-0.7.0.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+        <unzip src="${lib.dir}/hive-contrib-0.7.0.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+
+        <unzip src="${lib.dir}/hive-exec-0.7.0.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+        <unzip src="${lib.dir}/hive-hbase-handler-0.7.0.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+
+        <unzip src="${lib.dir}/hive-hwi-0.7.0.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+        <unzip src="${lib.dir}/hive-jdbc-0.7.0.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+
+        <unzip src="${lib.dir}/hive-metastore-0.7.0.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+        <unzip src="${lib.dir}/hive-serde-0.7.0.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+        <unzip src="${lib.dir}/hive-service-0.7.0.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+        <unzip src="${lib.dir}/hive-shims-0.7.0.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+        <unzip src="${lib.dir}/jdo2-api-2.3-ec.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+        <unzip src="${lib.dir}/jline-0.9.94.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+        <unzip src="${lib.dir}/json.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+        <unzip src="${lib.dir}/junit-3.8.1.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+        <unzip src="${lib.dir}/libfb303.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+        <unzip src="${lib.dir}/libthrift.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+        <unzip src="${lib.dir}/log4j-1.2.15.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+        <unzip src="${lib.dir}/log4j-1.2.16.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+        <unzip src="${lib.dir}/mylib.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+        <unzip src="${lib.dir}/slf4j-api-1.6.1.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+        <unzip src="${lib.dir}/slf4j-log4j12-1.6.1.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+        <unzip src="${lib.dir}/stringtemplate-3.1b1.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+        <unzip src="${lib.dir}/thrift-0.5.0.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+        <unzip src="${lib.dir}/thrift-fb303-0.5.0.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+        <unzip src="${lib.dir}/velocity-1.5.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+        <unzip src="${lib.dir}/zookeeper-3.3.1.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+
+        <unzip src="${lib.dir}/mytool.jar" dest="${classes.dir}">
+        <patternset>
+        <exclude name="META-INF"/>
+        <exclude name="META-INF/MANIFEST.MF"/>
+        </patternset>
+        </unzip>
+        
+        <!--Create a property containing all .jar files,
+        prefix lib/, and seperated with a space-->
+        <pathconvert property="mf.classpath" pathsep=" ">
+            <mapper>
+                <chainedmapper>
+                    <!-- jar包文件只留文件名，去掉目录信息 -->
+                    <flattenmapper/>
+                    <!-- add lib/ prefix -->
+                    <globmapper from="*" to="*"/>
+                </chainedmapper>
+            </mapper>
+            <!--flattenmapper /-->
+            <path refid="lib-classpath"/>
+         </pathconvert>
+
+        <!-- jar文件的输出路径 -->
+        <jar destfile="${output.dir}/${jarname}" basedir="${classes.dir}">
+            <manifest>
+                <attribute name="Class-Path" value="${mf.classpath}"/>
+                
+            </manifest>
+        </jar>
+    </target>
+</project>
+
