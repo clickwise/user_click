@@ -96,28 +96,43 @@ public class SampleMulLevel {
 			}
 
 			cates = label.split("\\|");
-			if (cates.length != 3) {
+			if (cates.length != level_num) {
 				continue;
 			}
+			if(level_num>0)
+			{
 			fcate = cates[0].trim();
-			scate = cates[1].trim();
-			tcate = cates[2].trim();
-
-            if(!(labelDicts.get(1).containsKey(fcate)))
-            {
+			}
+			if(level_num>1)
+			{
+			 scate = fcate+"_"+cates[1].trim();
+			}
+			if(level_num>2)
+			{
+			 tcate = scate+"_"+cates[2].trim();
+			 tcate = cates[2].trim();
+			}
+			if(level_num>0)
+			{
+              if(!(labelDicts.get(1).containsKey(fcate)))
+              {
             	labelDicts.get(1).put(fcate, labelDicts.get(1).size()+1);
-            }
-            
-            if(!(labelDicts.get(2).containsKey(scate)))
-            {
+              }
+			}
+			if(level_num>1)
+			{
+              if(!(labelDicts.get(2).containsKey(scate)))
+              {
             	labelDicts.get(2).put(scate, labelDicts.get(2).size()+1);
-            }
-            
-            if(!(labelDicts.get(3).containsKey(tcate)))
-            {
+              }
+			}
+			if(level_num>2)
+			{
+              if(!(labelDicts.get(3).containsKey(tcate)))
+              {
             	labelDicts.get(3).put(tcate, labelDicts.get(3).size()+1);
-            }
-			
+              }
+			}
 			if (SSO.tioe(text)) {
 				continue;
 			}
@@ -233,15 +248,36 @@ public class SampleMulLevel {
 				}
 				label = label.trim();
 				cates=label.split("\\|");
-				if(cates.length!=3)
+				if(cates.length!=level_num)
 				{
 					continue;
 				}
 				
-				fcate=cates[0].trim();
-				scate=cates[1].trim();
-				tcate=cates[2].trim();
-				labelIndexStr=labelDicts.get(1).get(fcate)+"|"+labelDicts.get(2).get(scate)+"|"+labelDicts.get(3).get(tcate);
+				if(level_num>0)
+				{
+				fcate = cates[0].trim();
+				}
+				if(level_num>1)
+				{
+				 scate = fcate+"_"+cates[1].trim();
+				}
+				if(level_num>2)
+				{
+				 tcate = scate+"_"+cates[2].trim();
+				 tcate = cates[2].trim();
+				}
+				if(level_num>0)
+				{
+				  labelIndexStr=labelDicts.get(1).get(fcate)+"";
+				}
+				if(level_num>1)
+				{
+				  labelIndexStr=labelDicts.get(1).get(fcate)+"|"+labelDicts.get(2).get(scate);
+				}
+				if(level_num>2)
+				{
+				  labelIndexStr=labelDicts.get(1).get(fcate)+"|"+labelDicts.get(2).get(scate)+"|"+labelDicts.get(3).get(tcate);
+				}
 				if(!(posslabels.containsKey(labelIndexStr)))
 				{
 				    posslabels.put(labelIndexStr, label);
