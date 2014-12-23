@@ -256,16 +256,20 @@ public class SampleMulLevel {
 				if(level_num>0)
 				{
 				fcate = cates[0].trim();
+				label=fcate;
 				}
 				if(level_num>1)
 				{
 				 scate = fcate+"_"+cates[1].trim();
+				 label=fcate+"|"+scate;
 				}
 				if(level_num>2)
 				{
 				 tcate = scate+"_"+cates[2].trim();
 				 tcate = cates[2].trim();
+				 label=fcate+"|"+scate+"|"+tcate;
 				}
+				
 				if(level_num>0)
 				{
 				  labelIndexStr=labelDicts.get(1).get(fcate)+"";
@@ -278,6 +282,7 @@ public class SampleMulLevel {
 				{
 				  labelIndexStr=labelDicts.get(1).get(fcate)+"|"+labelDicts.get(2).get(scate)+"|"+labelDicts.get(3).get(tcate);
 				}
+				
 				if(!(posslabels.containsKey(labelIndexStr)))
 				{
 				    posslabels.put(labelIndexStr, label);
