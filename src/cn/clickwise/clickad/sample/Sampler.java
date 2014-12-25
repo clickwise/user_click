@@ -329,8 +329,15 @@ public class Sampler {
 		String line="";
 		String[] fields=null;
 		ArrayList<String> docs=new ArrayList<String>();
+		int c=0;
+		
 		while((line=br.readLine())!=null)
 		{
+			if(c<1)
+			{
+				continue;
+			}
+			c++;
 		   if(SSO.tioe(line))
 		   {
 			   continue;
