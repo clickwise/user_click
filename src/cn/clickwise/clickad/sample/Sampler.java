@@ -333,11 +333,12 @@ public class Sampler {
 		
 		while((line=br.readLine())!=null)
 		{
-			if(c<1)
+			c++;
+			if(c<2)
 			{
 				continue;
 			}
-			c++;
+		
 		   if(SSO.tioe(line))
 		   {
 			   continue;
