@@ -297,12 +297,19 @@ public class SSO {
     public static ArrayList<String> ngram(String word)
     {
  
+
+    	
     	ArrayList<String> ngrams=new ArrayList<String>();
        	if(word.length()<=2)
     	{
     	  ngrams.add(word);
     	  return ngrams;
     	}
+       	
+    	if ((Pattern.matches("[a-zA-Z%0-9\\\\\\\\_\\.]*", word))) {
+      	    ngrams.add(word);
+      	    return ngrams;
+		}
        	
     	int i=0;
     	int j=2;
