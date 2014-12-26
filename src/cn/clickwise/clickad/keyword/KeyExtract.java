@@ -243,6 +243,7 @@ public String keyword_extract_detail(String text) {
 			history_word_arr[i] = "";
 		}
 
+		ArrayList<String> nouns=new ArrayList<String>();
 		String key_word = "";
 		String subkey1 = "", subkey2 = "", subkey4 = "", subkey5 = "", subkey6 = "", subkey7 = "", subkey8 = "";
 
@@ -443,6 +444,7 @@ public String keyword_extract_detail(String text) {
 			if (!(Pattern.matches("[a-zA-Z%0-9\\\\\\\\_]*", temp_CC))) {
 				k_s = k_s + temp_CC + " ";
 			}
+			/*
 			temp_list=SSO.ngram(temp_CC);
 			for(int j=0;j<temp_list.size();j++)
 			{
@@ -451,6 +453,8 @@ public String keyword_extract_detail(String text) {
 					k_s = k_s + temp_CCC + " ";
 				}
 			}
+			*/
+			
 		}
 		k_s=k_s.trim();
 		return k_s;
@@ -544,7 +548,7 @@ public String keyword_extract_noun_ngram(String text) {
 		String temp_CC = "";
 		for (int i = 0; i < ngram_word_arr.size(); i++) {
 			temp_CC = ngram_word_arr.get(i) + "";
-			if (!(Pattern.matches("[a-zA-Z%0-9\\\\\\\\_]*", temp_CC))) {
+			if (!(Pattern.matches("[a-zA-Z%0-9\\\\\\\\_\\-]*", temp_CC))) {
 				k_s = k_s + temp_CC + " ";
 			}
 		}
