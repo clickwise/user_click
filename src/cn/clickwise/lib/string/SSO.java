@@ -314,7 +314,7 @@ public class SSO {
     	int i=0;
     	int j=2;
     	String gram="";
-    	for(i=0;i<word.length()-2;i++)
+    	for(i=0;i<=(word.length()-2);i++)
     	{
     		for(j=i+2;j<=word.length();j++)
     		{
@@ -374,7 +374,7 @@ public class SSO {
 		String str="Thread-7";
 		System.out.println("str:"+str.replaceAll("Thread\\-", ""));
         */
-		String source="中";
+		String source="学生椅子";
 		ArrayList<String> list=ngram(source);
 		for(int i=0;i<list.size();i++)
 		{
