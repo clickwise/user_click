@@ -102,7 +102,9 @@ public class WebTest {
 	}
 
 	public void pageMulInOut(int threadNum) {
+		
 		try {
+			
 			BufferedReader br = new BufferedReader(new InputStreamReader(
 					System.in));
 			String line = "";
@@ -117,23 +119,26 @@ public class WebTest {
 					continue;
 				}
 				urllist.add(line);
-
 			}
 
 			int k = 0;
 			qud.setAllCount(urllist.size());
 			while ((qud.getCount() < urllist.size())) {
+				
 				try{
-				qud.add2Pond(urllist.get(k));
-				Thread.sleep(10);
-				if ((k <( urllist.size()-1))) {
-					k++;
-				}
-				if(k==( urllist.size()-1))
-				{
-					Thread.sleep(1000);
-				}
-				}
+				   qud.add2Pond(urllist.get(k));
+				   Thread.sleep(10);
+				
+				   if ((k <( urllist.size()-1))) {
+					  k++;
+				   }
+				
+				   if(k==( urllist.size()-1))
+				   {
+					 Thread.sleep(1000);
+				   }
+				
+				 }
 				catch(Exception e)
 				{
 					e.printStackTrace();
@@ -149,6 +154,7 @@ public class WebTest {
 
 	public static void main(String[] args) {
 
+		/*
 		if (args.length != 1) {
 			System.err.println("Usage:<opt>" + "opt:" + "0->title"
 					+ "1->title、keywords、description");
@@ -157,19 +163,19 @@ public class WebTest {
 
 		int opt = 0;
 		opt = Integer.parseInt(args[0]);
-
-		/*
-		String url = "http://club.autohome.com.cn"; 
+        */
+		
+		String url = "http://list.taobao.com/itemlist/default.htm?cat=50450022&viewIndex=1&as=0&spm=a2106.2206569.0.0.3XBIs2&atype=b&style=grid&same_info=1&isnew=2&tid=0&_input_charset=utf-8"; 
 		WebTest wt=new WebTest(); 
 		// System.out.println(wt.getTitle(url)); 
 		Fetcher f = new Fetcher();
-		System.out.println(f.getAbstract(url).toString());
-		*/
+		System.out.println(f.getSource(url).toString());
 		
 		
+		/*
 		WebTest wt = new WebTest();
 		wt.pageMulInOut(opt);
-        
+        */
 	}
 
 	public Fetcher getFetcher() {

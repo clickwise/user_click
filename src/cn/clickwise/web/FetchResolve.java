@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public abstract class FetchResolve {
 
-	public abstract ResolveInfo fetchAndResolve();
+	public abstract ResolveInfo fetchAndResolve(String url);
 	
 	
 }

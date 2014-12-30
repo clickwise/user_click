@@ -459,7 +459,6 @@ public class Fetcher {
 				"122.72.11.131", "122.72.11.132", "122.72.99.2", "122.72.99.3",
 				"122.72.99.4", "122.72.99.8" };
 	    
-
 		  int rani = -1;
 		  rani = (int) (ran * (proxy_arr.length));
 		  HttpHost proxy = new HttpHost(proxy_arr[rani], 80, "http");

@@ -5,6 +5,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import cn.clickwise.lib.string.SSO;
 
 public class QueueUrlPool extends UrlPond{
+	
 	private static Queue<String> queue = new ConcurrentLinkedQueue<String>();
 
 	private int count;
@@ -65,6 +66,7 @@ public class QueueUrlPool extends UrlPond{
 			}
 		}
 	}
+	
 	private synchronized void printContent(ResolveInfo resolveInfo)
 	{
 		/*
@@ -93,7 +95,6 @@ public class QueueUrlPool extends UrlPond{
 
 		private ConfigureFactory confFactory;
 
-
 		private int fetcher_opt = 0;
 		
 		private FetchResolve fetchResolve;
@@ -105,6 +106,7 @@ public class QueueUrlPool extends UrlPond{
 			fetcher_opt = confFactory.getFetcherOpt();
 
 			fetchResolve=confFactory.getFetchResolve();
+			
 		}
 
 		@Override
@@ -133,10 +135,11 @@ public class QueueUrlPool extends UrlPond{
 						Thread.sleep((long) (10 * Math.random()));
 						continue;
 					}
+					
 					incrCount();
 				
 					System.out.println("fetch url:"+url);
-					resolveInfo = fetchResolve.fetchAndResolve();
+					resolveInfo = fetchResolve.fetchAndResolve(url);
 					
 					if (resolveInfo == null) {
 						continue;
