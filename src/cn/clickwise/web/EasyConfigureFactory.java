@@ -30,6 +30,12 @@ public class EasyConfigureFactory extends ConfigureFactory{
 		return 1;
 	}
 
+	@Override
+	public FetchResolve getFetchResolve() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 
 	

@@ -159,13 +159,17 @@ public class WebTest {
 		opt = Integer.parseInt(args[0]);
 
 		/*
-		 * String url = "http://club.autohome.com.cn"; // WebTest wt=new
-		 * WebTest(); // System.out.println(wt.getTitle(url)); Fetcher f = new
-		 * Fetcher(); System.out.println(f.getAbstract(url).toString());
-		 */
+		String url = "http://club.autohome.com.cn"; 
+		WebTest wt=new WebTest(); 
+		// System.out.println(wt.getTitle(url)); 
+		Fetcher f = new Fetcher();
+		System.out.println(f.getAbstract(url).toString());
+		*/
+		
+		
 		WebTest wt = new WebTest();
 		wt.pageMulInOut(opt);
-
+        
 	}
 
 	public Fetcher getFetcher() {

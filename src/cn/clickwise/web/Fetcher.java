@@ -138,11 +138,11 @@ public class Fetcher {
 				"122.72.99.8" };
 		int rani = -1;
 		rani = (int) (ran * 9);
+		
 		HttpHost proxy = new HttpHost(proxy_hosts[rani], 80, "http");
-		httpclient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,
-				proxy);
-		httpclient.getParams().setParameter(
-				CoreConnectionPNames.CONNECTION_TIMEOUT, 1000);
+		httpclient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,proxy);
+		
+		httpclient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, 1000);
 
 		url = url.trim();
 		if ((url == null) || (url.length() < 5)) {
@@ -508,8 +508,7 @@ public class Fetcher {
 			//System.out.println("charset1:"+charset);
 			
 			charset=charset.trim();
-			
-			
+				
 			byte[] bytes = new byte[1024];
 			InputStream is = entity.getContent();
 			is.read(bytes);
@@ -556,6 +555,7 @@ public class Fetcher {
 			source=content;
 			*/
 			sourceis=entity.getContent();
+			
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}			

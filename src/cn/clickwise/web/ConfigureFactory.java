@@ -9,5 +9,7 @@ public abstract class ConfigureFactory {
 	public abstract String getWordAnalyticOutputDir();
 	
     public abstract int getFetcherOpt();
+    
+    public abstract FetchResolve getFetchResolve();
 	
 }

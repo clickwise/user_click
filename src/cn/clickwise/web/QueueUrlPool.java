@@ -2,11 +2,9 @@ package cn.clickwise.web;
 
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
-
 import cn.clickwise.lib.string.SSO;
 
-public class QueueUrlPond extends UrlPond {
-
+public class QueueUrlPool extends UrlPond{
 	private static Queue<String> queue = new ConcurrentLinkedQueue<String>();
 
 	private int count;
@@ -67,10 +65,12 @@ public class QueueUrlPond extends UrlPond {
 			}
 		}
 	}
-	private synchronized void printContent(String content)
+	private synchronized void printContent(ResolveInfo resolveInfo)
 	{
+		/*
 		System.out.println(content);
 		System.out.flush();
+		*/
 	}
 
 	public int getCount() {
@@ -93,9 +93,10 @@ public class QueueUrlPond extends UrlPond {
 
 		private ConfigureFactory confFactory;
 
-		private Fetcher fetcher = new Fetcher();
 
 		private int fetcher_opt = 0;
+		
+		private FetchResolve fetchResolve;
 
 		public void init() {
 
@@ -103,15 +104,54 @@ public class QueueUrlPond extends UrlPond {
 
 			fetcher_opt = confFactory.getFetcherOpt();
 
+			fetchResolve=confFactory.getFetchResolve();
 		}
 
 		@Override
 		public void run() {
+			
 			init();
-			parseWord();
+			parseInfo();
 
 		}
 
+		public void parseInfo()
+		{
+			String url = "";
+			String content = "";
+			ResolveInfo resolveInfo = null;
+			
+			while (true) {
+
+				try {
+					// System.out.println("sleeptime is:"+getSleepTime());
+					// Thread.sleep(getSleepTime());
+
+					url = pollFromPond();
+					
+					if (SSO.tioe(url)) {
+						Thread.sleep((long) (10 * Math.random()));
+						continue;
+					}
+					incrCount();
+				
+					System.out.println("fetch url:"+url);
+					resolveInfo = fetchResolve.fetchAndResolve();
+					
+					if (resolveInfo == null) {
+						continue;
+					}
+		
+					printContent(resolveInfo);
+					
+				} catch (Exception e) {
+					incrCount();
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		/*
 		public void parseWord() {
 
 			String url = "";
@@ -152,6 +192,8 @@ public class QueueUrlPond extends UrlPond {
 				}
 			}
 		}
+		
+		*/
 
 	}
 
