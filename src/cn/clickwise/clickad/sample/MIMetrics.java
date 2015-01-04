@@ -2,6 +2,9 @@ package cn.clickwise.clickad.sample;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+
+import love.cq.util.MapCount;
 
 import cn.clickwise.lib.string.SSO;
 
@@ -24,7 +27,7 @@ public class MIMetrics extends Metrics{
 	public HashMap<String, Double> getWordMetrics(int field_num,
 			int sample_field_index, int label_field_index, String separator,
 			ArrayList<String> docs, HashMap<String, Integer> dicts,
-			HashMap<String, Integer> labels) {
+			HashMap<String, Integer> labels,MapCount<String> dictCounts,MapCount<String> labelCounts) {
 		   double N=docs.size();
 		// TODO Auto-generated method stub
 		return null;
@@ -34,7 +37,7 @@ public class MIMetrics extends Metrics{
 	public HashMap<String, HashMap<String, Double>> getCateWordMetrics(
 			int field_num, int sample_field_index, int label_field_index,
 			String separator, ArrayList<String> docs,
-			HashMap<String, Integer> dicts, HashMap<String, Integer> labels) {
+			HashMap<String, Integer> dicts, HashMap<String, Integer> labels,MapCount<String> dictCounts,MapCount<String> labelCounts) {
 		
 		double N=docs.size();
 		
@@ -61,6 +64,11 @@ public class MIMetrics extends Metrics{
 		//单词
 		String token="";
 		
+		ArrayList<String> otherWords=null;
+		ArrayList<String> otherCates=null;
+		
+		String word="";
+		
 		for(int i=0;i<docs.size();i++)
 		{
 			line=docs.get(i);
@@ -78,7 +86,6 @@ public class MIMetrics extends Metrics{
 		    }
 		    label=label.trim();
 		    
-
 		    if(SSO.tioe(text))
 		    {
 		    	continue;
@@ -86,6 +93,48 @@ public class MIMetrics extends Metrics{
 		    text=text.trim();
 		    
 		    tokens=text.split("\\s+");
+		    otherWords=getWordsNotInDoc(dicts,tokens,dictCounts);
+		    
+		    //更新CH
+		    for(int j=0;j<otherWords.size();j++)
+		    {
+		        word=otherWords.get(j);
+		        if(SSO.tioe(word))
+		        {
+		        	continue;
+		        }
+		        word=word.trim();
+		        if(!(CH.containsKey(label)))
+		        {
+		        	CH.put(label, new HashMap<String,Double>());
+		        	if(!(CH.get(label).containsKey(word)))
+		        	{
+		        		CH.get(label).put(word, 1.0);
+		        	}
+		        	else
+		        	{
+		        		CH.get(label).put(word, CH.get(label).get(word)+1);
+		        	}
+		     
+		        }
+		        else
+		        {
+		        	if(!(CH.get(label).containsKey(word)))
+		        	{
+		        		CH.get(label).put(word, 1.0);
+		        	}
+		        	else
+		        	{
+		        		CH.get(label).put(word, CH.get(label).get(word)+1);
+		        	}  	
+		        }
+		        
+		    }
+		    
+		    
+		    
+		    otherCates=getCatesNotThis(labels,label);
+		    MapCount<String> tc=new MapCount<String>();
 		    for(int j=0;j<tokens.length;j++)
 		    {
 		      token=tokens[j];
@@ -94,8 +143,48 @@ public class MIMetrics extends Metrics{
 		    	  continue;
 		      }
 		      token=token.trim();
-
+		      tc.add(token);
 		    }
+		    
+		    //更新BH
+		    String tempc="";
+		    String tempw="";
+		    
+		    for(Map.Entry<String, Integer> m:tc.get().entrySet())
+		    {
+		    	tempw=m.getKey();
+		       	for(int k=0;k<otherCates.size();k++)
+		       	{
+		       		tempc=otherCates.get(k);
+		       		
+			        if(!(BH.containsKey(tempc)))
+			        {
+			        	BH.put(tempc, new HashMap<String,Double>());
+			        	if(!(BH.get(tempc).containsKey(tempw)))
+			        	{
+			        		BH.get(tempc).put(tempw, 1.0);
+			        	}
+			        	else
+			        	{
+			        		BH.get(tempc).put(tempw, BH.get(tempc).get(tempw)+1);
+			        	}
+			     
+			        }
+			        else
+			        {
+			        	if(!(BH.get(tempc).containsKey(tempw)))
+			        	{
+			        		BH.get(tempc).put(tempw, 1.0);
+			        	}
+			        	else
+			        	{
+			        		BH.get(tempc).put(tempw, BH.get(tempc).get(tempw)+1);
+			        	}  	
+			        }
+		       	}
+		    }
+		    
+		    
 		    
 		}
 		

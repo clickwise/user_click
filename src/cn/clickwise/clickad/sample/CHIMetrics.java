@@ -3,6 +3,8 @@ package cn.clickwise.clickad.sample;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import love.cq.util.MapCount;
+
 
 /**
  * chi square 标准
@@ -24,7 +26,7 @@ public class CHIMetrics extends Metrics{
 	public HashMap<String, Double> getWordMetrics(int field_num,
 			int sample_field_index, int label_field_index, String separator,
 			ArrayList<String> docs, HashMap<String, Integer> dicts,
-			HashMap<String, Integer> labels) {
+			HashMap<String, Integer> labels,MapCount<String> dictCounts,MapCount<String> labelCounts) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -33,7 +35,7 @@ public class CHIMetrics extends Metrics{
 	public HashMap<String, HashMap<String, Double>> getCateWordMetrics(
 			int field_num, int sample_field_index, int label_field_index,
 			String separator, ArrayList<String> docs,
-			HashMap<String, Integer> dicts, HashMap<String, Integer> labels) {
+			HashMap<String, Integer> dicts, HashMap<String, Integer> labels,MapCount<String> dictCounts,MapCount<String> labelCounts) {
 		// TODO Auto-generated method stub
 		return null;
 	}
