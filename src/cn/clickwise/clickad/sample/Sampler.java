@@ -41,11 +41,15 @@ public class Sampler {
 	 */
 	private HashMap<String,Integer> labels;
 	
+	
+	
 	public Sampler(){
 		dictCounts=new MapCount<String>();
 		labelCounts=new MapCount<String>();
 		dicts=new HashMap<String,Integer>();
 		labels=new HashMap<String,Integer>();
+		
+		
 	}
 	
 	public void getDictsAndLabels(int field_num,int sample_field_index,int label_field_index,String separator,ArrayList<String> docs){
@@ -105,7 +109,12 @@ public class Sampler {
 			  }
 		    }
 		    
-		}
+		}//doc loop end
+		
+		
+		
+		
+		
 		
 	}
 	

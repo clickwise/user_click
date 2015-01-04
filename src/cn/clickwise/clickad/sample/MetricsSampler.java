@@ -12,7 +12,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import love.cq.util.MapCount;
+import cn.clickwise.clickad.classify.Classifier;
 import cn.clickwise.lib.string.SSO;
 
 
@@ -38,11 +42,16 @@ public class MetricsSampler {
 	 */
 	private HashMap<String,Integer> labels;
 	
+	private Metrics metrics=null;
+	
+	static Logger logger = LoggerFactory.getLogger(MetricsSampler.class);
+	
 	public MetricsSampler(){
 		dictCounts=new MapCount<String>();
 		labelCounts=new MapCount<String>();
 		dicts=new HashMap<String,Integer>();
 		labels=new HashMap<String,Integer>();
+		metrics=MetricsFactory.getMetrics();
 	}
 	
 	public void getDictsAndLabels(int field_num,int sample_field_index,int label_field_index,String separator,ArrayList<String> docs){
@@ -102,7 +111,18 @@ public class MetricsSampler {
 			  }
 		    }
 		    
+		}//doc loop end
+		
+		HashMap<String,HashMap<String,Double>> cateWordMetrics=metrics.getCateWordMetrics(field_num, sample_field_index, label_field_index, separator, docs, dicts, labels, dictCounts, labelCounts);
+		
+		for(Map.Entry<String, HashMap<String,Double>> m:cateWordMetrics.entrySet())
+		{
+		   for(Map.Entry<String, Double> n:m.getValue().entrySet())
+		   {
+			   logger.info(m.getKey()+":"+n.getKey()+"->"+n.getValue());
+		   }
 		}
+		
 		
 	}
 	
