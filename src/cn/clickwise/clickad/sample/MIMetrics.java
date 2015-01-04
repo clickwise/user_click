@@ -130,9 +130,7 @@ public class MIMetrics extends Metrics{
 		        }
 		        
 		    }
-		    
-		    
-		    
+		     
 		    otherCates=getCatesNotThis(labels,label);
 		    MapCount<String> tc=new MapCount<String>();
 		    for(int j=0;j<tokens.length;j++)
@@ -146,13 +144,15 @@ public class MIMetrics extends Metrics{
 		      tc.add(token);
 		    }
 		    
-		    //更新BH
+		   
 		    String tempc="";
 		    String tempw="";
 		    
 		    for(Map.Entry<String, Integer> m:tc.get().entrySet())
 		    {
 		    	tempw=m.getKey();
+		    	
+		    	 //更新BH
 		       	for(int k=0;k<otherCates.size();k++)
 		       	{
 		       		tempc=otherCates.get(k);
@@ -162,11 +162,11 @@ public class MIMetrics extends Metrics{
 			        	BH.put(tempc, new HashMap<String,Double>());
 			        	if(!(BH.get(tempc).containsKey(tempw)))
 			        	{
-			        		BH.get(tempc).put(tempw, 1.0);
+			        		BH.get(tempc).put(tempw, (double)m.getValue());
 			        	}
 			        	else
 			        	{
-			        		BH.get(tempc).put(tempw, BH.get(tempc).get(tempw)+1);
+			        		BH.get(tempc).put(tempw, BH.get(tempc).get(tempw)+m.getValue());
 			        	}
 			     
 			        }
@@ -174,21 +174,87 @@ public class MIMetrics extends Metrics{
 			        {
 			        	if(!(BH.get(tempc).containsKey(tempw)))
 			        	{
-			        		BH.get(tempc).put(tempw, 1.0);
+			        		BH.get(tempc).put(tempw, (double)m.getValue());
 			        	}
 			        	else
 			        	{
-			        		BH.get(tempc).put(tempw, BH.get(tempc).get(tempw)+1);
+			        		BH.get(tempc).put(tempw, BH.get(tempc).get(tempw)+m.getValue());
 			        	}  	
 			        }
 		       	}
+		       	
+		       	//更新AH
+		        if(!(AH.containsKey(label)))
+		        {
+		        	AH.put(label, new HashMap<String,Double>());
+		        	if(!(AH.get(label).containsKey(tempw)))
+		        	{
+		        		AH.get(label).put(tempw, (double)m.getValue());
+		        	}
+		        	else
+		        	{
+		        		AH.get(label).put(tempw, AH.get(label).get(tempw)+m.getValue());
+		        	}
+		     
+		        }
+		        else
+		        {
+		        	if(!(AH.get(label).containsKey(tempw)))
+		        	{
+		        		AH.get(label).put(tempw, (double)m.getValue());
+		        	}
+		        	else
+		        	{
+		        		AH.get(label).put(tempw, AH.get(label).get(tempw)+m.getValue());
+		        	}  	
+		        }
+		       	
 		    }
 		    
-		    
-		    
+		}//doc loop end
+		
+		
+		
+		HashMap<String,HashMap<String, Double>> cateWordMetrics=new HashMap<String,HashMap<String, Double>>();
+		
+		String cate="";
+		//I(t,c)~=log(A*N/((A+C)*(A+B)))
+		double A=0,B=0,C=0;
+		double I=0;
+		for(Map.Entry<String, Integer> m:labels.entrySet())
+		{
+			cate=m.getKey();
+			if((!(AH.containsKey(cate)))||(!(BH.containsKey(cate)))||(!(CH.containsKey(cate))))
+			{
+				continue;
+			}
+			
+			if(!(cateWordMetrics.containsKey(cate)))
+			{
+				cateWordMetrics.put(cate, new HashMap<String, Double>());
+			}
+			
+			for(Map.Entry<String, Integer> n:dicts.entrySet())
+			{
+				word=n.getKey();
+		        if((!(AH.get(cate).containsKey(word)))||(!(BH.get(cate).containsKey(word)))||(!(CH.get(cate).containsKey(word))))
+		        {
+		        	continue;
+		        }
+				
+		        A=AH.get(cate).get(word);
+		        B=BH.get(cate).get(word);
+		        C=CH.get(cate).get(word);
+		        I=A*N/((A+C)*(A+B));
+		        I=Math.log(I);
+		        
+		        cateWordMetrics.get(cate).put(word, I);
+			}
+				
 		}
 		
-		return null;
+		
+		return cateWordMetrics;
 	}
 	
 	
