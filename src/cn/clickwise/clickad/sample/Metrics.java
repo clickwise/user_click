@@ -62,7 +62,7 @@ public abstract class Metrics {
 			}
 		}
 		
-		for(Map.Entry<String, Integer> m:docWords.entrySet())
+		for(Map.Entry<String, Integer> m:dicts.entrySet())
 		{
 			if(!(docWords.containsKey(m.getKey())))
 			{

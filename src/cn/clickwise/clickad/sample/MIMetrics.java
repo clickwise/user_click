@@ -40,6 +40,7 @@ public class MIMetrics extends Metrics{
 			HashMap<String, Integer> dicts, HashMap<String, Integer> labels,MapCount<String> dictCounts,MapCount<String> labelCounts) {
 		
 		double N=docs.size();
+		System.err.println("N:"+N);
 		
 		//第一级索引类别c，第二级索引单词t ,t and c co-occur
 		HashMap<String,HashMap<String,Double>> AH=new HashMap<String,HashMap<String,Double>>();
@@ -94,7 +95,7 @@ public class MIMetrics extends Metrics{
 		    
 		    tokens=text.split("\\s+");
 		    otherWords=getWordsNotInDoc(dicts,tokens,dictCounts);
-		    
+		    //System.out.println("otherWords.size:"+otherWords.size());      
 		    //更新CH
 		    for(int j=0;j<otherWords.size();j++)
 		    {

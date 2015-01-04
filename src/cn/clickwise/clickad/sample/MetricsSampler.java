@@ -1,6 +1,7 @@
 package cn.clickwise.clickad.sample;
 
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -120,6 +121,7 @@ public class MetricsSampler {
 		   for(Map.Entry<String, Double> n:m.getValue().entrySet())
 		   {
 			   logger.info(m.getKey()+":"+n.getKey()+"->"+n.getValue());
+			   System.out.println(m.getKey()+":"+n.getKey()+"->"+n.getValue());
 		   }
 		}
 		
@@ -332,8 +334,8 @@ public class MetricsSampler {
 		gensample=args[6].trim();
 		
 		MetricsSampler sampler=new MetricsSampler();
-		InputStreamReader isr=new InputStreamReader(System.in);
-		BufferedReader br=new BufferedReader(isr);
+		//InputStreamReader isr=new InputStreamReader(System.in);
+		BufferedReader br=new BufferedReader(new FileReader("test/keyhost.txt"));
 		
 		
 		//String line="";
@@ -363,7 +365,7 @@ public class MetricsSampler {
 		   docs.add(line);
 		}
 		
-		isr.close();
+		//isr.close();
 		br.close();
 		
 		sampler.train2sample(fieldNum, sampleFieldIndex,labelFieldIndex, separator, outputSeparator, gendict, genlabeldict, gensample, docs);
