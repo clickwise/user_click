@@ -29,4 +29,13 @@ public class CHIMetrics extends Metrics{
 		return null;
 	}
 
+	@Override
+	public HashMap<String, HashMap<String, Double>> getCateWordMetrics(
+			int field_num, int sample_field_index, int label_field_index,
+			String separator, ArrayList<String> docs,
+			HashMap<String, Integer> dicts, HashMap<String, Integer> labels) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
