@@ -116,13 +116,15 @@ public class MetricsSampler {
 		
 		HashMap<String,HashMap<String,Double>> cateWordMetrics=metrics.getCateWordMetrics(field_num, sample_field_index, label_field_index, separator, docs, dicts, labels, dictCounts, labelCounts);
 		
-		for(Map.Entry<String, HashMap<String,Double>> m:cateWordMetrics.entrySet())
+		HashMap<String,ArrayList<WORD>> sortCWM=Metrics.sortCateWordsMetrics(cateWordMetrics);
+		for(Map.Entry<String, ArrayList<WORD>> m:sortCWM.entrySet())
 		{
-		   for(Map.Entry<String, Double> n:m.getValue().entrySet())
-		   {
-			   logger.info(m.getKey()+":"+n.getKey()+"->"+n.getValue());
-			   System.out.println(m.getKey()+":"+n.getKey()+"->"+n.getValue());
-		   }
+			ArrayList<WORD> swlist=m.getValue();
+			for(int i=0;i<swlist.size();i++)
+			{
+				logger.info(swlist.get(i).w+":"+swlist.get(i).v);
+			}
+			
 		}
 		
 		

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.jmlp.sort.utils.SortStrArray;
+
 import cn.clickwise.lib.string.SSO;
 
 import love.cq.util.MapCount;
@@ -87,6 +89,60 @@ public abstract class Metrics {
 		
 		
 		return otherCates;
+	}
+	
+	public static HashMap<String,ArrayList<WORD>> sortCateWordsMetrics(HashMap<String,HashMap<String,Double>> cateWordsMetrics)
+	{
+		
+		HashMap<String,ArrayList<WORD>> sortCWM=new HashMap<String,ArrayList<WORD>>();
+		for(Map.Entry<String, HashMap<String,Double>> m:cateWordsMetrics.entrySet())
+		{
+			ArrayList<WORD> wlist=sortHash(m.getValue());
+			sortCWM.put(m.getKey(), wlist);
+		}
+		
+		return sortCWM;
+	}
+	
+	public static ArrayList<WORD> sortHash(HashMap<String,Double> wh)
+	{
+		ArrayList<String> whlist=new ArrayList<String>();
+		for(Map.Entry<String, Double> m:wh.entrySet())
+		{
+			whlist.add(m.getKey()+"\001"+m.getValue());
+		}
+		
+		String[] sorted=SortStrArray.sort_List(whlist, 1, "dou", 2, "\001");
+		String word="";
+		double weight=0;
+		
+		String line="";
+		String[] tokens=null;
+		WORD w=null;
+		
+		ArrayList<WORD> wordList=new ArrayList<WORD>();
+		for(int i=0;i<sorted.length;i++)
+		{
+		  	line=sorted[i];
+		  	if(SSO.tioe(line))
+		  	{
+		  		continue;
+		  	}
+		  	
+		  	tokens=line.split("\001");
+		  	if(tokens.length!=2)
+		  	{
+		  		continue;
+		  	}
+		  	
+		  	word=tokens[0];
+		  	weight=Double.parseDouble(tokens[1]);
+		  	w=new WORD(word,weight);
+		  	wordList.add(w);
+		}
+		
+		
+		return wordList;
 	}
 	
 }
