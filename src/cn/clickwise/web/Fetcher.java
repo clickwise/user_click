@@ -138,6 +138,7 @@ public class Fetcher {
 				"122.72.99.8" };
 		int rani = -1;
 		rani = (int) (ran * 9);
+		System.err.println("rani:"+rani);
 		
 		HttpHost proxy = new HttpHost(proxy_hosts[rani], 80, "http");
 		httpclient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,proxy);
