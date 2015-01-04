@@ -122,7 +122,7 @@ public class MetricsSampler {
 			ArrayList<WORD> swlist=m.getValue();
 			for(int i=0;i<swlist.size();i++)
 			{
-				logger.info(m+"\t"+swlist.get(i).w+":"+swlist.get(i).v);
+				logger.info(m.getKey()+"\t"+swlist.get(i).w+":"+swlist.get(i).v);
 			}
 			
 		}
