@@ -4,7 +4,7 @@ public class MetricsFactory {
 	
 	 public static Metrics getMetrics()
 	 {
-		 return null;
+		 return new MIMetrics();
 	 }
 
 }
