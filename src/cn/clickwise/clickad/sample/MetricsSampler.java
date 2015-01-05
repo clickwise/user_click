@@ -119,6 +119,8 @@ public class MetricsSampler {
 		HashMap<String,ArrayList<WORD>> sortCWM=Metrics.sortCateWordsMetrics(cateWordMetrics);
 		dicts=new HashMap<String,Integer>();
 		dict_index=1;
+		System.out.println("sortCWM.size:"+sortCWM.size());
+		System.out.println("topNum:"+topNum);
 		for(Map.Entry<String, ArrayList<WORD>> m:sortCWM.entrySet())
 		{
 			ArrayList<WORD> swlist=m.getValue();
