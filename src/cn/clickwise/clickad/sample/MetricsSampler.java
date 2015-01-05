@@ -126,7 +126,7 @@ public class MetricsSampler {
 			ArrayList<WORD> swlist=m.getValue();
 			for(int i=0;i<topNum;i++)
 			{
-				//logger.info(m.getKey()+"\t"+swlist.get(i).w+":"+swlist.get(i).v);
+				  logger.info(m.getKey()+"\t"+swlist.get(i).w+":"+swlist.get(i).v);
 				  if(!(dicts.containsKey(swlist.get(i).w)))
 				  {
 				    dicts.put(swlist.get(i).w, dict_index++);
