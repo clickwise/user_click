@@ -41,7 +41,7 @@ public class MIMetrics extends Metrics{
 		
 		double N=docs.size();
 		System.err.println("N:"+N);
-		
+		System.err.println("dicts.size:"+dicts.size());
 		//第一级索引类别c，第二级索引单词t ,t and c co-occur
 		HashMap<String,HashMap<String,Double>> AH=new HashMap<String,HashMap<String,Double>>();
 		
@@ -81,6 +81,7 @@ public class MIMetrics extends Metrics{
 			
 		    label=fields[label_field_index];
 		    text=fields[sample_field_index];
+		    //System.err.println("i="+i+"  :"+text);
 		    if(SSO.tioe(label))
 		    {
 		    	continue;
@@ -95,7 +96,8 @@ public class MIMetrics extends Metrics{
 		    
 		    tokens=text.split("\\s+");
 		    otherWords=getWordsNotInDoc(dicts,tokens,dictCounts);
-		    //System.out.println("otherWords.size:"+otherWords.size());      
+		    //System.out.println("i="+i+" otherWords.size:"+otherWords.size());      
+		    
 		    //更新CH
 		    for(int j=0;j<otherWords.size();j++)
 		    {
@@ -131,6 +133,8 @@ public class MIMetrics extends Metrics{
 		        }
 		        
 		    }
+		    
+		    //System.err.println("i="+i+" label="+label+" CH.size:"+CH.get(label).size());
 		     
 		    otherCates=getCatesNotThis(labels,label);
 		    //System.out.println("otherCates.size:"+otherCates.size());
@@ -185,6 +189,7 @@ public class MIMetrics extends Metrics{
 			        }
 		       	}
 		       	
+		       //	System.err.println("label:"+label+" tempc:"+tempc+" tempw:"+tempw+" "+BH.get(tempc).get(tempw));
 		       	//更新AH
 		        if(!(AH.containsKey(label)))
 		        {
@@ -230,6 +235,8 @@ public class MIMetrics extends Metrics{
 				continue;
 			}
 			
+			
+			
 			if(!(cateWordMetrics.containsKey(cate)))
 			{
 				cateWordMetrics.put(cate, new HashMap<String, Double>());
@@ -238,14 +245,36 @@ public class MIMetrics extends Metrics{
 			for(Map.Entry<String, Integer> n:dicts.entrySet())
 			{
 				word=n.getKey();
-		        if((!(AH.get(cate).containsKey(word)))||(!(BH.get(cate).containsKey(word)))||(!(CH.get(cate).containsKey(word))))
+		        //if((!(AH.get(cate).containsKey(word)))||(!(BH.get(cate).containsKey(word)))||(!(CH.get(cate).containsKey(word))))
+		        //{
+		        //	continue;
+		        //}
+				if(AH.get(cate).containsKey(word))
+				{
+		         A=AH.get(cate).get(word);
+				}
+				else
+				{
+				 continue;
+				}
+		        if(BH.get(cate).containsKey(word))
 		        {
-		        	continue;
+		          B=BH.get(cate).get(word);
 		        }
-				
-		        A=AH.get(cate).get(word);
-		        B=BH.get(cate).get(word);
-		        C=CH.get(cate).get(word);
+		        else
+		        {
+		          B=0;
+		        }
+		        
+		        if(CH.get(cate).containsKey(word))
+		        {
+		          C=CH.get(cate).get(word);
+		        }
+		        else
+		        {
+		          C=0;
+		        }
+		        
 		        I=A*N/((A+C)*(A+B));
 		        I=Math.log(I);
 		        
