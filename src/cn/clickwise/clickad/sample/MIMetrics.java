@@ -133,6 +133,7 @@ public class MIMetrics extends Metrics{
 		    }
 		     
 		    otherCates=getCatesNotThis(labels,label);
+		    //System.out.println("otherCates.size:"+otherCates.size());
 		    MapCount<String> tc=new MapCount<String>();
 		    for(int j=0;j<tokens.length;j++)
 		    {
@@ -195,8 +196,7 @@ public class MIMetrics extends Metrics{
 		        	else
 		        	{
 		        		AH.get(label).put(tempw, AH.get(label).get(tempw)+m.getValue());
-		        	}
-		     
+		        	}		     
 		        }
 		        else
 		        {
