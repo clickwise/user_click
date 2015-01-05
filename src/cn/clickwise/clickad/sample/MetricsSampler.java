@@ -116,6 +116,11 @@ public class MetricsSampler {
 		
 		HashMap<String,HashMap<String,Double>> cateWordMetrics=metrics.getCateWordMetrics(field_num, sample_field_index, label_field_index, separator, docs, dicts, labels, dictCounts, labelCounts);
 		
+		for(Map.Entry<String, HashMap<String,Double>> m:cateWordMetrics.entrySet())
+		{
+			logger.info(m.getKey()+":"+m.getValue().size());
+		}
+		
 		HashMap<String,ArrayList<WORD>> sortCWM=Metrics.sortCateWordsMetrics(cateWordMetrics);
 		dicts=new HashMap<String,Integer>();
 		dict_index=1;
