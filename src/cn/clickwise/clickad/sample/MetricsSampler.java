@@ -55,7 +55,7 @@ public class MetricsSampler {
 		metrics=MetricsFactory.getMetrics();
 	}
 	
-	public void getDictsAndLabels(int field_num,int sample_field_index,int label_field_index,String separator,ArrayList<String> docs){
+	public void getDictsAndLabels(int field_num,int sample_field_index,int label_field_index,String separator,ArrayList<String> docs,int topNum){
 		
 		String line="";
 		String[] fields=null;
@@ -117,12 +117,18 @@ public class MetricsSampler {
 		HashMap<String,HashMap<String,Double>> cateWordMetrics=metrics.getCateWordMetrics(field_num, sample_field_index, label_field_index, separator, docs, dicts, labels, dictCounts, labelCounts);
 		
 		HashMap<String,ArrayList<WORD>> sortCWM=Metrics.sortCateWordsMetrics(cateWordMetrics);
+		dicts=new HashMap<String,Integer>();
+		dict_index=1;
 		for(Map.Entry<String, ArrayList<WORD>> m:sortCWM.entrySet())
 		{
 			ArrayList<WORD> swlist=m.getValue();
-			for(int i=0;i<swlist.size();i++)
+			for(int i=0;i<topNum;i++)
 			{
-				logger.info(m.getKey()+"\t"+swlist.get(i).w+":"+swlist.get(i).v);
+				//logger.info(m.getKey()+"\t"+swlist.get(i).w+":"+swlist.get(i).v);
+				  if(!(dicts.containsKey(swlist.get(i).w)))
+				  {
+				    dicts.put(swlist.get(i).w, dict_index++);
+				  }
 			}
 			
 		}
@@ -138,7 +144,12 @@ public class MetricsSampler {
 		for (int i = 0; i < words.length; i++) {
 			try {
 				// //ids = jedis.get(words[i]);
-				ids = dicts.get(words[i]) + "";
+				if(!(dicts.containsKey(words[i])))
+				{
+					continue;
+				}
+				ids = dicts.get(words[i])+"";
+				
 				// System.out.println("ids:"+ids);
 			} catch (Exception re) {
 				re.printStackTrace();
@@ -182,9 +193,9 @@ public class MetricsSampler {
 		return res;
 	}
 	
-	public void train2sample(int field_num,int sample_field_index,int label_field_index,String separator,String outputSeparator,String gendict,String genlabeldict,String gensample,ArrayList<String> docs)
+	public void train2sample(int field_num,int sample_field_index,int label_field_index,String separator,String outputSeparator,String gendict,String genlabeldict,String gensample,ArrayList<String> docs,int topNum)
 	{
-		getDictsAndLabels(field_num,sample_field_index, label_field_index,separator,docs);
+		getDictsAndLabels(field_num,sample_field_index, label_field_index,separator,docs,topNum);
 		
 		String line="";
 		String[] fields=null;
@@ -277,9 +288,9 @@ public class MetricsSampler {
 	public static void main(String[] args) throws Exception
 	{
 	
-		if(args.length!=7)
+		if(args.length!=8)
 		{
-			System.err.println("Usage:<field_num> <sample_field_index> <label_field_index> <separator> <gendict> <genlabeldict> <gensample>");
+			System.err.println("Usage:<field_num> <sample_field_index> <label_field_index> <separator> <gendict> <genlabeldict> <gensample> <topNum> ");
 			System.err.println("    field_num : 输入的字段个数");
 			System.err.println("    sample_field_index: 样本体所在的字段，从0开始，即0表示第一个字段");
 			System.err.println("    label_field_index: 标记所在的字段，从0开始，即0表示第一个字段");
@@ -287,6 +298,7 @@ public class MetricsSampler {
 			System.err.println("    gendict:生成的词典路径,从1开始");
 			System.err.println("    genlabeldict:生成的标记索引路径，从1开始");
 			System.err.println("    gensample:生成的样本路径");
+			System.err.println("    topNum : 每个类别保留的最大单词数");
 			System.exit(1);
 		}
 		
@@ -335,10 +347,11 @@ public class MetricsSampler {
 		genlabeldict=args[5].trim();
 		gensample=args[6].trim();
 		
+		int topNum=0;
 		MetricsSampler sampler=new MetricsSampler();
 		//InputStreamReader isr=new InputStreamReader(System.in);
 		BufferedReader br=new BufferedReader(new FileReader("test/keyhost.txt"));
-		
+		topNum=Integer.parseInt(args[7]);
 		
 		//String line="";
 		//while((line=br.readLine())!=null)
@@ -370,7 +383,7 @@ public class MetricsSampler {
 		//isr.close();
 		br.close();
 		
-		sampler.train2sample(fieldNum, sampleFieldIndex,labelFieldIndex, separator, outputSeparator, gendict, genlabeldict, gensample, docs);
+		sampler.train2sample(fieldNum, sampleFieldIndex,labelFieldIndex, separator, outputSeparator, gendict, genlabeldict, gensample, docs,topNum);
 		
 	}
 	
