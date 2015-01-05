@@ -124,7 +124,7 @@ public class MetricsSampler {
 		for(Map.Entry<String, ArrayList<WORD>> m:sortCWM.entrySet())
 		{
 			ArrayList<WORD> swlist=m.getValue();
-			for(int i=0;i<topNum;i++)
+			for(int i=0;(i<topNum)&&(i<swlist.size());i++)
 			{
 				  logger.info(m.getKey()+"\t"+swlist.get(i).w+":"+swlist.get(i).v);
 				  if(!(dicts.containsKey(swlist.get(i).w)))
