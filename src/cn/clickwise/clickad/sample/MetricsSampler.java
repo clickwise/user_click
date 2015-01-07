@@ -200,7 +200,7 @@ public class MetricsSampler {
 		return res;
 	}
 	
-	public void train2sample(int field_num,int sample_field_index,int label_field_index,String separator,String outputSeparator,String gendict,String genlabeldict,String gensample,ArrayList<String> docs,int topNum)
+	public void train2sample(int field_num,int sample_field_index,int label_field_index,String separator,String outputSeparator,String gendict,String genlabeldict,String gensample,ArrayList<String> docs,int topNum,int samlenlimit)
 	{
 		getDictsAndLabels(field_num,sample_field_index, label_field_index,separator,docs,topNum);
 		
@@ -214,6 +214,7 @@ public class MetricsSampler {
 		int labelIndex=0;
 		String forsample="";
 		
+		String[] sampleseg=null;
 		for(int i=0;i<docs.size();i++)
 		{
 			line=docs.get(i);
@@ -248,6 +249,13 @@ public class MetricsSampler {
 		    	continue;
 		    }
 		    forsample=forsample.trim();
+		    
+		    sampleseg=forsample.split("\\s+");
+		    if(sampleseg.length<samlenlimit)
+		    {
+		    	continue;
+		    }
+		    
 		    gspw.println(labelIndex+outputSeparator+forsample);
 		    
 		}
@@ -295,9 +303,9 @@ public class MetricsSampler {
 	public static void main(String[] args) throws Exception
 	{
 	
-		if(args.length!=8)
+		if(args.length!=9)
 		{
-			System.err.println("Usage:<field_num> <sample_field_index> <label_field_index> <separator> <gendict> <genlabeldict> <gensample> <topNum> ");
+			System.err.println("Usage:<field_num> <sample_field_index> <label_field_index> <separator> <gendict> <genlabeldict> <gensample> <topNum> <samlenlimit>");
 			System.err.println("    field_num : 输入的字段个数");
 			System.err.println("    sample_field_index: 样本体所在的字段，从0开始，即0表示第一个字段");
 			System.err.println("    label_field_index: 标记所在的字段，从0开始，即0表示第一个字段");
@@ -306,6 +314,7 @@ public class MetricsSampler {
 			System.err.println("    genlabeldict:生成的标记索引路径，从1开始");
 			System.err.println("    gensample:生成的样本路径");
 			System.err.println("    topNum : 每个类别保留的最大单词数");
+			System.err.println("    samlenlimit: 样本的最小长度");
 			System.exit(1);
 		}
 		
@@ -360,6 +369,8 @@ public class MetricsSampler {
 		BufferedReader br=new BufferedReader(isr);
 		topNum=Integer.parseInt(args[7]);
 		
+		int samlenlimit=0;
+		samlenlimit=Integer.parseInt(args[8]);
 		//String line="";
 		//while((line=br.readLine())!=null)
 		//{
@@ -390,7 +401,7 @@ public class MetricsSampler {
 		isr.close();
 		br.close();
 		
-		sampler.train2sample(fieldNum, sampleFieldIndex,labelFieldIndex, separator, outputSeparator, gendict, genlabeldict, gensample, docs,topNum);
+		sampler.train2sample(fieldNum, sampleFieldIndex,labelFieldIndex, separator, outputSeparator, gendict, genlabeldict, gensample, docs,topNum,samlenlimit);
 		
 	}
 	
