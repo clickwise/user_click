@@ -356,8 +356,8 @@ public class MetricsSampler {
 		
 		int topNum=0;
 		MetricsSampler sampler=new MetricsSampler();
-		//InputStreamReader isr=new InputStreamReader(System.in);
-		BufferedReader br=new BufferedReader(new FileReader("test/keyhost.txt"));
+		InputStreamReader isr=new InputStreamReader(System.in);
+		BufferedReader br=new BufferedReader(isr);
 		topNum=Integer.parseInt(args[7]);
 		
 		//String line="";
@@ -387,7 +387,7 @@ public class MetricsSampler {
 		   docs.add(line);
 		}
 		
-		//isr.close();
+		isr.close();
 		br.close();
 		
 		sampler.train2sample(fieldNum, sampleFieldIndex,labelFieldIndex, separator, outputSeparator, gendict, genlabeldict, gensample, docs,topNum);
