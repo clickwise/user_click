@@ -111,10 +111,10 @@ public class SampleFormat {
 	public static void main(String[] args) {
 		try {
 			//InputStreamReader isr = new InputStreamReader(System.in);
-			BufferedReader br = new BufferedReader(new FileReader("D:/projects/xm/数据/年龄/raw_age.txt"));
+			BufferedReader br = new BufferedReader(new FileReader("D:/projects/xm/数据/收入/shouru_raw.txt"));
 
 			//OutputStreamWriter osw = new OutputStreamWriter(System.out);
-			PrintWriter pw = new PrintWriter(new FileWriter("D:/projects/xm/数据/年龄/rest_age.txt"));
+			PrintWriter pw = new PrintWriter(new FileWriter("D:/projects/xm/数据/收入/shouru_rest.csv"));
 
 
 			String line = "";
