@@ -110,11 +110,11 @@ public class SampleFormat {
 
 	public static void main(String[] args) {
 		try {
-			//InputStreamReader isr = new InputStreamReader(System.in);
-			BufferedReader br = new BufferedReader(new FileReader("D:/projects/xm/数据/收入/shouru_raw.txt"));
+			InputStreamReader isr = new InputStreamReader(System.in);
+			BufferedReader br = new BufferedReader(isr);
 
-			//OutputStreamWriter osw = new OutputStreamWriter(System.out);
-			PrintWriter pw = new PrintWriter(new FileWriter("D:/projects/xm/数据/收入/shouru_rest.csv"));
+			OutputStreamWriter osw = new OutputStreamWriter(System.out);
+			PrintWriter pw = new PrintWriter(osw);
 
 
 			String line = "";
@@ -134,8 +134,8 @@ public class SampleFormat {
 				pw.println(fline);
 			}
 
-			//isr.close();
-			//osw.close();
+			isr.close();
+			osw.close();
 			br.close();
 			pw.close();
 		} catch (Exception e) {
