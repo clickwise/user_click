@@ -15,7 +15,7 @@ public class SampleFormat {
 	public static String lineFormat(String line) {
 	    String cate="";
 	    cate=line.substring(0,1);
-	    System.out.println("cate:"+cate);
+	    //System.out.println("cate:"+cate);
 	    String info=line.substring(2,line.length());
 	    
 	    String[] fields=info.split("\\|\\|\\|");
