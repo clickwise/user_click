@@ -114,32 +114,52 @@ public class MetricsSampler {
 		    
 		}//doc loop end
 		
-		HashMap<String,HashMap<String,Double>> cateWordMetrics=metrics.getCateWordMetrics(field_num, sample_field_index, label_field_index, separator, docs, dicts, labels, dictCounts, labelCounts);
-		
-		for(Map.Entry<String, HashMap<String,Double>> m:cateWordMetrics.entrySet())
+		if(MetricsConfig.isCateSel==false)
 		{
-			logger.info(m.getKey()+":"+m.getValue().size());
-		}
+		   HashMap<String,HashMap<String,Double>> cateWordMetrics=metrics.getCateWordMetrics(field_num, sample_field_index, label_field_index, separator, docs, dicts, labels, dictCounts, labelCounts);
 		
-		HashMap<String,ArrayList<WORD>> sortCWM=Metrics.sortCateWordsMetrics(cateWordMetrics);
-		dicts=new HashMap<String,Integer>();
-		dict_index=1;
-		System.out.println("sortCWM.size:"+sortCWM.size());
-		System.out.println("topNum:"+topNum);
-		for(Map.Entry<String, ArrayList<WORD>> m:sortCWM.entrySet())
-		{
-			ArrayList<WORD> swlist=m.getValue();
-			for(int i=0;(i<topNum)&&(i<swlist.size());i++)
-			{
+		   for(Map.Entry<String, HashMap<String,Double>> m:cateWordMetrics.entrySet())
+		   {
+			 logger.info(m.getKey()+":"+m.getValue().size());
+		   }
+		
+		   HashMap<String,ArrayList<WORD>> sortCWM=Metrics.sortCateWordsMetrics(cateWordMetrics);
+		   dicts=new HashMap<String,Integer>();
+		   dict_index=1;
+		   System.out.println("sortCWM.size:"+sortCWM.size());
+		   System.out.println("topNum:"+topNum);
+		   for(Map.Entry<String, ArrayList<WORD>> m:sortCWM.entrySet())
+		   {
+			  ArrayList<WORD> swlist=m.getValue();
+			  for(int i=0;(i<topNum)&&(i<swlist.size());i++)
+			  {
 				  logger.info(m.getKey()+"\t"+swlist.get(i).w+":"+swlist.get(i).v);
 				  if(!(dicts.containsKey(swlist.get(i).w)))
 				  {
 				    dicts.put(swlist.get(i).w, dict_index++);
 				  }
-			}
+			  }
 			
-		}
+		   }
 		
+		}
+		else
+		{
+			HashMap<String, Double> wordMetrics=metrics.getWordMetrics(field_num, sample_field_index, label_field_index, separator, docs, dicts, labels, dictCounts, labelCounts);
+			ArrayList<WORD> sortWords=metrics.sortHash(wordMetrics);
+			logger.info("sortWords.size:"+sortWords.size());
+			logger.info("topNum:"+topNum);
+			dicts=new HashMap<String,Integer>();
+			dict_index=1;
+			for(int i=0;(i<topNum)&&(i<sortWords.size());i++)
+			{	  
+				  if(!(dicts.containsKey(sortWords.get(i).w)))
+				  {
+				    dicts.put(sortWords.get(i).w, dict_index++);
+				  }
+			}
+		
+		}
 		
 	}
 	
