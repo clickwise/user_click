@@ -1,6 +1,7 @@
 package cn.clickwise.clickad.sample;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.InputStreamReader;
@@ -114,7 +115,7 @@ public class MetricsSampler {
 		    
 		}//doc loop end
 		
-		if(MetricsConfig.isCateSel==false)
+		if(MetricsConfig.isCateSel==true)
 		{
 		   HashMap<String,HashMap<String,Double>> cateWordMetrics=metrics.getCateWordMetrics(field_num, sample_field_index, label_field_index, separator, docs, dicts, labels, dictCounts, labelCounts);
 		
@@ -155,6 +156,7 @@ public class MetricsSampler {
 			{	  
 				  if(!(dicts.containsKey(sortWords.get(i).w)))
 				  {
+					logger.info(sortWords.get(i).w+":"+sortWords.get(i).v);
 				    dicts.put(sortWords.get(i).w, dict_index++);
 				  }
 			}
@@ -385,6 +387,7 @@ public class MetricsSampler {
 		
 		int topNum=0;
 		MetricsSampler sampler=new MetricsSampler();
+		
 		InputStreamReader isr=new InputStreamReader(System.in);
 		BufferedReader br=new BufferedReader(isr);
 		topNum=Integer.parseInt(args[7]);
