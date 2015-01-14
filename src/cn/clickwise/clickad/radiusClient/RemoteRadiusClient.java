@@ -160,7 +160,7 @@ public class RemoteRadiusClient extends RadiusClient{
 			// fos.write(body);
 			rp.setPackBody(pb);
 			//*****204 stop***************//
-			//receiveNoAnalysisCompletelyPacketBody(rp);
+			receiveNoAnalysisCompletelyPacketBody(rp);
 			body=null;
 			rp=null;
 			ph=null;
@@ -492,15 +492,17 @@ public class RemoteRadiusClient extends RadiusClient{
 				logger.info(rec.toString());
 				*/
 				String rawRecord=TimeOpera.getCurrentTime()+"\t"+BytesTransform.bytes2str(ufa);
-				//logger.info(rawRecord);
-				resolveSockOut.writeInt(rawRecord.length());
+				logger.info(rawRecord);
+				//204 stop
+				//resolveSockOut.writeInt(rawRecord.length());
 				/*
 				for(int m=0;m<rawRecord.length();m++)
 				{
 					resolveSockOut.writeChar(rawRecord.charAt(m));	
 				}
 				*/
-				resolveSockOut.writeChars(rawRecord);
+				//204 stop
+				//resolveSockOut.writeChars(rawRecord);
 				ufa=null;
 				//rec=null;
 							
@@ -635,7 +637,8 @@ public class RemoteRadiusClient extends RadiusClient{
 			if (rp == null) {
 				continue;
 			}
-			writePacket(rp);
+			//204 stop need?
+			////writePacket(rp);
 		}
 
 	}
