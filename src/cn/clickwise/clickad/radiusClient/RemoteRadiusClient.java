@@ -159,7 +159,8 @@ public class RemoteRadiusClient extends RadiusClient{
 			pb.setBody(body);
 			// fos.write(body);
 			rp.setPackBody(pb);
-			receiveNoAnalysisCompletelyPacketBody(rp);
+			//*****204 stop***************//
+			//receiveNoAnalysisCompletelyPacketBody(rp);
 			body=null;
 			rp=null;
 			ph=null;
@@ -225,7 +226,7 @@ public class RemoteRadiusClient extends RadiusClient{
 					// return;
 					restart("user name length is below zero");
 				}
-				System.out.println("unl:" + unl);
+				//System.out.println("unl:" + unl);
 
 				if (standardOrder == true) {
 					// unl=BytesTransform.byteToIntv(rec.getLength())-32;
@@ -250,7 +251,7 @@ public class RemoteRadiusClient extends RadiusClient{
 					rec.setAcctStatusType(acctStatusTypeBuffer);
 				}
 
-				logger.info(rec.toString());
+				//logger.info(rec.toString());
 
 			}
 		} catch (Exception e) {
@@ -640,7 +641,7 @@ public class RemoteRadiusClient extends RadiusClient{
 
 	public void restart(String message) {
 		try {
-			System.out.println(message + "----sleep one second!");
+			//System.out.println(message + "----sleep one second!");
 			System.gc();
 			Thread.sleep(confFactory.getResetConnectionSuspend());
 		} catch (Exception e) {
@@ -655,8 +656,7 @@ public class RemoteRadiusClient extends RadiusClient{
 		RemoteRadiusClient erc = new RemoteRadiusClient();
 		erc.setRece(rece);
 		erc.setRc(rc);
-		erc.start(rc);
-		
+		erc.start(rc);	
 	}
 
 	public RadiusCenter getRc() {
