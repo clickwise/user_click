@@ -621,7 +621,8 @@ public class RemoteRadiusClient extends RadiusClient{
 	public void start(RadiusCenter rc) {
 
 		connect(rc);
-		connectResolve();
+		////******204 stop************//
+		//connectResolve();
 		long startTime = TimeOpera.getCurrentTimeLong();
 		while (true) {
 			if (TimeOpera.getCurrentTimeLong() - startTime > 4000) {
