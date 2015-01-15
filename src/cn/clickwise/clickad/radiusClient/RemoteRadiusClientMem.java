@@ -772,17 +772,18 @@ public class RemoteRadiusClientMem extends RadiusClient{
 		try{
 		System.out.println(message + "----sleep one second!");
 			//System.gc();
-		if(sock!=null)
-		{
-			sock.close();
-		}
-		sock=null;
 		
 		if(sockIn!=null)
 		{
 			sockIn.close();
 		}
 	    sockIn=null;
+	        
+	    if(sockOut!=null)
+	    {
+	    	sockOut.close();
+	    }
+	    sockOut=null;
 	    
 	    if(outputStream!=null)
 	    {
@@ -790,11 +791,12 @@ public class RemoteRadiusClientMem extends RadiusClient{
 	    }
 	    outputStream=null;
 	    
-	    if(sockOut!=null)
-	    {
-	    	sockOut.close();
-	    }
-	    sockOut=null;
+		if(sock!=null)
+		{
+			sock.close();
+		}
+		sock=null;
+	  
 	    Thread.sleep(confFactory.getResetConnectionSuspend());
 		}
 		catch(Exception e)
