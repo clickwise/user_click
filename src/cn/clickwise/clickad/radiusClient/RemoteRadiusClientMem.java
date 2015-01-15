@@ -135,6 +135,7 @@ public class RemoteRadiusClientMem extends RadiusClient{
 				}
 			}
 
+			
 			// System.out.println("read bytes hn:"+hn);
 			// System.out.println(BytesTransform.bytes2str(head));
 
@@ -528,11 +529,6 @@ public class RemoteRadiusClientMem extends RadiusClient{
 				//204 stop
 				//resolveSockOut.writeChars(rawRecord);
 				ufa=null;
-				body=null;
-				obuffer=null;
-				dbuffer=null;
-				stbuffer=null;
-				rp=null;
 				//rec=null;
 							
 			}
@@ -547,7 +543,7 @@ public class RemoteRadiusClientMem extends RadiusClient{
 			rp=null;
 			restart("error in analysisPacketBody");
 		}
-		
+		ufa=null;
 		body=null;
 		obuffer=null;
 		dbuffer=null;
