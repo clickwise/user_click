@@ -681,9 +681,14 @@ public String keyword_extract_noun_ngram(String text) {
 				if(option==0)
 				{
 		    	  pw.print(ke.keyword_extract_noun(fields[keyFieldIndex]).trim()+outputSeparator);
-				}else if(option==1)
+				}
+				else if(option==1)
 				{
 					 pw.print(ke.keyword_extract_noun_ngram(fields[keyFieldIndex]).trim()+outputSeparator);					
+				}
+				else if(option==2)
+				{
+					 pw.print(ke.keyword_extract_detail(fields[keyFieldIndex]).trim()+outputSeparator);					
 				}
 			}
 			else
