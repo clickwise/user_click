@@ -71,6 +71,9 @@ public class PacketHead {
 		}
 		setDestPort(BytesTransform.byteToIntv(dbyte));
 		
+		dbyte=null;
+		fbyte=null;
+		
 	}
      
     

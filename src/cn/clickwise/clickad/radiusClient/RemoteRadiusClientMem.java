@@ -39,38 +39,46 @@ public class RemoteRadiusClientMem extends RadiusClient{
 	
 	private ResolveCenter rece;
 	
+	private OutputStream outputStream;
+	
 	private static Logger logger = LoggerFactory.getLogger(EasyRadiusClient.class);
 
+	public void init()
+	{
+		confFactory = ConfigureFactoryInstantiate.getConfigureFactory();
+	}
 	@Override
 	public State connect(RadiusCenter rc) {
 
-		State state = new State();
-		
-		confFactory = ConfigureFactoryInstantiate.getConfigureFactory();
+		//State state = new State();
 
+        
+        
 		try {
 			sock = new Socket(rc.getIp(), rc.getPort());
 			sockIn = sock.getInputStream();
 
-			OutputStream outputStream = sock.getOutputStream();
+			outputStream = sock.getOutputStream();
 
 			sockOut = new OutputStreamWriter(outputStream);
-			fos = new FileOutputStream(confFactory.getPcapDirectory()
-					+ confFactory.getPcapFile());
+			
+			//add memout
+			//fos = new FileOutputStream(confFactory.getPcapDirectory()
+			//		+ confFactory.getPcapFile());
 
-			state.setStatValue(StateValue.Normal);
+			//state.setStatValue(StateValue.Normal);
 			
 		} catch (Exception e) {
-			state.setStatValue(StateValue.Error);
+			//state.setStatValue(StateValue.Error);
 			e.printStackTrace();
 		}
 
-		return state;
+		return null;
 	}
 	
 	public State connectResolve()
 	{
-		State state = new State();
+		//State state = new State();
 		
 		try{
 			if(resolveSock!=null)
@@ -84,30 +92,30 @@ public class RemoteRadiusClientMem extends RadiusClient{
 			
 			setResolveSockOut(new DataOutputStream(outputStream));
 			
-		    state.setStatValue(StateValue.Normal);	
+		    //state.setStatValue(StateValue.Normal);	
 		    
 		}catch(Exception e)
 		{
-			state.setStatValue(StateValue.Error);
+			//state.setStatValue(StateValue.Error);
 			e.printStackTrace();
 		}
 				
-		return state;
+		return null;
 	}
 
 	@Override
 	public State sendHeartbeat() {
 
-		State state = new State();
+		//State state = new State();
 
 		try {
 			sockOut.write(Heartbeat.heartbeat);
-			state.setStatValue(StateValue.Normal);
+			//state.setStatValue(StateValue.Normal);
 		} catch (IOException e) {
-			state.setStatValue(StateValue.Error);
+			//state.setStatValue(StateValue.Error);
 		}
 
-		return state;
+		return null;
 	}
 
 	@Override
@@ -128,8 +136,20 @@ public class RemoteRadiusClientMem extends RadiusClient{
 				if (hn < 0) {
 					//add outmem
 					body=null;
+					if(rp!=null)
+					{
+						rp.destroy();
+					}
 					rp=null;
+				    if(ph!=null)
+				    {
+				    	ph.destroy();
+				    }
 					ph=null;
+					if(pb!=null)
+					{
+						pb.destroy();
+					}
 					pb=null;
 					restart("head length is -1");
 				}
@@ -151,8 +171,20 @@ public class RemoteRadiusClientMem extends RadiusClient{
 				// return null;
 				//add outmem
 				body=null;
+				if(rp!=null)
+				{
+					rp.destroy();
+				}
 				rp=null;
+			    if(ph!=null)
+			    {
+			    	ph.destroy();
+			    }
 				ph=null;
+				if(pb!=null)
+				{
+					pb.destroy();
+				}
 				pb=null;
 				restart("body length is below 12");
 			}
@@ -164,8 +196,20 @@ public class RemoteRadiusClientMem extends RadiusClient{
 				// return null;
 				//add outmem
 				body=null;
+				if(rp!=null)
+				{
+					rp.destroy();
+				}
 				rp=null;
+			    if(ph!=null)
+			    {
+			    	ph.destroy();
+			    }
 				ph=null;
+				if(pb!=null)
+				{
+					pb.destroy();
+				}
 				pb=null;
 				restart("body length is -1");
 			}
@@ -178,21 +222,49 @@ public class RemoteRadiusClientMem extends RadiusClient{
 			//*****204 stop***************//
 			receiveNoAnalysisCompletelyPacketBody(rp);
 			body=null;
+			if(rp!=null)
+			{
+				rp.destroy();
+			}
 			rp=null;
+		    if(ph!=null)
+		    {
+		    	ph.destroy();
+		    }
 			ph=null;
+			if(pb!=null)
+			{
+				pb.destroy();
+			}
 			pb=null;
 
 		} catch (IOException e) {
 			//add outmem
 			body=null;
+			if(rp!=null)
+			{
+				rp.destroy();
+			}
 			rp=null;
+		    if(ph!=null)
+		    {
+		    	ph.destroy();
+		    }
 			ph=null;
+			if(pb!=null)
+			{
+				pb.destroy();
+			}
 			pb=null;
 			e.printStackTrace();
 		}
 		//add outmem
+		if(rp!=null)
+		{
+			rp.destroy();
+		}
 		rp=null;
-		return rp;
+		return null;
 	}
 
 	/**
@@ -540,6 +612,10 @@ public class RemoteRadiusClientMem extends RadiusClient{
 			obuffer=null;
 			dbuffer=null;
 			stbuffer=null;
+			if(rp!=null)
+			{
+				rp.destroy();
+			}
 			rp=null;
 			restart("error in analysisPacketBody");
 		}
@@ -548,6 +624,10 @@ public class RemoteRadiusClientMem extends RadiusClient{
 		obuffer=null;
 		dbuffer=null;
 		stbuffer=null;
+		if(rp!=null)
+		{
+			rp.destroy();
+		}
 		rp=null;
 	}
 	
@@ -687,6 +767,10 @@ public class RemoteRadiusClientMem extends RadiusClient{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		sock=null;
+	    sockIn=null;
+	    outputStream=null;
+	    sockOut=null;
 		start(rc);
 	}
 
@@ -694,6 +778,7 @@ public class RemoteRadiusClientMem extends RadiusClient{
 		RadiusCenter rc = new RadiusCenter("221.231.154.17", 9002);
 		ResolveCenter rece=new ResolveCenter("192.168.1.104",2535);
 		RemoteRadiusClientMem erc = new RemoteRadiusClientMem();
+		erc.init();
 		erc.setRece(rece);
 		erc.setRc(rc);
 		erc.start(rc);	
