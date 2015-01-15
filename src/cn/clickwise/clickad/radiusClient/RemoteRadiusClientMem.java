@@ -112,13 +112,13 @@ public class RemoteRadiusClientMem extends RadiusClient{
 
 	@Override
 	public RadiusPacket readPacket() {
-		// TODO Auto-generated method stub
+		
 		byte[] head = new byte[16];
-
 		RadiusPacket rp = new RadiusPacket();
 		PacketHead ph = new PacketHead();
-		PacketBody pb = new PacketBody();
+		PacketBody pb = new PacketBody();	
 		byte[] body=null;
+		
 		try {
 
 			// 读取消息头
@@ -538,6 +538,7 @@ public class RemoteRadiusClientMem extends RadiusClient{
 			}
 		} catch (Exception e) {
 			//add outmem
+			e.printStackTrace();
 			ufa=null;
 			body=null;
 			obuffer=null;
