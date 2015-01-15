@@ -779,17 +779,19 @@ public class RemoteRadiusClientMem extends RadiusClient{
 		}
 	    sockIn=null;
 	        
-	    if(sockOut!=null)
-	    {
-	    	sockOut.close();
-	    }
-	    sockOut=null;
+	   
 	    
 	    if(outputStream!=null)
 	    {
 	    	outputStream.close();
 	    }
 	    outputStream=null;
+	    
+	    if(sockOut!=null)
+	    {
+	    	sockOut.close();
+	    }
+	    sockOut=null;
 	    
 		if(sock!=null)
 		{
