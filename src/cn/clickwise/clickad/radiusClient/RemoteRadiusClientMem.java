@@ -775,7 +775,7 @@ public class RemoteRadiusClientMem extends RadiusClient{
 		
 	
 	        
-	      
+	     /* 
 	    if(outputStream!=null)
 	    {
 	    	outputStream.close();
@@ -793,7 +793,7 @@ public class RemoteRadiusClientMem extends RadiusClient{
 			sockIn.close();
 		}
 	    sockIn=null;
-	    
+	    */
 		if(sock!=null)
 		{
 			sock.close();
