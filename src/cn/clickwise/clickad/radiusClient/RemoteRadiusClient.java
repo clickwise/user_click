@@ -118,7 +118,7 @@ public class RemoteRadiusClient extends RadiusClient{
 		RadiusPacket rp = new RadiusPacket();
 		PacketHead ph = new PacketHead();
 		PacketBody pb = new PacketBody();
-
+		byte[] body=null;
 		try {
 
 			// 读取消息头
@@ -126,6 +126,11 @@ public class RemoteRadiusClient extends RadiusClient{
 			while (hn < 0) {
 				hn = sockIn.read(head);
 				if (hn < 0) {
+					//add outmem
+					body=null;
+					rp=null;
+					ph=null;
+					pb=null;
 					restart("head length is -1");
 				}
 			}
@@ -143,14 +148,24 @@ public class RemoteRadiusClient extends RadiusClient{
 			if (ph.getPacketBodyLength() < 12) {
 				// System.out.println("body length is below 12");
 				// return null;
+				//add outmem
+				body=null;
+				rp=null;
+				ph=null;
+				pb=null;
 				restart("body length is below 12");
 			}
 
-			byte[] body = new byte[ph.getPacketBodyLength() - 12];
+			body = new byte[ph.getPacketBodyLength() - 12];
 			int rn = sockIn.read(body);
 			if (rn < 0) {
 				// System.out.println("body length is -1");
 				// return null;
+				//add outmem
+				body=null;
+				rp=null;
+				ph=null;
+				pb=null;
 				restart("body length is -1");
 			}
 
@@ -167,9 +182,15 @@ public class RemoteRadiusClient extends RadiusClient{
 			pb=null;
 
 		} catch (IOException e) {
+			//add outmem
+			body=null;
+			rp=null;
+			ph=null;
+			pb=null;
 			e.printStackTrace();
 		}
-        
+		//add outmem
+		rp=null;
 		return rp;
 	}
 
@@ -403,6 +424,7 @@ public class RemoteRadiusClient extends RadiusClient{
 		
 		byte[] stbuffer = new byte[16];
 		int recLen=0;
+		byte[] ufa=null;
 		try {
 
 			while (j + 44 < body.length) {
@@ -436,7 +458,7 @@ public class RemoteRadiusClient extends RadiusClient{
 				// unl=BytesTransform.byteToIntv(rec.getLength())-32;
 				// System.out.println("unl:"+unl);
 
-				byte[] ufa = new byte[unl + 12];
+				ufa = new byte[unl + 12];
 				// System.out.println("j:"+j+" ufa:"+ufa.length+" unl:"+unl+" body:"+body.length);
 				for (k = 0; k < ufa.length; k++) {
 					ufa[k] = body[k + j];
@@ -504,10 +526,22 @@ public class RemoteRadiusClient extends RadiusClient{
 				//204 stop
 				//resolveSockOut.writeChars(rawRecord);
 				ufa=null;
+				body=null;
+				obuffer=null;
+				dbuffer=null;
+				stbuffer=null;
+				rp=null;
 				//rec=null;
 							
 			}
 		} catch (Exception e) {
+			//add outmem
+			ufa=null;
+			body=null;
+			obuffer=null;
+			dbuffer=null;
+			stbuffer=null;
+			rp=null;
 			restart("error in analysisPacketBody");
 		}
 		
@@ -515,6 +549,7 @@ public class RemoteRadiusClient extends RadiusClient{
 		obuffer=null;
 		dbuffer=null;
 		stbuffer=null;
+		rp=null;
 	}
 	
 	public String bytes2ip(byte[] b) {
@@ -637,6 +672,8 @@ public class RemoteRadiusClient extends RadiusClient{
 			if (rp == null) {
 				continue;
 			}
+			//add outmem
+			rp=null;
 			//204 stop need?
 			////writePacket(rp);
 		}
