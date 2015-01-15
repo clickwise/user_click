@@ -28,7 +28,15 @@ public class RadiusPacket {
 	
 	public void destroy()
 	{
-		packHead.destroy();
-		packBody.destroy();
+		if(packHead!=null)
+		{
+		 packHead.destroy();
+		}
+		packHead=null;
+		if(packBody!=null)
+		{
+		 packBody.destroy();
+		}
+		packBody=null;
 	}
 }
