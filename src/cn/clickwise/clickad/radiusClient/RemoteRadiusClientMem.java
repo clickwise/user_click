@@ -767,10 +767,35 @@ public class RemoteRadiusClientMem extends RadiusClient{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		try{
+		if(sock!=null)
+		{
+			sock.close();
+		}
 		sock=null;
+		
+		if(sockIn!=null)
+		{
+			sockIn.close();
+		}
 	    sockIn=null;
+	    
+	    if(outputStream!=null)
+	    {
+	    	outputStream.close();
+	    }
 	    outputStream=null;
+	    
+	    if(sockOut!=null)
+	    {
+	    	sockOut.close();
+	    }
 	    sockOut=null;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 		start(rc);
 	}
 
