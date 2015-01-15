@@ -109,10 +109,14 @@ public class RemoteRadiusClientMem extends RadiusClient{
 		//State state = new State();
 
 		try {
-			sockOut.write(Heartbeat.heartbeat);
+			if(sockOut!=null)
+			{
+			 sockOut.write(Heartbeat.heartbeat);
+			}
 			//state.setStatValue(StateValue.Normal);
 		} catch (IOException e) {
 			//state.setStatValue(StateValue.Error);
+			e.printStackTrace();
 		}
 
 		return null;
