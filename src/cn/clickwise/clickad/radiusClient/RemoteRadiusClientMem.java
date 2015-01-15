@@ -70,6 +70,7 @@ public class RemoteRadiusClientMem extends RadiusClient{
 			
 		} catch (Exception e) {
 			//state.setStatValue(StateValue.Error);
+			System.out.println("error in connect");
 			e.printStackTrace();
 		}
 
@@ -116,6 +117,7 @@ public class RemoteRadiusClientMem extends RadiusClient{
 			//state.setStatValue(StateValue.Normal);
 		} catch (IOException e) {
 			//state.setStatValue(StateValue.Error);
+			System.out.println("error in send heart beat");
 			e.printStackTrace();
 		}
 
@@ -260,6 +262,7 @@ public class RemoteRadiusClientMem extends RadiusClient{
 				pb.destroy();
 			}
 			pb=null;
+			System.out.println("error in read packet");
 			e.printStackTrace();
 		}
 		//add outmem
@@ -610,6 +613,7 @@ public class RemoteRadiusClientMem extends RadiusClient{
 			}
 		} catch (Exception e) {
 			//add outmem
+			System.out.println("error in rnac");
 			e.printStackTrace();
 			ufa=null;
 			body=null;
@@ -764,14 +768,10 @@ public class RemoteRadiusClientMem extends RadiusClient{
 	}
 
 	public void restart(String message) {
-		try {
-			System.out.println(message + "----sleep one second!");
-			System.gc();
-			Thread.sleep(confFactory.getResetConnectionSuspend());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	
 		try{
+		System.out.println(message + "----sleep one second!");
+			//System.gc();
 		if(sock!=null)
 		{
 			sock.close();
@@ -795,11 +795,14 @@ public class RemoteRadiusClientMem extends RadiusClient{
 	    	sockOut.close();
 	    }
 	    sockOut=null;
+	    Thread.sleep(confFactory.getResetConnectionSuspend());
 		}
 		catch(Exception e)
 		{
+			System.out.println("error in restart");
 			e.printStackTrace();
 		}
+		
 		start(rc);
 	}
 
