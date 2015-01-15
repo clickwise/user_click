@@ -773,14 +773,9 @@ public class RemoteRadiusClientMem extends RadiusClient{
 		System.out.println(message + "----sleep one second!");
 			//System.gc();
 		
-		if(sockIn!=null)
-		{
-			sockIn.close();
-		}
-	    sockIn=null;
+	
 	        
-	   
-	    
+	      
 	    if(outputStream!=null)
 	    {
 	    	outputStream.close();
@@ -792,6 +787,12 @@ public class RemoteRadiusClientMem extends RadiusClient{
 	    	sockOut.close();
 	    }
 	    sockOut=null;
+	    
+		if(sockIn!=null)
+		{
+			sockIn.close();
+		}
+	    sockIn=null;
 	    
 		if(sock!=null)
 		{
