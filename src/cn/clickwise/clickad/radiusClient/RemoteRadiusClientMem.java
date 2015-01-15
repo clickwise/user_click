@@ -199,6 +199,7 @@ public class RemoteRadiusClientMem extends RadiusClient{
 	 * 
 	 * @param rp
 	 */
+	/*
 	public void parsePacketBody(RadiusPacket rp) {
 		try {
 			int j = 0;
@@ -281,13 +282,14 @@ public class RemoteRadiusClientMem extends RadiusClient{
 		}
 
 	}
-
+    */
 	/**
 	 * 解析消息体，从消息体解析出code、packetIdentifier、length、authenticator、 user
 	 * name、framedIpAddress、acctStatusType的普通形式
 	 * 
 	 * @param rp
 	 */
+	/*
 	public void analysisPacketBody(RadiusPacket rp) {
 		int j = 0;
 
@@ -401,7 +403,7 @@ public class RemoteRadiusClientMem extends RadiusClient{
 		dbuffer=null;
 		stbuffer=null;
 	}
-	
+	*/
 	
 	/**
 	 * 解析消息体，从消息体解析出code、packetIdentifier、length、authenticator、 user
@@ -682,7 +684,7 @@ public class RemoteRadiusClientMem extends RadiusClient{
 
 	public void restart(String message) {
 		try {
-			//System.out.println(message + "----sleep one second!");
+			System.out.println(message + "----sleep one second!");
 			System.gc();
 			Thread.sleep(confFactory.getResetConnectionSuspend());
 		} catch (Exception e) {
