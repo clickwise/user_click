@@ -100,7 +100,7 @@ public class RemoteRadiusReform {
 				restart("body length is below 12");
 			}
 
-			System.err.println("body.len:"+(Buffer.packetbodylen - 12));
+			//System.err.println("body.len:"+(Buffer.packetbodylen - 12));
 			
 			Buffer.rn = sockIn.read(Buffer.body,0,Buffer.packetbodylen-12);
 			
@@ -197,7 +197,7 @@ public class RemoteRadiusReform {
 	public void start(RadiusCenter rc) {
 
 		connect(rc);
-		System.err.println("connect to radius server successful");
+		//System.err.println("connect to radius server successful");
 		long startTime = TimeOpera.getCurrentTimeLong();
 		
 		while (true) {
