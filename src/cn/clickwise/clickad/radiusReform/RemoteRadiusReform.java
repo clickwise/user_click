@@ -91,7 +91,8 @@ public class RemoteRadiusReform {
 
 			// 读取消息体
 			// System.out.println("ph.length:"+ph.getPacketBodyLength());
-
+			parseBytes2Info();
+			
 			if (Buffer.packetbodylen < 12) {
 				// System.out.println("body length is below 12");
 				// return null;
@@ -196,6 +197,7 @@ public class RemoteRadiusReform {
 	public void start(RadiusCenter rc) {
 
 		connect(rc);
+		System.err.println("connect to radius server successful");
 		long startTime = TimeOpera.getCurrentTimeLong();
 		
 		while (true) {
@@ -212,7 +214,7 @@ public class RemoteRadiusReform {
 	public void restart(String message) {
 	
 		try{
-		//System.out.println(message + "----sleep one second!");
+		System.out.println(message + "----sleep one second!");
 			//System.gc();
 		
 	
@@ -257,7 +259,6 @@ public class RemoteRadiusReform {
 		RadiusCenter rc = new RadiusCenter("221.231.154.17", 9002);
 		RemoteRadiusReform erc = new RemoteRadiusReform();
 		erc.init();
-
 		erc.setRc(rc);
 		erc.start(rc);	
 	}
