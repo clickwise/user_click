@@ -252,9 +252,7 @@ public class RemoteRadiusReform {
 		try{
 		//System.out.println(message + "----sleep one second!");
 			//System.gc();
-		
-	
-	        
+		     
 	     /* 
 	    if(outputStream!=null)
 	    {
