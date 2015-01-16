@@ -182,7 +182,11 @@ public class RemoteRadiusReform {
 				}
 
 				j = j + Buffer.ufalen;// 结束循环
-				
+				System.err.println("Buffer.ufalen:"+Buffer.ufalen);
+				if(j<1)
+				{
+					break;
+				}
 				
 				String rawRecord=TimeOpera.getCurrentTime()+"\t"+BytesTransform.bytes2str(Buffer.ufa,Buffer.unl + 12);
 				if(SSO.tioe(rawRecord))
