@@ -144,7 +144,7 @@ public class RemoteRadiusReform {
 		
 
 		try {
-
+			System.err.println("Buffer.bodylen:"+Buffer.bodylen);
 			while (j + 44 < Buffer.bodylen) {
 				//Record rec = new Record();
                  
@@ -191,7 +191,7 @@ public class RemoteRadiusReform {
 				}
 				logger.info(rawRecord);
 				rawRecord=null;
-			
+			    System.err.println("j="+j);
 							
 			}
 		} catch (Exception e) {
