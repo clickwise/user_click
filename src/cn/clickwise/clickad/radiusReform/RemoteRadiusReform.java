@@ -172,6 +172,11 @@ public class RemoteRadiusReform {
 				
 				
 				// System.out.println("j:"+j+" ufa:"+ufa.length+" unl:"+unl+" body:"+body.length);
+				if((j+Buffer.ufalen>=256))
+				{
+					restart("error in analysisPacketBody");
+				}
+				
 				for (k = 0; k <Buffer.ufalen; k++) {
 					Buffer.ufa[k] = Buffer.body[k + j];
 				}
@@ -180,6 +185,10 @@ public class RemoteRadiusReform {
 				
 				
 				String rawRecord=TimeOpera.getCurrentTime()+"\t"+BytesTransform.bytes2str(Buffer.ufa,Buffer.unl + 12);
+				if(SSO.tioe(rawRecord))
+				{
+					break;
+				}
 				logger.info(rawRecord);
 				rawRecord=null;
 			
