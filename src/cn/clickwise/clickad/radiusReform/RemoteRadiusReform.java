@@ -101,7 +101,10 @@ public class RemoteRadiusReform {
 			}
 
 			//System.err.println("body.len:"+(Buffer.packetbodylen - 12));
-			
+			if((Buffer.packetbodylen-12)>Buffer.body.length)
+		    {
+			  return;
+			}
 			Buffer.rn = sockIn.read(Buffer.body,0,Buffer.packetbodylen-12);
 			
 			if (Buffer.rn < 0) {
