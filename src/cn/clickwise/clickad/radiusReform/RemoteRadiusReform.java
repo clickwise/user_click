@@ -37,9 +37,14 @@ public class RemoteRadiusReform {
 	String ctimestr;
 	
 	String rawRecord;
+	
+	long startTime;
+	long gcstartTime ;
 
 	public void init()
 	{
+		startTime = TimeOpera.getCurrentTimeLong();
+	     gcstartTime = TimeOpera.getCurrentTimeLong();
 		confFactory = ConfigureFactoryInstantiate.getConfigureFactory();
 	}
 
@@ -221,15 +226,10 @@ public class RemoteRadiusReform {
 
 		connect(rc);
 		//System.err.println("connect to radius server successful");
-		long startTime = TimeOpera.getCurrentTimeLong();
-		long gcstartTime = TimeOpera.getCurrentTimeLong();
-		int ii=0;
+
+	
 		while (true) {
-			ii++;
-			if(ii%10000==1)
-			{
-				System.out.println("ii="+ii);
-			}
+
 			if (TimeOpera.getCurrentTimeLong() - startTime > 4000) {
 				startTime = TimeOpera.getCurrentTimeLong();
 				sendHeartbeat();
@@ -294,6 +294,7 @@ public class RemoteRadiusReform {
 	public static void main(String[] args) {
 		RadiusCenter rc = new RadiusCenter("221.231.154.17", 9002);
 		RemoteRadiusReform erc = new RemoteRadiusReform();
+
 		erc.init();
 		erc.setRc(rc);
 		erc.start(rc);	
