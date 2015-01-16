@@ -222,12 +222,19 @@ public class RemoteRadiusReform {
 		connect(rc);
 		//System.err.println("connect to radius server successful");
 		long startTime = TimeOpera.getCurrentTimeLong();
-		
+		long gcstartTime = TimeOpera.getCurrentTimeLong();
 		while (true) {
 			if (TimeOpera.getCurrentTimeLong() - startTime > 4000) {
 				startTime = TimeOpera.getCurrentTimeLong();
 				sendHeartbeat();
 			}
+			
+			if (TimeOpera.getCurrentTimeLong() - gcstartTime > 300000) {
+				gcstartTime = TimeOpera.getCurrentTimeLong();
+				System.err.println("Start Garbage Collection");
+				System.gc();
+			}	
+			
 			readPacket();
 
 		}
