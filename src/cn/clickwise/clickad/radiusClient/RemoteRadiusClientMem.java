@@ -195,6 +195,7 @@ public class RemoteRadiusClientMem extends RadiusClient{
 				restart("body length is below 12");
 			}
 
+			System.err.println("body.len:"+(ph.getPacketBodyLength() - 12));
 			body = new byte[ph.getPacketBodyLength() - 12];
 			int rn = sockIn.read(body);
 			if (rn < 0) {
