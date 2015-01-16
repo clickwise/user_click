@@ -33,6 +33,10 @@ public class RemoteRadiusReform {
 	private static Logger logger = LoggerFactory.getLogger(RemoteRadiusReform.class);
 	
 	Socket sock;
+	
+	String ctimestr;
+	
+	String rawRecord;
 
 	public void init()
 	{
@@ -144,7 +148,7 @@ public class RemoteRadiusReform {
 		
 
 		try {
-			System.err.println("Buffer.bodylen:"+Buffer.bodylen);
+			//System.err.println("Buffer.bodylen:"+Buffer.bodylen);
 			while (j + 44 < Buffer.bodylen) {
 				//Record rec = new Record();
                  
@@ -182,20 +186,23 @@ public class RemoteRadiusReform {
 				}
 
 				j = j + Buffer.ufalen;// 结束循环
-				System.err.println("Buffer.ufalen:"+Buffer.ufalen);
+				//System.err.println("Buffer.ufalen:"+Buffer.ufalen);
 				if(j<1)
 				{
 					break;
 				}
 				
-				String rawRecord=TimeOpera.getCurrentTime()+"\t"+BytesTransform.bytes2str(Buffer.ufa,Buffer.unl + 12);
+			    ctimestr=TimeOpera.getCurrentTime();
+			    BytesTransform.bytes2str(Buffer.ufa,Buffer.unl + 12);
+				rawRecord=ctimestr+"\t"+Buffer.str;
 				if(SSO.tioe(rawRecord))
 				{
 					break;
 				}
 				logger.info(rawRecord);
-				rawRecord=null;
-			    System.err.println("j="+j);
+				//rawRecord=null;
+				//ctimestr=null;
+			    //System.err.println("j="+j);
 							
 			}
 		} catch (Exception e) {
@@ -230,7 +237,7 @@ public class RemoteRadiusReform {
 	public void restart(String message) {
 	
 		try{
-		System.out.println(message + "----sleep one second!");
+		//System.out.println(message + "----sleep one second!");
 			//System.gc();
 		
 	

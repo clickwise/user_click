@@ -53,18 +53,18 @@ public class BytesTransform {
 	}
 	
 	
-	public static String bytes2str(byte[] b,int len) {
-		String str = "";
+	public static void bytes2str(byte[] b,int len) {
+		Buffer.str = "";
 		for (int i = 0; i < len; i++) {
 			int v = b[i] & 0xFF;
-			String hv = Integer.toHexString(v);
-			if (hv.length() == 1) {
-				hv = '0' + hv;
+			Buffer.hv = Integer.toHexString(v);
+			if (Buffer.hv.length() == 1) {
+				Buffer.hv = '0' + Buffer.hv;
 			}
-			str += (hv + " ");
-			hv=null;
+			Buffer.str += (Buffer.hv + " ");
+			//hv=null;
 		}
-		return str;
+		//return str;
 	}
 	
 	/**

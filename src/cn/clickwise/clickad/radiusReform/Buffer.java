@@ -38,4 +38,8 @@ public class Buffer {
 	
 	public static int ufalen=0;
 	
+	public static String str="";
+	
+	public static  String hv="";
+	
 }
