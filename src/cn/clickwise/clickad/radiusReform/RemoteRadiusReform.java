@@ -223,15 +223,21 @@ public class RemoteRadiusReform {
 		//System.err.println("connect to radius server successful");
 		long startTime = TimeOpera.getCurrentTimeLong();
 		long gcstartTime = TimeOpera.getCurrentTimeLong();
+		int ii=0;
 		while (true) {
+			ii++;
+			if(ii%10000==1)
+			{
+				System.out.println("ii="+ii);
+			}
 			if (TimeOpera.getCurrentTimeLong() - startTime > 4000) {
 				startTime = TimeOpera.getCurrentTimeLong();
 				sendHeartbeat();
 			}
 			
-			if (TimeOpera.getCurrentTimeLong() - gcstartTime > 300000) {
+			if (TimeOpera.getCurrentTimeLong() - gcstartTime > 60000) {
 				gcstartTime = TimeOpera.getCurrentTimeLong();
-				System.err.println("Start Garbage Collection");
+				System.out.println("Start Garbage Collection");
 				System.gc();
 			}	
 			
