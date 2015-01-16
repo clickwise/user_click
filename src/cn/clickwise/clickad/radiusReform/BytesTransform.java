@@ -1,4 +1,4 @@
-package cn.clickwise.lib.bytes;
+package cn.clickwise.clickad.radiusReform;
 
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
@@ -47,10 +47,26 @@ public class BytesTransform {
 				hv = '0' + hv;
 			}
 			str += (hv + " ");
+			hv=null;
 		}
 		return str;
 	}
-
+	
+	
+	public static String bytes2str(byte[] b,int len) {
+		String str = "";
+		for (int i = 0; i < len; i++) {
+			int v = b[i] & 0xFF;
+			String hv = Integer.toHexString(v);
+			if (hv.length() == 1) {
+				hv = '0' + hv;
+			}
+			str += (hv + " ");
+			hv=null;
+		}
+		return str;
+	}
+	
 	/**
 	 * 补全byte数组至四个字节 不足4个字节的应该从低字节开始置0
 	 * 
