@@ -280,9 +280,9 @@ public class ClassifierLayerThree extends Classifier{
 		  fvec[i+sample.length]=sample[i].copy_word();
 		  fvec[i+sample.length*2]=sample[i].copy_word();
 		  
-		  fvec[i].wnum+=(y.first_class-1)*model.NUM_FEATURES;
-		  fvec[i+sample.length].wnum+=((y.second_class-1)*model.NUM_FEATURES+model.NUM_FIRST_CLASS*model.NUM_FEATURES);
-		  fvec[i+sample.length*2].wnum+=((y.third_class-1)*model.NUM_FEATURES+model.NUM_FIRST_CLASS*model.NUM_FEATURES+model.NUM_SECOND_CLASS*model.NUM_FEATURES);
+		  fvec[i].wnum+=(y.first_class-1)*model.NUM_WORDS;
+		  fvec[i+sample.length].wnum+=((y.second_class-1)*model.NUM_WORDS+model.NUM_FIRST_CLASS*model.NUM_WORDS);
+		  fvec[i+sample.length*2].wnum+=((y.third_class-1)*model.NUM_WORDS+model.NUM_FIRST_CLASS*model.NUM_WORDS+model.NUM_SECOND_CLASS*model.NUM_WORDS);
 		}
 		System.out.println();
 		for(int i=0;i<fvec.length;i++)
