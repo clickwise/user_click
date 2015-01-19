@@ -248,7 +248,7 @@ public class ClassifierLayerThree extends Classifier{
 			y.first_class = posslabels[ci].first_class;
 			y.second_class = posslabels[ci].second_class;
 			y.third_class = posslabels[ci].third_class;
-			
+			System.err.println(" label y.first_class:"+y.first_class+" y.second_class:"+y.second_class+" y.third_class:"+y.third_class);
 			fvec = psi(sample, y);
 	
 			score = classify_example(fvec);	
