@@ -216,7 +216,7 @@ public class ClassifierLayerThree extends Classifier{
 
 	@Override
 	public Label classify_struct_example(Word[] sample) {
-		// TODO Auto-generated method stub
+
 		Label y = new Label();
 		int  bestfirst = -1;
 		int bestsecond = -1;
@@ -231,6 +231,7 @@ public class ClassifierLayerThree extends Classifier{
 		for (j = 0; j <sample.length; j++) {
 			if (sample[j].wnum > model.NUM_FEATURES) {
 				//System.out.println(doc.fvec.words[j].wnum+" is set to 0");
+				System.err.println("wnum is over NUM_FEATURES");
 				return null;
 				//words[j].wnum = 0;
 			}
@@ -246,6 +247,7 @@ public class ClassifierLayerThree extends Classifier{
 			fvec = psi(sample, y);
 	
 			score = classify_example(fvec);	
+			System.err.println("y.first_class:"+y.first_class+" y.second_class:"+y.second_class+" y.third_class:"+y.third_class+" score:"+score);
 			if ((bestscore < score) || first) {
 				bestscore = score;
 				bestfirst = y.first_class;

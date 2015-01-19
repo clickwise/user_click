@@ -167,6 +167,8 @@ public abstract class Classifier {
 		Label y = null;
 		Word[] sample = null;
 
+		sample_line=sample_line.trim();
+		
 		String[] sample_arr = sample_line.split("\\s+");
 		sample = new Word[sample_arr.length];
 		for (int i = 0; i < sample.length; i++) {
