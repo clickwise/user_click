@@ -67,21 +67,25 @@ public class ClassifierLayerThree extends Classifier{
 		mp.NUM_FIRST_CLASS = Integer.parseInt(cut_comment(br.readLine()));
 		if (verbosity >= 3) {
 			logger.info("NUM_FIRST_CLASS:" + mp.NUM_FIRST_CLASS);
+			System.err.println("NUM_FIRST_CLASS:" + mp.NUM_FIRST_CLASS);
 		}
 		
 		mp.NUM_SECOND_CLASS = Integer.parseInt(cut_comment(br.readLine()));
 		if (verbosity >= 3) {
 			logger.info("NUM_SECOND_CLASS:" + mp.NUM_SECOND_CLASS);
+			System.err.println("NUM_SECOND_CLASS:" + mp.NUM_SECOND_CLASS);
 		}
 		
 		mp.NUM_THIRD_CLASS = Integer.parseInt(cut_comment(br.readLine()));
 		if (verbosity >= 3) {
 			logger.info("NUM_THIRD_CLASS:" + mp.NUM_THIRD_CLASS);
+			System.err.println("NUM_THIRD_CLASS:" + mp.NUM_THIRD_CLASS);
 		}
 		
 		mp.NUM_WORDS = Integer.parseInt(cut_comment(br.readLine()));
 		if (verbosity >= 3) {
 			logger.info("NUM_WORDS:" + mp.NUM_WORDS);
+			System.err.println("NUM_WORDS:" + mp.NUM_WORDS);
 		}
 
 		mp.loss_function = Integer.parseInt(cut_comment(br.readLine()));
@@ -122,6 +126,7 @@ public class ClassifierLayerThree extends Classifier{
 		mp.NUM_FEATURES = Integer.parseInt(cut_comment(br.readLine()));
 		if (verbosity >= 3) {
 			logger.info("NUM_FEATURES:" + mp.NUM_FEATURES);
+			System.err.println("NUM_FEATURES:" + mp.NUM_FEATURES);
 		}
 
 		mp.train_num = Integer.parseInt(cut_comment(br.readLine()));
