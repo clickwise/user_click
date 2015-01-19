@@ -315,7 +315,7 @@ public class ClassifierLayerThree extends Classifier{
 		for(int i=0;i<pls.size();i++)
 		{
 			line=pls.get(i);
-			fields=line.split("\001");
+			fields=line.split("\\s+");
 			if(fields.length!=2)
 			{
 				continue;
