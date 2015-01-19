@@ -299,61 +299,7 @@ public abstract class Classifier {
 		return hm;
 	}
 
-	public HashMap getIndexLabelFromStream(String input_file) {
-		// TODO Auto-generated method stub
-
-		HashMap hm = new HashMap();
-		String item = "";
-		String label = "";
-		String index_str = "";
-		int index = 0;
-		// FileReader fr=null;
-		// BufferedReader br=null;
-		InputStream model_is = this.getClass().getResourceAsStream(
-				"/" + input_file);
-		InputStreamReader model_isr = new InputStreamReader(model_is);
-
-		BufferedReader br = new BufferedReader(model_isr);
-
-		String[] seg_arr = null;
-
-		try {
-			// fr=new FileReader(new File(input_file));
-			// br=new BufferedReader(fr);
-			while ((item = br.readLine()) != null) {
-				if (!(SSO.tnoe(item))) {
-					continue;
-				}
-				seg_arr = item.split("\\s+");
-				if (seg_arr.length != 2) {
-					continue;
-				}
-				label = seg_arr[0].trim();
-				index_str = seg_arr[1].trim();
-
-				if (!(SSO.tnoe(index_str))) {
-					continue;
-				}
-
-				if (!(SSO.tnoe(label))) {
-					continue;
-				}
-				index = Integer.parseInt(index_str);
-
-				if (index < 1) {
-					continue;
-				}
-				hm.put(index_str, label);
-			}
-
-			br.close();
-			model_is.close();
-			model_isr.close();
-		} catch (Exception e) {
-
-		}
-		return hm;
-	}
+	public abstract HashMap getIndexLabelFromStream(String input_file);
 
 	
 }

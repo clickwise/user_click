@@ -348,7 +348,7 @@ public class ClassifierLayerThree extends Classifier{
 		for(int i=0;i<pls.size();i++)
 		{
 			line=pls.get(i);
-			fields=line.split("\\s+");
+			fields=line.split("\t");
 			if(fields.length!=2)
 			{
 				continue;
@@ -386,7 +386,6 @@ public class ClassifierLayerThree extends Classifier{
 	
 	@Override
 	public HashMap getIndexLabelFromStream(String input_file) {
-		// TODO Auto-generated method stub
 
 		HashMap hm = new HashMap();
 		String item = "";
@@ -410,7 +409,9 @@ public class ClassifierLayerThree extends Classifier{
 				if (!(SSO.tnoe(item))) {
 					continue;
 				}
-				seg_arr = item.split("\\s+");
+				item=item.trim();
+				
+				seg_arr = item.split("\t");
 				if (seg_arr.length != 2) {
 					continue;
 				}
@@ -424,12 +425,9 @@ public class ClassifierLayerThree extends Classifier{
 				if (!(SSO.tnoe(label))) {
 					continue;
 				}
-				index = Integer.parseInt(index_str);
 
 				System.err.println("index_str:"+index_str+" label:"+label);
-				if (index < 1) {
-					continue;
-				}
+
 				hm.put(index_str, label);
 			}
 

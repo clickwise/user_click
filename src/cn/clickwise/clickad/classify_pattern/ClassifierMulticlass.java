@@ -3,12 +3,14 @@ package cn.clickwise.clickad.classify_pattern;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.HashMap;
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
 
 import cn.clickwise.clickad.keyword.KeyExtract;
 import cn.clickwise.clickad.seg.Segmenter;
 import cn.clickwise.clickad.tag.PosTagger;
+import cn.clickwise.liqi.str.basic.SSO;
 
 public class ClassifierMulticlass extends Classifier{
 	
@@ -245,6 +247,62 @@ public class ClassifierMulticlass extends Classifier{
 
 		// System.out.println();
 		return fvec;
+	}
+	
+	public HashMap getIndexLabelFromStream(String input_file) {
+		// TODO Auto-generated method stub
+
+		HashMap hm = new HashMap();
+		String item = "";
+		String label = "";
+		String index_str = "";
+		int index = 0;
+		// FileReader fr=null;
+		// BufferedReader br=null;
+		InputStream model_is = this.getClass().getResourceAsStream(
+				"/" + input_file);
+		InputStreamReader model_isr = new InputStreamReader(model_is);
+
+		BufferedReader br = new BufferedReader(model_isr);
+
+		String[] seg_arr = null;
+
+		try {
+			// fr=new FileReader(new File(input_file));
+			// br=new BufferedReader(fr);
+			while ((item = br.readLine()) != null) {
+				if (!(SSO.tnoe(item))) {
+					continue;
+				}
+				seg_arr = item.split("\\s+");
+				if (seg_arr.length != 2) {
+					continue;
+				}
+				label = seg_arr[0].trim();
+				index_str = seg_arr[1].trim();
+
+				if (!(SSO.tnoe(index_str))) {
+					continue;
+				}
+
+				if (!(SSO.tnoe(label))) {
+					continue;
+				}
+				index = Integer.parseInt(index_str);
+
+				if (index < 1) {
+					continue;
+				}
+				hm.put(index_str, label);
+			}
+
+			br.close();
+			model_is.close();
+			model_isr.close();
+		} catch (Exception e) {
+
+		}
+		return hm;
 	}
 	
 	public static void main(String[] args) throws Exception {
