@@ -267,6 +267,7 @@ public class ClassifierLayerThree extends Classifier{
 	@Override
 	public Word[] psi(Word[] sample, Label y) {
 
+		System.err.println("in psi");
 		Word[] fvec=new Word[sample.length*3];;
 		for(int i=0;i<sample.length;i++)
 		{
