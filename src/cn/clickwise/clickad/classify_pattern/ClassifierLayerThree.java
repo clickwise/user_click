@@ -279,6 +279,12 @@ public class ClassifierLayerThree extends Classifier{
 		  fvec[i+sample.length].wnum+=((y.second_class-1)*model.NUM_FEATURES+model.NUM_FIRST_CLASS*model.NUM_FEATURES);
 		  fvec[i+sample.length*2].wnum+=((y.third_class-1)*model.NUM_FEATURES+model.NUM_FIRST_CLASS*model.NUM_FEATURES+model.NUM_SECOND_CLASS*model.NUM_FEATURES);
 		}
+		System.out.println();
+		for(int i=0;i<fvec.length;i++)
+		{
+			System.out.print(fvec[i].wnum+":"+fvec[i].weight+" ");
+		}
+		System.out.println();
 
 		return fvec;
 	}
