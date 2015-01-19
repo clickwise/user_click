@@ -4,9 +4,11 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
 
+import cn.clickwise.clickad.classify_pattern.Classifier.Label;
 import cn.clickwise.clickad.keyword.KeyExtract;
 import cn.clickwise.clickad.seg.Segmenter;
 import cn.clickwise.clickad.tag.PosTagger;
@@ -248,11 +250,11 @@ public class ClassifierLayerThree extends Classifier{
 			y.first_class = posslabels[ci].first_class;
 			y.second_class = posslabels[ci].second_class;
 			y.third_class = posslabels[ci].third_class;
-			System.err.println(" label y.first_class:"+y.first_class+" y.second_class:"+y.second_class+" y.third_class:"+y.third_class);
+			//System.err.println(" label y.first_class:"+y.first_class+" y.second_class:"+y.second_class+" y.third_class:"+y.third_class);
 			fvec = psi(sample, y);
 	
 			score = classify_example(fvec);	
-			System.err.println("y.first_class:"+y.first_class+" y.second_class:"+y.second_class+" y.third_class:"+y.third_class+" score:"+score);
+			//System.err.println("y.first_class:"+y.first_class+" y.second_class:"+y.second_class+" y.third_class:"+y.third_class+" score:"+score);
 			if ((bestscore < score) || first) {
 				bestscore = score;
 				bestfirst = y.first_class;
@@ -272,7 +274,7 @@ public class ClassifierLayerThree extends Classifier{
 	@Override
 	public Word[] psi(Word[] sample, Label y) {
 
-		System.err.println("in psi");
+		//System.err.println("in psi");
 		Word[] fvec=new Word[sample.length*3];;
 		for(int i=0;i<sample.length;i++)
 		{
@@ -284,14 +286,32 @@ public class ClassifierLayerThree extends Classifier{
 		  fvec[i+sample.length].wnum+=((y.second_class-1)*model.NUM_WORDS+model.NUM_FIRST_CLASS*model.NUM_WORDS);
 		  fvec[i+sample.length*2].wnum+=((y.third_class-1)*model.NUM_WORDS+model.NUM_FIRST_CLASS*model.NUM_WORDS+model.NUM_SECOND_CLASS*model.NUM_WORDS);
 		}
+		/*
 		System.out.println();
 		for(int i=0;i<fvec.length;i++)
 		{
 			System.out.print(fvec[i].wnum+":"+fvec[i].weight+" ");
 		}
 		System.out.println();
-
+        */
 		return fvec;
+	}
+	
+	@Override
+	public String getCateName(Label y) {
+		String cate_name = "";
+		String key=y.first_class+"|"+y.second_class+"|"+y.third_class;
+		
+		if(label_names.containsKey(key))
+		{
+			cate_name=label_names.get(key)+"";
+		}
+		else
+		{
+			cate_name = "NA";
+		}
+
+		return cate_name;
 	}
 	
 	public void readPossLabels(String input_file)
@@ -361,6 +381,63 @@ public class ClassifierLayerThree extends Classifier{
 		}
 	}
 	
+	
+	@Override
+	public HashMap getIndexLabelFromStream(String input_file) {
+		// TODO Auto-generated method stub
+
+		HashMap hm = new HashMap();
+		String item = "";
+		String label = "";
+		String index_str = "";
+		int index = 0;
+		// FileReader fr=null;
+		// BufferedReader br=null;
+		InputStream model_is = this.getClass().getResourceAsStream(
+				"/" + input_file);
+		InputStreamReader model_isr = new InputStreamReader(model_is);
+
+		BufferedReader br = new BufferedReader(model_isr);
+
+		String[] seg_arr = null;
+
+		try {
+			// fr=new FileReader(new File(input_file));
+			// br=new BufferedReader(fr);
+			while ((item = br.readLine()) != null) {
+				if (!(SSO.tnoe(item))) {
+					continue;
+				}
+				seg_arr = item.split("\\s+");
+				if (seg_arr.length != 2) {
+					continue;
+				}
+				label = seg_arr[1].trim();
+				index_str = seg_arr[0].trim();
+
+				if (!(SSO.tnoe(index_str))) {
+					continue;
+				}
+
+				if (!(SSO.tnoe(label))) {
+					continue;
+				}
+				index = Integer.parseInt(index_str);
+
+				if (index < 1) {
+					continue;
+				}
+				hm.put(index_str, label);
+			}
+
+			br.close();
+			model_is.close();
+			model_isr.close();
+		} catch (Exception e) {
+
+		}
+		return hm;
+	}
 	public static void main(String[] args) throws Exception {
 
 		ClassifierLayerThree cf = new ClassifierLayerThree();
