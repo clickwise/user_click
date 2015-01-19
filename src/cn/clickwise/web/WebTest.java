@@ -165,7 +165,7 @@ public class WebTest {
 		opt = Integer.parseInt(args[0]);
         */
 		
-		String url = "http://list.taobao.com/itemlist/default.htm?cat=50450022&viewIndex=1&as=0&spm=a2106.2206569.0.0.3XBIs2&atype=b&style=grid&same_info=1&isnew=2&tid=0&_input_charset=utf-8"; 
+		String url = "http://item.jd.com/1385519573.html"; 
 		WebTest wt=new WebTest(); 
 		// System.out.println(wt.getTitle(url)); 
 		Fetcher f = new Fetcher();

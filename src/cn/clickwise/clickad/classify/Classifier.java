@@ -20,9 +20,7 @@ import org.slf4j.LoggerFactory;
 
 import cn.clickwise.clickad.keyword.KeyExtract;
 import cn.clickwise.clickad.seg.Segmenter;
-import cn.clickwise.clickad.server.AuxiliaryServer;
 import cn.clickwise.clickad.tag.PosTagger;
-import cn.clickwise.liqi.file.uitls.FileReaderUtil;
 import cn.clickwise.liqi.str.basic.SSO;
 
 /**

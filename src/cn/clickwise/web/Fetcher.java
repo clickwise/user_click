@@ -291,6 +291,7 @@ public class Fetcher {
 			//////String content=fetcher.getSourceEasyProxy(url,getProxy());
 			//////doc=Jsoup.parse(content);
 			doc = Jsoup.connect(url).get();
+			
 			if(doc==null)
 			{
 				return null;
