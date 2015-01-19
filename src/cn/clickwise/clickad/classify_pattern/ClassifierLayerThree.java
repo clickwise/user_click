@@ -302,6 +302,8 @@ public class ClassifierLayerThree extends Classifier{
 		String cate_name = "";
 		String key=y.first_class+"|"+y.second_class+"|"+y.third_class;
 		
+		System.out.println("key:"+key);
+		
 		if(label_names.containsKey(key))
 		{
 			cate_name=label_names.get(key)+"";
@@ -424,6 +426,7 @@ public class ClassifierLayerThree extends Classifier{
 				}
 				index = Integer.parseInt(index_str);
 
+				System.err.println("index_str:"+index_str+" label:"+label);
 				if (index < 1) {
 					continue;
 				}

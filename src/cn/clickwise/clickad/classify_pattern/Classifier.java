@@ -62,7 +62,7 @@ public abstract class Classifier {
 	public abstract Word[] psi(Word[] sample, Label y);
 	
 	public double classify_example(Word[] fvec) {
-		System.err.println("in classify_example");
+		//System.err.println("in classify_example");
 		double score = 0;
 		Word samp_word = null;
 
