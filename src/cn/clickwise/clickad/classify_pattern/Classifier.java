@@ -228,14 +228,6 @@ public abstract class Classifier {
 	public class Word {
 		int wnum;
 		double weight;
-		
-		public Word copy_word()
-		{
-			Word nw=new Word();
-			nw.weight=weight;
-			nw.wnum=wnum;
-			return nw;
-		}
 	}
 
 	public class Label {
@@ -243,6 +235,14 @@ public abstract class Classifier {
 		int second_class;
 		int third_class;
 		double score;
+	}
+	
+	public Word copy_word(Word w)
+	{
+		Word nw=new Word();
+		nw.weight=w.weight;
+		nw.wnum=w.wnum;
+		return nw;
 	}
 
 	public HashMap getDictFromStream(String input_file) {

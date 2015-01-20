@@ -278,9 +278,9 @@ public class ClassifierLayerThree extends Classifier{
 		Word[] fvec=new Word[sample.length*3];;
 		for(int i=0;i<sample.length;i++)
 		{
-		  fvec[i]=sample[i].copy_word();
-		  fvec[i+sample.length]=sample[i].copy_word();
-		  fvec[i+sample.length*2]=sample[i].copy_word();
+		  fvec[i]=copy_word(sample[i]);
+		  fvec[i+sample.length]=copy_word(sample[i]);
+		  fvec[i+sample.length*2]=copy_word(sample[i]);
 		  
 		  fvec[i].wnum+=(y.first_class-1)*model.NUM_WORDS;
 		  fvec[i+sample.length].wnum+=((y.second_class-1)*model.NUM_WORDS+model.NUM_FIRST_CLASS*model.NUM_WORDS);
