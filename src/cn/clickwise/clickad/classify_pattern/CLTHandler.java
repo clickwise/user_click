@@ -37,6 +37,7 @@ public class CLTHandler extends Handler{
 
 		//encode_res = encode_res.replaceAll("\\s+", "");	
 		//exchange.sendResponseHeaders(200, encode_res.length());
+		exchange.sendResponseHeaders(200,0);
 		OutputStream os = exchange.getResponseBody();
 		OutputStreamWriter osw=new OutputStreamWriter(os,"gbk");
 		PrintWriter pw=new PrintWriter(osw);
