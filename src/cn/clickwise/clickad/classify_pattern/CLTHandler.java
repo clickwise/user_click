@@ -29,6 +29,7 @@ public class CLTHandler extends Handler{
 		String cate_str=cf.cate(de_title);
 		cate_str=cate_str.trim();
 		
+		System.out.println("cate_str:"+cate_str);
 		exchange.sendResponseHeaders(200, cate_str.length());
 		OutputStream os = exchange.getResponseBody();
 		os.write(cate_str.getBytes());
