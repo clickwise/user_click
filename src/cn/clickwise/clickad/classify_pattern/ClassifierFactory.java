@@ -21,7 +21,7 @@ public class ClassifierFactory {
 	{
 		if(ClassifierConfig.model_type==0)
 		{
-		    
+			return new CallMap("/test",new TestHandler());
 		}
 		else if(ClassifierConfig.model_type==2)
 		{
