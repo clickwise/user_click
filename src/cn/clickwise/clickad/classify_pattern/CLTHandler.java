@@ -31,8 +31,16 @@ public class CLTHandler extends Handler{
 		de_title=de_title.trim();
 		System.out.println("de_title:" + de_title);
 		System.out.println("de_title.len:"+de_title.length());
-		String cate_str=classifer.cate(de_title);
-		cate_str=cate_str.trim();
+		String cate_str="";
+		if(de_title.length()>20)
+		{
+		  cate_str=classifer.cate(de_title);
+		  cate_str=cate_str.trim();
+		}
+		else
+		{
+			cate_str="title信息不足";
+		}
 		
 		System.out.println("cate_str:"+cate_str);
 
