@@ -30,6 +30,7 @@ public class CLTHandler extends Handler{
 		String de_title = new String(UrlCode.getDecodeUrl(title_str));
 		de_title=de_title.trim();
 		System.out.println("de_title:" + de_title);
+		System.out.println("de_title.len:"+de_title.length());
 		String cate_str=classifer.cate(de_title);
 		cate_str=cate_str.trim();
 		
