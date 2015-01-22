@@ -27,14 +27,14 @@ public class ClassifierLayerThree extends Classifier{
 		super();
 		System.out.println("initialize layer three model");
 		try {
-			String model_path = "model_1224_lngram";
+			String model_path = "model_0120";
 			model=read_model(model_path);
 			seg = new Segmenter();
 			posTagger = new PosTagger("chinese-nodistsim.tagger");
 			ke = new KeyExtract();
-			video_dict = getDictFromStream("gendict_1224_ngram.txt");
-			label_names = getIndexLabelFromStream("genlabeldict_1224_ngram.txt");
-			readPossLabels("genlabeldict_1224_ngram.txt");
+			video_dict = getDictFromStream("gendict_0120.txt");
+			label_names = getIndexLabelFromStream("genlabeldict_0120_m.txt");
+			readPossLabels("genlabeldict_0120_m.txt");
 			String text="睡袋 户外加宽加厚保暖 秋冬季超轻成人睡袋野营可拼接双人睡袋 ";
 			System.out.println("cate:"+cate(text));
 		} catch (Exception e) {
