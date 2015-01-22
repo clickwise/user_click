@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.net.URLEncoder;
 
 import cn.clickwise.liqi.str.edcode.UrlCode;
 
@@ -20,6 +19,7 @@ public class CLTHandler extends Handler{
 		 new ClassifierLayerThree();
 	}
 	*/
+	
 	@Override
 	public void handle(HttpExchange exchange) throws IOException {
 		
