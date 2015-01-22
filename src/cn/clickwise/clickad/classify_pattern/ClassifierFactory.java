@@ -15,4 +15,19 @@ public class ClassifierFactory {
 		
 		return null;
 	}
+	
+
+	public static CallMap getCallMap()
+	{
+		if(ClassifierConfig.model_type==0)
+		{
+		    
+		}
+		else if(ClassifierConfig.model_type==2)
+		{
+			return new CallMap("ctb",new CLTHandler());
+		}
+		
+		return null;
+	}
 }

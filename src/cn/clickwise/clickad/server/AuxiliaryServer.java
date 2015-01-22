@@ -114,10 +114,8 @@ public class AuxiliaryServer implements Runnable {
 
 		@Override
 		public void handle(HttpExchange exchange) throws IOException {
-			// TODO Auto-generated method stub
 
 			String request = exchange.getRequestURI().toString();
-            System.out.println("request:"+request);
 			
 			InputStream is = exchange.getRequestBody();
 			InputStreamReader isr = new InputStreamReader(is);
