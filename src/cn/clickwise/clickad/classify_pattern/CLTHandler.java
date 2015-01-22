@@ -3,6 +3,8 @@ package cn.clickwise.clickad.classify_pattern;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import cn.clickwise.liqi.str.edcode.UrlCode;
+
 import com.sun.net.httpserver.HttpExchange;
 
 public class CLTHandler extends Handler{
@@ -21,8 +23,10 @@ public class CLTHandler extends Handler{
 		System.out.println("title_str:"+title_str);
 		title_str = title_str.replaceFirst("\\/ctb\\?s\\=", "");
 		title_str=title_str.trim();
-		
-		String cate_str=cf.cate(title_str);
+		String de_title = new String(UrlCode.getDecodeUrl(title_str));
+		de_title=de_title.trim();
+		System.out.println("de_title:" + de_title);
+		String cate_str=cf.cate(de_title);
 		cate_str=cate_str.trim();
 		
 		exchange.sendResponseHeaders(200, cate_str.length());
