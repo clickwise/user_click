@@ -21,8 +21,11 @@ public class ClassifyPatternServer implements Runnable{
 					new InetSocketAddress(Integer.parseInt(properties.getProperty("port"))), 0);
 
             CallMap callMap=ClassifierFactory.getCallMap();
-            hs.createContext(callMap.method, callMap.handler);
+            System.err.println("method:"+callMap.method);
+            System.err.println("handler:"+callMap.handler.getClass().getSimpleName());
             
+            hs.createContext(callMap.method, callMap.handler);
+            System.err.println("waiting to cate");
 			hs.setExecutor(null);
 			hs.start();
 

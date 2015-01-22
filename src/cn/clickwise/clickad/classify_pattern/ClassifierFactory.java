@@ -25,7 +25,8 @@ public class ClassifierFactory {
 		}
 		else if(ClassifierConfig.model_type==2)
 		{
-			return new CallMap("ctb",new CLTHandler());
+			return new CallMap("/ctb",new CLTHandler());
+			//return new CallMap("/ctb",null);
 		}
 		
 		return null;
