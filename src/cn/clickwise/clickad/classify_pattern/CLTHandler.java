@@ -34,7 +34,8 @@ public class CLTHandler extends Handler{
 		System.out.println("cate_str:"+cate_str);
 		String encode_res ="";
 		encode_res=URLEncoder.encode(cate_str);
-		encode_res = encode_res.replaceAll("\\s+", "");
+		encode_res="测试";
+		encode_res = encode_res.replaceAll("\\s+", "");	
 		exchange.sendResponseHeaders(200, encode_res.length());
 		OutputStream os = exchange.getResponseBody();
 		os.write(encode_res.getBytes());
