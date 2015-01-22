@@ -18,6 +18,7 @@ public class CLTHandler extends Handler{
 	public void handle(HttpExchange exchange) throws IOException {
 		
 		String title_str = exchange.getRequestURI().toString();
+		System.out.println("title_str:"+title_str);
 		title_str = title_str.replaceFirst("\\/ctb\\?s\\=", "");
 		title_str=title_str.trim();
 		

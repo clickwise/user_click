@@ -25,7 +25,7 @@ public class ClassifyPatternServer implements Runnable{
             System.err.println("handler:"+callMap.handler.getClass().getSimpleName());
             
             hs.createContext(callMap.method, callMap.handler);
-            System.err.println("waiting to cate");
+            System.err.println("waiting to cate port"+properties.getProperty("port"));
 			hs.setExecutor(null);
 			hs.start();
 
