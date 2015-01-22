@@ -2,6 +2,7 @@ package cn.clickwise.clickad.classify_pattern;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URLEncoder;
 
 import cn.clickwise.liqi.str.edcode.UrlCode;
 
@@ -31,9 +32,12 @@ public class CLTHandler extends Handler{
 		cate_str=cate_str.trim();
 		
 		System.out.println("cate_str:"+cate_str);
-		exchange.sendResponseHeaders(200, cate_str.length());
+		String encode_res ="";
+		encode_res=URLEncoder.encode(cate_str);
+		encode_res = encode_res.replaceAll("\\s+", "");
+		exchange.sendResponseHeaders(200, encode_res.length());
 		OutputStream os = exchange.getResponseBody();
-		os.write(cate_str.getBytes());
+		os.write(encode_res.getBytes());
 		os.close();
 		
 	}
