@@ -9,13 +9,14 @@ import com.sun.net.httpserver.HttpExchange;
 
 public class CLTHandler extends Handler{
 	
-	ClassifierLayerThree cf = null;
+	//ClassifierLayerThree cf = null;
 	
+	/*
 	public CLTHandler()
 	{
 		 new ClassifierLayerThree();
 	}
-	
+	*/
 	@Override
 	public void handle(HttpExchange exchange) throws IOException {
 		
@@ -26,7 +27,7 @@ public class CLTHandler extends Handler{
 		String de_title = new String(UrlCode.getDecodeUrl(title_str));
 		de_title=de_title.trim();
 		System.out.println("de_title:" + de_title);
-		String cate_str=cf.cate(de_title);
+		String cate_str=classifer.cate(de_title);
 		cate_str=cate_str.trim();
 		
 		System.out.println("cate_str:"+cate_str);

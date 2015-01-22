@@ -35,6 +35,8 @@ public class ClassifierLayerThree extends Classifier{
 			video_dict = getDictFromStream("gendict_1224_ngram.txt");
 			label_names = getIndexLabelFromStream("genlabeldict_1224_ngram.txt");
 			readPossLabels("genlabeldict_1224_ngram.txt");
+			String text="睡袋 户外加宽加厚保暖 秋冬季超轻成人睡袋野营可拼接双人睡袋 ";
+			System.out.println("cate:"+cate(text));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -426,7 +428,7 @@ public class ClassifierLayerThree extends Classifier{
 					continue;
 				}
 
-				System.err.println("index_str:"+index_str+" label:"+label);
+				//System.err.println("index_str:"+index_str+" label:"+label);
 
 				hm.put(index_str, label);
 			}
