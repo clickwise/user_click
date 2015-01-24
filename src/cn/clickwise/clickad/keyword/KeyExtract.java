@@ -556,6 +556,74 @@ public String keyword_extract_noun_ngram(String text) {
 		return k_s;
 	}
 
+public String keyword_extract_noun_ngram_vv_adj(String text) {
+	
+	String k_s = "";
+	String[] seg_arr = text.split("\\s+");
+	Vector new_word_arr = new Vector();
+	String[] history_word_arr = new String[7];
+	for (int i = 0; i < history_word_arr.length; i++) {
+		history_word_arr[i] = "";
+	}
+
+	Vector vvadj = new Vector();
+	
+	String key_word = "";
+	String subkey1 = "", subkey2 = "", subkey4 = "", subkey5 = "", subkey6 = "", subkey7 = "", subkey8 = "";
+
+	for (int i = 0; i < seg_arr.length; i++) {
+		// System.out.println(i + ":" + seg_arr[i]);
+		if (((seg_arr[i].indexOf("#NN")) != -1)
+				|| ((seg_arr[i].indexOf("#NR")) != -1)) {
+			key_word = seg_arr[i];
+			if ((seg_arr[i].indexOf("#NN")) != -1) {
+				key_word = key_word.replaceAll("#NN", "");
+			} else if ((seg_arr[i].indexOf("#NR")) != -1) {
+				key_word = key_word.replaceAll("#NR", "");
+			}
+			key_word = key_word.trim();
+			if (key_word.length() > 1) {
+				new_word_arr.add(key_word);
+			}
+
+		} else if (seg_arr[i].length() > 5) {
+			key_word = seg_arr[i];
+			key_word = key_word.replaceAll("#.*", "");
+			key_word = key_word.trim();
+			new_word_arr.add(key_word);
+		} else if(((seg_arr[i].indexOf("#VV")) != -1)||((seg_arr[i].indexOf("#JJ")) != -1))
+		{
+			key_word = seg_arr[i];
+			key_word = key_word.replaceAll("#.*", "");
+			key_word = key_word.trim();
+	
+			vvadj.add(key_word);
+		}
+	}
+
+	Vector ngram_word_arr=ngramOfWords(new_word_arr);
+	
+	String temp_CC = "";
+	for (int i = 0; i < ngram_word_arr.size(); i++) {
+		temp_CC = ngram_word_arr.get(i) + "";
+		if (!(Pattern.matches("[a-zA-Z%0-9\\\\\\\\_\\-]*", temp_CC))) {
+			k_s = k_s + temp_CC + " ";
+		}
+	}
+	
+	for(int i=0;i<vvadj.size();i++)
+	{
+		temp_CC =vvadj.get(i) + "";
+		if (!(Pattern.matches("[a-zA-Z%0-9\\\\\\\\_\\-]*", temp_CC))) {
+			k_s = k_s + temp_CC + " ";
+		}
+	}
+
+	k_s=k_s.trim();
+	
+	return k_s;
+}
+
     public Vector ngramOfWords(Vector words)
     {
     	Vector nWords=new Vector();
@@ -609,7 +677,7 @@ public String keyword_extract_noun_ngram(String text) {
 			System.err.println("    field_num : 输入的字段个数");
 			System.err.println("    key_field_index: 要进行关键词提取的字段编号，从0开始，即0表示第一个字段");
 			System.err.println("    separator:字段间的分隔符，001 表示 字符001，blank 表示\\s+ 即连续空格,tab 表示 \t");
-			System.err.println("    option:0 表示只取名词，1 表示取名词和ngram(大于2) ，2 表示detail");
+			System.err.println("    option:0 表示只取名词，1 表示取名词和ngram(大于2) ，2 表示detail, 3表示在1的基础上增加动词、形容词，但不取ngram");
 			System.exit(1);
 		}
 		
@@ -690,6 +758,10 @@ public String keyword_extract_noun_ngram(String text) {
 				{
 					 pw.print(ke.keyword_extract_detail(fields[keyFieldIndex]).trim()+outputSeparator);					
 				}
+				else if(option==3)
+				{
+					 pw.print(ke.keyword_extract_noun_ngram_vv_adj(fields[keyFieldIndex]).trim()+outputSeparator);					
+				}
 			}
 			else
 			{
@@ -704,6 +776,10 @@ public String keyword_extract_noun_ngram(String text) {
 				else if(option==2)
 				{
 					pw.print(ke.keyword_extract_detail(fields[keyFieldIndex]).trim());
+				}
+				else if(option==3)
+				{
+					pw.print(ke.keyword_extract_noun_ngram_vv_adj(fields[keyFieldIndex]).trim());
 				}
 			}
 			
