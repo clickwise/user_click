@@ -27,6 +27,11 @@ public class NLPServer implements Runnable{
 	
 	public NLPServer()
 	{
+		
+	}
+	
+	public void init()
+	{
 		NLPConfig.server_type=Integer.parseInt(properties.getProperty("server_type"));
 		
 		//初始化segmenter
@@ -43,7 +48,6 @@ public class NLPServer implements Runnable{
 		{
 			ke = new KeyExtract();
 		}
-		
 	}
 	
 	@Override
@@ -129,6 +133,7 @@ public class NLPServer implements Runnable{
 		
 		NLPServer nlp=new NLPServer();
 		nlp.read_input_parameters(args);
+		nlp.init();
 		Thread serverThread = new Thread(nlp);
 		serverThread.start();
 	}
