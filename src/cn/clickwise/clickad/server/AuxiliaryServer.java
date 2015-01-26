@@ -189,6 +189,11 @@ public class AuxiliaryServer implements Runnable {
 
 	public static void main(String[] args) {
 
+		if(args.length<1)
+		{
+			print_help();
+			System.exit(0);
+		}
 		AuxiliaryServer as = new AuxiliaryServer();
 		as.read_input_parameters(args);
 		Thread serverThread = new Thread(as);
