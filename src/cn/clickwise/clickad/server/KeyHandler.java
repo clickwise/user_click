@@ -33,7 +33,7 @@ public class KeyHandler implements HttpHandler{
 		String de_tag = new String(UrlCode.getDecodeUrl(tag_str));
 		de_tag=de_tag.trim();
 		System.out.println("de_tag:" + de_tag);
-		String key_str=ke.keyword_extract(de_tag);
+		String key_str=ke.keyword_extract_noun_ngram(de_tag);
 		System.out.println("key_str:"+key_str);
 		exchange.sendResponseHeaders(200,0);
 		OutputStream os = exchange.getResponseBody();
