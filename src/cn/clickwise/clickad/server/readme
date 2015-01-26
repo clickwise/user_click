@@ -1,0 +1,9 @@
+//seg server
+java -cp user_click.jar cn.clickwise.clickad.server.NLPServer -p 9009  -t 0
+
+//tag server
+java -cp user_click.jar cn.clickwise.clickad.server.NLPServer -p 9009  -t 1
+
+//key server
+java -cp user_click.jar cn.clickwise.clickad.server.NLPServer -p 9009  -t 2
+
