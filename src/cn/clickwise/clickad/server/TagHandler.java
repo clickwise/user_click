@@ -34,6 +34,7 @@ public class TagHandler implements HttpHandler{
 		de_seg=de_seg.trim();
 		System.out.println("de_seg:" + de_seg);
 		String tag_str=posTagger.tag(de_seg);
+		tag_str=tag_str.replaceAll("#", "%");
 		System.out.println("tag_str:"+tag_str);
 		exchange.sendResponseHeaders(200,0);
 		OutputStream os = exchange.getResponseBody();

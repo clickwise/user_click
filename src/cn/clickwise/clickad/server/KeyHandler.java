@@ -31,6 +31,7 @@ public class KeyHandler implements HttpHandler{
 		tag_str = tag_str.replaceFirst("\\/key\\?s\\=", "");
 		tag_str=tag_str.trim();
 		String de_tag = new String(UrlCode.getDecodeUrl(tag_str));
+		de_tag=de_tag.replaceAll("%", "#");
 		de_tag=de_tag.trim();
 		System.out.println("de_tag:" + de_tag);
 		String key_str=ke.keyword_extract_noun_ngram(de_tag);
