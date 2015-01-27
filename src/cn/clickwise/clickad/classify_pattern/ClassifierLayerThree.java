@@ -1,6 +1,7 @@
 package cn.clickwise.clickad.classify_pattern;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ import cn.clickwise.lib.string.SSO;
 public class ClassifierLayerThree extends Classifier{
 	
 	public Label[] posslabels=null;
+	
 	public ClassifierLayerThree()
 	{
 		super();
@@ -30,6 +32,29 @@ public class ClassifierLayerThree extends Classifier{
 			String model_path = "model_vvjj.txt";
 			model=read_model(model_path);
 			seg = new Segmenter();
+			posTagger = new PosTagger("chinese-nodistsim.tagger");
+			ke = new KeyExtract();
+			video_dict = getDictFromStream("gendict_vvjj.txt");
+			label_names = getIndexLabelFromStream("genlabeldict_vvjj.txt");
+			readPossLabels("genlabeldict_vvjj.txt");
+			String text="睡袋 户外加宽加厚保暖 秋冬季超轻成人睡袋野营可拼接双人睡袋 ";
+			System.out.println("cate:"+cate(text));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	
+	}
+	
+	public ClassifierLayerThree(String dict)
+	{
+		super();
+		System.out.println("initialize layer three model");
+		try {
+			String model_path = "model_vvjj.txt";
+			model=read_model(model_path);
+			seg = new Segmenter();
+			System.err.println("loading dict "+dict);
+			seg.loadAnsjDic(new File(dict));
 			posTagger = new PosTagger("chinese-nodistsim.tagger");
 			ke = new KeyExtract();
 			video_dict = getDictFromStream("gendict_vvjj.txt");

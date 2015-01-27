@@ -27,7 +27,7 @@ public class ClassifyPatternServer implements Runnable{
             hs.createContext(callMap.method, callMap.handler);
             if(ClassifierConfig.model_type==2)
             {
-              callMap.handler.setClassifer(new ClassifierLayerThree());
+              callMap.handler.setClassifer(new ClassifierLayerThree(properties.getProperty("dict")));
             }
             System.err.println("waiting to cate port"+properties.getProperty("port"));
 			hs.setExecutor(null);
@@ -49,6 +49,10 @@ public class ClassifyPatternServer implements Runnable{
 				i++;
 				properties.setProperty("port", args[i]);
 				break;
+			case 'd':
+				i++;
+				properties.setProperty("dict", args[i]);
+				break;				
 			default:
 				System.out.println("Unrecognized option " + args[i] + "!");
 				print_help();
@@ -63,6 +67,7 @@ public class ClassifyPatternServer implements Runnable{
 		System.out.println("usage: AuxiliaryServer [options]");
 		System.out.println("options: -h  -> this help");
 		System.out.println("         -p  auxiliary server port");
+		System.out.println("         -d  dict file");
 	}
 	
 	public static void main(String[] args)
