@@ -10,7 +10,6 @@ import java.net.Socket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import cn.clickwise.clickad.radiusClient.ResolveCenter;
 
 import cn.clickwise.lib.string.SSO;
 import cn.clickwise.lib.time.TimeOpera;
