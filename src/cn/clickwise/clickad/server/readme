@@ -1,9 +1,14 @@
 //seg server
-java -cp user_click.jar cn.clickwise.clickad.server.NLPServer -p 9009  -t 0
+java -cp user_click.jar cn.clickwise.clickad.server.NLPServer -p 9009 -d so_dict.txt  -t 0
 
 //tag server
-java -cp user_click.jar cn.clickwise.clickad.server.NLPServer -p 9009  -t 1
+java -cp user_click.jar cn.clickwise.clickad.server.NLPServer -p 9010  -t 1
 
 //key server
-java -cp user_click.jar cn.clickwise.clickad.server.NLPServer -p 9009  -t 2
+java -cp user_click.jar cn.clickwise.clickad.server.NLPServer -p 9011  -t 2
+
+//tbcate server
+java -Xmx10000m -cp user_click.jar cn.clickwise.clickad.classify_pattern.ClassifyPatternServer -p 9012 -d so_dict.txt 
+
+
 

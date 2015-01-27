@@ -86,7 +86,7 @@ public class NLPTest extends NLPTestBase{
 	public static void main(String[] args)
 	{
 		NLPTest nlptest=new NLPTest();
-		String title="verb 2014新款黑色男裤韩版时尚商务休闲男士男裤子加厚毛呢长裤";
+		String title="Sony/索尼 HDR-AZ1VR 运动佩戴数码摄像机 AZ1 WiFi分享/远程监控";
 		String seg=nlptest.testSeg(title);
 		
 		System.out.println("seg:"+seg);
