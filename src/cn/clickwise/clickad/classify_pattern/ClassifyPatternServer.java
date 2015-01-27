@@ -29,7 +29,7 @@ public class ClassifyPatternServer implements Runnable{
             {
               callMap.handler.setClassifer(new ClassifierLayerThree(properties.getProperty("dict")));
             }
-            System.err.println("waiting to cate port"+properties.getProperty("port"));
+            System.err.println("waiting to cate on port "+properties.getProperty("port"));
 			hs.setExecutor(null);
 			hs.start();
 
