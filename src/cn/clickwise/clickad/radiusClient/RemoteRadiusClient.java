@@ -494,15 +494,15 @@ public class RemoteRadiusClient extends RadiusClient{
 				String rawRecord=TimeOpera.getCurrentTime()+"\t"+BytesTransform.bytes2str(ufa);
 				logger.info(rawRecord);
 				//204 stop
-				//resolveSockOut.writeInt(rawRecord.length());
-				/*
+				resolveSockOut.writeInt(rawRecord.length());
+				
 				for(int m=0;m<rawRecord.length();m++)
 				{
 					resolveSockOut.writeChar(rawRecord.charAt(m));	
 				}
-				*/
+			
 				//204 stop
-				//resolveSockOut.writeChars(rawRecord);
+				resolveSockOut.writeChars(rawRecord);
 				ufa=null;
 				//rec=null;
 							
@@ -624,7 +624,7 @@ public class RemoteRadiusClient extends RadiusClient{
 
 		connect(rc);
 		////******204 stop************//
-		//connectResolve();
+		connectResolve();
 		long startTime = TimeOpera.getCurrentTimeLong();
 		while (true) {
 			if (TimeOpera.getCurrentTimeLong() - startTime > 4000) {

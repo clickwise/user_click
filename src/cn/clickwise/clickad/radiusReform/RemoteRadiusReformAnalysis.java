@@ -1,7 +1,6 @@
 package cn.clickwise.clickad.radiusReform;
 
 import java.io.DataOutputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -11,15 +10,13 @@ import java.net.Socket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import cn.clickwise.clickad.radiusClient.ResolveCenter;
+
 import cn.clickwise.lib.string.SSO;
 import cn.clickwise.lib.time.TimeOpera;
 
-/**
- * 将未完全解析的传到另一台机器上处理
- * @author zkyz
- */
-public class RemoteRadiusReform {
-
+public class RemoteRadiusReformAnalysis {
+	
 	private InputStream sockIn;
 
 	private OutputStreamWriter sockOut;
@@ -40,6 +37,15 @@ public class RemoteRadiusReform {
 	
 	long startTime;
 	long gcstartTime ;
+	
+	//resolve
+	private Socket resolveSock;
+	
+	private InputStream resolveSockIn;
+	
+	private DataOutputStream resolveSockOut;
+	
+	private ResolveCenter rece;
 
 	public void init()
 	{
@@ -64,7 +70,31 @@ public class RemoteRadiusReform {
 		}
 
 	}
-
+	
+	public void connectResolve()
+	{
+	
+		
+		try{
+			/*
+			if(resolveSock!=null)
+			{
+				resolveSock.close();
+			}
+			*/
+			resolveSock=new Socket(rece.getIp(),rece.getPort());
+			resolveSockIn=resolveSock.getInputStream();
+			
+			OutputStream outputStream = resolveSock.getOutputStream();	
+			resolveSockOut=new DataOutputStream(outputStream);
+		    
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+				
+	
+	}
 
 	public void sendHeartbeat() {
 
@@ -208,6 +238,15 @@ public class RemoteRadiusReform {
 				//rawRecord=null;
 				//ctimestr=null;
 			    //System.err.println("j="+j);
+				resolveSockOut.writeInt(rawRecord.length());
+				
+				for(int m=0;m<rawRecord.length();m++)
+				{
+					resolveSockOut.writeChar(rawRecord.charAt(m));	
+				}
+			
+				//204 stop
+				resolveSockOut.writeChars(rawRecord);
 							
 			}
 		} catch (Exception e) {
@@ -226,7 +265,7 @@ public class RemoteRadiusReform {
 
 		connect(rc);
 		//System.err.println("connect to radius server successful");
-
+		connectResolve();
 	
 		while (true) {
 
@@ -277,6 +316,12 @@ public class RemoteRadiusReform {
 			sock.close();
 		}
 		sock=null;
+		
+		if(resolveSock!=null)
+		{
+			resolveSock.close();
+		}
+		resolveSock=null;
 	  
 	    Thread.sleep(confFactory.getResetConnectionSuspend());
 		}
@@ -291,10 +336,11 @@ public class RemoteRadiusReform {
 
 	public static void main(String[] args) {
 		RadiusCenter rc = new RadiusCenter("221.231.154.17", 9002);
-		RemoteRadiusReform erc = new RemoteRadiusReform();
-
+		RemoteRadiusReformAnalysis erc = new RemoteRadiusReformAnalysis();
+		ResolveCenter rece=new ResolveCenter("192.168.1.104",2535);
 		erc.init();
 		erc.setRc(rc);
+		erc.setRece(rece);
 		erc.start(rc);	
 	}
 
@@ -319,8 +365,14 @@ public class RemoteRadiusReform {
 	public void setRc(RadiusCenter rc) {
 		this.rc = rc;
 	}
+	
+	public ResolveCenter getRece() {
+		return rece;
+	}
 
-
+	public void setRece(ResolveCenter rece) {
+		this.rece = rece;
+	}
 
 
 }
