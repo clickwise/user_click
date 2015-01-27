@@ -61,18 +61,21 @@ public class NLPServer implements Runnable{
 				SegHandler seg=new SegHandler();
 				seg.setSegmenter(segmenter);
 				hs.createContext("/seg",seg);
+				System.err.println("waiting to seg");
 			}
 			else if(NLPConfig.server_type==1)//初始化tag
 			{
 				TagHandler tag=new TagHandler();
 				tag.setPosTagger(posTagger);
 				hs.createContext("/tag",tag);
+				System.err.println("waiting to tag");
 			}
 			else if(NLPConfig.server_type==2)//初始化keyword
 			{
 				KeyHandler key=new KeyHandler();
 				key.setKe(ke);
 				hs.createContext("/key",key);
+				System.err.println("waiting to key");
 			}
 			
 			hs.setExecutor(null);
