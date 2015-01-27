@@ -94,7 +94,7 @@ public abstract class Classifier {
 		}
 
 		String key_s = "";
-		key_s = ke.keyword_extract(tag_s);
+		key_s = ke.keyword_extract_noun_ngram_vv_adj(tag_s);
 		key_s = key_s.trim();
 		if (key_s.equals("")) {
 			return "";

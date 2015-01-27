@@ -86,7 +86,7 @@ public class NLPTest extends NLPTestBase{
 	public static void main(String[] args)
 	{
 		NLPTest nlptest=new NLPTest();
-		String title="绿航绿萝防甲醛吊兰大盆栽小叶绿萝盆景室内大型植物带盆栽好包邮";
+		String title="室内盆栽绿植花卉植物送礼佳品观赏 金橘盆景 柑桔盆景 橘子树苗";
 		String seg=nlptest.testSeg(title);
 		
 		System.out.println("seg:"+seg);
