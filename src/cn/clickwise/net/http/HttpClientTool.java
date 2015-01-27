@@ -1,5 +1,8 @@
 package cn.clickwise.net.http;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -26,8 +29,17 @@ public class HttpClientTool {
 				// 获取响应实体
 				HttpEntity entity = response.getEntity();
 				if (entity != null) {
-					con = EntityUtils.toString(entity);
-					con=con.replaceAll("\\s+", "");
+					//con = EntityUtils.toString(entity);
+					BufferedReader br=new BufferedReader(new InputStreamReader(entity.getContent(),"GBK"));
+					StringBuffer strBuf=new StringBuffer();
+					String singleLine="";
+				    while((singleLine=br.readLine())!=null)
+				    {
+				    	strBuf.append(singleLine);
+				    }
+					con=strBuf.toString();
+					//System.out.println("con:"+con);
+					//con=con.replaceAll("\\s+", "");
 				}
 			}			
 		}
