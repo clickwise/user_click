@@ -100,7 +100,7 @@ public abstract class Classifier {
 			return "";
 		}
         
-		System.out.println("key:"+key_s);	
+		//System.out.println("key:"+key_s);	
 		
 		sample = get_word_id(key_s);
 		sample = sample.trim();

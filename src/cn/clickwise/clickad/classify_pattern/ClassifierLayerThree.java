@@ -329,7 +329,7 @@ public class ClassifierLayerThree extends Classifier{
 		String cate_name = "";
 		String key=y.first_class+"|"+y.second_class+"|"+y.third_class;
 		
-		System.out.println("key:"+key);
+		//System.out.println("key:"+key);
 		
 		if(label_names.containsKey(key))
 		{
