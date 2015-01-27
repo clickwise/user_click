@@ -34,7 +34,7 @@ public class KeyHandler implements HttpHandler{
 		de_tag=de_tag.replaceAll("_", "#");
 		de_tag=de_tag.trim();
 		System.out.println("de_tag:" + de_tag);
-		String key_str=ke.keyword_extract_noun_ngram_vv_adj(de_tag);
+		String key_str=ke.keyword_extract_noun_ngram(de_tag);
 		System.out.println("key_str:"+key_str);
 		exchange.sendResponseHeaders(200,0);
 		OutputStream os = exchange.getResponseBody();
