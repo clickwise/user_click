@@ -86,8 +86,8 @@ public class NLPTest extends NLPTestBase{
 	public static void main(String[] args)
 	{
 		NLPTest nlptest=new NLPTest();
-		String title="JEKO有盖被子周转衣服收纳盒整理箱透明储物箱塑料收纳箱大号包邮";
-		String seg=nlptest.testSeg("JEKO有盖被子周转衣服收纳盒整理箱透明储物箱塑料收纳箱大号包邮 ");
+		String title="绿航绿萝防甲醛吊兰大盆栽小叶绿萝盆景室内大型植物带盆栽好包邮";
+		String seg=nlptest.testSeg(title);
 		
 		System.out.println("seg:"+seg);
 		String tag=nlptest.testTag(seg);
@@ -95,7 +95,7 @@ public class NLPTest extends NLPTestBase{
 		String key=nlptest.testKey(tag);
 		System.out.println("key:"+key);
 		
-		String tbcate=nlptest.testTBCate(key);
+		String tbcate=nlptest.testTBCate(title);
 		System.out.println("tbcate:"+tbcate);
 		
 	}
