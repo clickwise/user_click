@@ -320,7 +320,11 @@ public class RemoteRadiusReformNoRecursive {
 				  readPacket();
 				}
 				Thread.sleep(confFactory.getResetConnectionSuspend());
-			
+				if(sock!=null)
+				{
+					sock.close();
+				}
+				sock=null;
 			}
 			catch(Exception e)
 			{
