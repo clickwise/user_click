@@ -13,6 +13,7 @@ import cn.clickwise.lib.string.SSO;
 import cn.clickwise.lib.time.TimeOpera;
 
 public class RemoteRadiusReformNoRecursive {
+	
 	private InputStream sockIn;
 
 	private OutputStreamWriter sockOut;
@@ -224,76 +225,6 @@ public class RemoteRadiusReformNoRecursive {
 			return;
 		}
 
-	}
-	
-
-
-
-	public void start(RadiusCenter rc) {
-
-		connect(rc);
-		//System.err.println("connect to radius server successful");
-
-	
-		while (true) {
-
-			if (TimeOpera.getCurrentTimeLong() - startTime > 4000) {
-				startTime = TimeOpera.getCurrentTimeLong();
-				sendHeartbeat();
-			}
-			
-			if (TimeOpera.getCurrentTimeLong() - gcstartTime > 60000) {
-				gcstartTime = TimeOpera.getCurrentTimeLong();
-				System.out.println("Start Garbage Collection");
-				System.gc();
-			}	
-			
-			readPacket();
-
-		}
-
-	}
-
-	public void restart(String message) {
-	
-		try{
-		//System.out.println(message + "----sleep one second!");
-			//System.gc();
-		     
-	     /* 
-	    if(outputStream!=null)
-	    {
-	    	outputStream.close();
-	    }
-	    outputStream=null;
-	    
-	    if(sockOut!=null)
-	    {
-	    	sockOut.close();
-	    }
-	    sockOut=null;
-	    
-		if(sockIn!=null)
-		{
-			sockIn.close();
-		}
-	    sockIn=null;
-	    */
-		if(sock!=null)
-		{
-			sock.close();
-		}
-		sock=null;
-	  
-	    Thread.sleep(confFactory.getResetConnectionSuspend());
-		}
-		catch(Exception e)
-		{
-			//System.out.println("error in restart");
-			e.printStackTrace();
-		}
-		
-		start(rc);
 	}
 	
 	public void task(RadiusCenter rc)
