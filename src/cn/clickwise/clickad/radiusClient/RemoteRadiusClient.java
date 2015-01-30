@@ -656,7 +656,7 @@ public class RemoteRadiusClient extends RadiusClient{
 
 	public static void main(String[] args) {
 		RadiusCenter rc = new RadiusCenter("221.231.154.17", 9002);
-		ResolveCenter rece=new ResolveCenter("192.168.1.104",2535);
+		ResolveCenter rece=new ResolveCenter("192.168.1.104",9035);
 		RemoteRadiusClient erc = new RemoteRadiusClient();
 		erc.setRece(rece);
 		erc.setRc(rc);

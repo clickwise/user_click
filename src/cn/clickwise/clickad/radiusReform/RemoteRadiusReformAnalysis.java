@@ -336,7 +336,7 @@ public class RemoteRadiusReformAnalysis {
 	public static void main(String[] args) {
 		RadiusCenter rc = new RadiusCenter("221.231.154.17", 9002);
 		RemoteRadiusReformAnalysis erc = new RemoteRadiusReformAnalysis();
-		ResolveCenter rece=new ResolveCenter("192.168.1.104",2535);
+		ResolveCenter rece=new ResolveCenter("192.168.1.104",9035);
 		erc.init();
 		erc.setRc(rc);
 		erc.setRece(rece);
