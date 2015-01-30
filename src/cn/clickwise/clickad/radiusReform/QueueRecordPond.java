@@ -41,7 +41,7 @@ public class QueueRecordPond extends RecordPond {
 		{
 			return;
 		}
-		//System.out.println("record:"+record);
+		System.err.println("add record:"+record+" to redis");
 		queue.offer(record);
 	}
 
@@ -208,11 +208,12 @@ public class QueueRecordPond extends RecordPond {
 					*/
 					//System.out.println("record:"+record);
 					RecordLight rl = radiusAnalysis.analysis(record);
-					//System.out.println("rl:"+rl.toString());
+					
 					if(rl==null)
 					{
 						continue;
 					}
+					System.out.println("rl:"+rl.toString());
 					//parsedRecordWriter.println(rl.toString());
 					logger.info(rl.toString());
 					onlineDB.update(rl);
