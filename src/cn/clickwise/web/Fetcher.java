@@ -32,6 +32,7 @@ public class Fetcher {
 	public String getSource(String url) {
 		String source = "";
 		HttpClient httpclient = new DefaultHttpClient();
+	
 
 		/*
 		 * double ran = Math.random(); String[] proxy_hosts = { "122.72.111.98",

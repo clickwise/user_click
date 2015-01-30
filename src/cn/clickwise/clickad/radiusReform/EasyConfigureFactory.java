@@ -57,7 +57,7 @@ public class EasyConfigureFactory extends ConfigureFactory{
 	@Override
 	public int getRSPort() {
 		// TODO Auto-generated method stub
-		return 2535;
+		return 9035;
 	}
 
 	@Override

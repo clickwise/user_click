@@ -165,7 +165,7 @@ public class WebTest {
 		opt = Integer.parseInt(args[0]);
         */
 		
-		String url = "http://item.jd.com/1385519573.html"; 
+		String url = "http://weibo.com/nabuzhun?from=feed&loc=nickname"; 
 		WebTest wt=new WebTest(); 
 		// System.out.println(wt.getTitle(url)); 
 		Fetcher f = new Fetcher();
