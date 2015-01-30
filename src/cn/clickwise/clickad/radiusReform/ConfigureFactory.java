@@ -2,6 +2,7 @@ package cn.clickwise.clickad.radiusReform;
 
 
 
+
 public abstract class ConfigureFactory {
 
 	/**
@@ -38,4 +39,6 @@ public abstract class ConfigureFactory {
     public abstract String getRedisIp();
     
     public abstract int getRSPort();
+    
+	public abstract OnlineDatabase getOnlineDatabase();
 }

@@ -2,7 +2,6 @@ package cn.clickwise.clickad.radiusReform;
 
 
 
-
 public class EasyConfigureFactory extends ConfigureFactory{
 
 	@Override
@@ -59,6 +58,11 @@ public class EasyConfigureFactory extends ConfigureFactory{
 	public int getRSPort() {
 		// TODO Auto-generated method stub
 		return 2535;
+	}
+
+	@Override
+	public OnlineDatabase getOnlineDatabase() {
+			return new RedisOnlineDatabase();
 	}
 	
 }
