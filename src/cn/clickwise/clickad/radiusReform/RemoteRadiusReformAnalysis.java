@@ -58,9 +58,7 @@ public class RemoteRadiusReformAnalysis {
 		try {
 			sock = new Socket(rc.getIp(), rc.getPort());
 			sockIn = sock.getInputStream();
-
 			outputStream = sock.getOutputStream();
-
 			sockOut = new OutputStreamWriter(outputStream);
 			
 			
@@ -86,9 +84,12 @@ public class RemoteRadiusReformAnalysis {
 			
 			OutputStream outputStream = resolveSock.getOutputStream();	
 			resolveSockOut=new DataOutputStream(outputStream);
+			System.err.println("connect resolve successful");
+			
 		    
 		}catch(Exception e)
 		{
+			System.err.println("connect resolve failed");
 			e.printStackTrace();
 		}
 				
