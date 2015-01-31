@@ -30,25 +30,6 @@ public class NLPServer implements Runnable{
 		
 	}
 	
-	public void init()
-	{
-		NLPConfig.server_type=Integer.parseInt(properties.getProperty("server_type"));
-		
-		//初始化segmenter
-		if(NLPConfig.server_type==0)
-		{
-			segmenter = new Segmenter();
-			segmenter.loadAnsjDic(new File(properties.getProperty("dict")));
-		}
-		else if(NLPConfig.server_type==1)//初始化tag
-		{
-			posTagger=new PosTagger("chinese-nodistsim.tagger");
-		}
-		else if(NLPConfig.server_type==2)//初始化keyword
-		{
-			ke = new KeyExtract();
-		}
-	}
 	
 	@Override
 	public void run() {
@@ -89,57 +70,6 @@ public class NLPServer implements Runnable{
 	}
 	
 	
-	public void read_input_parameters(String[] args) {
-		int i;
-		for (i = 0; (i < args.length) && ((args[i].charAt(0)) == '-'); i++) {
-			switch ((args[i].charAt(1))) {
-			case 'h':
-				print_help();
-				System.exit(0);
-			case 'p':
-				i++;
-				properties.setProperty("port", args[i]);
-				break;
-			case 'd':
-				i++;
-				properties.setProperty("dict", args[i]);
-				break;
-			case 't':
-				i++;
-				properties.setProperty("server_type", args[i]);
-				break;
-			default:
-				System.out.println("Unrecognized option " + args[i] + "!");
-				print_help();
-				System.exit(0);
-			}
-		}
-
-		System.out.println(properties.toString());
-	}
-
-	public static void print_help() {
-		System.out.println("usage: NLPServer [options]");
-		System.out.println("options: -h  -> this help");
-		System.out.println("         -p  server port");
-		System.out.println("         -d  dict file");
-		System.out.println("         -t  server type");
-	}
-	
-	public static void main(String[] args)
-	{
-		if(args.length<1)
-		{
-			print_help();
-			System.exit(0);
-		}
-		
-		NLPServer nlp=new NLPServer();
-		nlp.read_input_parameters(args);
-		nlp.init();
-		Thread serverThread = new Thread(nlp);
-		serverThread.start();
-	}
 	
 	
 	
