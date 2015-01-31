@@ -14,7 +14,7 @@ public class UrlHandler extends Handler{
 	
 	@Override
 	public void handle(HttpExchange arg0) throws IOException {
-		
+		System.err.println("in url  handler");
 		
 	}
 

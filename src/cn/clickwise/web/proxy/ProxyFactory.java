@@ -8,6 +8,7 @@ public class ProxyFactory {
 		{
 			return new UrlFetchHandler();
 		}
+		
 		return new UrlHandler();
 	}
 	

@@ -15,7 +15,7 @@ public class UrlFetchHandler extends UrlHandler{
 	
 	public UrlFetchHandler()
 	{
-		
+		super();
 	}
 	
 	public void init()
@@ -25,6 +25,7 @@ public class UrlFetchHandler extends UrlHandler{
 	
 	@Override
 	public void handle(HttpExchange exchange) throws IOException {
+		System.err.println("in url fetch handler");
 		String req_str = exchange.getRequestURI().toString();
 		System.err.println("req_str:"+req_str);
 		
