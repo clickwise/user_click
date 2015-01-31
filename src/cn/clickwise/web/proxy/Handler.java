@@ -10,6 +10,7 @@ public class Handler implements HttpHandler{
 	public Handler()
 	{
 		super();
+		init();
 	}
 	
 	public  void init(){
