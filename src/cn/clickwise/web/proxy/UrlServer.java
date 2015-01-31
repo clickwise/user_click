@@ -42,7 +42,10 @@ public class UrlServer extends Server{
     public static void main(String[] args)
     {
     	//CrawlServer cs=new CrawlServer();
-    	UrlServer.print_help();
+    	UrlServer us=new UrlServer();
+    	Thread t=new Thread(us);
+    	t.start();
+    	//UrlServer.print_help();
     	
     }
 	
