@@ -24,12 +24,8 @@ then
  cp out/mytool.jar cassandra_lib
  rm rpc_lib/mytool.jar
  rm radius_lib/mytool.jar
- rm hive_lib/mytool.jar
- rm web_lib/mytool.jar
  cp out/mytool.jar rpc_lib
  cp out/mytool.jar radius_lib
- cp out/mytool.jar hive_lib
- cp out/mytool.jar web_lib
 else
  OPT=2
 fi
@@ -73,31 +69,21 @@ else
  OPT=3
 fi
 
-
-if [ $1 = "profile" ]
+if [ $1 = "radiusReform" ]
 then
- rm -rf profile_src/cn
+ rm -rf radius_reform_src/cn
  cd src
- cp -r --parents cn/clickwise/clickad/profile ../profile_src
+ cp -r --parents cn/clickwise/clickad/radiusReform ../radius_reform_src
  cd ..
- echo "build radius";
- $ANT_BUILD -buildfile build_profile.xml
-  rm lib/profile.jar
- cp out/profile.jar lib
+ echo "build radius reform";
+ $ANT_BUILD -buildfile build_radiusReform.xml
 else
  OPT=3
 fi
 
-
-if [ $1 = "web" ]
+if [ $1 = "model" ]
 then
- rm -rf web_src/cn
- cd src
- cp -r --parents cn/clickwise/web ../web_src
- cd ..
- echo "build web";
- $ANT_BUILD -buildfile build_web.xml
+ $ANT_BUILD -buildfile build_jar.xml
 else
  OPT=3
 fi
-
