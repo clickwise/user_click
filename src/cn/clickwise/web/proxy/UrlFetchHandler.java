@@ -25,7 +25,10 @@ public class UrlFetchHandler extends UrlHandler{
 	
 	@Override
 	public void handle(HttpExchange exchange) throws IOException {
+		String req_str = exchange.getRequestURI().toString();
+		System.err.println("req_str:"+req_str);
 		
+		exchange.sendResponseHeaders(200,0);
 		OutputStream os = exchange.getResponseBody();
 		OutputStreamWriter osw=new OutputStreamWriter(os,"gbk");
 		PrintWriter pw=new PrintWriter(osw);
