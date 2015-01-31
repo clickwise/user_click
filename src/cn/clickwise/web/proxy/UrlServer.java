@@ -26,7 +26,9 @@ public class UrlServer extends Server{
 	public void run() {
 		
 		try{
-			 HttpServer hs = HttpServer.create(new InetSocketAddress(Integer.parseInt(properties.getProperty("port"))), 0);
+			 int port=Integer.parseInt(properties.getProperty("port"));
+			 System.err.println("port:"+port);
+			 HttpServer hs = HttpServer.create(new InetSocketAddress(port), 0);
 			 UrlHandler ufh=ProxyFactory.getUrlHandler();
 			 System.err.println("ufh:"+ufh.getClass().getCanonicalName());
 			 hs.createContext("/fetch", ufh);

@@ -21,7 +21,7 @@ public class QueueUrlPond extends UrlPond{
 
 	@Override
 	public String pollFromPond() {
-		
+		System.err.println("in pollFromPond");
 		String nextElement = "";
 		nextElement = queue.poll();
 			
