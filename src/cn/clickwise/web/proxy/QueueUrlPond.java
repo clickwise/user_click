@@ -11,7 +11,7 @@ public class QueueUrlPond extends UrlPond{
 	
 	@Override
 	public void add2Pond(String url) {
-		if(URL.isValidRecord(url))
+		if(!(URL.isValidRecord(url)))
 		{
 			return;
 		}
@@ -24,7 +24,7 @@ public class QueueUrlPond extends UrlPond{
 		System.err.println("in pollFromPond");
 		String nextElement = "";
 		nextElement = queue.poll();
-			
+		System.err.println("left elements:"+queue.size());	
 		return nextElement;
 	}
 
