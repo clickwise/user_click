@@ -29,8 +29,13 @@ public class UrlServer extends Server{
 			 int port=Integer.parseInt(properties.getProperty("port"));
 			 System.err.println("port:"+port);
 			 HttpServer hs = HttpServer.create(new InetSocketAddress(port), 0);
-			 hs.createContext(ProxyFactory.getMethod(), ProxyFactory.getUrlHandler());
-		     hs.setExecutor(null);
+			 
+			 for(short handler_type:ProxyConfig.handler_types)
+			 {
+				 ProxyConfig.handler_type=handler_type;
+			     hs.createContext(ProxyFactory.getMethod(), ProxyFactory.getUrlHandler());
+			 }
+			 hs.setExecutor(null);
 			 hs.start();
 		}
 		catch(Exception e)
