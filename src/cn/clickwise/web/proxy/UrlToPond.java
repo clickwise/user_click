@@ -15,6 +15,7 @@ import cn.clickwise.web.URL;
 public class UrlToPond {
 
 	UrlPond up=null;
+	
 	public UrlToPond(){
 		init();
 	}
@@ -54,11 +55,11 @@ public class UrlToPond {
 	
 	public static void print_help()
 	{
-	  System.err.println("Usage:<way> <parm>*" +
-	  		"way:添加方式:0 命令行添加" +
-	  		"          1 文件添加" +
-	  		"parm: 如果way==0,则每个parm是一个url" +
-	  		"      如果way==1,则每个parm是一个文件名，每个文件里是按行存放的url列表");	
+	  System.err.println("Usage:<way> <parm>*\n" +
+	  		"           way:添加方式:    0 命令行添加\n" +
+	  		"                         1 文件添加\n" +
+	  		"           parm:  如果way==0,则每个parm是一个url\n" +
+	  		"                  如果way==1,则每个parm是一个文件名，每个文件里是按行存放的url列表\n");	
 	}
 	
 	public static void main(String[] args)
