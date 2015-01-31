@@ -43,6 +43,7 @@ public class UrlServer extends Server{
     {
     	//CrawlServer cs=new CrawlServer();
     	UrlServer us=new UrlServer();
+    	us.read_input_parameters(args);
     	Thread t=new Thread(us);
     	t.start();
     	//UrlServer.print_help();
