@@ -122,16 +122,20 @@ public class RemoteResolve {
 						continue;
 					}
 					c++;
+					/*
 					if(c%100000==0)
 					{
 					  	System.out.println("Thread ["+Thread.currentThread().getName()+"] is running");
 					}
+					*/
 					
 					String str = "";
 					for (int j = 0; j < len; j++) {
 						str += sockIn.readChar();
 					}
-					 System.err.println("len:"+len+" str:"+str);
+					
+					// System.err.println("len:"+len+" str:"+str);
+					
 					queuePond.add2Pond(str);
 				} catch (Exception e) {
 					// e.printStackTrace();

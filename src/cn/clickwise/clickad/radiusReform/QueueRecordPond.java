@@ -41,7 +41,7 @@ public class QueueRecordPond extends RecordPond {
 		{
 			return;
 		}
-		System.err.println("add record:"+record+" to redis");
+		//System.err.println("add record:"+record+" to redis");
 		queue.offer(record);
 	}
 
@@ -213,9 +213,9 @@ public class QueueRecordPond extends RecordPond {
 					{
 						continue;
 					}
-					System.out.println("rl:"+rl.toString());
+					//System.out.println("rl:"+rl.toString());
 					//parsedRecordWriter.println(rl.toString());
-					logger.info(rl.toString());
+					//logger.info(rl.toString());
 					onlineDB.update(rl);
 				} catch (Exception e) {
 					e.printStackTrace();
