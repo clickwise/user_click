@@ -1,8 +1,6 @@
 package cn.clickwise.clickad.radiusReform;
 
-import java.io.BufferedReader;
 import java.io.DataOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -12,11 +10,10 @@ import java.net.Socket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 import cn.clickwise.lib.string.SSO;
 import cn.clickwise.lib.time.TimeOpera;
 
-public class RemoteRadiusReformAnalysis {
+public class RemoteRadiusReformNRA {
 	
 	private InputStream sockIn;
 
@@ -39,15 +36,15 @@ public class RemoteRadiusReformAnalysis {
 	long startTime;
 	long gcstartTime ;
 	
+	private boolean reconnect=false;
+
 	//resolve
 	private Socket resolveSock;
-	
-	//private InputStream resolveSockIn;
 	
 	private DataOutputStream resolveSockOut;
 	
 	private ResolveCenter rece;
-
+	
 	public void init()
 	{
 		startTime = TimeOpera.getCurrentTimeLong();
@@ -60,7 +57,9 @@ public class RemoteRadiusReformAnalysis {
 		try {
 			sock = new Socket(rc.getIp(), rc.getPort());
 			sockIn = sock.getInputStream();
+
 			outputStream = sock.getOutputStream();
+
 			sockOut = new OutputStreamWriter(outputStream);
 			
 			
@@ -75,19 +74,11 @@ public class RemoteRadiusReformAnalysis {
 	
 		
 		try{
-			/*
-			if(resolveSock!=null)
-			{
-				resolveSock.close();
-			}
-			*/
 			resolveSock=new Socket(rece.getIp(),rece.getPort());
-			//resolveSockIn=resolveSock.getInputStream();
 			
 			OutputStream outputStream = resolveSock.getOutputStream();	
 			resolveSockOut=new DataOutputStream(outputStream);
-			System.err.println("connect resolve successful");
-			
+			System.err.println("connect resolve successful");		
 		    
 		}catch(Exception e)
 		{
@@ -97,6 +88,7 @@ public class RemoteRadiusReformAnalysis {
 				
 	
 	}
+
 
 	public void sendHeartbeat() {
 
@@ -125,7 +117,9 @@ public class RemoteRadiusReformAnalysis {
 				hn = sockIn.read(Buffer.head);
 				if (hn < 0) {
 					//add outmem
-					restart("head length is -1");
+					//restart("head length is -1");
+					reconnect=true;
+					return;
 				}
 			}
 
@@ -138,19 +132,25 @@ public class RemoteRadiusReformAnalysis {
 				// System.out.println("body length is below 12");
 				// return null;
 				//add outmem
-				restart("body length is below 12");
+				//restart("body length is below 12");
+				reconnect=true;
+				return;
 			}
 
 			//System.err.println("body.len:"+(Buffer.packetbodylen - 12));
 			if((Buffer.packetbodylen-12)>Buffer.body.length)
 		    {
-				restart("body length is below 12");
+				//restart("body length is below 12");
+				reconnect=true;
+				return;
 			}
 			Buffer.rn = sockIn.read(Buffer.body,0,Buffer.packetbodylen-12);
 			
 			if (Buffer.rn < 0) {
 
-				restart("body length is -1");
+				//restart("body length is -1");		
+				reconnect=true;
+				return;
 			}
 
 			Buffer.bodylen=Buffer.packetbodylen-12;
@@ -215,7 +215,9 @@ public class RemoteRadiusReformAnalysis {
 				// System.out.println("j:"+j+" ufa:"+ufa.length+" unl:"+unl+" body:"+body.length);
 				if((j+Buffer.ufalen>=256))
 				{
-					restart("error in analysisPacketBody");
+					//restart("error in analysisPacketBody");
+					reconnect=true;
+					return;
 				}
 				
 				for (k = 0; k <Buffer.ufalen; k++) {
@@ -240,156 +242,65 @@ public class RemoteRadiusReformAnalysis {
 				//rawRecord=null;
 				//ctimestr=null;
 			    //System.err.println("j="+j);
-				resolveSockOut.writeInt(rawRecord.length());
-				
-				for(int m=0;m<rawRecord.length();m++)
-				{
-					resolveSockOut.writeChar(rawRecord.charAt(m));	
-				}
-			
-				//204 stop
-				System.err.println("send raw data to 204："+rawRecord);
-				resolveSockOut.writeChars(rawRecord);
 							
+				//send raw record to resolve center
+				resolveSockOut.writeInt(rawRecord.length());
+				resolveSockOut.writeChars(rawRecord);
 			}
 		} catch (Exception e) {
 
 			e.printStackTrace();
 
-			restart("error in analysisPacketBody");
+			//restart("error in analysisPacketBody");
+			reconnect=true;
+			return;
 		}
 
 	}
 	
-
-
-
-	public void start(RadiusCenter rc) {
-
-		connect(rc);
-		//System.err.println("connect to radius server successful");
-		connectResolve();
-	
-		while (true) {
-
-			if (TimeOpera.getCurrentTimeLong() - startTime > 4000) {
-				startTime = TimeOpera.getCurrentTimeLong();
-				sendHeartbeat();
-			}
-			
-			if (TimeOpera.getCurrentTimeLong() - gcstartTime > 60000) {
-				gcstartTime = TimeOpera.getCurrentTimeLong();
-				System.out.println("Start Garbage Collection");
-				System.gc();
-			}	
-			
-			readPacket();
-
-		}
-
-	}
-
-	public void restart(String message) {
-	
-		try{
-		//System.out.println(message + "----sleep one second!");
-			//System.gc();
-		     
-	     /* 
-	    if(outputStream!=null)
-	    {
-	    	outputStream.close();
-	    }
-	    outputStream=null;
-	    
-	    if(sockOut!=null)
-	    {
-	    	sockOut.close();
-	    }
-	    sockOut=null;
-	    
-		if(sockIn!=null)
-		{
-			sockIn.close();
-		}
-	    sockIn=null;
-	    */
-		if(sock!=null)
-		{
-			sock.close();
-		}
-		sock=null;
-		
-		if(resolveSock!=null)
-		{
-			resolveSock.close();
-		}
-		resolveSock=null;
-	  
-	    Thread.sleep(confFactory.getResetConnectionSuspend());
-		}
-		catch(Exception e)
-		{
-			//System.out.println("error in restart");
-			e.printStackTrace();
-		}
-		
-		start(rc);
-	}
-
-	//向resolve写入文件里的未解析记录，用于测试
-	public void test(String file,ResolveCenter rece)
+	public void task(RadiusCenter rc)
 	{
-		init();
-		setRece(rece);
-		connectResolve();
-		
-		String testRecord="";
-		
-		try{
+		while(true)
+		{
 			
-		  BufferedReader br=new BufferedReader(new FileReader(file));
-		  String ufaStr="";
-		  while((testRecord=br.readLine())!=null)
-		  {
-			if(SSO.tioe(testRecord))
+			try{
+				connect(rc);
+				reconnect=false;
+				while(reconnect==false)
+				{
+				  if (TimeOpera.getCurrentTimeLong() - startTime > 4000) {
+					startTime = TimeOpera.getCurrentTimeLong();
+					sendHeartbeat();
+				  }
+				
+				  if (TimeOpera.getCurrentTimeLong() - gcstartTime > 60000) {
+					gcstartTime = TimeOpera.getCurrentTimeLong();
+					System.out.println("Start Garbage Collection");
+					System.gc();
+				  }	
+				
+				  readPacket();
+				}
+				Thread.sleep(confFactory.getResetConnectionSuspend());
+				if(sock!=null)
+				{
+					sock.close();
+				}
+				sock=null;
+				
+				//free resolve
+				if(resolveSock!=null)
+				{
+					resolveSock.close();
+				}
+				resolveSock=null;
+			}
+			catch(Exception e)
 			{
-				continue;
+				e.printStackTrace();
 			}
 			
-			ufaStr = testRecord.substring(testRecord.indexOf("\t"), testRecord.length());
-		    resolveSockOut.writeInt(ufaStr.length());
-		
-		    /*
-		    for(int m=0;m<ufaStr.length();m++)
-		   {
-			 resolveSockOut.writeChar(ufaStr.charAt(m));	
-		   }
-	        */
-		   //204 stop
-		   System.err.println("send raw data to 204："+ufaStr);
-		   resolveSockOut.writeChars(ufaStr);
-		  }
-		  
-		
 		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
-	
-	public static void main(String[] args) {
-		RadiusCenter rc = new RadiusCenter("221.231.154.17", 9002);
-		RemoteRadiusReformAnalysis erc = new RemoteRadiusReformAnalysis();
-		ResolveCenter rece=new ResolveCenter("180.96.26.204",9035);
-		erc.test("temp/testa.txt", rece);
-		
-		erc.init();
-		erc.setRc(rc);
-		erc.setRece(rece);
-		erc.start(rc);
-		
 	}
 
 	public void parseBytes2Info()
@@ -413,14 +324,21 @@ public class RemoteRadiusReformAnalysis {
 	public void setRc(RadiusCenter rc) {
 		this.rc = rc;
 	}
-	
-	public ResolveCenter getRece() {
-		return rece;
-	}
 
 	public void setRece(ResolveCenter rece) {
 		this.rece = rece;
 	}
-
+	
+	public static void main(String[] args) {
+		RadiusCenter rc = new RadiusCenter("221.231.154.17", 9002);
+		RemoteRadiusReformNRA erc = new RemoteRadiusReformNRA();
+		//resovle ceneter
+		ResolveCenter rece=new ResolveCenter("180.96.26.204",9035);
+		erc.init();
+		erc.setRc(rc);
+		erc.setRece(rece);
+		//erc.start(rc);	
+		erc.task(rc);
+	}
 
 }
