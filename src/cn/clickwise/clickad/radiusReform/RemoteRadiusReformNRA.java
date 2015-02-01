@@ -334,7 +334,7 @@ public class RemoteRadiusReformNRA {
 		RadiusCenter rc = new RadiusCenter("221.231.154.17", 9002);
 		RemoteRadiusReformNRA erc = new RemoteRadiusReformNRA();
 		//resovle ceneter
-		ResolveCenter rece=new ResolveCenter("180.96.26.204",9035);
+		ResolveCenter rece=new ResolveCenter("192.168.1.104",9035);
 		erc.init();
 		erc.setRc(rc);
 		erc.setRece(rece);
