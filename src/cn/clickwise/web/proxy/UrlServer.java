@@ -25,6 +25,7 @@ public class UrlServer extends Server{
 	@Override
 	public void run() {
 		
+		
 		try{
 			 int port=Integer.parseInt(properties.getProperty("port"));
 			 System.err.println("port:"+port);
