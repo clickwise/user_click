@@ -64,7 +64,7 @@ public class RemoteRadiusReformNRA {
 			
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 
 	}
@@ -78,12 +78,12 @@ public class RemoteRadiusReformNRA {
 			
 			OutputStream outputStream = resolveSock.getOutputStream();	
 			resolveSockOut=new DataOutputStream(outputStream);
-			System.err.println("connect resolve successful");		
+			//System.err.println("connect resolve successful");		
 		    
 		}catch(Exception e)
 		{
 			System.err.println("connect resolve failed");
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 				
 	
@@ -101,7 +101,7 @@ public class RemoteRadiusReformNRA {
 			}
 			//state.setStatValue(StateValue.Normal);
 		} catch (IOException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 
 	}
@@ -161,7 +161,7 @@ public class RemoteRadiusReformNRA {
 		} catch (IOException e) {
 
 			//System.out.println("error in read packet");
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 
 	}
@@ -249,7 +249,7 @@ public class RemoteRadiusReformNRA {
 			}
 		} catch (Exception e) {
 
-			e.printStackTrace();
+			//e.printStackTrace();
 
 			//restart("error in analysisPacketBody");
 			reconnect=true;
@@ -298,7 +298,7 @@ public class RemoteRadiusReformNRA {
 			}
 			catch(Exception e)
 			{
-				e.printStackTrace();
+				//e.printStackTrace();
 			}
 			
 		}

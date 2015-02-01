@@ -40,14 +40,14 @@ public class RemoteResolve {
 					ServerThread st = new ServerThread(connectFromClient);
 					Thread t = new Thread(st);
 					t.setDaemon(true);
-					System.out.println("start thread :" + t.getName());
+					//System.out.println("start thread :" + t.getName());
 					t.start();
 					startedThread.add(t);
 					if(tn>5)
 					{
 						for(int j=0;j<startedThread.size()-5;j++)
 						{
-							System.out.println("stop thread :"+startedThread.get(j).getName());
+							//System.out.println("stop thread :"+startedThread.get(j).getName());
 							startedThread.get(j).stop();
 							startedThread.remove(j);
 						}
