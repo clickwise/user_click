@@ -265,6 +265,7 @@ public class RemoteRadiusReformNRA {
 			
 			try{
 				connect(rc);
+				connectResolve();
 				reconnect=false;
 				while(reconnect==false)
 				{
