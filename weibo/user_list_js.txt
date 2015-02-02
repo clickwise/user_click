@@ -1,0 +1,8 @@
+ var items=document.getElementsByClassName('WB_info');
+ for(var j=0;j<items.length;j++) {
+  var suba=items[j].getElementsByTagName("a");
+  var suba_href=suba[0].getAttribute("href");
+  var suba_nick=suba[0].getAttribute("nick-name");
+  var suba_card=suba[0].getAttribute("usercard");
+  console.log(suba_card+"\t"+suba_nick+"\t"+suba_href);
+ }
