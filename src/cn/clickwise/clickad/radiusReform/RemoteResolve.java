@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import cn.clickwise.lib.time.TimeOpera;
+
 
 /**
  * server 端 接收另一台机器传过来的未完全解析的包， 进行解析并存入redis中
@@ -25,6 +27,7 @@ public class RemoteResolve {
 	
 	private ArrayList<Thread> startedThread=new ArrayList<Thread>();
 	
+	long startTime;
 
 	public void init() {
 		setConfFactory(ConfigureFactoryInstantiate.getConfigureFactory());
@@ -33,6 +36,7 @@ public class RemoteResolve {
 			ServerSocket sk = new ServerSocket(confFactory.getRSPort());
 			Socket connectFromClient = null;
 			int tn = 0;
+			startTime= TimeOpera.getCurrentTimeLong();
 			while (true) {
 				tn++;
 				try {
@@ -51,6 +55,9 @@ public class RemoteResolve {
 							startedThread.get(j).stop();
 							startedThread.remove(j);
 						}
+					}
+					if (TimeOpera.getCurrentTimeLong() - startTime > 60000*60) {
+						System.exit(0);
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
