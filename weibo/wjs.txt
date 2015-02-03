@@ -39,13 +39,23 @@
      // console.log(items[j]);
     }
  }
- console.log(info);
+ //console.log(info);
  
 
  //帖子
  var items=document.getElementsByClassName('WB_detail');
+ info=info+"帖子:\t";
  for(var j=0;j<items.length;j++) {
-   console.log(items[j]);
+   var subitem=items[j].getElementsByClassName('WB_text W_f14');
+   if(subitem.length>0)
+   {
+     var t=subitem[0].innerText;
+     if (t !== null || t !== undefined || t !== '') { 
+        info=info+t+"\t"; 
+     } 
+    // console.log(subitem[0].innerText);
+   }
  }
  
+ console.log(info);
  
