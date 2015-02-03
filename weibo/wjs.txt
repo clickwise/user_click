@@ -29,3 +29,10 @@
  }
  
  //标签
+ 
+ var items=document.getElementsByClassName('WB_detail');
+ for(var j=0;j<items.length;j++) {
+   console.log(items[j]);
+ }
+ 
+ 
