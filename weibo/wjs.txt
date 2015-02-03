@@ -15,6 +15,32 @@
  }
  
  =====================user info===========================================
+ 
+ //title 
+ 
+ var title=document.title;
+ console.log(title);
+ var metas=document.head.getElementsByTagName("meta");
+ for(var j=0;j<metas.length;j++)
+ {
+  var name=metas[j].getAttribute("name");
+  if(name=='keywords')
+  {
+     console.log(metas[j]);
+  }
+    if(name=='description')
+  {
+     console.log(metas[j]);
+  }
+ }
+ 
+
+ console.log(document.head.select("meta"));
+ var keywords=document.head.select("meta[name=keywords]").attr("content");
+ console.log(keywords);
+ var description=document.head.select("meta[name=description]").attr("content");
+ console.log(description);
+ 
  //简介  标签
  var items=document.getElementsByClassName('item_text W_fl');
  
