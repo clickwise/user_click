@@ -17,34 +17,30 @@
  =====================user info===========================================
  
  //title 
- 
+ var info="";
+  
  var title=document.title;
- console.log(title);
+ info=info+"title:"+title+"\t";
  var metas=document.head.getElementsByTagName("meta");
  for(var j=0;j<metas.length;j++)
  {
   var name=metas[j].getAttribute("name");
   if(name=='keywords')
   {
-     console.log(metas[j].getAttribute("content"));
+     var keywords=metas[j].getAttribute("content");
+	 info=info+"keywords:"+keywords+"\t";
   }
     if(name=='description')
-  {
-     console.log(metas[j].getAttribute("content"));
+  { 
+    var description=metas[j].getAttribute("content");
+	 info=info+"description:"+description+"\t";
   }
  }
  
-
- console.log(document.head.select("meta"));
- var keywords=document.head.select("meta[name=keywords]").attr("content");
- console.log(keywords);
- var description=document.head.select("meta[name=description]").attr("content");
- console.log(description);
  
  //简介  标签
  var items=document.getElementsByClassName('item_text W_fl');
  
- var info="";
   for(var j=0;j<items.length;j++) {//(2/3,无标签)
     if(items[j].innerHTML.indexOf("简介")>=0)
 	{
