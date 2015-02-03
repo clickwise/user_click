@@ -26,11 +26,11 @@
   var name=metas[j].getAttribute("name");
   if(name=='keywords')
   {
-     console.log(metas[j]);
+     console.log(metas[j].getAttribute("content"));
   }
     if(name=='description')
   {
-     console.log(metas[j]);
+     console.log(metas[j].getAttribute("content"));
   }
  }
  
