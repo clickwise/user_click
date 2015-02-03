@@ -1,5 +1,3 @@
-2
-4
 id=1066706794	dada陳靜	http://weibo.com/chanching 
 id=1080845642	守护黄子韬美颜的萢萢	http://weibo.com/u/1080845642 
 id=1196624615	张梓琳	http://weibo.com/zhangzilin 

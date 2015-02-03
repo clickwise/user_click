@@ -1,4 +1,3 @@
-2
 id=1003763994	喻国明	http://weibo.com/u/1003763994 
 id=1035933493	赵震JAMES	http://weibo.com/soccerzz 
 id=1043325954	人物	http://weibo.com/renwuzazhi 

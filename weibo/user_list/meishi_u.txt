@@ -1,4 +1,3 @@
-2
 id=1028301193	三摩地帮主	http://weibo.com/u/1028301193 
 id=1033102464	食家饭	http://weibo.com/u/1033102464 
 id=1072616811	牯岭街少年	http://weibo.com/wklwyh 
@@ -50,7 +49,6 @@ id=1682650430	美食评论家	http://weibo.com/shengdayule
 id=1687165770	福建美食	http://weibo.com/fjfood 
 id=1689219395	郑秀文Sammi	http://weibo.com/sammicheng819 
 id=1691703935	女人爱美食	http://weibo.com/u/1691703935 
-id=1720820102	精神分裂有层次的大叔	http://weibo.com/1970fz 
 id=1725942280	美食与美酒杂志	http://weibo.com/foodandwine 
 id=1735069645	欣和食与家	http://weibo.com/foodandfamily 
 id=1746697665	厦门美食	http://weibo.com/xmfood 
@@ -100,7 +98,6 @@ id=2129999320	舌尖上的菜谱	http://weibo.com/u/2129999320
 id=2135705800	米果优优	http://weibo.com/sxmsyz 
 id=2137710313	今日悉尼美食	http://weibo.com/eatinsydney 
 id=2146230373	女生零食精选	http://weibo.com/u/2146230373 
-id=2151832953	應霽	http://weibo.com/yingchai 
 id=2156466452	DIY私房菜	http://weibo.com/u/2156466452 
 id=2175459892	洛杉矶吃货小分队	http://weibo.com/chihuola 
 id=2188014311	微吃货	http://weibo.com/weichihuo 

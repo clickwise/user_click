@@ -1,4 +1,3 @@
-2
 id=1038474693	81pan占星	http://weibo.com/81pan 
 id=1049440281	大雪深雾	http://weibo.com/daxueshenwu 
 id=1049531530	百变巫女	http://weibo.com/pisyu 

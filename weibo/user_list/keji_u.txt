@@ -1,4 +1,3 @@
-2
 id=1063687330	中国IT杂谈	http://weibo.com/laoliuzatan 
 id=1092493017	付亮的竞争情报应用	http://weibo.com/fjliang 
 id=1095240537	万能的大熊	http://weibo.com/dugugudu 
@@ -101,7 +100,6 @@ id=1737694250	手机中国	http://weibo.com/cnmo
 id=1738006505	机锋	http://weibo.com/gfancn 
 id=1739959962	快盘	http://weibo.com/kuaipan 
 id=1739964112	计算机世界	http://weibo.com/chinacomputerworld 
-id=1743374541	美图秀秀	http://weibo.com/meituxiuxiu 
 id=1746173800	InfoQ	http://weibo.com/infoqchina 
 id=1747383115	ZOL中关村在线	http://weibo.com/cbsizol 
 id=1747383115	ZOL中关村在线	http://weibo.com/cbsizol 

@@ -1,4 +1,3 @@
-2
 id=1215881350	Jessie35	http://weibo.com/jessie35 
 id=1250690267	傻瓜的志龍	http://weibo.com/818vjckk 
 id=1280704251	G-ONE权志龙中国个站	http://weibo.com/goneme 
@@ -35,7 +34,6 @@ id=1867744064	BBF论坛微博	http://weibo.com/bigbangfamily08
 id=1871180452	BOBOG-Dragon	http://weibo.com/bobogd818 
 id=1875436151	韩流台	http://weibo.com/kryibada 
 id=1878630292	咸恩静吧	http://weibo.com/hameunjungbar 
-id=1878695857	韩国音乐榜	http://weibo.com/u/1878695857 
 id=1905277011	钟仁咚咚蛋和泰吴是幸福的一家	http://weibo.com/siyeyaodongdong 
 id=1905375702	我们都爱帅哥	http://weibo.com/u/1905375702 
 id=1917575817	kara愛肉肉	http://weibo.com/kara1250 
@@ -52,7 +50,6 @@ id=2094342357	BigFamily吧微博	http://weibo.com/bigfamilybar
 id=2106822820	韩剧韩星	http://weibo.com/rhxw 
 id=2114823630	Bigbang国际粉丝会	http://weibo.com/weicba 
 id=2115304994	韩国潮流速递	http://weibo.com/u/2115304994 
-id=2117862267	音悦Tai-Bigbang饭团	http://weibo.com/yinyuetaibigbang 
 id=2132090392	fx资讯台	http://weibo.com/u/2132090392 
 id=2132119590	BIGBANG资讯台	http://weibo.com/bigbangnews 
 id=2138112497	NiceKhun_Nichkhun中文个站网	http://weibo.com/nichkhunbar 

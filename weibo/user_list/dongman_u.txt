@@ -1,8 +1,6 @@
-2
 id=1000886397	孪生画室张勇	http://weibo.com/u/1000886397 
 id=1092040422	插画家园	http://weibo.com/13cg 
 id=1134233684	小矛	http://weibo.com/so7os 
-id=1143375352	钢琴节奏	http://weibo.com/ijay 
 id=1169320745	绘画乞讨人贵哥	http://weibo.com/huangchaogui 
 id=1194720022	慕容引刀	http://weibo.com/daodaodog 
 id=1195031270	郑渊洁	http://weibo.com/zhyj 
@@ -107,7 +105,6 @@ id=1805728801	nanguazi南瓜子	http://weibo.com/nanguazisunan
 id=1808735245	颜开大叔	http://weibo.com/u/1808735245 
 id=1810632930	丁一晨DYC	http://weibo.com/dingyichen 
 id=1827601420	Evangeline新旗珊花	http://weibo.com/evangelinehana 
-id=1829625055	coser曲豆	http://weibo.com/qudouqudou 
 id=1834095441	爱奇艺动画	http://weibo.com/qiyicomic 
 id=1852797862	秦时明月官方微博	http://weibo.com/qinsmoon 
 id=1852951444	風間_召喚	http://weibo.com/u/1852951444 
@@ -223,7 +220,6 @@ id=2708186562	海贼王微博精选	http://weibo.com/u/2708186562
 id=2714632641	日本动漫大本营	http://weibo.com/rbdmdby 
 id=2726601057	进击的阿木君	http://weibo.com/u/2726601057 
 id=2749303805	ThanatosSystem	http://weibo.com/u/2749303805 
-id=2804506181	中国书画诗词院	http://weibo.com/huanonhuangxianqing 
 id=2825644517	美术微学堂	http://weibo.com/msswxt 
 id=2883478802	海贼圈	http://weibo.com/hzwq115 
 id=2884156344	清新脱俗小村长	http://weibo.com/u/2884156344 

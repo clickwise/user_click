@@ -1,3 +1,4 @@
+======================user list=========================================
  var items=document.getElementsByClassName('WB_info');
  for(var j=0;j<items.length;j++) {
   var suba=items[j].getElementsByTagName("a");
@@ -12,3 +13,19 @@
  for(var j=0;j<items.length;j++) {
   console.log(items[j]);
  }
+ 
+ =====================user info===========================================
+ //简介
+ var items=document.getElementsByClassName('item_text W_fl');
+  for(var j=0;j<items.length;j++) {//(2/3,无标签)
+    if(items[j].innerHTML.indexOf("简介")>=0)
+	{
+     console.log(items[j].innerHTML);
+    }
+	    if(items[j].innerHTML.indexOf("标签")>=0)
+	{
+     console.log(items[j].innerHTML);
+    }
+ }
+ 
+ //标签
