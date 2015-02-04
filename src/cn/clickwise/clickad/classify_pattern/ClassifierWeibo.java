@@ -64,11 +64,11 @@ public class ClassifierWeibo extends Classifier{
 	
 	@Override
 	public ModelParams read_model(String model_path) throws Exception {
+		
 		System.out.println("read layer three model");
 		ModelParams mp=ClassifierFactory.getModelParams();
 		
-		InputStream model_is = this.getClass().getResourceAsStream(
-				"/" + model_path);
+		InputStream model_is = this.getClass().getResourceAsStream("/" + model_path);
 		
 		InputStreamReader model_isr = new InputStreamReader(model_is);
 		// File model_file = new File(model_path);
@@ -242,6 +242,7 @@ public class ClassifierWeibo extends Classifier{
 		br.close();
 		return mp;
 	}
+	
 	public String getCateName(Label y) {
 		String cate_name = "";
 		int tempid = y.class_index;
@@ -253,12 +254,12 @@ public class ClassifierWeibo extends Classifier{
 
 		return cate_name;
 	}
+	
 	@Override
 	public Label classify_struct_example(Word[] sample) {
 		
 		Label y = new Label();
 		int  bestclass = -1;
-
 		int  j;
 		boolean first = true;
 		double score=0.0, bestscore = -1;
