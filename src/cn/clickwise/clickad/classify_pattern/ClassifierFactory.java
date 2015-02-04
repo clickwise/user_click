@@ -12,6 +12,10 @@ public class ClassifierFactory {
 		{
 			return new ParamsThreeLayer();
 		}
+		else if(ClassifierConfig.model_type==3)
+		{
+			return new ParamsMulticlass();
+		}
 		
 		return null;
 	}
