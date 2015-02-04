@@ -231,6 +231,10 @@ public abstract class Classifier {
 	}
 
 	public class Label {
+		//multiclass
+		int class_index;
+		
+		//multi-level
 		int first_class;
 		int second_class;
 		int third_class;

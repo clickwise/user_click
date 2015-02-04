@@ -21,6 +21,7 @@ public class HttpClientTool {
 		String con="";
 		try{
 			HttpPost httppost=new HttpPost(url);
+		
 			HttpResponse response = httpclient.execute(httppost);
 
 			// 获取响应状态
