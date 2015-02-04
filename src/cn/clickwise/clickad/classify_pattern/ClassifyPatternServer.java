@@ -19,7 +19,7 @@ public class ClassifyPatternServer implements Runnable{
 		try {
 			HttpServer hs = HttpServer.create(
 					new InetSocketAddress(Integer.parseInt(properties.getProperty("port"))), 0);
-
+            ClassifierConfig.model_type=Integer.parseInt(properties.getProperty("mtype"));
             CallMap callMap=ClassifierFactory.getCallMap();
             System.err.println("method:"+callMap.method);
             System.err.println("handler:"+callMap.handler.getClass().getSimpleName());
@@ -28,6 +28,10 @@ public class ClassifyPatternServer implements Runnable{
             if(ClassifierConfig.model_type==2)
             {
               callMap.handler.setClassifer(new ClassifierLayerThree(properties.getProperty("dict")));
+            }
+            else if(ClassifierConfig.model_type==3)
+            {
+            	  callMap.handler.setClassifer(new ClassifierWeibo(properties.getProperty("dict")));
             }
             System.err.println("waiting to cate on port "+properties.getProperty("port"));
 			hs.setExecutor(null);
@@ -49,6 +53,10 @@ public class ClassifyPatternServer implements Runnable{
 				i++;
 				properties.setProperty("port", args[i]);
 				break;
+			case 't':
+				i++;
+				properties.setProperty("mtype", args[i]);
+				break;
 			case 'd':
 				i++;
 				properties.setProperty("dict", args[i]);
@@ -64,9 +72,10 @@ public class ClassifyPatternServer implements Runnable{
 	}
 	
 	public static void print_help() {
-		System.out.println("usage: AuxiliaryServer [options]");
+		System.out.println("usage: ClassifyPatternServer [options]");
 		System.out.println("options: -h  -> this help");
 		System.out.println("         -p  auxiliary server port");
+		System.out.println("         -t  model type //0 multiclass ,2 three level tb, 3 weibo");
 		System.out.println("         -d  dict file");
 	}
 	

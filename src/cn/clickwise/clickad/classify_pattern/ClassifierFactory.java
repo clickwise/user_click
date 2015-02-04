@@ -28,7 +28,10 @@ public class ClassifierFactory {
 			return new CallMap("/ctb",new CLTHandler());
 			//return new CallMap("/ctb",null);
 		}
-		
+		else if(ClassifierConfig.model_type==3)
+		{
+			return new CallMap("/cwb",new WeiboHandler());
+		}
 		return null;
 	}
 }
