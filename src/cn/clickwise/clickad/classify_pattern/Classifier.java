@@ -104,6 +104,7 @@ public abstract class Classifier {
 		
 		sample = get_word_id(key_s);
 		sample = sample.trim();
+		System.out.println("sample:"+sample);	
 		if (sample.equals("")) {
 			return "";
 		}

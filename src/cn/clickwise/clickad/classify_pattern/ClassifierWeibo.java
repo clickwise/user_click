@@ -242,7 +242,17 @@ public class ClassifierWeibo extends Classifier{
 		br.close();
 		return mp;
 	}
+	public String getCateName(Label y) {
+		String cate_name = "";
+		int tempid = y.class_index;
+		if ((tempid >= 1) && (tempid <= model.NUM_CLASS)) {
+			cate_name = label_names.get(tempid + "") + "";
+		} else {
+			cate_name = "NA";
+		}
 
+		return cate_name;
+	}
 	@Override
 	public Label classify_struct_example(Word[] sample) {
 		
