@@ -250,7 +250,7 @@ public abstract class Classifier {
 		return nw;
 	}
 
-	public HashMap getDictFromStream(String input_file) {
+	public HashMap getDictFromStream(String input_file) {////名称在前 数字在后
 		// TODO Auto-generated method stub
 
 		HashMap hm = new HashMap();

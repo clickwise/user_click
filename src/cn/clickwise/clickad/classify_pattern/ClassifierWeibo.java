@@ -9,8 +9,6 @@ import java.util.HashMap;
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
 
-import cn.clickwise.clickad.classify_pattern.Classifier.Label;
-import cn.clickwise.clickad.classify_pattern.Classifier.Word;
 import cn.clickwise.clickad.keyword.KeyExtract;
 import cn.clickwise.clickad.seg.Segmenter;
 import cn.clickwise.clickad.tag.PosTagger;
@@ -25,15 +23,15 @@ public class ClassifierWeibo extends Classifier{
 		super();
 		System.out.println("initialize layer three model");
 		try {
-			String model_path = "model_host";
+			String model_path = "model_wb.txt";
 			model=read_model(model_path);
 			seg = new Segmenter();
 			posTagger = new PosTagger("chinese-nodistsim.tagger");
 			ke = new KeyExtract();
-			video_dict = getDictFromStream("dict_host_t.txt");
-			label_names = getIndexLabelFromStream("label_host_t.txt");
-			readPossLabels("label_host_t.txt");
-			String text="睡袋 户外加宽加厚保暖 秋冬季超轻成人睡袋野营可拼接双人睡袋 ";
+			video_dict = getDictFromStream("gendict_wb_t.txt");
+			label_names = getIndexLabelFromStream("genlabeldict_wb_t.txt");
+			readPossLabels("genlabeldict_wb_t.txt");
+			String text="瞬间笑抽你	瞬间笑抽你，瞬间笑抽你	瞬间笑抽你，每天发发经典笑话，乐一乐你，乐一乐自己，大家一起开心每一天！。瞬间笑抽你,东方文化艺术学院。";
 			System.out.println("cate:"+cate(text));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -45,17 +43,17 @@ public class ClassifierWeibo extends Classifier{
 		super();
 		System.out.println("initialize layer three model");
 		try {
-			String model_path = "model_host";
+			String model_path = "model_wb.txt";
 			model=read_model(model_path);
 			seg = new Segmenter();
 			System.err.println("loading dict "+dict);
 			seg.loadAnsjDic(new File(dict));
 			posTagger = new PosTagger("chinese-nodistsim.tagger");
 			ke = new KeyExtract();
-			video_dict = getDictFromStream("dict_host_t.txt");
-			label_names = getIndexLabelFromStream("label_host_t.txt");
-			readPossLabels("label_host_t.txt");
-			String text="睡袋 户外加宽加厚保暖 秋冬季超轻成人睡袋野营可拼接双人睡袋 ";
+			video_dict = getDictFromStream("gendict_wb_t.txt");
+			label_names = getIndexLabelFromStream("genlabeldict_wb_t.txt");
+			readPossLabels("genlabeldict_wb_t.txt");
+			String text="瞬间笑抽你	瞬间笑抽你，瞬间笑抽你	瞬间笑抽你，每天发发经典笑话，乐一乐你，乐一乐自己，大家一起开心每一天！。瞬间笑抽你,东方文化艺术学院。 ";
 			System.out.println("cate:"+cate(text));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -68,8 +66,7 @@ public class ClassifierWeibo extends Classifier{
 		System.out.println("read layer three model");
 		ModelParams mp=ClassifierFactory.getModelParams();
 		
-		InputStream model_is = this.getClass().getResourceAsStream("/" + model_path);
-		
+		InputStream model_is = this.getClass().getResourceAsStream("/" + model_path);		
 		InputStreamReader model_isr = new InputStreamReader(model_is);
 		// File model_file = new File(model_path);
 		// FileReader fr = new FileReader(model_file);
@@ -309,7 +306,7 @@ public class ClassifierWeibo extends Classifier{
 	}
 
 	@Override
-	public HashMap getIndexLabelFromStream(String input_file) {
+	public HashMap getIndexLabelFromStream(String input_file) {//数字在前 名称在后
 		HashMap hm = new HashMap();
 		String item = "";
 		String label = "";

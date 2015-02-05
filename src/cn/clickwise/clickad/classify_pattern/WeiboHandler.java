@@ -26,6 +26,7 @@ public class WeiboHandler extends Handler{
 		{
 		  cate_str=classifer.cate(de_info);
 		  cate_str=cate_str.trim();
+		  System.err.println("cate_str:"+cate_str);
 		}
 		else
 		{

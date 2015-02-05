@@ -110,7 +110,7 @@ public class FilterWBSample {
 					}
 				}
 				
-				pw.println(link+"\t"+cate+"\t"+title+"\t"+keywords+"\t"+description+"\t"+summary+"\t"+tags);
+				pw.println(link+"\t"+cate+"\t"+title+"\t"+keywords+"\t"+description+"\t"+summary+"\t"+tags+"\t"+posts);
 				
 			}
 			
@@ -204,7 +204,7 @@ public class FilterWBSample {
 	{
 		FilterWBSample fwbs=new FilterWBSample();
 		String sample="weibo/labeltext.txt";
-		String output="weibo/labeltext_filter.txt";
+		String output="weibo/labeltext_filter_with_post.txt";
 		fwbs.filter(sample, output);
 	}
 	
