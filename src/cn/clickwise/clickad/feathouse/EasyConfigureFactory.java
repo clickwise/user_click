@@ -45,11 +45,10 @@ public class EasyConfigureFactory extends ConfigureFactory {
 
 		Dmp[] dmps = new Dmp[3];
        
-        
 		dmps[0] = new Dmp();
-		dmps[0].setName("山西DX");
-		dmps[0].setArea(new Area("山西DX", "023"));
-		dmps[0].setHost("219.149.148.86");
+		dmps[0].setName("浙江DX");
+		dmps[0].setArea(new Area("浙江DX", "030"));
+		dmps[0].setHost("192.168.10.138");
 		dmps[0].setUserFeatureTableName("auser_cates_keys");
 		dmps[0].setUidFieldName("uid");
 		dmps[0].setTmpIdentify("remote_cookie");
@@ -60,6 +59,7 @@ public class EasyConfigureFactory extends ConfigureFactory {
 		dmps[0].setSourceUidFieldName("user_id");
 		dmps[0].setSourceIpFieldName("sip");
 		dmps[0].setKeyTableName("statistic_keys");
+		
 		
 		dmps[1] = new Dmp();
 		dmps[1].setName("海南DX");
@@ -76,11 +76,10 @@ public class EasyConfigureFactory extends ConfigureFactory {
 		dmps[1].setSourceIpFieldName("sip");
 		dmps[1].setKeyTableName("statistic_keys");
 
-		
 		dmps[2] = new Dmp();
-		dmps[2].setName("浙江DX");
-		dmps[2].setArea(new Area("浙江DX", "030"));
-		dmps[2].setHost("192.168.10.138");
+		dmps[2].setName("山西DX");
+		dmps[2].setArea(new Area("山西DX", "023"));
+		dmps[2].setHost("219.149.148.86");
 		dmps[2].setUserFeatureTableName("auser_cates_keys");
 		dmps[2].setUidFieldName("uid");
 		dmps[2].setTmpIdentify("remote_cookie");
@@ -91,6 +90,7 @@ public class EasyConfigureFactory extends ConfigureFactory {
 		dmps[2].setSourceUidFieldName("user_id");
 		dmps[2].setSourceIpFieldName("sip");
 		dmps[2].setKeyTableName("statistic_keys");
+	
 		
 		
 		return dmps;
