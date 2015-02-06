@@ -6,8 +6,8 @@ import cn.clickwise.net.http.HttpClientTool;
 public abstract class ClassifierTestBase {
 
 	public HttpClientTool hct = new HttpClientTool();
-	public String auxiliary_prefix="http://192.168.110.182";
-	//public String auxiliary_prefix="http://110.96.34.211";
+	//public String auxiliary_prefix="http://192.168.110.182";
+	public String auxiliary_prefix="http://110.96.34.211";
 
 	public ClassifierTestBase() {
 		/*

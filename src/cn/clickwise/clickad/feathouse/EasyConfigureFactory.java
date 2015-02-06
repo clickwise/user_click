@@ -80,7 +80,7 @@ public class EasyConfigureFactory extends ConfigureFactory {
 		dmps[2] = new Dmp();
 		dmps[2].setName("浙江DX");
 		dmps[2].setArea(new Area("浙江DX", "030"));
-		dmps[2].setHost("192.168.10.38");
+		dmps[2].setHost("192.168.10.138");
 		dmps[2].setUserFeatureTableName("auser_cates_keys");
 		dmps[2].setUidFieldName("uid");
 		dmps[2].setTmpIdentify("remote_cookie");
