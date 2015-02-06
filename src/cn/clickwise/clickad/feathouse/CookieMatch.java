@@ -128,7 +128,7 @@ public class CookieMatch {
 		String[] astats=new String[args.length-1];
 		for(int i=1;i<args.length;i++)
 		{
-			astats[i]=args[i];
+			astats[i-1]=args[i];
 		}
 		
 		CookieMatch cm=new CookieMatch();
