@@ -28,7 +28,7 @@ public class HiveSql {
 					+ hfkc.getKeyFieldName()
 					+ " string) PARTITIONED BY(dt STRING,dp string) ROW FORMAT DELIMITED FIELDS TERMINATED BY '\001' LINES TERMINATED BY '\n';";
 		} else {
-			sql = "  CREATE TABLE IF NOT EXISTS "
+			sql = "  use clickwise;CREATE TABLE IF NOT EXISTS "
 					+ hfkc.getKeyTableName()
 					+ "("
 					+ hfkc.getKeyFieldName()
@@ -73,7 +73,7 @@ public class HiveSql {
 					+ "';";
 			System.out.println("statistic sql:" + sql);
 		} else {// 浙江
-			sql = "INSERT OVERWRITE LOCAL DIRECTORY '"
+			sql = "use clickwise; INSERT OVERWRITE LOCAL DIRECTORY '"
 					+ hfkc.getResultRemotePath() + "' SELECT a.dt,'"
 					+ hfkc.getAreaCode() + "',count(1), count(distinct a."
 					+ hfkc.getKeyFieldName() + "), count(distinct a."
@@ -114,14 +114,14 @@ public class HiveSql {
 			
 			if (hftc.getQueryType() == 0)// 只返回Key Field
 			{
-				sql = " INSERT OVERWRITE LOCAL DIRECTORY '"
+				sql = " use clickwise;INSERT OVERWRITE LOCAL DIRECTORY '"
 						+ hftc.getResultRemotePath() + "' SELECT DISTINCT "
 						+ hftc.getKeyFieldName() + "  FROM "
 						+ hftc.getTableName() + " where dt=" + hftc.getDay()
 						+ ";";
 			} else if (hftc.getQueryType() == 1)// 返回all Fields
 			{
-				sql = "INSERT OVERWRITE LOCAL DIRECTORY '"
+				sql = "use clickwise;INSERT OVERWRITE LOCAL DIRECTORY '"
 						+ hftc.getResultRemotePath() + "' SELECT *  FROM "
 						+ hftc.getTableName() + " where dt=" + hftc.getDay()
 						+ ";";
@@ -145,7 +145,7 @@ public class HiveSql {
 			cmd = "use clickwise;ALTER TABLE " + hfkc.getKeyTableName()
 					+ "  DROP PARTITION (dt='" + hfkc.getDay() + "');";
 		} else {
-			cmd = "ALTER TABLE " + hfkc.getKeyTableName()
+			cmd = "use clickwise;ALTER TABLE " + hfkc.getKeyTableName()
 					+ "  DROP PARTITION (dt='" + hfkc.getDay() + "');";
 		}
 		return hive + "\"" + cmd + "\"";
@@ -166,7 +166,7 @@ public class HiveSql {
 					+ "' overwrite into table " + hfkc.getKeyTableName()
 					+ " partition(dt=" + hfkc.getDay() + ",dp='part1');";
 		} else {
-			cmd = " load data inpath '" + hfkc.getHdfTmpPath()
+			cmd = " use clickwise;load data inpath '" + hfkc.getHdfTmpPath()
 					+ "' overwrite into table " + hfkc.getKeyTableName()
 					+ " partition(dt=" + hfkc.getDay() + ",dp='part1');";
 		}
