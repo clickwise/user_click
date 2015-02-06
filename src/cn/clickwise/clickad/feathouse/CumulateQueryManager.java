@@ -390,18 +390,23 @@ public class CumulateQueryManager {
 				System.out.println("begin dmp statistic");
 				for(Map.Entry<String, String> d:activeDmps.entrySet())
 				{
-					Dmp tempDmp=confFactory.getDmpByAreaCode(d.getKey());
-					if(tempDmp==null)
-					{
+					try{
+					 Dmp tempDmp=confFactory.getDmpByAreaCode(d.getKey());
+					 if(tempDmp==null)
+					 {
 						continue;
-					}
-					System.out.println("process area:"+tempDmp.getArea().getAreaCode());
-					StatisticStruct stt=rsi.getDmpStatistic(confFactory.getDmpByAreaCode(d.getKey()),day);
+					 }
+					 System.out.println("process area:"+tempDmp.getArea().getAreaCode());
+					 StatisticStruct stt=rsi.getDmpStatistic(confFactory.getDmpByAreaCode(d.getKey()),day);
 				
-					stt.setDay(TimeOpera.getToday());
-					System.out.println("stt:"+stt.toString());
-					mysql.updateDmpStatistics(stt, new Table("InquiryReceipts"), codeArea);
-					
+					 stt.setDay(TimeOpera.getToday());
+					 System.out.println("stt:"+stt.toString());
+					 mysql.updateDmpStatistics(stt, new Table("InquiryReceipts"), codeArea);
+					}
+					catch(Exception e)
+					{
+						e.printStackTrace();
+					}
 				}
 				
 				
