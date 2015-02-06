@@ -59,7 +59,7 @@ public class WeiboHandler extends Handler{
 			cate_str="title信息不足";
 		}
 		
-		cate_str="ok";
+		//cate_str="ok";
 		System.out.println("cate_str:"+cate_str);
 
 		//encode_res = encode_res.replaceAll("\\s+", "");	
