@@ -28,6 +28,7 @@ public class SIFUURL {
 			String[] seg_arr=null;
 			String line="";
 			String host="";
+			String title="";
 			
 			BufferedReader br=new BufferedReader(new FileReader(astat));
 			String url_refer="";
@@ -40,11 +41,26 @@ public class SIFUURL {
 				}
 				
 				seg_arr=line.split("\001");
+				if(seg_arr.length<14)
+				{
+					continue;
+				}
 				sip=seg_arr[10];
 				cookie=seg_arr[4];
 				url=seg_arr[7];
 				host=seg_arr[6];
 				refer=seg_arr[13];
+				title=seg_arr[8];
+				if(title.trim().equals("NA"))
+				{
+					continue;
+				}
+				
+				if((title.indexOf("传奇")<0)&&(title.indexOf("私服")<0))
+				{
+					continue;
+				}
+				
 				url_refer=url_refer_key(url,refer);
 			    if(SSO.tioe(url_refer))
 			    {
@@ -78,7 +94,7 @@ public class SIFUURL {
 			    	
 			    	if(SSO.tnoe(host))
 			    	{
-				    	if(!(url_refer_cookie.containsKey(url_refer)))
+				    	if(!(host_cookie.containsKey(host)))
 				    	{
 				    		host_cookie.put(host, new HashMap<String,Boolean>());
 				    		host_cookie.get(host).put(cookie, true);
