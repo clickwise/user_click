@@ -250,7 +250,7 @@ public class RemoteRadiusReformNoRecursive {
 					System.gc();
 				  }	
 				  
-				  if (TimeOpera.getCurrentTimeLong() - restartTime > (5*60000)) {
+				  if (TimeOpera.getCurrentTimeLong() - restartTime > (30*60000)) {
 					restartTime = TimeOpera.getCurrentTimeLong();		
 					System.exit(0);
 				  }	
