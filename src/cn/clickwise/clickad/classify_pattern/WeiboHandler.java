@@ -23,6 +23,7 @@ public class WeiboHandler extends Handler{
 		String de_info = new String(UrlCode.getDecodeUrl(user_info));
 		de_info=de_info.trim();
 		System.out.println("de_title:" + de_info);
+		/*
 		Map umap=JsonUtil.getMapFromJson(de_info);
 		String title=umap.get("title")+"";
 		String keywords=umap.get("keywords")+"";
@@ -45,12 +46,12 @@ public class WeiboHandler extends Handler{
 		posts=trimPosts(posts);
 		
 		String short_info=title+"\t"+keywords+"\t"+description+"\t"+summary+"\t"+tags+"\t"+posts;
-	
+	    */
 		//System.out.println("de_title.len:"+de_title.length());
 		String cate_str="";
 		if(de_info.length()>20)
 		{
-		  cate_str=classifer.cate(short_info);
+		  cate_str=classifer.cate(de_info);
 		  cate_str=cate_str.trim();
 		  System.err.println("cate_str:"+cate_str);
 		}
