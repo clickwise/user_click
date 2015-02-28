@@ -9,7 +9,6 @@ import java.nio.ByteBuffer;
 import org.apache.cassandra.thrift.Cassandra.Client;
 import org.apache.cassandra.thrift.Column;
 import org.apache.cassandra.thrift.ColumnParent;
-import org.apache.cassandra.thrift.ColumnPath;
 import org.apache.cassandra.thrift.ConsistencyLevel;
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TProtocol;
@@ -64,7 +63,7 @@ public class CassandraStore extends DataStore {
 	public State write2db(Record rec,int day) {
 		// TODO Auto-generated method stub
 
-		// Clock clock=new Clock(System.currentTimeMillis());
+		//Clock clock=new Clock(System.currentTimeMillis());
 		ByteBuffer sendBuffer = null;
 		try {
 			if(SSO.tioe(rec.getKey()))
