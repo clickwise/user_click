@@ -206,8 +206,20 @@ public class SampleMulLevel {
 		return res;
 	}
 
-	
-
+    /**
+     * 多层label,最多三层
+     * 格式 l1[|l2[|l3]]<seprator>seg text
+     * @param field_num
+     * @param sample_field_index
+     * @param label_field_index
+     * @param level_num
+     * @param separator
+     * @param outputSeparator
+     * @param gendict
+     * @param genlabeldict
+     * @param gensample
+     * @param docs
+     */
 	public void train2mulsample(int field_num, int sample_field_index,
 			int label_field_index,int level_num, String separator, String outputSeparator,
 			String gendict, String genlabeldict, String gensample,
