@@ -34,6 +34,7 @@ public class RemoteRadiusReformNoRecursive {
 	
 	long startTime;
 	long gcstartTime ;
+	long restartTime ;
 	
 	private boolean reconnect=false;
 
@@ -41,6 +42,7 @@ public class RemoteRadiusReformNoRecursive {
 	{
 		startTime = TimeOpera.getCurrentTimeLong();
 	    gcstartTime = TimeOpera.getCurrentTimeLong();
+	    restartTime=TimeOpera.getCurrentTimeLong();
 		confFactory = ConfigureFactoryInstantiate.getConfigureFactory();
 	}
 
@@ -246,6 +248,11 @@ public class RemoteRadiusReformNoRecursive {
 					gcstartTime = TimeOpera.getCurrentTimeLong();
 					System.out.println("Start Garbage Collection");
 					System.gc();
+				  }	
+				  
+				  if (TimeOpera.getCurrentTimeLong() - restartTime > (30*60000)) {
+					restartTime = TimeOpera.getCurrentTimeLong();		
+					System.exit(0);
 				  }	
 				
 				  readPacket();
