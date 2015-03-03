@@ -520,6 +520,7 @@ public String keyword_extract_noun_ngram(String text) {
 		String key_word = "";
 		String subkey1 = "", subkey2 = "", subkey4 = "", subkey5 = "", subkey6 = "", subkey7 = "", subkey8 = "";
 
+		String extra_word="";
 		for (int i = 0; i < seg_arr.length; i++) {
 			// System.out.println(i + ":" + seg_arr[i]);
 			if (((seg_arr[i].indexOf("#NN")) != -1)
@@ -540,12 +541,19 @@ public String keyword_extract_noun_ngram(String text) {
 				key_word = key_word.replaceAll("#.*", "");
 				key_word = key_word.trim();
 				new_word_arr.add(key_word);
-			}else if(seg_arr[i].indexOf("女")>-1||seg_arr[i].indexOf("男")>-1){
+			}else if(seg_arr[i].indexOf("女")>-1){
 				key_word = seg_arr[i];
 				key_word = key_word.replaceAll("#.*", "");
 				key_word = key_word.trim();
-				new_word_arr.add(key_word);		
-			}
+				new_word_arr.add(key_word);	
+				extra_word="女";
+			}else if(seg_arr[i].indexOf("男")>-1){
+				key_word = seg_arr[i];
+				key_word = key_word.replaceAll("#.*", "");
+				key_word = key_word.trim();
+				new_word_arr.add(key_word);
+				extra_word="男";
+			}	
 		}
 
 		Vector ngram_word_arr=ngramOfWords(new_word_arr);	
@@ -557,6 +565,8 @@ public String keyword_extract_noun_ngram(String text) {
 			}
 		}
 
+		k_s=k_s+" "+extra_word;
+		k_s=k_s.trim();
 		return k_s;
 	}
 
