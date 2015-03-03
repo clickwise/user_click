@@ -119,8 +119,6 @@ public static void main(String[] args) {
 			pw.close();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-
-		
+		}	
 	}
 }
