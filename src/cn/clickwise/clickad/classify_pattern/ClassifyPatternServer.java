@@ -3,7 +3,6 @@ package cn.clickwise.clickad.classify_pattern;
 import java.net.InetSocketAddress;
 import java.util.Properties;
 
-
 import com.sun.net.httpserver.HttpServer;
 
 public class ClassifyPatternServer implements Runnable{

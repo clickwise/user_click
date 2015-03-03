@@ -540,11 +540,15 @@ public String keyword_extract_noun_ngram(String text) {
 				key_word = key_word.replaceAll("#.*", "");
 				key_word = key_word.trim();
 				new_word_arr.add(key_word);
+			}else if(seg_arr[i].indexOf("女")>-1||seg_arr[i].indexOf("男")>-1){
+				key_word = seg_arr[i];
+				key_word = key_word.replaceAll("#.*", "");
+				key_word = key_word.trim();
+				new_word_arr.add(key_word);		
 			}
 		}
 
-		Vector ngram_word_arr=ngramOfWords(new_word_arr);
-		
+		Vector ngram_word_arr=ngramOfWords(new_word_arr);	
 		String temp_CC = "";
 		for (int i = 0; i < ngram_word_arr.size(); i++) {
 			temp_CC = ngram_word_arr.get(i) + "";

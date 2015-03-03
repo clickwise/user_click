@@ -77,6 +77,7 @@ public class SampleMulLevel {
 		}
 
 		for (int i = 0; i < docs.size(); i++) {
+			
 			line = docs.get(i);
 			fields = line.split(separator);
 			if (fields.length != field_num) {
