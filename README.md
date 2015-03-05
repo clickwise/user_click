@@ -25,3 +25,9 @@ make feathouse:
 make user_click:
  ./clean.sh
  ./make.sh user_click
+
+make radiusReform
+ ./clean.sh
+ ./make tool
+ ./clean.sh
+ ./make radiusReform
