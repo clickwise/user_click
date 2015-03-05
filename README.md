@@ -26,7 +26,7 @@ make user_click:
  ./clean.sh
  ./make.sh user_click
 
-make radiusReform
+make radiusReform:
  ./clean.sh
  ./make tool
  ./clean.sh
