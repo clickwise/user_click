@@ -14,6 +14,8 @@ fi
 
 if [[ "$1" = "tool" ]]
 then
+ rm -rf tool_src
+ mkdir tool_src 
  rm -rf tool_src/cn
  cd src
  cp -r --parents cn/clickwise/lib ../tool_src
@@ -32,6 +34,8 @@ fi
 
 if [ $1 = "feathouse" ]
 then
+ rm -rf feathouse_src
+ mkdir feathouse_src
  rm -rf feathouse_src/cn
  cd src 
  cp -r --parents cn/clickwise/clickad/feathouse/ ../feathouse_src
@@ -44,6 +48,8 @@ fi
 
 if [ $1 = "rpc" ]
 then
+ rm -rf rpc_src
+ mkdir rpc_src
  rm -rf rpc_src/cn
  cd src
  cp -r --parents cn/clickwise/rpc ../rpc_src
@@ -59,6 +65,8 @@ fi
 
 if [ $1 = "radius" ]
 then
+ rm -rf radius_src
+ mkdir radius_src
  rm -rf radius_src/cn
  cd src
  cp -r --parents cn/clickwise/clickad/radiusClient ../radius_src
@@ -71,6 +79,8 @@ fi
 
 if [ $1 = "radiusReform" ]
 then
+ rm -rf radius_reform_src
+ mkdir radius_reform_src
  rm -rf radius_reform_src/cn
  cd src
  cp -r --parents cn/clickwise/clickad/radiusReform ../radius_reform_src
