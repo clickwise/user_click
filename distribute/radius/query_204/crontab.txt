@@ -1,0 +1,2 @@
+10 00 * * * root (cd /home/lq; ./organizeFiles.sh)
+10 01 * * * root (cd /home/lq; ./delete_outdate.sh)
