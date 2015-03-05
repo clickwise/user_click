@@ -93,6 +93,10 @@ fi
 
 if [ $1 = "model" ]
 then
+ rm -rf src_jar
+ mkdir src_jar
+ rm -rf lib_jar
+ mkdir lib_jar
  $ANT_BUILD -buildfile build_jar.xml
 else
  OPT=3
