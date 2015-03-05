@@ -70,6 +70,7 @@ public class ClassifierLayerThree extends Classifier{
 
 	@Override
 	public ModelParams read_model(String model_path) throws Exception {
+		
 		System.out.println("read layer three model");
 		ModelParams mp=ClassifierFactory.getModelParams();
 		

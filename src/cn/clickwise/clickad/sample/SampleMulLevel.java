@@ -102,16 +102,19 @@ public class SampleMulLevel {
 			}
 			if(level_num>0)
 			{
-			fcate = cates[0].trim();
+			  fcate = cates[0].trim();
 			}
+			
 			if(level_num>1)
 			{
-			 scate = fcate+"_"+cates[1].trim();
+			  scate = fcate+"_"+cates[1].trim();
 			}
+			
 			if(level_num>2)
 			{
-			 tcate = scate+"_"+cates[2].trim();
+			  tcate = scate+"_"+cates[2].trim();
 			}
+			
 			if(level_num>0)
 			{
               if(!(labelDicts.get(1).containsKey(fcate)))
@@ -119,6 +122,7 @@ public class SampleMulLevel {
             	labelDicts.get(1).put(fcate, labelDicts.get(1).size()+1);
               }
 			}
+			
 			if(level_num>1)
 			{
               if(!(labelDicts.get(2).containsKey(scate)))
@@ -126,6 +130,7 @@ public class SampleMulLevel {
             	labelDicts.get(2).put(scate, labelDicts.get(2).size()+1);
               }
 			}
+			
 			if(level_num>2)
 			{
               if(!(labelDicts.get(3).containsKey(tcate)))
@@ -133,6 +138,7 @@ public class SampleMulLevel {
             	labelDicts.get(3).put(tcate, labelDicts.get(3).size()+1);
               }
 			}
+			
 			if (SSO.tioe(text)) {
 				continue;
 			}
