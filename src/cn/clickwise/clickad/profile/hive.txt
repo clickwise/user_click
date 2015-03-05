@@ -1,5 +1,0 @@
-urllib
-CREATE TABLE IF NOT EXISTS urllib(url string,title string,refer string,uv string,pv string) PARTITIONED BY(dt STRING,dp string) ROW FORMAT DELIMITED FIELDS TERMINATED BY '\001' LINES TERMINATED BY '\n';
-
-wordlib
-CREATE TABLE IF NOT EXISTS wordlib(word string) PARTITIONED BY(dt STRING,dp string) ROW FORMAT DELIMITED FIELDS TERMINATED BY '\001' LINES TERMINATED BY '\n';
