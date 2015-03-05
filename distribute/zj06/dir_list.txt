@@ -1,0 +1,5 @@
+dmpStatistic
+dmpUid/
+queryUid/
+unkownUid/
+temp

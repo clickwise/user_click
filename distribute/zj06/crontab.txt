@@ -1,0 +1,2 @@
+25 15 * * * root (cd /home/clickwise/liqi; sh stop_feat_server.sh )
+25 15 * * * root (cd /home/clickwise/liqi; sh stop_feat_query.sh )

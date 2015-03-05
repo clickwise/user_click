@@ -1,0 +1,7 @@
+
+05 01 * * * root (cd /home/lq; ./organizeFiles.sh)
+10 01 * * * root (cd /home/lq; ./delete_outdate.sh)
+05 * * * * root (cd /home/lq; sh sync_radius_hour.sh today >> /tmp/log_scp_hour.txt 2>&1 )
+28 * * * * root (cd /home/lq; sh restart_remote_radius_client_single.sh )
+
+15 0 * * * root (cd /home/lq; ./sync_radius.sh yesterday >> /tmp/scp_radius.log 2>&1)
