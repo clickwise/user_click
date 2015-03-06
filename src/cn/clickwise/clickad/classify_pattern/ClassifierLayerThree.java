@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
 
-import cn.clickwise.clickad.classify_pattern.Classifier.Label;
 import cn.clickwise.clickad.keyword.KeyExtract;
 import cn.clickwise.clickad.seg.Segmenter;
 import cn.clickwise.clickad.tag.PosTagger;
@@ -42,7 +41,6 @@ public class ClassifierLayerThree extends Classifier{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	
 	}
 	
 	public ClassifierLayerThree(String dict)
@@ -65,7 +63,6 @@ public class ClassifierLayerThree extends Classifier{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	
 	}
 
 	@Override
@@ -193,7 +190,6 @@ public class ClassifierLayerThree extends Classifier{
 		int search_blank = 0;
 		// System.out.println("line.length:" + line.length());
 		while (current_pos < (line.length())) {
-
 			forward_num = 0;
 			temp_token = "";
 			while ((current_pos + forward_num) < (line.length())) {	
