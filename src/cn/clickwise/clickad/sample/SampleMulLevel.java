@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
-
 import love.cq.util.MapCount;
 import cn.clickwise.lib.string.SSO;
 
@@ -232,8 +231,7 @@ public class SampleMulLevel {
 			String gendict, String genlabeldict, String gensample,
 			ArrayList<String> docs) {
 		
-		getDictsAndLabels(field_num, sample_field_index, label_field_index,level_num,
-				separator, docs);
+		getDictsAndLabels(field_num, sample_field_index, label_field_index,level_num,separator, docs);
 
 		String line = "";
 		String[] fields = null;

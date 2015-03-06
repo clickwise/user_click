@@ -111,11 +111,6 @@ public class Sampler {
 		    
 		}//doc loop end
 		
-		
-		
-		
-		
-		
 	}
 	
 	public String get_word_id(String s) {
