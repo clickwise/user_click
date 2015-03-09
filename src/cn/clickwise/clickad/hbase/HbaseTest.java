@@ -31,8 +31,8 @@ public class HbaseTest {
     static { 
         configuration = HBaseConfiguration.create(); 
         configuration.set("hbase.zookeeper.property.clientPort", "2181"); 
-        configuration.set("hbase.zookeeper.quorum", "192.168.10.107"); 
-        configuration.set("hbase.master", "192.168.10.107:60000"); 
+        configuration.set("hbase.zookeeper.quorum", "192.168.10.128"); 
+        configuration.set("hbase.master", "192.168.10.128:60010"); 
     } 
  
     public static void main(String[] args) { 
