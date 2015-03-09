@@ -246,7 +246,7 @@ public class RemoteRadiusReformNoRecursive {
 				
 				  if (TimeOpera.getCurrentTimeLong() - gcstartTime > 60000) {
 					gcstartTime = TimeOpera.getCurrentTimeLong();
-					System.out.println("Start Garbage Collection");
+					//System.out.println("Start Garbage Collection");
 					System.gc();
 				  }	
 				  
