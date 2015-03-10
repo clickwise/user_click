@@ -75,10 +75,7 @@ public class EasyConfigureFactory extends ConfigureFactory {
 		dmps[1].setSourceUidFieldName("user_id");
 		dmps[1].setSourceIpFieldName("sip");
 		dmps[1].setKeyTableName("statistic_keys");
-
-
 	
-		
 		dmps[2] = new Dmp();
 		dmps[2].setName("浙江DX");
 		dmps[2].setArea(new Area("浙江DX", "030"));
@@ -360,9 +357,6 @@ public class EasyConfigureFactory extends ConfigureFactory {
 
 		return sst;
 	}
-
-
-
 
 
 
