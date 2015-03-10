@@ -108,7 +108,7 @@ public class EasyConfigureFactory extends ConfigureFactory {
 	@Override
 	public DataStore getDataStore() {
 		// TODO Auto-generated method stub
-		return new CassandraStore();
+		return new HBaseStore();
 	}
 
 	@Override
