@@ -137,7 +137,7 @@ public class ScheduleTask {
 	public static void main(String[] args)
 	{
 		ScheduleTask st=new ScheduleTask();
-		st.init();
+		st.initHbase();
 		st.dmpInquiries();
 	}
 	
