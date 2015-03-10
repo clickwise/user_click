@@ -20,10 +20,12 @@ public class ClassifyPatternServer implements Runnable{
 					new InetSocketAddress(Integer.parseInt(properties.getProperty("port"))), 0);
             ClassifierConfig.model_type=Integer.parseInt(properties.getProperty("mtype"));
             CallMap callMap=ClassifierFactory.getCallMap();
+            
             System.err.println("method:"+callMap.method);
             System.err.println("handler:"+callMap.handler.getClass().getSimpleName());
             
             hs.createContext(callMap.method, callMap.handler);
+            
             if(ClassifierConfig.model_type==2)
             {
               callMap.handler.setClassifer(new ClassifierLayerThree(properties.getProperty("dict")));
@@ -32,6 +34,7 @@ public class ClassifyPatternServer implements Runnable{
             {
             	  callMap.handler.setClassifer(new ClassifierWeibo(properties.getProperty("dict")));
             }
+            
             System.err.println("waiting to cate on port "+properties.getProperty("port"));
 			hs.setExecutor(null);
 			hs.start();
