@@ -9,7 +9,7 @@ public class HBaseStore extends DataStore{
 	
 	 public static Configuration configuration; 
 	 
-	 public String tableName;
+	 public String tableName="userFeat";
 	 
 	  HTablePool pool ; 
       HTable table ; 
