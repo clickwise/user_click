@@ -213,6 +213,9 @@ public class EasyConfigureFactory extends ConfigureFactory {
 
 		return myconf;
 	}
+	
+	
+	
 
 	@Override
 	public String getTmpIdentify() {
@@ -356,6 +359,16 @@ public class EasyConfigureFactory extends ConfigureFactory {
 		sst.setIp(Integer.parseInt(tokens[4]));
 
 		return sst;
+	}
+
+	@Override
+	public HBaseConfigure getHBaseConfigure() {
+		
+		HBaseConfigure hc=new HBaseConfigure();
+		hc.setClientPort(2181);
+		hc.setMaster("192.168.10.129");
+		hc.setQuorum("192.168.10.128:60000");
+		return hc;
 	}
 
 

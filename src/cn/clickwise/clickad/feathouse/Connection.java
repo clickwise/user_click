@@ -19,7 +19,13 @@ public class Connection {
 	//cassandra 列名
 	private String columnName;
 	
-	
+	//hbase
+	private int clientPort;
+
+    private String quorum;
+    
+    private String master;
+    
    public Connection()
    {
 	   
@@ -66,6 +72,30 @@ public class Connection {
 
 	public void setColumnName(String columnName) {
 		this.columnName = columnName;
+	}
+
+	public int getClientPort() {
+		return clientPort;
+	}
+
+	public void setClientPort(int clientPort) {
+		this.clientPort = clientPort;
+	}
+
+	public String getQuorum() {
+		return quorum;
+	}
+
+	public void setQuorum(String quorum) {
+		this.quorum = quorum;
+	}
+
+	public String getMaster() {
+		return master;
+	}
+
+	public void setMaster(String master) {
+		this.master = master;
 	}
 
 	

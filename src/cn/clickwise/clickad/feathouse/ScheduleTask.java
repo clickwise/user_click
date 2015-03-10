@@ -41,7 +41,24 @@ public class ScheduleTask {
 		rdi.setDay(day);
 		rdi.init();
 		
-     
+	}
+	
+	public void initHbase() {
+       	
+		day=TimeOpera.getYesterday();
+		confFactory = ConfigureFactoryInstantiate.getConfigureFactory();
+		
+		//连接用户特征cassandra库
+		HBaseConfigure hConf = confFactory.getHBaseConfigure();
+		con = new Connection();
+        con.setClientPort(hConf.getClientPort());
+        con.setQuorum(hConf.getQuorum());
+        con.setMaster(hConf.getMaster());	
+		//初始化rpcdmpinquery
+		rdi=new RpcDmpInquiry();
+		rdi.setDay(day);
+		rdi.init();
+		
 	}
 
 	public void dmpInquiries() {

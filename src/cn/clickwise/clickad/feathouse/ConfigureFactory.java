@@ -65,6 +65,8 @@ public abstract class ConfigureFactory {
     
     public abstract CassandraConfigure getCassandraConfigure();
     
+    public abstract HBaseConfigure getHBaseConfigure();
+    
     public abstract String getTmpIdentify();
     
     public abstract String getStatisticTmpIdentify();
