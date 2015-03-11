@@ -36,8 +36,8 @@ public class HbaseTest {
     } 
  
     public static void main(String[] args) { 
-         createTable("wujintao2"); 
-        // insertData("wujintao"); 
+         //createTable("wujintao2"); 
+         insertData("wujintao"); 
         // QueryAll("wujintao"); 
         // QueryByCondition1("wujintao"); 
         // QueryByCondition2("wujintao"); 
@@ -79,8 +79,8 @@ public class HbaseTest {
         HTablePool pool = new HTablePool(configuration, 1000); 
         Put put = new Put("112233bbbcccc".getBytes());// 一个PUT代表一行数据，再NEW一个PUT表示第二行数据,每行一个唯一的ROWKEY，此处rowkey为put构造方法中传入的值 
         put.add("column1".getBytes(), "test".getBytes(), "aaa".getBytes());// 本行数据的第一列 
-        put.add("column2".getBytes(),"test".getBytes() , "bbb".getBytes());// 本行数据的第三列 
-        put.add("column3".getBytes(), "test".getBytes(), "ccc".getBytes());// 本行数据的第三列 
+        //put.add("column2".getBytes(),"test".getBytes() , "bbb".getBytes());// 本行数据的第三列 
+        //put.add("column3".getBytes(), "test".getBytes(), "ccc".getBytes());// 本行数据的第三列 
         try { 
         	 pool.getTable(tableName).put(put); 
         } catch (IOException e) { 
