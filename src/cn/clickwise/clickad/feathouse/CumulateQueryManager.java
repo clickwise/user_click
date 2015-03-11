@@ -227,7 +227,6 @@ public class CumulateQueryManager {
 						if (!(areaIp.get(areaDayUVIdentity).containsKey(ip))) {
 							areaIp.get(areaDayUVIdentity).put(ip, 1);
 						}
-
 					}
 
 				}

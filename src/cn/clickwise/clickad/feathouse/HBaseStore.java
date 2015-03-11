@@ -8,7 +8,6 @@ import org.apache.hadoop.hbase.client.Put;
 public class HBaseStore extends DataStore{
 	
 	 public static Configuration configuration; 
-	 
 	 public String tableName="userFeat";
 	 
 	  HTablePool pool ; 
