@@ -228,7 +228,6 @@ public class CumulateQueryManager {
 							areaIp.get(areaDayUVIdentity).put(ip, 1);
 						}
 					}
-
 				}
 
 				String codeOfArea = "";
@@ -360,17 +359,12 @@ public class CumulateQueryManager {
 								+ confFactory.getEasyDmpUidFile(day, tempAC);
 						activeDmps.put(tempAC, afile);
 						try {
-							
-							
 							activeDmpPWs.put(tempAC, new PrintWriter(
 									new FileWriter(afile)));
 							activeDmpPWs.get(tempAC).println(uid);
 						} catch (Exception e) {
 							e.printStackTrace();
-						}
-
-						
-						
+						}		
 					} else {
 						activeDmpPWs.get(tempAC).println(uid);
 					}
