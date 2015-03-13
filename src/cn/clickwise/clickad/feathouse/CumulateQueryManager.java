@@ -407,10 +407,7 @@ public class CumulateQueryManager {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
-	
-			
-			
+
             /*
 			HiveStatisticByKeysClient ec = new HiveStatisticByKeysClient();
 			Connection con = new Connection();
