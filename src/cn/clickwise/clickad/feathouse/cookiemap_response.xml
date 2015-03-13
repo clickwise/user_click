@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clickwise_cookiemap_response xmlns="http://clickwise.cn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<src_uid>
+  <uid_type>cookie</uid_type>
+  <uid_value>7d1cf3105a7388753da162a802d78055009</uid_value>
+</src_uid>>
+  <dest_uids>
+  <uid_item>
+    <uid_type>radius</uid_type>
+    <uid_value>854f8dddc446a9822572aa47f8f75500e</uid_value>
+  </uid_item>
+   <uid_item>
+    <uid_type>email</uid_type>
+    <uid_value>test@126.com</uid_value>
+  </uid_item> 
+  </dest_uids>
+</clickwise_cookiemap_response>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clickwise_userinfo_response xmlns="http://clickwise.cn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<user>
+ <uid>7d1cf3105a7388753da162a802d78055009</uid>
+ <infolist>
+   <feat>
+    <feattype>bdsearch</feattype>
+    <conent>植物大战僵尸小游戏</conent>
+   </feat>
+    <feat>
+    <feattype>bdkeywords</feattype>
+    <conent>植物大战僵尸 小游戏</conent>
+   </feat>
+   <feat>
+    <feattype>ectitle</feattype>
+    <conent>春秋平底平跟流苏单鞋唐卡豆豆鞋牛筋底磨砂真牛皮豹纹小白鞋女鞋 </conent>
+   </feat>
+ </infolist> 
+</user>
+</clickwise_userinfo_response>
