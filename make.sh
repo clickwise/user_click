@@ -101,3 +101,15 @@ then
 else
  OPT=3
 fi
+
+if [ $1 = "hbase" ]
+then
+ rm -rf hbase_src
+ mkdir hbase_src
+ cd src
+ cp -r --parents cn/clickwise/clickad/hbase ../hbase_src
+ cd ..
+ $ANT_BUILD -buildfile build_hbase_new.xml
+else
+ OPT=3
+fi
