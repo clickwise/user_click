@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clickwise_admatch_response xmlns="http://clickwise.cn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<matchinfo>
+<uid>7d1cf3105a7388753da162a802d78055009</uid>
+<uid_type>cookie</uid_type>
+<matchads>
+  <matchad>
+    <aid>1001</aid>
+    <score>0.7</score>
+  </matchad>
+  <matchad>
+  <aid>1002</aid>
+  <score>0.5</score>
+  </matchad>
+</matchads>
+</matchinfo>
+</clickwise_admatch_response>

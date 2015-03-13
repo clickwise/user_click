@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clickwise_status_response xmlns="http://clickwise.cn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <error_code>0</error_code>
+   <error_msg>success</error_msg>
+</clickwise_status_response>
