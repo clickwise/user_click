@@ -31,13 +31,13 @@ public class HbaseTest {
     static { 
         configuration = HBaseConfiguration.create(); 
         configuration.set("hbase.zookeeper.property.clientPort", "2181"); 
-        configuration.set("hbase.zookeeper.quorum", "192.168.10.129"); 
-        configuration.set("hbase.master", "192.168.10.128:60000"); 
+        configuration.set("hbase.zookeeper.quorum", "192.168.10.103"); 
+        configuration.set("hbase.master", "192.168.10.103:60000"); 
         
     } 
  
     public static void main(String[] args) { 
-         createTable("eewujintao"); 
+         //createTable("eewujintao"); 
          insertData("eewujintao"); 
         // QueryAll("wujintao"); 
         // QueryByCondition1("wujintao"); 
