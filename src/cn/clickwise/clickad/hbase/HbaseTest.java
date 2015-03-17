@@ -37,8 +37,8 @@ public class HbaseTest {
     } 
  
     public static void main(String[] args) { 
-         //createTable("eewujintao"); 
-         insertData("eewujintao"); 
+         createTable("ddwujintao"); 
+         insertData("ddwujintao"); 
         // QueryAll("wujintao"); 
         // QueryByCondition1("wujintao"); 
         // QueryByCondition2("wujintao"); 
