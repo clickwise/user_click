@@ -105,6 +105,7 @@ public class ScheduleTask {
 			e.printStackTrace();
 		}
 		Dmp[] dmps = confFactory.getDmps();
+		
 		for (int i = 0; i < dmps.length; i++) {
 			try{
 			File dmpRecFile=new File(confFactory.getRecordFileDirectory() + confFactory.getDmpRecordFile(day, dmps[i]));
