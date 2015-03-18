@@ -43,14 +43,25 @@ DSP对接模块设计实现
         wp可能包含的column有：网页title、网页url、网页refer  等
    
         ud：指未用md5加密前的uid
+        
+    2.将用户数据文件每一行正确存入dmpuserinfo的一个row
+    
+      
+      >>>>提供  loadintohbase 方法：
+                                                                 参数：<文件或文件夹路径 > <parse接口实现>
+                                                                                  
+
+      >>>>提供  loadintohbase 命令行方法：
+                                                                 参数：<文件或文件夹路径 > <parse接口实现>
 
 
-
-
-
-
-
-
+    3. 删除过期数据
+    
+      >>>>提供  loadintohbase 方法：
+                                                                参数：<tablename> <cfname> <保留最近数据的天数>
+    
+      >>>>提供  loadintohbase 命令行方法：
+                                                                参数：<tablename> <cfname> <保留最近数据的天数>
 
 
 
