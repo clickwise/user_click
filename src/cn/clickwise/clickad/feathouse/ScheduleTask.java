@@ -54,6 +54,7 @@ public class ScheduleTask {
         con.setClientPort(hConf.getClientPort());
         con.setQuorum(hConf.getQuorum());
         con.setMaster(hConf.getMaster());	
+        
 		//初始化rpcdmpinquery
 		rdi=new RpcDmpInquiry();
 		rdi.setDay(day);
