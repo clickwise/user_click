@@ -1,0 +1,48 @@
+朱文文 14:19:07 
+这是上午看的李老师写的东西，总结了一下，是这样的：
+1. 任务描述
+     1、需求是什么，可以分几点来描述
+2. 输入描述
+     1、输入数据格式，可以分几点来描述
+3. 实现思路
+     3、如何实现，可以分几点来描述
+欧阳 勤 14:19:47 
+恩
+朱文文 14:19:51 
+一、任务描述
+1、需要提取策略中的所有关键词，形成关键词列表的文件，该文件中关键词之间用“,”分隔。
+2、实际操作是部署该处理节点，在分组中进行管理，该分组只是进行关键词部署。
+3、分组策略完成后需要发布到处理节点，然后进行策略转换，也就是将发布的二进制策略中的关键词进行解密并且提取形成关键词列表文件。
+
+二、输入描述
+1、所有分组策略都会形成tina.plc、tina2.plc、log.plc三个策略文件，该策略文件都是加密后的二进制文件。
+2、需要提取的关键词列表要从tina2.plc二进制策略文件提取。
+3、需要提取的关键词在tina2.plc策略文件中的第四部分。
+4、tina2.plc关键词策略部分有两大部分构成。
+4.1、第一行为关键词策略定义的数量
+4.2、第二部分为每个关键词策略定义，又分为三行
+4.2.1、第一行为单个策略定义的id号
+4.2.2、第二行为单个策略定义的定义链接
+4.2.3、第三行为单个策略定义的关键词列表，每个定义都使用“,”分隔。
+4.3、示例
+29（多有关键词定义的数量）
+18（单个关键词定义的ID号）
+http://pos.baidu.com（单个关键词定义的链接）
+.people.com,gov.cn,pay,bank,org.cn,51play,police,.qq.com,china.com（单个关键词定义的关键词列表）
+19
+http://tt.inetsvc.com/entry
+fsname=com%2Eyx%5F,fsname=com%2Etongcheng%2Eandroid%5F,fsname=com%2Eduowan%2Emobile%5F,fsname=com%2Edp%2Eandroid%2Eelong%5F,fsname=cn%2Eninegame%2Egamemanager%5F,fsname=qsbk%2Eapp%5F,fsname=com%2Eximalaya%2Eting%2Eandroid%5F,fsname=com%2Eqiyi%2Evideo%5F,fsname=com%2Esogou%2Eactivity%2Esrc%5F,fsname=com%2Etuan800%2Etao800%5F,fsname=com%2Esuning%2Emobile%2Eebuy%5F,fsname=com%2Ejm%2Eandroid%2Ejumei%5F,fsname=com%2Emeilishuo%5F,fsname=com%2Eu17%2Ecomic%2Ephone%5F,fsname=com%2Exiudang%2Ejiukuaiyou%2Eui%5F
+19
+http://tt.inetsvc.com/entry
+fsname=com%2Emogujie%5F,fsname=com%2Eimmomo%2Emomo%5F,fsname=com%2Echunfen%2Ebrand5%5F,fsname=com%2Eedog%5F,fsname=com%2Ethestore%2Emain%5F,fsname=cn%2Erelian99%5F,fsname=cn%2Exianglianai%5F,fsname=cn%2Eshuangshuangfei%5F,fsname=com%2Elingan%2Eseeyou%5F,fsname=com%2Eaoratec%2Ewifimanager%5F,fsname=com%2Ejedigames%2Eguaji%2Epopgame%5F,fsname=com%2Eifeng%2Enewvideo%5F,fsname=com%2Efuncity%2Etaxi%2Epassenger%5F,fsname=com%2Esuning%2Emobile%2Eebuy%5F,fsname=fm%2Eqingting%2Eqtradio%5F
+19
+http://tt.inetsvc.com/entry
+fsname=com%2Emeilapp%2Emeila%5F,fsname=com%2Etaobao%2Etrip%5F,fsname=com%2Etelecom%2Evideo%2Eikan4g%5F,fsname=com%2Efunshion%2Evideo%2Emobile%5F,fsname=com%2Eyy%2Eyymeet%5F,fsname=com%2Esuning%2Emobile%2Eebuy%5F,fsname=com%2Eymall%2Epresentshop%5F,fsname=com%2Eyoloho%2Edayima%5F,fsname=com%2Etuniu%2Eapp%2Eui%5F,fsname=com%2Eachievo%2Evipshop%5F,fsname=com%2Eiqianggou%2Eandroid%5F,fsname=com%2Eduokan%2Ereader%5F
+20
+http://tt.inetsvc.com/entry
+/youxin_,/tongchenglvyou_,/YY_,/yilonglvxing_,/jiuyou_,/qiushibaike_,/ximalayatingshu_,/aiqiyishipin_,/sougousousuo_,/zhe800_,/suningyigou_,/jumeiyoupin_,/meilishuo_,/youyaoqimanhua_,/mogujie_,/momo_,/jinribanjia_,/kaoladianzigoutingshuyinle_,/1haodian_,/relian_,/xianglianai_,/zhaoduixiang_
+三、实现思路
+1、只是进行tina2.plc二进制策略文件的内存读入
+2、将二进制内容进行解密转译形成可读内容
+3、找到第四部分关键词定义部分，将每个单个关键词定义中关键词列表读出，并拼接到一个关键词列表的输出串中
+4、将形成的关键词列表的输出字符串形成关键词列表文件“keywords.txt”文件
