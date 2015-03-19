@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 /**
  * 客户端可以执行的命令
+ * to do：应该加个execute方法
  * @author zkyz
  *
  */
