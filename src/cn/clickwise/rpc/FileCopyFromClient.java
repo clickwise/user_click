@@ -35,7 +35,6 @@ public class FileCopyFromClient extends Client {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	@Override
