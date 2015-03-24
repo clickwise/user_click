@@ -8,7 +8,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import cn.clickwise.sort.SortStrArray;
+import cn.clickwise.lib.sort.SortStrArray;
+
 
 
 /**
