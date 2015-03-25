@@ -20,7 +20,7 @@ import cn.clickwise.lib.sort.SortStrArray;
  */
 public class FieldCountSort {
 	
-	public static boolean isDebug=true;
+	public static boolean isDebug=false;
 
 	public void sumAndSort(String separator,int field_num,int sindex){
 		
