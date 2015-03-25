@@ -20,8 +20,9 @@ public class FieldCountSort {
 
 	public static boolean isDebug = true;
 
-	public void sumAndSort(String separator, int field_num, int sindex) {
+	public void sumAndSort(String separator, int field_num, int sindex,boolean isdebug) {
 
+		isDebug=isdebug;
 		InputStreamReader isr = new InputStreamReader(System.in);
 		BufferedReader br = new BufferedReader(isr);
 
@@ -123,12 +124,13 @@ public class FieldCountSort {
 	}
 
 	public static void main(String[] args) {
-		if (args.length != 3) {
-			System.err.println("Usage:<field_num> <sort_index> <separator>");
+		if (args.length != 4) {
+			System.err.println("Usage:<field_num> <sort_index> <separator> <is_debug>");
 			System.err.println("    field_num : 输入的字段个数");
 			System.err.println("    sort_index: 排序的字段索引，从0开始");
-			System.err
-					.println("    separator:字段间的分隔符，001 表示 字符001，blank 表示\\s+ 即连续空格 ,tab 表示 \t");
+			System.err.println("    separator:字段间的分隔符，001 表示 字符001，blank 表示\\s+ 即连续空格 ,tab 表示 \t");
+			System.err.println("    is_debug:是否进行调试");
+			
 			System.exit(1);
 		}
 
@@ -157,8 +159,10 @@ public class FieldCountSort {
 			outputSeparator = separator.trim();
 		}
 
+		boolean isDebug=Boolean.parseBoolean(args[3]);
+		
 		FieldCountSort fcs = new FieldCountSort();
-		fcs.sumAndSort(separator, field_num, sort_index);
+		fcs.sumAndSort(separator, field_num, sort_index,isDebug);
 
 	}
 
