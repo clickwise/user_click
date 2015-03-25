@@ -91,7 +91,7 @@ public class FieldCountSortN {
 
 				pline = pline.trim();
 				tokens = pline.split("\001");
-				if (tokens.length != field_num) {
+				if (tokens.length != field_num-startindex) {
 					continue;
 				}
 				wlist.add(pline);
