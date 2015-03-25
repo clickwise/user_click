@@ -70,7 +70,7 @@ public class FieldCountSort {
 					}
 
 				} catch (Exception e) {
-					e.printStackTrace();
+					//e.printStackTrace();
 				}
 			}
 
