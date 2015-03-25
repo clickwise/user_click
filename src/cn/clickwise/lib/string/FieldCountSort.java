@@ -19,6 +19,8 @@ import cn.clickwise.lib.sort.SortStrArray;
  * @author zkyz
  */
 public class FieldCountSort {
+	
+	public static boolean isDebug=true;
 
 	public void sumAndSort(String separator,int field_num,int sindex){
 		
@@ -57,6 +59,11 @@ public class FieldCountSort {
 			   }
 			   key=key.trim();
 			   
+			   if(isDebug==true)
+			   {
+				  System.err.println("fields.length:"+fields.length+" key:"+key);
+			   }
+			   
 			   for(j=1;j<field_num;j++)
 			   {
 				   num=Integer.parseInt(fields[j]);
@@ -70,6 +77,14 @@ public class FieldCountSort {
 				   }
 			    }   	   
 		     }
+		    
+			 if(isDebug==true)
+			 {
+				 for(j=1;j<field_num;j++)
+				 {
+				    System.err.println("ws["+j+"]:"+ws[j-1].size());
+				 }
+			 }
 		    
 		    ArrayList<String> wlist=new ArrayList<String>();
 		    
