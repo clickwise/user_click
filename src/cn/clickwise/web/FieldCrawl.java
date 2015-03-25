@@ -66,7 +66,7 @@ public class FieldCrawl {
 							continue;
 						}
 					} catch (Exception e) {
-						e.printStackTrace();
+						//e.printStackTrace();
 					}
 
 					pline=line+separator+doc.text().replaceAll("\\n", " ");
