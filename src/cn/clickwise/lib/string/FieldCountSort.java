@@ -117,7 +117,7 @@ public class FieldCountSort {
 			 }
 			 
 		    String[] sort_arr=null;
-		    sort_arr=SortStrArray.sort_List(wlist, sindex, "int", field_num,separator);
+		    sort_arr=SortStrArray.sort_List(wlist, sindex, "int", field_num,"\001");
 		    for(j=0;j<sort_arr.length;j++)
 		    {
 		    	pw.println(sort_arr[j]);
