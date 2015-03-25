@@ -13,6 +13,7 @@ public class WordLinks {
 	
 	public void getWordLinks(String word)
 	{
+		//String link="http://www.baidu.com/s?wd="+URLEncoder.encode(word)+"&pn=10";
 		String link="http://www.baidu.com/s?wd="+URLEncoder.encode(word);
 		if(isDebug==true)
 		{
@@ -35,7 +36,8 @@ public class WordLinks {
 		   
 		   for(Element re:results)
 		   {
-			   System.out.println(re.html());
+			   System.out.println(re.select("a").attr("href"));
+			   System.out.println(re.select("a").text());
 		   }
 		   
 		   
