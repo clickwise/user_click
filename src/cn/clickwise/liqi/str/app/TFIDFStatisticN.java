@@ -185,6 +185,10 @@ public class TFIDFStatisticN {
 				for (Map.Entry<String, Word> w : whs.entrySet()) {
 					//wlist.add(w.getValue().toString());
                     //pw.print(w.getValue().toString()+" ");
+					if(w.getValue().count>1000||w.getValue().count<0)
+					{
+						continue;
+					}
 					if(!(wa.containsKey(w.getKey())))
 					{
 						wa.put(w.getKey(), w.getValue().count);
