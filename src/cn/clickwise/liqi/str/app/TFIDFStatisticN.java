@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import cn.clickwise.lib.sort.SortStrArray;
 import cn.clickwise.lib.string.SSO;
 
 public class TFIDFStatisticN {
@@ -153,8 +154,15 @@ public class TFIDFStatisticN {
 			HashMap<String, Word> whs = null;
 			for (int i = 0; i < docs.size(); i++) {
 				whs = docs.get(i);
+				ArrayList<String> wlist=new ArrayList<String>();
 				for (Map.Entry<String, Word> w : whs.entrySet()) {
-                    pw.print(w.getValue().toString()+" ");
+					wlist.add(w.getValue().toString());
+                    //pw.print(w.getValue().toString()+" ");
+				}
+				String[] arr=SortStrArray.sort_List(wlist, 1, "dou", 2, ":");
+				for(int j=0;j<arr.length;j++)
+				{
+					pw.print(arr[j]+" ");
 				}
 				pw.println();
 			}
