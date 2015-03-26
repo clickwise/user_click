@@ -55,6 +55,7 @@ public class WordLinks {
 			getWordLinks(word,i);
 		}
     }
+	
 	public static void main(String[] args)
 	{
 		
