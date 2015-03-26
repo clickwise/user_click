@@ -20,6 +20,8 @@ public class TFIDFStatisticN {
 	private int field_num=0;
 	
 	private int text_index=0;
+	
+	private int url_index=0;
 
 	private class Word {
 
@@ -288,22 +290,32 @@ public class TFIDFStatisticN {
 		this.text_index = text_index;
 	}
 	
+	public int getUrl_index() {
+		return url_index;
+	}
+
+	public void setUrl_index(int url_index) {
+		this.url_index = url_index;
+	}
+	
 	public static void main(String[] args)
 	{
-		if(args.length!=4)
+		if(args.length!=5)
 		{
-			System.err.println("Usage:<field_num> <text_index> <input> <output>");
+			System.err.println("Usage:<field_num> <url_index> <text_index> <input> <output>");
 			System.exit(1);
 		}
 		
 		int field_num=Integer.parseInt(args[0]);
-		int text_index=Integer.parseInt(args[1]);
-		String input=args[2];
-		String output=args[3];
+		int url_index=Integer.parseInt(args[1]);
+		int text_index=Integer.parseInt(args[2]);
+		String input=args[3];
+		String output=args[4];
 		
 		TFIDFStatisticN tfidf=new TFIDFStatisticN();
 		tfidf.setField_num(field_num);
 		tfidf.setText_index(text_index);
+	    tfidf.setUrl_index(url_index);
 		tfidf.readDocument(input);
 		tfidf.IDFStatistic();
 		tfidf.TFIDFStatistic();
@@ -311,6 +323,8 @@ public class TFIDFStatisticN {
 		tfidf.printTFIDFAvg(output);
 		
 	}
+
+
 
 
 	
