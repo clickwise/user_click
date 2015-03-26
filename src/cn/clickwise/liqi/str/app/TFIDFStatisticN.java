@@ -302,6 +302,7 @@ public class TFIDFStatisticN {
 		tfidf.readDocument(input);
 		tfidf.IDFStatistic();
 		tfidf.TFIDFStatistic();
+		
 		tfidf.printTFIDFAvg(output);
 		
 	}
