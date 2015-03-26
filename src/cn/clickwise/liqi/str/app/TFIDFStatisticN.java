@@ -172,6 +172,28 @@ public class TFIDFStatisticN {
 			e.printStackTrace();
 		}
 	}
+	
+	public void printIDFS(String outFile) {
+		try {
+		    PrintWriter pw = new PrintWriter(new FileWriter(outFile));
+		    ArrayList<String> wlist=new ArrayList<String>();
+			for (Map.Entry<String, Word> w : idfs.entrySet()) {
+				wlist.add(w.getValue().toString());
+                //pw.print(w.getValue().toString()+" ");
+			}
+		    
+			String[] arr=SortStrArray.sort_List(wlist, 1, "dou", 2, ":");
+			for(int j=0;j<arr.length;j++)
+			{
+				pw.println(arr[j]);
+			}
+			pw.println();
+		    
+		    
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	public ArrayList<HashMap<String, Word>> getDocs() {
 		return docs;
@@ -224,7 +246,7 @@ public class TFIDFStatisticN {
 		tfidf.readDocument(input);
 		tfidf.IDFStatistic();
 		tfidf.TFIDFStatistic();
-		tfidf.printTFIDF(output);
+		tfidf.printIDFS(output);
 		
 	}
 
