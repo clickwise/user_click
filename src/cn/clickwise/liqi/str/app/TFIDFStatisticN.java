@@ -256,6 +256,11 @@ public class TFIDFStatisticN {
 	
 				for (Map.Entry<String, Word> w : whs.entrySet()) {
 					avgscore=0;
+					if(!(tfidfavg.containsKey(w.getKey())))
+					{
+						continue;
+					}
+					
 					avgscore=tfidfavg.get(w.getKey());
 					if(avgscore>0)
 					{
