@@ -14,6 +14,7 @@ import cn.clickwise.lib.string.SSO;
 public class TFIDFStatisticN {
 
 	private ArrayList<HashMap<String, Word>> docs = new ArrayList<HashMap<String, Word>>();
+	private ArrayList<String> urls=new ArrayList<String>();
 
 	private Map<String, Word> idfs = new HashMap<String, Word>();
 	
@@ -22,6 +23,8 @@ public class TFIDFStatisticN {
 	private int text_index=0;
 	
 	private int url_index=0;
+	
+	HashMap<String,Double> tfidfavg;
 
 	private class Word {
 
@@ -108,6 +111,7 @@ public class TFIDFStatisticN {
 					continue;
 				}
 				docs.add(whs);	
+				urls.add(fields[url_index]);
 			}
 
 			br.close();
@@ -177,8 +181,7 @@ public class TFIDFStatisticN {
 	
 	public void printTFIDFAvg(String outFile) {
 		
-		HashMap<String,Double> tfidfavg=new HashMap<String,Double>();
-		
+		tfidfavg=new HashMap<String,Double>();
 		
 		try {
 			PrintWriter pw = new PrintWriter(new FileWriter(outFile));
@@ -235,6 +238,61 @@ public class TFIDFStatisticN {
 			e.printStackTrace();
 		}
 	}
+	
+	public void caculateDocWeight(String outFile) {
+		
+		try {
+			HashMap<String, Word> whs = null;
+			HashMap<String,Double> docscore=new HashMap<String,Double>();
+			double avgscore=0;
+			String url="";
+			
+			PrintWriter pw = new PrintWriter(new FileWriter(outFile));
+			
+			for (int i = 0; i < docs.size(); i++) {
+				
+				whs = docs.get(i);			
+				double score=0;
+	
+				for (Map.Entry<String, Word> w : whs.entrySet()) {
+					avgscore=0;
+					avgscore=tfidfavg.get(w.getKey());
+					if(avgscore>0)
+					{
+					  score+=w.getValue().count*avgscore;
+					}
+				}
+				
+				score=score/(double)whs.size();
+				url=urls.get(i);
+				
+				if(!(docscore.containsKey(url)))
+				{
+					docscore.put(url, score);
+				}
+			}
+			
+			ArrayList<String> doclist=new ArrayList<String>();
+			for(Map.Entry<String, Double> el:docscore.entrySet())
+			{
+				//pw.println(el.getKey()+"\001"+el.getValue());
+				doclist.add(el.getKey()+"\001"+el.getValue());
+			}
+			
+			String[] arr=SortStrArray.sort_List(doclist, 1, "dou", 2, "\001");
+			for(int j=0;j<arr.length;j++)
+			{
+			     pw.println(arr[j]);	
+			}
+			
+			pw.close();
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 	
 	public void printIDFS(String outFile) {
 		try {
@@ -300,9 +358,9 @@ public class TFIDFStatisticN {
 	
 	public static void main(String[] args)
 	{
-		if(args.length!=5)
+		if(args.length!=6)
 		{
-			System.err.println("Usage:<field_num> <url_index> <text_index> <input> <output>");
+			System.err.println("Usage: <field_num> <url_index> <text_index> <input> <output> <docscore>");
 			System.exit(1);
 		}
 		
@@ -311,6 +369,7 @@ public class TFIDFStatisticN {
 		int text_index=Integer.parseInt(args[2]);
 		String input=args[3];
 		String output=args[4];
+		String docscore=args[5];
 		
 		TFIDFStatisticN tfidf=new TFIDFStatisticN();
 		tfidf.setField_num(field_num);
@@ -318,10 +377,9 @@ public class TFIDFStatisticN {
 	    tfidf.setUrl_index(url_index);
 		tfidf.readDocument(input);
 		tfidf.IDFStatistic();
-		tfidf.TFIDFStatistic();
-		
+		tfidf.TFIDFStatistic();	
 		tfidf.printTFIDFAvg(output);
-		
+		tfidf.caculateDocWeight(docscore);
 	}
 
 
