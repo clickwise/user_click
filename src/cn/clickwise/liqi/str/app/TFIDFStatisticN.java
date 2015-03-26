@@ -173,6 +173,58 @@ public class TFIDFStatisticN {
 		}
 	}
 	
+	public void printTFIDFAvg(String outFile) {
+		
+		HashMap<String,Double> wa=new HashMap<String,Double>();
+		try {
+			PrintWriter pw = new PrintWriter(new FileWriter(outFile));
+			HashMap<String, Word> whs = null;
+			for (int i = 0; i < docs.size(); i++) {
+				whs = docs.get(i);
+				//ArrayList<String> wlist=new ArrayList<String>();
+				for (Map.Entry<String, Word> w : whs.entrySet()) {
+					//wlist.add(w.getValue().toString());
+                    //pw.print(w.getValue().toString()+" ");
+					if(!(wa.containsKey(w.getKey())))
+					{
+						wa.put(w.getKey(), w.getValue().count);
+					}
+					else
+					{
+						wa.put(w.getKey(), wa.get(w.getKey())+w.getValue().count);
+					}
+				}
+				
+				/*
+				String[] arr=SortStrArray.sort_List(wlist, 1, "dou", 2, ":");
+				for(int j=0;j<arr.length;j++)
+				{
+					pw.print(arr[j]+" ");
+				}
+				pw.println();
+				*/
+			}
+			
+			ArrayList<String> wlist=new ArrayList<String>();
+			for(Map.Entry<String, Double> el:wa.entrySet())
+			{
+				wlist.add(el.getKey()+"\001"+el.getValue());
+			}
+			
+			String[] arr=SortStrArray.sort_List(wlist, 1, "dou", 2, "\001");
+			
+			for(int j=0;j<arr.length;j++)
+			{
+				pw.println(arr[j]);
+			}
+			
+			pw.close();	
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void printIDFS(String outFile) {
 		try {
 		    PrintWriter pw = new PrintWriter(new FileWriter(outFile));
@@ -246,7 +298,7 @@ public class TFIDFStatisticN {
 		tfidf.readDocument(input);
 		tfidf.IDFStatistic();
 		tfidf.TFIDFStatistic();
-		tfidf.printIDFS(output);
+		tfidf.printTFIDFAvg(output);
 		
 	}
 
