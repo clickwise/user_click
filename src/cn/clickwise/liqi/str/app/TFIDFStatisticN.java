@@ -250,7 +250,7 @@ public class TFIDFStatisticN {
 			PrintWriter pw = new PrintWriter(new FileWriter(outFile));
 			
 			for (int i = 0; i < docs.size(); i++) {
-				
+				System.err.println("doc i="+i);
 				whs = docs.get(i);			
 				double score=0;
 	
@@ -265,6 +265,10 @@ public class TFIDFStatisticN {
 				
 				score=score/(double)whs.size();
 				url=urls.get(i);
+				if(url==null)
+				{
+					continue;
+				}
 				
 				if(!(docscore.containsKey(url)))
 				{
