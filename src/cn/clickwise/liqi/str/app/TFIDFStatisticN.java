@@ -175,7 +175,9 @@ public class TFIDFStatisticN {
 	
 	public void printTFIDFAvg(String outFile) {
 		
-		HashMap<String,Double> wa=new HashMap<String,Double>();
+		HashMap<String,Double> tfidfavg=new HashMap<String,Double>();
+		
+		
 		try {
 			PrintWriter pw = new PrintWriter(new FileWriter(outFile));
 			HashMap<String, Word> whs = null;
@@ -189,13 +191,13 @@ public class TFIDFStatisticN {
 					{
 						continue;
 					}
-					if(!(wa.containsKey(w.getKey())))
+					if(!(tfidfavg.containsKey(w.getKey())))
 					{
-						wa.put(w.getKey(), w.getValue().count);
+						tfidfavg.put(w.getKey(), w.getValue().count);
 					}
 					else
 					{
-						wa.put(w.getKey(), wa.get(w.getKey())+w.getValue().count);
+						tfidfavg.put(w.getKey(), tfidfavg.get(w.getKey())+w.getValue().count);
 					}
 				}
 				
@@ -210,9 +212,12 @@ public class TFIDFStatisticN {
 			}
 			
 			ArrayList<String> wlist=new ArrayList<String>();
-			for(Map.Entry<String, Double> el:wa.entrySet())
+			for(Map.Entry<String, Double> el:tfidfavg.entrySet())
 			{
-				wlist.add(el.getKey()+"\001"+el.getValue());
+				if(idfs.containsKey(el.getKey())&&(idfs.get(el.getKey()).count>0))
+				{
+				  wlist.add(el.getKey()+"\001"+(el.getValue()/idfs.get(el.getKey()).count));
+				}
 			}
 			
 			String[] arr=SortStrArray.sort_List(wlist, 1, "dou", 2, "\001");
