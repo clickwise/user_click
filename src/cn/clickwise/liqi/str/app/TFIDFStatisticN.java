@@ -154,7 +154,7 @@ public class TFIDFStatisticN {
 			for (int i = 0; i < docs.size(); i++) {
 				whs = docs.get(i);
 				for (Map.Entry<String, Word> w : whs.entrySet()) {
-                    pw.println(w.getValue().toString()+" ");
+                    pw.print(w.getValue().toString()+" ");
 				}
 				pw.println();
 			}
