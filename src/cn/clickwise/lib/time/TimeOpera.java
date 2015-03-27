@@ -109,6 +109,9 @@ public class TimeOpera {
 		return Integer.parseInt(sdf.format(dt));
 	}
 	
+	
+
+	
 	/**
 	 * 获得当前日期，格式20140626
 	 * @return
@@ -134,6 +137,7 @@ public class TimeOpera {
 	
 		return sdf.format(dt);
 	}
+	
 	
 	/**
 	 * 获得当前日期，格式20140626
