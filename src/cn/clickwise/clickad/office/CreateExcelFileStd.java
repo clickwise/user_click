@@ -10,13 +10,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 
 import cn.clickwise.liqi.str.basic.FileToArray;
 
-/**
- * 创建excel 文件，并导入数据
- * @author zkyz
- *
- */
-public class CreateExcelFile {
-
+public class CreateExcelFileStd {
 	/**
 	 * 从txt文件创建excel file
 	 */
@@ -74,9 +68,21 @@ public class CreateExcelFile {
 	
 	public static void main(String[] args) throws Exception
 	{
+		if(args.length<2)
+		{
+			System.err.println("Usage:<input_file>* <excel_file>");
+			System.err.println("    input_file : 输入文件，可以有多个");
+			System.err.println("    excel_file : 输出文件");
+			System.exit(1);
+		}
 		
-		String[] input_files={"D:/projects/user_click_win_workplace/user_click/temp/profile_001.txt"};
-		String excel_file="D:/projects/user_click_win_workplace/user_click/temp/profile_001.xls";
+		String[] input_files=new String[args.length-1];
+		for(int i=0;i<args.length-1;i++)
+		{
+			input_files[i]=args[i];
+		}
+		
+		String excel_file=args[args.length-1];
 		
 		txtsToExcelFile(input_files,excel_file);			
 	}
