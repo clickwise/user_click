@@ -35,6 +35,11 @@ public class FilterNumber {
 				if (Pattern.matches("[\\d\\.]*", word)) {
 					continue;
 				}
+				if(SSO.tioe(word))
+				{
+					continue;
+				}
+				
 				pw.println(line);
 			}
 
