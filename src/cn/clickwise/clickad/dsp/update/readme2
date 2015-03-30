@@ -1,0 +1,69 @@
+DMP用户数据存储实现
+
+1.定期更新用户数据
+
+一、任务描述：
+   1、从文件或hive表等数据源获得用户数据，更新数据存储中的用户表，支持直接调用远程文件及hive表，远程要加密传输
+   2、能够指定保留最近一周或一个月的用户数据，过期的用户数据会自动删除掉
+   
+二、输入描述:
+   1、用户数据文件每一行是一条用户数据，预处理后转换成标准用户数据格式，文件由文件的绝对路径确定，本地路径或远程路径
+   3、以天为单位，指定要保留最近多少天的用户数据，在配置文件中指定
+
+三、实现思路：
+
+   1.用户数据使用hbase存储，存储表的设计
+             表名:dmpuserinfo
+     
+     >>>>rowkey 设计：
+                    格式  md5(uid)+uid_type+reverse ts
+            uid 是不同类型的用户标识，如   b99ddb79a6d7021255420c75c4c9a449009，3a4d92d02b33dc27d6dc6d0256f4ac1d
+            uid_type: uid类型，使用三位整数标识每种uid类型
+                                                          例如:  000 带有地区标识的cookie
+                             001 网站cookie
+                             002 radiusid
+                             003 手机号
+                             .......                                             
+            reverse ts:反转时间戳
+                       reverse ts=Long.MAX_VALUE-timestamp
+            
+            
+     >>>>column family 设计：
+                     当前设置四种column family:搜索(se)、电商(ec)、网页(wp)、原uid(ud)
+        
+           
+     >>>>column 设计：   
+        se可能包含的column有：百度搜索内容、百度搜索关键词、百度搜索点击链接
+                              360搜索内容、360搜索关键词、360搜索点击链接 等
+        
+        ec可能包含的column有：淘宝搜索内容、淘宝搜索关键词、淘宝搜索商品、淘宝浏览商品title
+                                                                             京东搜索内容、京东搜索关键词、京东搜索商品、京东浏览商品title 等
+   
+        wp可能包含的column有：网页title、网页url、网页refer  等
+   
+        ud：指未用md5加密前的uid
+        
+    2.将用户数据文件每一行正确存入dmpuserinfo的一个row
+    
+      
+      >>>>提供  loadIntoHBase 方法：
+                                                                 参数：<文件或文件夹路径 > <parse接口实现>
+                                                                                  
+
+      >>>>提供  loadintohbase 命令行方法：
+                                                                 参数：<文件或文件夹路径 > <parse接口实现>
+
+
+    3. 删除过期数据
+    
+      >>>>提供  deleteFromHBase 方法：
+                                                                参数：<tablename> <cfname> <保留最近数据的天数>
+    
+      >>>>提供  deletefromhbase 命令行方法：
+                                                                参数：<tablename> <cfname> <保留最近数据的天数>
+
+      
+           待确定：表需不需要按地区来存(查询速度或许快些)，方便在本省部署
+
+
+
