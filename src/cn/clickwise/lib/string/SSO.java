@@ -185,6 +185,35 @@ public class SSO {
 		ms = ms.trim();
 		return ms;
 	}
+	
+	public static String midfstrs(String source, String str1, String str2) {
+		String ms = "";
+		if (!(SSO.tnoe(source))) {
+			return "";
+		}
+		int firstIndex = 0;
+		int lastIndex = 0;
+
+		if ((source.indexOf(str1)) == (source.indexOf(str2))) {
+			return source;
+		}
+		if (source.indexOf(str1) < 0) {
+			firstIndex = 0;
+		} else {
+			firstIndex = source.indexOf(str1) + str1.length();
+		}
+
+		if (source.indexOf(str2) < 0) {
+			lastIndex = source.length();
+		} else {
+			lastIndex = source.indexOf(str2);
+		}
+
+		// System.out.println("source:"+source+" fi:"+firstIndex+" li:"+lastIndex);
+		ms = source.substring(firstIndex, lastIndex);
+		ms = ms.trim();
+		return ms;
+	}
 
 	/**
 	 * 将source最后出现的find 替换为replace

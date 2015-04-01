@@ -46,6 +46,7 @@ import redis.clients.jedis.Jedis;
 public class BKWHotWordsMR {
 
 	private static class PrepareMapper extends Mapper<Object, Text, Text, Text> {
+		
 		private Text word = new Text();
 		private Text word1 = new Text();
 		public Jedis jedis;
