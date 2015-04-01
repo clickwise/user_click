@@ -1,6 +1,7 @@
 package cn.clickwise.clickad.jd_opinion;
 
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
@@ -16,98 +17,115 @@ public class SEUrlParse {
 
 	public static ParseResult parseItem(String line) {
 
-		String host="";
-		String url="";
-		String refer="";
-		
-		ParseResult pr=new ParseResult();
-		String[] fields=line.split("\001");
-		if(fields.length<11)
-		{
-			return null;
+		String host = "";
+		String url = "";
+		String refer = "";
+
+		ParseResult pr = new ParseResult();
+		String[] fields = line.split("\001");
+		if (fields.length < 11) {
+			return pr;
 		}
-		
-		host=fields[5];
-		url=fields[6];
-		refer=fields[7];
-		
-		if((SSO.tioe(url))&&(SSO.tioe(refer)))
-		{
-			return null;
+
+		host = fields[5];
+		url = fields[6];
+		refer = fields[7];
+
+		if ((SSO.tioe(url)) && (SSO.tioe(refer))) {
+			return pr;
 		}
-		
-		String uwword=SSO.midfstrs(url, "wd=", "&");
-		String uuword=SSO.midfstrs(url, "word=", "&");
-		String uqword=SSO.midfstrs(url, "query", "&");
-		
-		String rwword=SSO.midfstrs(refer, "wd=", "&");
-		String ruword=SSO.midfstrs(refer, "word=", "&");
-		String rqword=SSO.midfstrs(refer, "query", "&");
-		
-		String rs="";
-		if(SSO.tnoe(uwword))
-		{
-			rs=rs+"uwd="+uwword+";";
+
+		if (host.indexOf("m.baidu.com") < 0) {
+			return pr;
 		}
-		
-		if(SSO.tnoe(uuword))
-		{
-			rs=rs+"uud="+uuword+";";
+
+		String uwword = SSO.midfstrs(url, "wd=", "&");
+		String uuword = SSO.midfstrs(url, "word=", "&");
+		String uqword = SSO.midfstrs(url, "query=", "&");
+
+		String rwword = SSO.midfstrs(refer, "wd=", "&");
+		String ruword = SSO.midfstrs(refer, "word=", "&");
+		String rqword = SSO.midfstrs(refer, "query=", "&");
+
+		// System.err.println("uwword:"+uwword+" uuword:"+uuword+" uqword:"+uqword+" rwword:"+rwword+" ruword:"+ruword+" rqword:"+rqword);
+
+		if (SSO.tnoe(uwword) && uwword.indexOf("%") >= 0
+				&& uwword.indexOf("http") < 0) {
+			pr.setUwword(uwword);
 		}
-		
-		if(SSO.tnoe(uqword))
-		{
-			rs=rs+"uqd="+uqword+";";
+
+		if (SSO.tnoe(uuword) && uuword.indexOf("%") >= 0
+				&& uuword.indexOf("http") < 0) {
+			pr.setUuword(uuword);
 		}
-		
-		if(SSO.tnoe(rwword))
-		{
-			rs=rs+"rwd="+rwword+";";
+
+		if (SSO.tnoe(uqword) && uqword.indexOf("%") >= 0
+				&& uqword.indexOf("http") < 0) {
+			pr.setUqword(uqword);
 		}
-		
-		if(SSO.tnoe(ruword))
-		{
-			rs=rs+"rud="+ruword+";";
+
+		if (SSO.tnoe(rwword) && rwword.indexOf("%") >= 0
+				&& rwword.indexOf("http") < 0) {
+			pr.setRwword(rwword);
 		}
-		
-		if(SSO.tnoe(rqword))
-		{
-			rs=rs+"rqd="+rqword+";";
+
+		if (SSO.tnoe(ruword) && ruword.indexOf("%") >= 0
+				&& ruword.indexOf("http") < 0) {
+			pr.setRuword(ruword);
 		}
-		
-	    pr.setKeyword(rs);
-	    
+
+		if (SSO.tnoe(rqword) && rqword.indexOf("%") >= 0
+				&& rqword.indexOf("http") < 0) {
+			pr.setRqword(rqword);
+		}
+
 		return pr;
 	}
 
 	public static void parseStd() {
+
 		InputStreamReader isr = new InputStreamReader(System.in);
 		BufferedReader br = new BufferedReader(isr);
-
-		OutputStreamWriter osw = new OutputStreamWriter(System.out);
-		PrintWriter pw = new PrintWriter(osw);
-
-		String line = "";
-		ParseResult pr=null;
-
 		try {
+
+			// BufferedReader br = new BufferedReader(new
+			// FileReader("temp/201503302350_t6401_eth2_1716560057.log"));
+
+			OutputStreamWriter osw = new OutputStreamWriter(System.out);
+			PrintWriter pw = new PrintWriter(osw);
+
+			String line = "";
+			ParseResult pr = null;
+
 			while ((line = br.readLine()) != null) {
-               pr=parseItem(line);
-               if(pr==null)
-               {
-            	   continue;
-               }
-               
-               pw.println(pr.getKeyword());
+				try {
+					pr = parseItem(line);
+					if (pr.isNull()) {
+						continue;
+					}
+					pr.decode();
+
+					if (pr.isInValid()) {
+						continue;
+					}
+					pw.println(pr.toString());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
 			}
-			
+
 			br.close();
 			pw.close();
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
+	}
+
+	public static void main(String[] args) {
+		SEUrlParse.parseStd();
 	}
 
 }

@@ -1,6 +1,7 @@
 package cn.clickwise.lib.string;
 
 
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -180,7 +181,7 @@ public class SSO {
 			lastIndex = source.lastIndexOf(str2);
 		}
 
-		// System.out.println("source:"+source+" fi:"+firstIndex+" li:"+lastIndex);
+		System.out.println("source:"+source+" fi:"+firstIndex+" li:"+lastIndex);
 		ms = source.substring(firstIndex, lastIndex);
 		ms = ms.trim();
 		return ms;
@@ -194,24 +195,34 @@ public class SSO {
 		int firstIndex = 0;
 		int lastIndex = 0;
 
+		
+		//System.out.println("findex:"+source.indexOf(str1)+" sindex:"+source.indexOf(str2));
 		if ((source.indexOf(str1)) == (source.indexOf(str2))) {
 			return source;
 		}
 		if (source.indexOf(str1) < 0) {
-			firstIndex = 0;
+			return "";
 		} else {
+			firstIndex = source.indexOf(str1);
+			source=source.substring(firstIndex,source.length());
 			firstIndex = source.indexOf(str1) + str1.length();
 		}
 
 		if (source.indexOf(str2) < 0) {
-			lastIndex = source.length();
+			return "";
 		} else {
 			lastIndex = source.indexOf(str2);
 		}
 
-		// System.out.println("source:"+source+" fi:"+firstIndex+" li:"+lastIndex);
+		//System.out.println("source:"+source+" fi:"+firstIndex+" li:"+lastIndex);
+		if(firstIndex<0||lastIndex<0||firstIndex>lastIndex)
+		{
+		  return "";	
+		}
+		
 		ms = source.substring(firstIndex, lastIndex);
 		ms = ms.trim();
+
 		return ms;
 	}
 
@@ -403,12 +414,18 @@ public class SSO {
 		String str="Thread-7";
 		System.out.println("str:"+str.replaceAll("Thread\\-", ""));
         */
+		/*
 		String source="学生椅子";
 		ArrayList<String> list=ngram(source);
 		for(int i=0;i<list.size();i++)
 		{
 			System.out.println("i="+i+" "+list.get(i));
 		}
+		*/
+		String source="source:/tcref.php?src=http%3A%2F%2Fm.58.com%2Fnb%2Fsiji%2F&word=58%E5%90%8C%E5%9F%8E%E7%BD%91%E5%AE%81%E6%B3%A2%E6%8B%9B%E8%81%98%E5%8F%B8%E6%9C%BA&di=f5c40a80ed72d357201abef30200233b fi:57 li:51";
+		
+		System.out.println(SSO.midfstrs(source, "word=", "&"));
+		
 	}
 
 }

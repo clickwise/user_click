@@ -73,8 +73,8 @@ public class Base64Code {
 	
 	public static void main(String[] args)
 	{
-		String es="w0KadtqYKlfJO40FVXYxiTZimah4nZi8";
-		System.out.println(Base64Code.getDecodeStr(es));
+		String es="Abrld6ciuOJXc5XvVdJzSHs3jyK3TQ5071ze8lVK4/ALFpZyfWtxSwoJI50SsUU8AwyOPcXDyOVrK8MC0SMFuw==";
+		System.out.println(new String(Base64.decodeBase64(es)));
 		/*
 		String url="www.baidu.com";
 		System.out.println(Base64Code.getEncodeStr(url));
