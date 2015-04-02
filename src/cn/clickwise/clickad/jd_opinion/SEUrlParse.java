@@ -1,7 +1,6 @@
 package cn.clickwise.clickad.jd_opinion;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
