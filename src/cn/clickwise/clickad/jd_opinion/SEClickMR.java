@@ -96,12 +96,12 @@ public class SEClickMR {
 		String[] otherArgs = new GenericOptionsParser(conf, args)
 				.getRemainingArgs();
 		if (otherArgs.length != 3) {
-			System.err.println("Usage: TestMR <day> <input> <output>");
+			System.err.println("Usage: SEClickMR <day> <input> <output>");
 			System.exit(2);
 		}
 
 		String day = otherArgs[0];
-		Job job = new Job(conf, "TestMR_" + day);
+		Job job = new Job(conf, "SEClickMR_" + day);
 		job.setJarByClass(TestMR.class);
 
 		job.setMapperClass(PPrepareMapper.class);
