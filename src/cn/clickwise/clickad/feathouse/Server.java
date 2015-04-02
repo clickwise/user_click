@@ -4,9 +4,5 @@ package cn.clickwise.clickad.feathouse;
 public abstract class Server implements Runnable{
 
 	public abstract void run();
-	
-	
-	
-	
-		
+			
 }

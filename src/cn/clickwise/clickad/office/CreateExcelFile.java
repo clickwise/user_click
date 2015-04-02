@@ -74,8 +74,10 @@ public class CreateExcelFile {
 	
 	public static void main(String[] args) throws Exception
 	{
+		
 		String[] input_files={"D:/projects/user_click_win_workplace/user_click/temp/profile_001.txt"};
 		String excel_file="D:/projects/user_click_win_workplace/user_click/temp/profile_001.xls";
+		
 		txtsToExcelFile(input_files,excel_file);			
 	}
 	
