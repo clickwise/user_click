@@ -5,3 +5,5 @@
 江苏 106
 
 浙江电信39 /data7/pp_se/output/ 往期搜索数据
+
+浙江采的搜索数据 都put到hdfs 上了 在/user/clickwise/bigdata/ｊｄ/  录下 可直接用 里面有些输出目录是我跑的别删
