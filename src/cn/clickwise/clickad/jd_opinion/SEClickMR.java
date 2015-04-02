@@ -19,8 +19,7 @@ import org.apache.hadoop.util.GenericOptionsParser;
 
 import cn.clickwise.lib.string.SSO;
 import cn.clickwise.smartjobs.TestMR;
-import cn.clickwise.smartjobs.TestMR.PrepareMapper;
-import cn.clickwise.smartjobs.TestMR.PrepareReducer;
+
 
 public class SEClickMR {
 
