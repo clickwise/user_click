@@ -28,7 +28,7 @@ public class WordCount {
      * 然后StringTokenizer类将每一行拆分成为一个个的单词
      * ，并将<word,1>作为map方法的结果输出，其余的工作都交有MapReduce框架处理。 每行数据调用一次 Tokenizer：单词分词器
      */
-    public static class TokenizerMapper extends
+    private static class TokenizerMapper extends
             Mapper<Object, Text, Text, IntWritable> {
         private final static IntWritable one = new IntWritable(1);
         private Text word = new Text();
@@ -53,7 +53,7 @@ public class WordCount {
      * Map过程输出<key,values>中key为单个单词，而values是对应单词的计数值所组成的列表，Map的输出就是Reduce的输入，
      * 所以reduce方法只要遍历values并求和，即可得到某个单词的总次数。
      */
-    public static class IntSumReducer extends
+    private static class IntSumReducer extends
             Reducer<Text, IntWritable, Text, IntWritable> {
         private IntWritable result = new IntWritable();
         public void reduce(Text key, Iterable<IntWritable> values,
