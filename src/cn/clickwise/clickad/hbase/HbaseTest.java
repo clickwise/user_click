@@ -44,7 +44,7 @@ public class HbaseTest {
     } 
  
     public static void main(String[] args) { 
-         //createTable("ddwujintao"); 
+         createTable("ddwujintao"); 
          insertData("ddwujintao"); 
         // QueryAll("wujintao"); 
         // QueryByCondition1("wujintao"); 
