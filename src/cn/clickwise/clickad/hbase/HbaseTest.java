@@ -38,14 +38,14 @@ public class HbaseTest {
         */
         
         configuration.set("hbase.zookeeper.property.clientPort", "2181"); 
-        configuration.set("hbase.zookeeper.quorum", "192.168.110.80"); 
-        configuration.set("hbase.master", "192.168.110.80:60000"); 
+        configuration.set("hbase.zookeeper.quorum", "192.168.110.81"); 
+        configuration.set("hbase.master", "192.168.110.81:60000"); 
         
     } 
  
     public static void main(String[] args) { 
-         createTable("rrwujintao"); 
-         insertData("rrwujintao"); 
+         createTable("rrrwujintao"); 
+         insertData("rrrwujintao"); 
         // QueryAll("wujintao"); 
         // QueryByCondition1("wujintao"); 
         // QueryByCondition2("wujintao"); 
