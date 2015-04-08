@@ -31,22 +31,22 @@ public class HbaseTest {
     static { 
         configuration = HBaseConfiguration.create(); 
         
-        /************hn******************/
+        /************hn*****************
         configuration.set("hbase.zookeeper.property.clientPort", "2181"); 
         configuration.set("hbase.zookeeper.quorum", "192.168.10.103"); 
         configuration.set("hbase.master", "192.168.10.103:60000"); 
-        /********************************/
+        ********************************/
         
-        /***********local*******************
+        /***********local*******************/
         configuration.set("hbase.zookeeper.property.clientPort", "2181"); 
         configuration.set("hbase.zookeeper.quorum", "192.168.110.81"); 
         configuration.set("hbase.master", "192.168.110.81:60000"); 
-        ************************************/
+        /************************************/
     } 
  
     public static void main(String[] args) { 
-         createTable("rrrwujintao"); 
-         insertData("rrrwujintao"); 
+         createTable("dddwujintao"); 
+         insertData("dddwujintao"); 
         // QueryAll("wujintao"); 
         // QueryByCondition1("wujintao"); 
         // QueryByCondition2("wujintao"); 
