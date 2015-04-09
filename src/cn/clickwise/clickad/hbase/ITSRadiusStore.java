@@ -122,6 +122,7 @@ public class ITSRadiusStore extends RadiusStore {
 		try {
 			pool.getTable(TNAME).put(put);
 			System.err.println("add " + rowkey);
+			pool.closeTablePool(TNAME);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
