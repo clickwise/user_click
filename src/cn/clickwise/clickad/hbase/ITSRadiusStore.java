@@ -195,7 +195,7 @@ public class ITSRadiusStore extends RadiusStore {
 		for (int i = 0; i < threadNum; i++) {
 			LineResolve fr = new LineResolve();
 			Thread consumeThread = new Thread(fr);
-			consumeThread.setDaemon(true);
+			//consumeThread.setDaemon(true);
 			consumeThread.start();
 		}
 
@@ -271,7 +271,6 @@ public class ITSRadiusStore extends RadiusStore {
                         {
                         	continue;
                         }
-       
                         its.add2Pond(line);
                         
 					} catch (Exception e) {
