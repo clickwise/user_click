@@ -28,6 +28,7 @@ import org.apache.hadoop.hbase.util.Bytes;
 public class HbaseTest { 
  
     public static Configuration configuration; 
+    
     static { 
         configuration = HBaseConfiguration.create(); 
         
