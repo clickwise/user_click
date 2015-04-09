@@ -111,7 +111,7 @@ public class ITSRadiusStore extends RadiusStore {
 
 		String md5ip = MD5Code.makeMD5(ip);
 
-		String rowkey = md5ip + time + status;
+		String rowkey = md5ip + time.replaceAll("\\s+", "") + status;
 		Put put = new Put(rowkey.getBytes());
 		put.add(RID.getBytes(), radiusid.getBytes(), "".getBytes());
 		put.add(OIP.getBytes(), ip.getBytes(), "".getBytes());
@@ -130,7 +130,7 @@ public class ITSRadiusStore extends RadiusStore {
 
 		String md5ip = MD5Code.makeMD5(ip);
 
-		String qkey = md5ip + ConfigureFactory.timeFormat(time);
+		String qkey = md5ip + ConfigureFactory.timeFormat(time).replaceAll("\\s+", "");
 
 		List<String> rlist = new ArrayList<String>();
 		try {
