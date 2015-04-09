@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
@@ -21,6 +23,7 @@ import org.apache.hadoop.hbase.client.Result;
 import org.apache.hadoop.hbase.client.ResultScanner;
 import org.apache.hadoop.hbase.client.Scan;
 
+import cn.clickwise.clickad.radiusReform.RecordLight;
 import cn.clickwise.lib.code.MD5Code;
 import cn.clickwise.lib.string.SSO;
 import cn.clickwise.lib.time.TimeOpera;
@@ -38,7 +41,8 @@ public class ITSRadiusStore extends RadiusStore {
 	public static String RID = "rid";
 	public static String OIP = "oip";
 	public static String TNAME = "hradius";
-
+	private static Queue<String> queue = new ConcurrentLinkedQueue<String>();
+	
 	static {
 
 		configuration = HBaseConfiguration.create();
@@ -120,6 +124,7 @@ public class ITSRadiusStore extends RadiusStore {
 		put.add(OIP.getBytes(), "c".getBytes(),ip.getBytes());
 
 		try {
+			
 			pool.getTable(TNAME).put(put);
 			System.err.println("add " + rowkey);	
 		} catch (IOException e) {
@@ -170,10 +175,63 @@ public class ITSRadiusStore extends RadiusStore {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public String pollFromPond() {
+		String nextElement = "";
+
+		nextElement = queue.poll();
+			
+		return nextElement;
+	}
+	
+	public void add2Pond(String record) {
+
+		queue.offer(record);
+	}
+	
+	public void startConsume(int threadNum) {
+		
+		for (int i = 0; i < threadNum; i++) {
+			LineResolve fr = new LineResolve();
+			Thread consumeThread = new Thread(fr);
+			consumeThread.setDaemon(true);
+			consumeThread.start();
+		}
+
+	}
+	
+	private class LineResolve implements Runnable{
+
+		@Override
+		public void run() {
+
+			parseRecord();
+		}
+		
+		public void parseRecord() {
+
+			while (true) {
+
+				try {
+					String record = pollFromPond();
+					if(SSO.tioe(record))
+					{
+						Thread.sleep(1000);
+					}
+                    write(record);
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+			}
+		}
+		
+	}
 
 	public static void main(String[] args) {
 		if (args.length < 1) {
-			System.err.println("Usage:<get or add> [<IP> <date> <time>]");
+			System.err.println("Usage:<get or add> [<IP> <date> <time>|<thread num>]");
 			System.exit(1);
 		}
 
@@ -182,15 +240,24 @@ public class ITSRadiusStore extends RadiusStore {
 		String ip = "";
 		String date = "";
 		String time = "";
-
-		if (args.length > 1) {
+		int threadnum=0;
+		
+		if (args.length ==4) {
 			ip = args[1];
 			date = args[2];
 			time = args[3];
 		}
-
+		else if(args.length==2)
+		{
+			threadnum=Integer.parseInt(args[2]);
+		}
+ 			
+		
 		ITSRadiusStore its=new ITSRadiusStore();
+		
+		
 		if (ga.equals("add")) {
+			its.startConsume(threadnum);
 			InputStreamReader isr = new InputStreamReader(System.in);
 			BufferedReader br = new BufferedReader(isr);
 
@@ -208,7 +275,7 @@ public class ITSRadiusStore extends RadiusStore {
                         {
                         	its.flushTable();
                         }
-                        its.write(line);
+                        its.add2Pond(line);
                         
 					} catch (Exception e) {
 
