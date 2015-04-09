@@ -153,6 +153,25 @@ public class TimeOpera {
 		return Integer.parseInt(sdf.format(dt));
 	}
 	
+	public static String getOnedayBefore(String time_str)
+	{
+		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date dt = new Date(time_str);	
+		long ctime=dt.getTime()-PERIOD_DAY;
+	
+	
+		return long2str(ctime);
+	}
+	
+	public static String getOnedayAfter(String time_str)
+	{
+		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date dt = new Date(time_str);	
+		long ctime=dt.getTime()+PERIOD_DAY;
+	
+		return long2str(ctime);
+	}
+	
 	public static String getCurrentTime()
 	{
 		long ctime=System.currentTimeMillis();

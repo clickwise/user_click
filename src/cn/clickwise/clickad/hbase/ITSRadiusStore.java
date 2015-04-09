@@ -18,9 +18,12 @@ import org.apache.hadoop.hbase.client.HBaseAdmin;
 import org.apache.hadoop.hbase.client.HTablePool;
 import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.client.Result;
+import org.apache.hadoop.hbase.client.ResultScanner;
+import org.apache.hadoop.hbase.client.Scan;
 
 import cn.clickwise.lib.code.MD5Code;
 import cn.clickwise.lib.string.SSO;
+import cn.clickwise.lib.time.TimeOpera;
 
 /**
  * 根据md5(ip)+time+status查询 rowkey: IP+时间+状态 cf:column 为 rid:旧帐号 oip:旧ip
@@ -130,18 +133,22 @@ public class ITSRadiusStore extends RadiusStore {
 
 		String md5ip = MD5Code.makeMD5(ip);
 
-		String qkey = md5ip + ConfigureFactory.timeFormat(time).replaceAll("\\s+", "");
-
+		String startkey = md5ip + TimeOpera.getOnedayBefore(ConfigureFactory.timeFormat(time)).replaceAll("\\s+", "")+"0";
+		String endkey = md5ip + TimeOpera.getOnedayAfter(ConfigureFactory.timeFormat(time)).replaceAll("\\s+", "")+"1";
+		
 		List<String> rlist = new ArrayList<String>();
 		try {
-			Get scan = new Get(qkey.getBytes());// 根据rowkey查询
-			Result r = pool.getTable(TNAME).get(scan);
-			for (KeyValue kv : r.raw()) {
-				System.out.println("获得到rowkey:" + new String(r.getRow()));
-				rlist.add(kv.getKeyString() + "\001"
-						+ new String(kv.getValue()));
-
-			}
+			Scan s=new Scan(startkey.getBytes(),endkey.getBytes());
+			
+			ResultScanner rs = pool.getTable(TNAME).getScanner(s);
+			
+			 for (Result r : rs) { 
+	                System.out.println("获得到rowkey:" + new String(r.getRow())); 
+	                for (KeyValue keyValue : r.raw()) { 
+	                    System.out.println("列：" + new String(keyValue.getFamily()) 
+	                            + "====值:" + new String(keyValue.getValue())); 
+	                } 
+	            } 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
