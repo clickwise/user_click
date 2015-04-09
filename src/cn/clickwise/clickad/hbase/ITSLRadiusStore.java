@@ -128,7 +128,6 @@ public class ITSLRadiusStore extends RadiusStore {
 		    pool.closeTablePool(TNAME);
 		} catch (IOException e) {
 			e.printStackTrace();
-		    pool.closeTablePool(TNAME);
 		}
 	}
 	/*
