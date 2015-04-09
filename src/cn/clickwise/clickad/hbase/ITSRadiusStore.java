@@ -127,11 +127,12 @@ public class ITSRadiusStore extends RadiusStore {
 			
 			pool.getTable(TNAME).put(put);
 			System.err.println("add " + rowkey);	
+		    pool.closeTablePool(TNAME);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
+	/*
 	public void flushTable()
 	{
 		try {
@@ -140,6 +141,7 @@ public class ITSRadiusStore extends RadiusStore {
 			e.printStackTrace();
 		}
 	}
+	*/
 
 	@Override
 	public List<String> get(String ip, String time) {
@@ -270,11 +272,7 @@ public class ITSRadiusStore extends RadiusStore {
                         {
                         	continue;
                         }
-                        count++;
-                        if(count%101==0)
-                        {
-                        	its.flushTable();
-                        }
+       
                         its.add2Pond(line);
                         
 					} catch (Exception e) {
