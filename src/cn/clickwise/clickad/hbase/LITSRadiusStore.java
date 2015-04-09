@@ -166,7 +166,6 @@ public class LITSRadiusStore extends RadiusStore {
 	}
 	
 
-
 	public static void main(String[] args) {
 		if (args.length < 1) {
 			System.err.println("Usage:<get or add> [<IP> <date> <time>|<thread num>]");
@@ -201,7 +200,7 @@ public class LITSRadiusStore extends RadiusStore {
 			try {
 				while ((line = br.readLine()) != null) {
 					try {					
-						Thread.sleep(100);
+						Thread.sleep(5);
                         if(SSO.tioe(line))
                         {
                         	continue;
