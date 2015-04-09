@@ -129,7 +129,7 @@ public class ITSRadiusStore extends RadiusStore {
 		    pool.closeTablePool(TNAME);
 		} catch (IOException e) {
 			e.printStackTrace();
-		    pool.closeTablePool(TNAME);
+	
 		}
 	}
 	/*
