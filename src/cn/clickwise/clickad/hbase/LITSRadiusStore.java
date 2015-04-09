@@ -122,10 +122,8 @@ public class LITSRadiusStore extends RadiusStore {
 		put.add(OIP.getBytes(), "c".getBytes(),ip.getBytes());
 
 		try {
-			
 			pool.getTable(TNAME).put(put);
 			System.err.println("add " + rowkey);
-		    
 		    pool.closeTablePool(TNAME);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -202,7 +200,8 @@ public class LITSRadiusStore extends RadiusStore {
             int count=0;
 			try {
 				while ((line = br.readLine()) != null) {
-					try {
+					try {					
+						Thread.sleep(100);
                         if(SSO.tioe(line))
                         {
                         	continue;
