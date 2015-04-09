@@ -156,7 +156,15 @@ public class TimeOpera {
 	public static String getOnedayBefore(String time_str)
 	{
 		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Date dt = new Date(time_str);	
+		Date dt =null;		
+		try
+		{
+			dt = sdf.parse(time_str);	
+		}
+		catch(Exception e)
+		{
+			
+		}
 		long ctime=dt.getTime()-PERIOD_DAY;
 	
 	
@@ -166,7 +174,15 @@ public class TimeOpera {
 	public static String getOnedayAfter(String time_str)
 	{
 		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Date dt = new Date(time_str);	
+		Date dt =null;		
+		try
+		{
+			dt = sdf.parse(time_str);	
+		}
+		catch(Exception e)
+		{
+			
+		}
 		long ctime=dt.getTime()+PERIOD_DAY;
 	
 		return long2str(ctime);
@@ -199,7 +215,7 @@ public class TimeOpera {
 		*/
 		//for(int i=0;i<10;i++)
 		//System.out.println(getCurrentTimeLong());
-		System.out.println(getTodayStr());
+		System.out.println(getOnedayBefore("2014-02-08 19:29:20"));
 		System.out.println(getHour());
 	}
 	

@@ -133,8 +133,9 @@ public class ITSRadiusStore extends RadiusStore {
 
 		String md5ip = MD5Code.makeMD5(ip);
 
-		String startkey = md5ip + TimeOpera.getOnedayBefore(ConfigureFactory.timeFormat(time)).replaceAll("\\s+", "")+"0";
-		String endkey = md5ip + TimeOpera.getOnedayAfter(ConfigureFactory.timeFormat(time)).replaceAll("\\s+", "")+"1";
+		System.out.println("ip:"+ip+" time:"+time);
+		String startkey = md5ip + TimeOpera.getOnedayBefore(time).replaceAll("\\s+", "")+"0";
+		String endkey = md5ip + TimeOpera.getOnedayAfter(time).replaceAll("\\s+", "")+"1";
 		
 		List<String> rlist = new ArrayList<String>();
 		try {
