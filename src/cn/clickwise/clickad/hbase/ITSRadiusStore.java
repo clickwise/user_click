@@ -146,7 +146,7 @@ public class ITSRadiusStore extends RadiusStore {
 			e.printStackTrace();
 		}
 
-		return null;
+		return rlist;
 	}
 
 	@Override
