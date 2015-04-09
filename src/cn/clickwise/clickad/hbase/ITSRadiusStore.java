@@ -121,12 +121,15 @@ public class ITSRadiusStore extends RadiusStore {
 
 		try {
 			pool.getTable(TNAME).put(put);
-			System.err.println("add " + rowkey);
-			pool.closeTablePool(TNAME);
+			System.err.println("add " + rowkey);	
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+	}
+	
+	public void flushTable()
+	{
+		pool.closeTablePool(TNAME);
 	}
 
 	@Override
@@ -188,13 +191,18 @@ public class ITSRadiusStore extends RadiusStore {
 			BufferedReader br = new BufferedReader(isr);
 
 			String line = "";
-
+            int count=0;
 			try {
 				while ((line = br.readLine()) != null) {
 					try {
                         if(SSO.tioe(line))
                         {
                         	continue;
+                        }
+                        count++;
+                        if(count%101==0)
+                        {
+                        	its.flushTable();
                         }
                         its.write(line);
                         
