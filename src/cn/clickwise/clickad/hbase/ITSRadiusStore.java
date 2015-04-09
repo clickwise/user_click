@@ -23,7 +23,6 @@ import org.apache.hadoop.hbase.client.Result;
 import org.apache.hadoop.hbase.client.ResultScanner;
 import org.apache.hadoop.hbase.client.Scan;
 
-import cn.clickwise.clickad.radiusReform.RecordLight;
 import cn.clickwise.lib.code.MD5Code;
 import cn.clickwise.lib.string.SSO;
 import cn.clickwise.lib.time.TimeOpera;
