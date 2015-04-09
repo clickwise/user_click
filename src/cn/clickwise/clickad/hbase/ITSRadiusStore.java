@@ -116,8 +116,8 @@ public class ITSRadiusStore extends RadiusStore {
 
 		String rowkey = md5ip + time.replaceAll("\\s+", "") + status;
 		Put put = new Put(rowkey.getBytes());
-		put.add(RID.getBytes(), radiusid.getBytes(), "".getBytes());
-		put.add(OIP.getBytes(), ip.getBytes(), "".getBytes());
+		put.add(RID.getBytes(), "c".getBytes(),radiusid.getBytes());
+		put.add(OIP.getBytes(), "c".getBytes(),ip.getBytes());
 
 		try {
 			pool.getTable(TNAME).put(put);
