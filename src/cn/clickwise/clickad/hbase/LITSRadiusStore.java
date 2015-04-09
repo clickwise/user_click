@@ -200,7 +200,7 @@ public class LITSRadiusStore extends RadiusStore {
 			try {
 				while ((line = br.readLine()) != null) {
 					try {					
-						Thread.sleep(5);
+						Thread.sleep(20);
                         if(SSO.tioe(line))
                         {
                         	continue;
