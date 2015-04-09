@@ -250,7 +250,7 @@ public class ITSRadiusStore extends RadiusStore {
 		}
 		else if(args.length==2)
 		{
-			threadnum=Integer.parseInt(args[2]);
+			threadnum=Integer.parseInt(args[1]);
 		}
  			
 		
