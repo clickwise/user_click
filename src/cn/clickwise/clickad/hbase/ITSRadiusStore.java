@@ -129,7 +129,11 @@ public class ITSRadiusStore extends RadiusStore {
 	
 	public void flushTable()
 	{
-		pool.closeTablePool(TNAME);
+		try {
+		    pool.closeTablePool(TNAME);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
