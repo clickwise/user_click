@@ -125,7 +125,8 @@ public class LITSRadiusStore extends RadiusStore {
 			pool.getTable(TNAME).put(put);
 			System.err.println("add " + rowkey);
 		    pool.closeTablePool(TNAME);
-		} catch (IOException e) {
+		    Thread.sleep(100);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
