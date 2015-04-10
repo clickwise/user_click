@@ -91,6 +91,10 @@ public class IP2Radius {
 				}
 				else if(!(ipradius.get(ip).containsKey(radiusId)))
 				{
+					if((ipradius.get(ip).size())>500)
+					{
+						continue;
+					}
 					ipradius.get(ip).put(radiusId, 1);
 				}
 			}
@@ -113,8 +117,7 @@ public class IP2Radius {
 		   		
 		   		pw.println(ipr.getKey()+"\001"+radiusIdStr);
 		   	}
-
-		   	
+   	
 		   	pw.close();
 		   	
 			
