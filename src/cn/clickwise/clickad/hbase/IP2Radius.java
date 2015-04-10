@@ -80,8 +80,8 @@ public class IP2Radius {
 				}
 				
 				ip=fields[0];
-				radiusId=fields[1];
-				status=fields[2];
+				radiusId=fields[2];
+				status=fields[1];
 				time=fields[3];
 			
 				if(!(ipradius.containsKey(ip)))
