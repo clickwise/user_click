@@ -84,6 +84,11 @@ public class IP2Radius {
 				status=fields[1];
 				time=fields[3];
 			
+				if(!(ips.containsKey(ip)))
+				{
+					continue;
+				}
+				
 				if(!(ipradius.containsKey(ip)))
 				{
 					ipradius.put(ip, new HashMap<String,Integer>());
