@@ -45,11 +45,11 @@ public class LITSRadiusStore extends RadiusStore {
 
 		configuration = HBaseConfiguration.create();
 
-		/************ hn *****************/
+		/************ hn *****************
 		configuration.set("hbase.zookeeper.property.clientPort", "2181");
 		configuration.set("hbase.zookeeper.quorum", "192.168.10.103");
 		configuration.set("hbase.master", "192.168.10.103:60000");
-		/********************************/
+		********************************/
 
 		/***********
 		 * local*******************
@@ -57,6 +57,12 @@ public class LITSRadiusStore extends RadiusStore {
 		 * configuration.set("hbase.zookeeper.quorum", "192.168.110.80");
 		 * configuration.set("hbase.master", "192.168.110.80:60000");
 		 ************************************/
+		
+		/************ hn *****************/
+		configuration.set("hbase.zookeeper.property.clientPort", "2181");
+		configuration.set("hbase.zookeeper.quorum", "192.168.10.130");
+		configuration.set("hbase.master", "192.168.10.128:60010");
+		/********************************/
 
 		pool = new HTablePool(configuration, 100);
 		String[] cfs = { RID, OIP };
@@ -185,12 +191,9 @@ public class LITSRadiusStore extends RadiusStore {
 			date = args[2];
 			time = args[3];
 		}
-
- 			
-		
+			
 		LITSRadiusStore itsl=new LITSRadiusStore();
-		
-		
+				
 		if (ga.equals("add")) {
 		
 			InputStreamReader isr = new InputStreamReader(System.in);
