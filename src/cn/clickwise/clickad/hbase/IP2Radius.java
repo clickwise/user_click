@@ -128,4 +128,19 @@ public class IP2Radius {
 		return ipradius;
 	}
 	
+	
+	public static void main(String[] args)
+	{
+		if(args.length!=1)
+		{
+		   System.err.println("Usage:<ips_file>");	
+		   System.exit(1);
+		}
+		
+		String ips_file=args[0];
+		IP2Radius ip2r=new IP2Radius();
+		ip2r.readIps(ips_file);
+		ip2r.getRadiusForIp();
+		
+	}
 }
