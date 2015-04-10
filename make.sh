@@ -26,8 +26,10 @@ then
  cp out/mytool.jar cassandra_lib
  rm rpc_lib/mytool.jar
  rm radius_lib/mytool.jar
+ rm hbase_lib/mytool.jar
  cp out/mytool.jar rpc_lib
  cp out/mytool.jar radius_lib
+ cp out/mytool.jar hbase_lib
 else
  OPT=2
 fi
