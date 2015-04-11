@@ -1,0 +1,172 @@
+<?xml version="1.0" ?>
+<project default="jar" name="feathouse">
+    <!-- 工程目录结构
+    project
+        |-bin
+        |-src
+        |-lib
+        |-out
+        |-build.xml
+    -->
+    <property name="lib.dir" value="hbase_std_lib"/>
+    <property name="src.dir" value="hbase_src"/>
+    <property name="classes.dir" value="bin"/>
+    <property name="output.dir" value="out"/>
+    <property name="jarname" value="myhbase.jar"/>
+    <!-- 第三方jar包的路径 -->
+    <path id="lib-classpath">
+        <fileset dir="${lib.dir}">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+    
+    <!-- 1. 初始化工作，如创建目录等 -->
+    <target name="init">
+        <mkdir dir="${classes.dir}"/>
+        <mkdir dir="${output.dir}"/>
+    </target>
+
+    <!-- 2. 编译 -->
+    <target name="compile" depends="init">
+        <javac srcdir="${src.dir}" destdir="${classes.dir}">
+            <compilerarg line="-encoding UTF-8"/>
+            <classpath refid="lib-classpath"/>
+            <exclude name="**/bigdata/" />            
+        </javac>
+    </target>
+
+  
+
+    <!-- 3. 打包jar文件 -->
+    <target name="jar" depends="compile">
+<unzip src="${lib.dir}/activation-1.1.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/asm-3.2.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/avro.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/commons-beanutils-1.7.0.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/commons-beanutils-core-1.8.0.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/commons-cli-1.2.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/commons-codec-1.7.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/commons-collections-3.2.1.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/commons-compress-1.4.1.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/commons-configuration-1.6.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/commons-daemon-1.0.3.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/commons-digester-1.8.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/commons-el-1.0.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/commons-httpclient-3.1.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/commons-io-2.4.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/commons-lang-2.6.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/commons-logging-1.1.1.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/commons-math-2.2.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/commons-math3-3.1.1.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/commons-net-3.1.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/core-3.1.1.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/dom4j-1.6.1.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/findbugs-annotations-1.3.9-1.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/guava-12.0.1.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/hadoop-annotations.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/hadoop-auth-2.3.0-cdh5.0.0.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/hadoop-common-2.3.0-cdh5.0.0.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/hadoop-hdfs-nfs-2.3.0-cdh5.0.0.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/hadoop-mapreduce-client-app-2.3.0-cdh5.0.0.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/hadoop-mapreduce-client-common-2.3.0-cdh5.0.0.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/hadoop-mapreduce-client-core-2.3.0-cdh5.0.0.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/hadoop-mapreduce-client-jobclient-2.3.0-cdh5.0.0.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/hadoop-mapreduce-client-shuffle-2.3.0-cdh5.0.0.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/hadoop-yarn-api-2.3.0-cdh5.0.0.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/hadoop-yarn-client-2.3.0-cdh5.0.0.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/hadoop-yarn-common-2.3.0-cdh5.0.0.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/hadoop-yarn-server-common-2.3.0-cdh5.0.0.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/hamcrest-core-1.3.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/hbase-client-0.96.1.1-cdh5.0.0.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/hbase-common-0.96.1.1-cdh5.0.0-tests.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/hbase-common-0.96.1.1-cdh5.0.0.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/hbase-examples-0.96.1.1-cdh5.0.0.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/hbase-hadoop-compat-0.96.1.1-cdh5.0.0.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/hbase-hadoop2-compat-0.96.1.1-cdh5.0.0.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/hbase-it-0.96.1.1-cdh5.0.0-tests.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/hbase-it-0.96.1.1-cdh5.0.0.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/hbase-prefix-tree-0.96.1.1-cdh5.0.0.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/hbase-protocol-0.96.1.1-cdh5.0.0.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/hbase-server-0.96.1.1-cdh5.0.0-tests.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/hbase-server-0.96.1.1-cdh5.0.0.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/hbase-shell-0.96.1.1-cdh5.0.0.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/hbase-testing-util-0.96.1.1-cdh5.0.0.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/hbase-thrift-0.96.1.1-cdh5.0.0.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/high-scale-lib-1.1.1.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/hsqldb-1.8.0.10.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/htrace-core-2.01.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/httpclient-4.2.5.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/httpcore-4.2.5.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/jackson-core-asl-1.8.8.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/jackson-jaxrs-1.8.8.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/jackson-mapper-asl-1.8.8.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/jackson-xc-1.8.8.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/jamon-runtime-2.3.1.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/jasper-compiler-5.5.23.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/jasper-runtime-5.5.23.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/java-xmlbuilder-0.4.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/jaxb-api-2.1.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/jaxb-impl-2.2.3-1.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/jaxen-1.1.6.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/jersey-core-1.8.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/jersey-json-1.8.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/jersey-server-1.8.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/jets3t-0.9.0.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/jettison-1.3.1.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/jetty-6.1.26.cloudera.2.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/jetty-sslengine-6.1.26.cloudera.2.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/jetty-util-6.1.26.cloudera.2.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/jruby-complete-1.6.8.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/jsch-0.1.42.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/jsoup-1.7.3.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/jsp-2.1-6.1.14.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/jsp-api-2.1-6.1.14.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/jsp-api-2.1.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/jsr305-1.3.9.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/junit-4.11.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/libthrift-0.9.0.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/log4j-1.2.17.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/metrics-core-2.1.2.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/mytool.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/netty-3.6.6.Final.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/paranamer-2.3.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/protobuf-java-2.5.0.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/servlet-api-2.5-6.1.14.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/servlet-api-2.5.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/slf4j-api-1.7.5.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/snappy-java-1.0.4.1.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/stax-api-1.0.1.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/xmlenc-0.52.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/xz-1.0.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+<unzip src="${lib.dir}/zookeeper.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+
+<unzip src="${lib.dir}/mytool.jar" dest="${classes.dir}"><patternset><exclude name="META-INF"/><exclude name="META-INF/MANIFEST.MF"/></patternset></unzip>
+        <copy todir="${classes.dir}">
+            <fileset dir="conf"/>
+        </copy>
+
+        <!--Create a property containing all .jar files,
+        prefix lib/, and seperated with a space-->
+        <pathconvert property="mf.classpath" pathsep=" ">
+            <mapper>
+                <chainedmapper>
+                    <!-- jar包文件只留文件名，去掉目录信息 -->
+                    <flattenmapper/>
+                    <!-- add lib/ prefix -->
+                    <globmapper from="*" to="*"/>
+                </chainedmapper>
+            </mapper>
+            <!--flattenmapper /-->
+            <path refid="lib-classpath"/>
+         </pathconvert>
+
+        <!-- jar文件的输出路径 -->
+        <jar destfile="${output.dir}/${jarname}" basedir="${classes.dir}">
+            <manifest>
+                <attribute name="Class-Path" value="${mf.classpath}"/>
+                
+            </manifest>
+        </jar>
+    </target>
+</project>
+
