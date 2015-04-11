@@ -215,8 +215,15 @@ public class TimeOpera {
 		*/
 		//for(int i=0;i<10;i++)
 		//System.out.println(getCurrentTimeLong());
-		System.out.println(getOnedayBefore("2014-02-08 19:29:20"));
-		System.out.println(getHour());
+		//System.out.println(getOnedayBefore("2014-02-08 19:29:20"));
+		//System.out.println(getHour());
+		System.out.println(long2str(1428187150));
+		System.out.println(long2str(1428187154));
+		System.out.println(long2str(1428187155));
+		System.out.println(str2long("2014-02-08 19:29:20"));
+		System.out.println(str2long("2014-02-08 15:29:05"));
+		System.out.println(str2long("2014-02-08 14:22:40"));
+		
 	}
 	
 	public static long getEntireDay()
