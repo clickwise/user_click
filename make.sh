@@ -27,9 +27,11 @@ then
  rm rpc_lib/mytool.jar
  rm radius_lib/mytool.jar
  rm hbase_lib/mytool.jar
+ rm hbase_std_lib/mytool.jar
  cp out/mytool.jar rpc_lib
  cp out/mytool.jar radius_lib
  cp out/mytool.jar hbase_lib
+ cp out/mytool.jar hbase_std_lib
 else
  OPT=2
 fi
@@ -112,6 +114,18 @@ then
  cp -r --parents cn/clickwise/clickad/hbase ../hbase_src
  cd ..
  $ANT_BUILD -buildfile build_hbase_new.xml
+else
+ OPT=3
+fi
+
+if [ $1 = "hbasestd" ]
+then
+ rm -rf hbase_src
+ mkdir hbase_src
+ cd src
+ cp -r --parents cn/clickwise/clickad/hbase ../hbase_src
+ cd ..
+ $ANT_BUILD -buildfile build_hbase_std.xml
 else
  OPT=3
 fi
