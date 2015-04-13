@@ -1,6 +1,7 @@
 package cn.clickwise.lib.time;
 
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Matcher;
@@ -46,6 +47,14 @@ public class TimeOpera {
 		}
 				
 		return dt.getTime();
+	}
+	
+	public static String long2strm(long tl)
+	{
+		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Timestamp ts = new Timestamp(tl*1000); 
+		//Date dt = new Date(tl);	
+		return sdf.format(ts);
 	}
 	
 	public static String long2str(long tl)
@@ -217,9 +226,12 @@ public class TimeOpera {
 		//System.out.println(getCurrentTimeLong());
 		//System.out.println(getOnedayBefore("2014-02-08 19:29:20"));
 		//System.out.println(getHour());
-		System.out.println(long2str(1428187150));
-		System.out.println(long2str(1428187154));
-		System.out.println(long2str(1428187155));
+		System.out.println(long2strm(1428187150));
+		System.out.println(long2strm(1428187154));
+		System.out.println(long2strm(1428187180));
+		System.out.println(long2strm(1428187090));
+		
+		//System.out.println(long2str(1391858960000));
 		System.out.println(str2long("2014-02-08 19:29:20"));
 		System.out.println(str2long("2014-02-08 15:29:05"));
 		System.out.println(str2long("2014-02-08 14:22:40"));
