@@ -236,6 +236,8 @@ public class TimeOpera {
 		System.out.println(str2long("2014-02-08 15:29:05"));
 		System.out.println(str2long("2014-02-08 14:22:40"));
 		
+		String astr="2015-04-05";
+		System.out.println("astr.len:"+astr.length());
 	}
 	
 	public static long getEntireDay()
