@@ -226,7 +226,7 @@ public class TimeOpera {
 		//System.out.println(getCurrentTimeLong());
 		//System.out.println(getOnedayBefore("2014-02-08 19:29:20"));
 		//System.out.println(getHour());
-		System.out.println(long2strm(1428187150));
+		System.out.println(long2strm(1428187191));
 		System.out.println(long2strm(1428187154));
 		System.out.println(long2strm(1428187180));
 		System.out.println(long2strm(1428187090));
