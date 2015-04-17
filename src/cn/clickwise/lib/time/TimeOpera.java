@@ -57,6 +57,20 @@ public class TimeOpera {
 		return sdf.format(ts);
 	}
 	
+	public static String int2string(String intday)
+	{
+		if(intday.length()!=8)
+		{
+			return "";
+		}
+		
+		String year=intday.substring(0,4);
+		String month=intday.substring(4,6);
+		String day=intday.substring(6,8);
+		
+		return year+"-"+month+"-"+day;
+	}
+	
 	public static String long2str(long tl)
 	{
 		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -238,6 +252,8 @@ public class TimeOpera {
 		
 		String astr="2015-04-05";
 		System.out.println("astr.len:"+astr.length());
+		
+		System.out.println("conv:"+int2string("20150405"));
 	}
 	
 	public static long getEntireDay()
