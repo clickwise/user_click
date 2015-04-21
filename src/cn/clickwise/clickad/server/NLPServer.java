@@ -101,7 +101,8 @@ public class NLPServer implements Runnable {
 		System.out.println("options: -h -> this help");
 		System.out.println(" -p server port");
 		System.out.println(" -d dict file");
-		System.out.println(" -t server type");
+		System.out.println(" -t server type " +
+				": 0 seg,1 tag, 2 key");
 	}
 
 	public static void main(String[] args) {

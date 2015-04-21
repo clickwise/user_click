@@ -10,7 +10,6 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
-import org.apache.hadoop.mapreduce.Reducer.Context;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.GenericOptionsParser;
@@ -52,6 +51,7 @@ public class ACCTitleProcessMR {
 		}
 
 		public boolean isValidTitle(String title) {
+			
 			title = title.trim();
 			if(title==null||title.equals(""))
 			{
@@ -87,6 +87,7 @@ public class ACCTitleProcessMR {
 	}
 
 	private static class PrepareReducer extends Reducer<Text, Text, Text, Text> {
+		
 		private Text result = new Text();
 
 		protected void reduce(Text key, Iterable<Text> values, Context context)
