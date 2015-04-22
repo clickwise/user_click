@@ -505,7 +505,7 @@ public String keyword_extract_detail(String text) {
 		}
 
 		return k_s;
-	}
+}
 	
 public String keyword_extract_noun_ngram(String text) {
 		

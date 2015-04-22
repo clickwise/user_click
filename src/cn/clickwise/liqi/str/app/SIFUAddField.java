@@ -123,9 +123,22 @@ public class SIFUAddField {
 		String sel_file="D:/projects/spread_data/sifu/data0412/sifu.txt";
 		String field_file="D:/projects/spread_data/sifu/data0412/sifu_url_20150412.txt";
 		String output_file="D:/projects/spread_data/sifu/data0412/sifu_20150412.txt";
+		
+		if(args.length!=3)
+		{
+			System.err.println("Usage:<sel_host_file> <url_ips_uv_file> <output_file>");
+			System.exit(1);
+		}
+		
+		sel_file=args[0];
+		field_file=args[1];
+		output_file=args[2];
+		
 		SIFUAddField sifu=new SIFUAddField();
 		sifu.addFiled(sel_file, field_file, output_file);
-				
+		
+		
+		
 	   /*	
 	   String input_file="D:/projects/spread_data/sifu/data0318/sifu_extra.txt";
 	   String output_file="D:/projects/spread_data/sifu/data0318/sifu_extra_format.txt";
