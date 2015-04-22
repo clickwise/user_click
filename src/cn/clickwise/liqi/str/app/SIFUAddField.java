@@ -7,8 +7,8 @@ import java.io.PrintWriter;
 import java.util.Hashtable;
 import java.util.Vector;
 
-import cn.clickwise.liqi.file.utils.FileReaderUtil;
-import cn.clickwise.liqi.file.utils.FileToArray;
+import cn.clickwise.lib.string.FileToArray;
+
 
 
 public class SIFUAddField {
