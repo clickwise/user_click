@@ -151,7 +151,7 @@ public class SSO {
 	}
 
 	/**
-	 * 返回str1,str2中间的字符串，不包括str1,str2
+	 * 返回str1,str2中间的字符串，不包括str1,str2(str1 第一次出现，str2 最后一次出现)
 	 * 
 	 * @param source
 	 * @param str1
@@ -187,6 +187,14 @@ public class SSO {
 		return ms;
 	}
 	
+	/**
+	 * 返回str1,str2中间的字符串，不包括str1,str2(str1 第一次出现，str2 第一次出现)
+	 * 
+	 * @param source
+	 * @param str1
+	 * @param str2
+	 * @return
+	 */
 	public static String midfstrs(String source, String str1, String str2) {
 		String ms = "";
 		if (!(SSO.tnoe(source))) {
@@ -337,8 +345,6 @@ public class SSO {
     public static ArrayList<String> ngram(String word)
     {
  
-
-    	
     	ArrayList<String> ngrams=new ArrayList<String>();
        	if(word.length()<=2)
     	{

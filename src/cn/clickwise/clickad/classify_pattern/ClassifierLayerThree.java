@@ -257,7 +257,6 @@ public class ClassifierLayerThree extends Classifier{
 		double score=0.0, bestscore = -1;
 
 		int ci=0;
-
 		
 		for (j = 0; j <sample.length; j++) {
 			if (sample[j].wnum > model.NUM_FEATURES) {
@@ -478,6 +477,7 @@ public class ClassifierLayerThree extends Classifier{
 			{
 				continue;
 			}
+			
 			line=line.trim();
 			System.out.println("cate:"+cf.cate(line));
 			if(line.equals("quit"))

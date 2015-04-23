@@ -5,6 +5,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class MD5Code {
+	
 	public static String Md5(String plainText) {
 		String md5Text="";
 		try {
