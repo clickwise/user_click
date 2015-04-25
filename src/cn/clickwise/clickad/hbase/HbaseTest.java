@@ -49,6 +49,7 @@ public class HbaseTest {
 		configuration.set("hbase.zookeeper.quorum", "192.168.10.130");
 		configuration.set("hbase.master", "192.168.10.128:60010");
 		/********************************/
+		
     } 
  
     public static void main(String[] args) { 

@@ -33,11 +33,11 @@ public class EasyClient extends Client {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	@Override
 	public State execute(Command cmd) {
+		
 		State state=new State();
 		OutputStream outputStream = null;
 
@@ -64,8 +64,7 @@ public class EasyClient extends Client {
 		OutputStream outputStream = null;
 
 		try {
-			FileStatus fs=new FileStatus();
-	
+			FileStatus fs=new FileStatus();	
 			FileOutputStream fos = new FileOutputStream("test_serial.txt");
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			oos.writeObject(cmd);
