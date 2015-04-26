@@ -1,0 +1,15 @@
+seg_arr[0]=data/mmtrainSample.txt 
+seg_arr[1]=data/mtrainSample.txt 
+seg_arr[2]=data/mtestSample.txt 
+oldtr_file:data/mmtrainSample.txt
+newtr_file:data/mtrainSample.txt
+newte_file:data/mtestSample.txt
+reading data from data/mtestSample.txt
+number of docs    : 2318
+number of terms   : 36049
+loading temp120_c10_f1800509504/final.other
+loading temp120_c10_f1800509504/final.beta
+Document 1000
+Document 2000
+Accuracy: 0.81967
+Accuracy: 0.820
