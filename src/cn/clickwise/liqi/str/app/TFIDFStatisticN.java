@@ -370,6 +370,12 @@ public class TFIDFStatisticN {
 		if(args.length!=6)
 		{
 			System.err.println("Usage: <field_num> <url_index> <text_index> <input> <output> <docscore>");
+			System.err.println("     field_num:字段的个数,默认用\001分隔");
+			System.err.println("     url_index:url所在的字段索引，从0开始");
+			System.err.println("     text_index:网页内容(分词后)所在的字段索引，从0开始");
+			System.err.println("     input:输入文件，即每一行包含链接、网页内容(分词后)等字段");
+			System.err.println("     output:关键词得分的输出文件，每一行是一个关键词，跟着该词的得分，词和得分之间用\001分开");
+			System.err.println("     docscore:每篇文章(即输入的每行)的得分，输出到路径为docscore的文件中");
 			System.exit(1);
 		}
 		
