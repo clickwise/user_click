@@ -30,8 +30,10 @@ public class RemoteResolve {
 	long startTime;
 
 	public void init() {
+		
 		setConfFactory(ConfigureFactoryInstantiate.getConfigureFactory());
 		startPond(3);
+		
 		try {
 			ServerSocket sk = new ServerSocket(confFactory.getRSPort());
 			Socket connectFromClient = null;
