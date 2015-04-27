@@ -74,16 +74,21 @@ public class ClassifyPatternServer implements Runnable{
 	}
 	
 	public static void print_help() {
-		System.out.println("usage: ClassifyPatternServer [options]");
-		System.out.println("options: -h  -> this help");
-		System.out.println("         -p  auxiliary server port");
-		System.out.println("         -t  model type //0 multiclass ,2 three level tb, 3 weibo");
-		System.out.println("         -d  dict file");
+		System.err.println("usage: ClassifyPatternServer [options]");
+		System.err.println("options: -h  -> this help");
+		System.err.println("         -p  auxiliary server port");
+		System.err.println("         -t  model type //0 multiclass ,2 three level tb, 3 weibo");
+		System.err.println("         -d  dict file");
 	}
 	
 	public static void main(String[] args)
 	{
 		ClassifyPatternServer cps=new ClassifyPatternServer();
+		if(args.length<1)
+		{
+			print_help();
+			System.exit(1);
+		}
 		cps.read_input_parameters(args);
 		Thread serverThread = new Thread(cps);
 		serverThread.start();	
