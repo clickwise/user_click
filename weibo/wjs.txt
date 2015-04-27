@@ -39,6 +39,7 @@
  
  
  //简介  标签
+ var info="";
  var items=document.getElementsByClassName('item_text W_fl');
  
   for(var j=0;j<items.length;j++) {//(2/3,无标签)
@@ -61,7 +62,7 @@
      // console.log(items[j]);
     }
  }
- //console.log(info);
+ console.log(info);
  
 
  //帖子
