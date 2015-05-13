@@ -28,8 +28,8 @@ public class ClassifierWeibo extends Classifier{
 			seg = new Segmenter();
 			posTagger = new PosTagger("chinese-nodistsim.tagger");
 			ke = new KeyExtract();
-			video_dict = getDictFromStream("gendict_wb_t.txt");
-			label_names = getIndexLabelFromStream("genlabeldict_wb_t.txt");
+			feat_dicts = getDictFromStream("gendict_wb_t.txt");
+			label_dicts = getIndexLabelFromStream("genlabeldict_wb_t.txt");
 			readPossLabels("genlabeldict_wb_t.txt");
 			String text="瞬间笑抽你	瞬间笑抽你，瞬间笑抽你	瞬间笑抽你，每天发发经典笑话，乐一乐你，乐一乐自己，大家一起开心每一天！。瞬间笑抽你,东方文化艺术学院。";
 			System.out.println("cate:"+cate(text));
@@ -50,8 +50,8 @@ public class ClassifierWeibo extends Classifier{
 			seg.loadAnsjDic(new File(dict));
 			posTagger = new PosTagger("chinese-nodistsim.tagger");
 			ke = new KeyExtract();
-			video_dict = getDictFromStream("gendict_wb_t.txt");
-			label_names = getIndexLabelFromStream("genlabeldict_wb_t.txt");
+			feat_dicts = getDictFromStream("gendict_wb_t.txt");
+			label_dicts = getIndexLabelFromStream("genlabeldict_wb_t.txt");
 			readPossLabels("genlabeldict_wb_t.txt");
 			String text="瞬间笑抽你	瞬间笑抽你，瞬间笑抽你	瞬间笑抽你，每天发发经典笑话，乐一乐你，乐一乐自己，大家一起开心每一天！。瞬间笑抽你,东方文化艺术学院。 ";
 			System.out.println("cate:"+cate(text));
@@ -244,7 +244,7 @@ public class ClassifierWeibo extends Classifier{
 		String cate_name = "";
 		int tempid = y.class_index;
 		if ((tempid >= 1) && (tempid <= model.NUM_CLASS)) {
-			cate_name = label_names.get(tempid + "") + "";
+			cate_name = label_dicts.get(tempid + "") + "";
 		} else {
 			cate_name = "NA";
 		}

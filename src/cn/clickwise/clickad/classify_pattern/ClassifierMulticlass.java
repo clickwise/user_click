@@ -1,6 +1,8 @@
 package cn.clickwise.clickad.classify_pattern;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
@@ -14,19 +16,19 @@ import cn.clickwise.liqi.str.basic.SSO;
 
 public class ClassifierMulticlass extends Classifier{
 	
-	public ClassifierMulticlass()
+	public ClassifierMulticlass(String seg_dict,String feat_dict,String label_dict,String model_file)
 	{
-		
 		super();
 		System.out.println("initialize multiclass model");
 		try {
-			String model_path = "model_0119";
+			String model_path = model_file;
 			model=read_model(model_path);
 			seg = new Segmenter();
+			seg.loadAnsjDic(new File(seg_dict));
 			posTagger = new PosTagger("chinese-nodistsim.tagger");
 			ke = new KeyExtract();
-			video_dict = getDictFromStream("dict_0119.txt");
-			label_names = getIndexLabelFromStream("labeldict_0119.txt");
+			feat_dicts = getDictFromStream(feat_dict);
+			label_dicts = getIndexLabelFromStream(label_dict);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -41,11 +43,22 @@ public class ClassifierMulticlass extends Classifier{
 		
 		InputStream model_is = this.getClass().getResourceAsStream(
 				"/" + model_path);
+		InputStreamReader model_isr=null;
+		BufferedReader br=null;
+		if(model_is!=null)
+		{
+		   model_isr = new InputStreamReader(model_is);
+		   br = new BufferedReader(model_isr);
+		}
+		else
+		{
+		   br = new BufferedReader(new FileReader(model_path));
+		}
 		
-		InputStreamReader model_isr = new InputStreamReader(model_is);
+		
 		// File model_file = new File(model_path);
 		// FileReader fr = new FileReader(model_file);
-		BufferedReader br = new BufferedReader(model_isr);
+	
 
 		mp.Version = cut_comment(br.readLine());
 		if (verbosity >= 3) {
@@ -186,7 +199,10 @@ public class ClassifierMulticlass extends Classifier{
 			}
 		}
 		// fr.close();
+		if(model_is!=null)
 		model_is.close();
+		
+		if(model_isr!=null)
 		model_isr.close();
 		br.close();
 		return mp;
@@ -307,7 +323,7 @@ public class ClassifierMulticlass extends Classifier{
 	
 	public static void main(String[] args) throws Exception {
 
-		ClassifierMulticlass cf = new ClassifierMulticlass();
+		ClassifierMulticlass cf = new ClassifierMulticlass("host_model/so_dict.txt","host_model/gendictn.txt","host_model/genlabeldictn.txt","host_model/model");
 		 String text="凤凰网 凤凰网是中国领先的综合门户网站，提供含文图音视频的全方位综合新闻资讯、深度访谈、观点评论、财经产品、互动应用、分享社区等服务，同时与凤凰无线、凤凰宽频形成动，为全球主流华人提供互联网、无线通信、电视网三网融合无缝衔接的新媒体优质体验。";
 		 System.out.println("cate:"+cf.cate(text));
 

@@ -33,8 +33,8 @@ public class ClassifierLayerThree extends Classifier{
 			seg = new Segmenter();
 			posTagger = new PosTagger("chinese-nodistsim.tagger");
 			ke = new KeyExtract();
-			video_dict = getDictFromStream("eclo_dict.txt");
-			label_names = getIndexLabelFromStream("eclo_labeldict.txt");
+			feat_dicts = getDictFromStream("eclo_dict.txt");
+			label_dicts = getIndexLabelFromStream("eclo_labeldict.txt");
 			readPossLabels("eclo_labeldict.txt");
 			String text="睡袋 户外加宽加厚保暖 秋冬季超轻成人睡袋野营可拼接双人睡袋 ";
 			System.out.println("cate:"+cate(text));
@@ -55,8 +55,8 @@ public class ClassifierLayerThree extends Classifier{
 			seg.loadAnsjDic(new File(dict));
 			posTagger = new PosTagger("chinese-nodistsim.tagger");
 			ke = new KeyExtract();
-			video_dict = getDictFromStream("eclo_dict.txt");
-			label_names = getIndexLabelFromStream("eclo_labeldict.txt");
+			feat_dicts = getDictFromStream("eclo_dict.txt");
+			label_dicts = getIndexLabelFromStream("eclo_labeldict.txt");
 			readPossLabels("eclo_labeldict.txt");
 			String text="睡袋 户外加宽加厚保暖 秋冬季超轻成人睡袋野营可拼接双人睡袋 ";
 			System.out.println("cate:"+cate(text));
@@ -327,9 +327,9 @@ public class ClassifierLayerThree extends Classifier{
 		
 		//System.out.println("key:"+key);
 		
-		if(label_names.containsKey(key))
+		if(label_dicts.containsKey(key))
 		{
-			cate_name=label_names.get(key)+"";
+			cate_name=label_dicts.get(key)+"";
 		}
 		else
 		{

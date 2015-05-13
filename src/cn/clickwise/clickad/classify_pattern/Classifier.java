@@ -35,8 +35,8 @@ public abstract class Classifier {
 	Segmenter seg = null;
 	PosTagger posTagger = null;
 	KeyExtract ke = null;
-	HashMap video_dict = null;
-	HashMap label_names = null;
+	HashMap feat_dicts = null;
+	HashMap label_dicts = null;
 
 	static Logger logger = LoggerFactory.getLogger(Classifier.class);
     static int verbosity = 5;
@@ -120,7 +120,7 @@ public abstract class Classifier {
 		for (int i = 0; i < words.length; i++) {
 			try {
 				// //ids = jedis.get(words[i]);
-				ids = video_dict.get(words[i]) + "";
+				ids = feat_dicts.get(words[i]) + "";
 				// System.out.println("ids:"+ids);
 			} catch (Exception re) {
 				re.printStackTrace();
@@ -218,7 +218,7 @@ public abstract class Classifier {
 		String cate_name = "";
 		int tempid = y.first_class;
 		if ((tempid >= 1) && (tempid <= model.NUM_CLASS)) {
-			cate_name = label_names.get(tempid + "") + "";
+			cate_name = label_dicts.get(tempid + "") + "";
 		} else {
 			cate_name = "NA";
 		}

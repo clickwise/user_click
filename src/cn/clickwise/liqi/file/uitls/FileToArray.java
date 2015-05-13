@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -235,8 +237,22 @@ public class FileToArray {
 	 */
 	public static ArrayList<String> fileToArrayList(String input_file) throws Exception
 	{
-		  FileReader fr=new FileReader(new File(input_file));
-		  BufferedReader br=new BufferedReader(fr);
+		  InputStream model_is = FileToArray.class.getClassLoader().getResourceAsStream(
+				"/" + input_file);
+		  InputStreamReader model_isr=null;
+		  BufferedReader br=null;
+		  FileReader fr=null;
+		  //if(model_is!=null)
+		 // {
+			  model_isr = new InputStreamReader(model_is);
+			  br=new BufferedReader(model_isr);
+		  //}
+		  //else
+		  //{
+		//	  fr=new FileReader(new File(input_file));
+		//	  br=new BufferedReader(fr);
+		 // }
+		  
 		  String line="";
 	  	  
 		  ArrayList<String> dataList=new ArrayList<String>();
@@ -253,9 +269,18 @@ public class FileToArray {
 			  dataList.add(line);	  			  
 		  }
 		  
+		  
 		  br.close();
-		  fr.close();
+		  
+		  if(fr!=null)
+		     fr.close();
 		
+		  if(model_is!=null)
+			  model_is.close();
+		  
+		  if(model_isr!=null)
+			  model_isr.close();
+		  
 		  return dataList;
 	}
 	

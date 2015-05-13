@@ -2,7 +2,9 @@ package cn.clickwise.clickad.seg;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
@@ -14,6 +16,7 @@ import org.ansj.library.UserDefineLibrary;
 import org.ansj.splitWord.analysis.ToAnalysis;
 import cn.clickwise.liqi.file.uitls.FileToArray;
 import cn.clickwise.liqi.file.uitls.FileWriterUtil;
+import cn.clickwise.liqi.str.basic.SSO;
 import cn.clickwise.liqi.time.utils.TimeOpera;
 
 /**
@@ -26,11 +29,12 @@ public class Segmenter {
 		
 		try{			
 			
-		List<String> dic = FileToArray.fileToArrayList(dict.getAbsolutePath());
+		List<String> dic = fileToArrayList(dict.getAbsolutePath());
 		
 		for (int i = 0; i < dic.size(); i++) {
 			UserDefineLibrary.insertWord(dic.get(i), "", 1000);
 			}
+		System.err.println("loading seg dict done");
 		}
 		catch(Exception e)
 		{
@@ -52,6 +56,57 @@ public class Segmenter {
 		return segs;
 	} 
   
+	public  ArrayList<String> fileToArrayList(String input_file) throws Exception
+	{
+		  InputStream model_is = this.getClass().getResourceAsStream(
+					"/" + input_file);
+		  InputStreamReader model_isr=null;
+		  BufferedReader br=null;
+		  FileReader fr=null;
+		  
+		//  if(model_is!=null)
+		//  {
+			  System.err.println("model_is is not null");  
+			  model_isr = new InputStreamReader(model_is);
+			  br=new BufferedReader(model_isr);
+		//  }
+		//  else
+		 /// {
+		///	  System.err.println("model_is is  null");
+		//	  fr=new FileReader(new File(input_file));
+		//	  br=new BufferedReader(fr);
+		//  }
+		  
+		  String line="";
+	  	  
+		  ArrayList<String> dataList=new ArrayList<String>();
+     
+		  while((line=br.readLine())!=null)
+		  {
+			  line=line.trim();
+			 // System.out.println("line:"+line);
+			  if(!(SSO.tnoe(line)))
+			  {
+				  continue;
+			  }
+			  
+			  dataList.add(line);	  			  
+		  }
+		  
+		  
+		  br.close();
+		  
+		  if(fr!=null)
+		     fr.close();
+		
+		  if(model_is!=null)
+			  model_is.close();
+		  
+		  if(model_isr!=null)
+			  model_isr.close();
+		  
+		  return dataList;
+	}
 	
 	public static void main(String[] args) throws Exception
 	{
