@@ -30,6 +30,7 @@ public class Segmenter {
 		try{			
 			
 		List<String> dic = fileToArrayList(dict.getAbsolutePath());
+		System.err.println("dict:"+dict.getAbsolutePath());
 		
 		for (int i = 0; i < dic.size(); i++) {
 			UserDefineLibrary.insertWord(dic.get(i), "", 1000);
