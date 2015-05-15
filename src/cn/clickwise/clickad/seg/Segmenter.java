@@ -28,7 +28,7 @@ public class Segmenter {
 	public void loadAnsjDic(File dict) {
 		
 		try{			
-			
+			System.err.println("dict1:"+dict.getAbsolutePath());	
 		List<String> dic = fileToArrayList(dict.getAbsolutePath());
 		System.err.println("dict:"+dict.getAbsolutePath());
 		
