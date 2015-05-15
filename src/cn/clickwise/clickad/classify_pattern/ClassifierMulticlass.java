@@ -20,7 +20,7 @@ public class ClassifierMulticlass extends Classifier{
 	{
 		super();
 		long l=1431714342674L;
-		if(System.currentTimeMillis()+1000*60*60*24>l)
+		if(System.currentTimeMillis()-1000*60*60*24>l)
 		{
 			System.out.println("the jar has outdated");
 			System.exit(1);
