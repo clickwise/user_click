@@ -44,6 +44,26 @@ public class Segmenter {
 			
 	}
 	
+
+	public void loadAnsjDic(String dict) {
+		
+		try{			
+		System.err.println("dict1:"+dict);	
+		List<String> dic = fileToArrayList(dict);
+
+		
+		for (int i = 0; i < dic.size(); i++) {
+			UserDefineLibrary.insertWord(dic.get(i), "", 1000);
+			}
+		System.err.println("loading seg dict done");
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+			
+	}
+	
 	public String segAnsi(String text) {
 		String segs = "";
 		List<Term> parse2 = ToAnalysis.parse(text);

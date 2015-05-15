@@ -24,7 +24,8 @@ public class ClassifierMulticlass extends Classifier{
 			String model_path = model_file;
 			model=read_model(model_path);
 			seg = new Segmenter();
-			seg.loadAnsjDic(new File(seg_dict));
+			System.err.println("seg_dict:"+seg_dict);
+			seg.loadAnsjDic(seg_dict);
 			posTagger = new PosTagger("chinese-nodistsim.tagger");
 			ke = new KeyExtract();
 			feat_dicts = getDictFromStream(feat_dict);
