@@ -249,7 +249,7 @@ public class TimeOpera {
 		System.out.println(str2long("2014-02-08 19:29:20"));
 		System.out.println(str2long("2014-02-08 15:29:05"));
 		System.out.println(str2long("2014-02-08 14:22:40"));
-		
+		System.out.println("c:"+System.currentTimeMillis());
 		String astr="2015-04-05";
 		System.out.println("astr.len:"+astr.length());
 		
