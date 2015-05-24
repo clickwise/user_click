@@ -1,7 +1,8 @@
 #!/bin/bash
 
 echo $1
-ANT_BUILD=/usr/local/ant/bin/ant
+#ANT_BUILD=/usr/local/ant/bin/ant
+ANT_BUILD=ant
 echo $ANT_BUILD
 OPT=1
 if [ "$1" = "user_click" ]
