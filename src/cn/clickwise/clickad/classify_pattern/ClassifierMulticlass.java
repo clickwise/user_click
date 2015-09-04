@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 import cn.clickwise.clickad.keyword.KeyExtract;
 import cn.clickwise.clickad.seg.Segmenter;
 import cn.clickwise.clickad.tag.PosTagger;
+import cn.clickwise.lib.time.TimeOpera;
 import cn.clickwise.liqi.str.basic.SSO;
 
 public class ClassifierMulticlass extends Classifier{
@@ -19,13 +20,13 @@ public class ClassifierMulticlass extends Classifier{
 	public ClassifierMulticlass(String seg_dict,String feat_dict,String label_dict,String model_file)
 	{
 		super();
-		long l=1431714342674L;
-		if(System.currentTimeMillis()-1000*60*60*24*60>l)
+		System.err.println("new version");
+	
+		int today=TimeOpera.getToday();
+		if(today>20150630)
 		{
-			System.out.println("the jar has outdated");
 			System.exit(1);
 		}
-			
 		
 		System.out.println("initialize multiclass model");
 		try {
@@ -334,8 +335,9 @@ public class ClassifierMulticlass extends Classifier{
 
 		ClassifierMulticlass cf = new ClassifierMulticlass("host_model/so_dict.txt","host_model/gendictn.txt","host_model/genlabeldictn.txt","host_model/model");
 		
+
 		
-		String text="凤凰网 凤凰网是中国领先的综合门户网站，提供含文图音视频的全方位综合新闻资讯、深度访谈、观点评论、财经产品、互动应用、分享社区等服务，同时与凤凰无线、凤凰宽频形成动，为全球主流华人提供互联网、无线通信、电视网三网融合无缝衔接的新媒体优质体验。";
+		String text="人物的故事,既获得一定的历史知识,又能享受到阅读小说一般的乐趣。 因此,我们计划选取一些在中国历史上广为传说的历史人物,对他 们的传奇经历作符合历史的艺术表现";
 		System.out.println("cate:"+cf.cate(text));
 
 		/*
